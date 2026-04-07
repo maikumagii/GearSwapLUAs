@@ -693,7 +693,7 @@ function init_gear_sets()
         feet = "Malignance Boots"
     })
 
-    sets.engaged.DW.Acc.DT = set_combine(sets.engaged.DW.Acc, sets.engage.DW.DT)
+    sets.engaged.DW.Acc.DT = set_combine(sets.engaged.DW.Acc, sets.engaged.DW.DT)
 end
 
 -- Select default macro book on initial load or subjob change.
