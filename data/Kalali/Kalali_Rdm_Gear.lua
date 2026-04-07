@@ -314,7 +314,7 @@ function init_gear_sets()
         -- neck = "Incanter's Torque",
         -- ear1 = "Meili Earring",
         ear2 = "Mendi. Earring",
-        body = "Kaykaus Bilaut +1",
+        body = "Kaykaus Bliaut +1",
         hands = "Kaykaus Cuffs +1",
         ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
@@ -418,14 +418,14 @@ function init_gear_sets()
         -- waist = "Emphatikos Rope",
         legs = "Shedir Seraweels"
     }
-    sets.midcast.Phalanx = set_combin(sets.EnhancingSkill, {
+    sets.midcast['Phalanx'] = set_combin(sets.EnhancingSkill, {
         main = gear.sakpata_sword,
         -- sub = "Colada" (With Phalanx augs)
         sub = "Forfend +1",
         head = gear.limbus_head,
         neck = gear.jse_neck,
         ear1 = "Mimir Earring",
-        ear2 = gear.jse.ear2,
+        ear2 = gear.jse_ear2,
         body = gear.sworn_body,
         hands = gear.sworn_hands,
         ring1 = "Stikini Ring +1",
