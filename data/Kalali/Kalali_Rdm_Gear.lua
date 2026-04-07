@@ -326,7 +326,7 @@ function init_gear_sets()
 
     sets.midcast.LightWeatherCure = set_combine(sets.midcast.Cure, {
         main = "Chatoyant Staff",
-        sub = "Khonsu",
+        sub = "Enki Strap",
         back = "Twilight Cape",
         waist = "Hachirin-no-Obi",
     })
