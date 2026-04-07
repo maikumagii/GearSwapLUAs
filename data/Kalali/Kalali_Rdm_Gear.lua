@@ -24,17 +24,17 @@ function user_job_setup()
     gear.obi_high_nuke_waist = "Refoccilation Stone" --TODO
 
     -- Ambuscade Capes
-    gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'Accuracy+10', '"Store TP"+10', } }                           --TODO
+    gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'Accuracy+10', '"Dual Wield"+10', 'Phys. dmg. taken-10%' } } --TODO
     gear.stp_jse_back = gear.dw_jse_back
-    gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', 'Phys. dmg. taken-10%', } }        --TODO
-    gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'MND+10', '"Fast Cast"+10', 'Phys. dmg. taken-10%', } } --TODO
-    gear.mnd_wsd_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'MND+10', 'Weapon skill damage +10%' } }             --TODO
+    gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', 'Phys. dmg. taken-10%', } }       --TODO
+    gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10', 'Phys. dmg. taken-10%', } } --TODO
+    gear.mnd_wsd_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'MND+10', 'Weapon skill damage +10%' } }            --TODO
     gear.str_wsd_jse_back = gear.mnd_wsd_jse_back
 
     -- JSE Weapon/Neck/Earring
-    gear.jse_ear2 = { name = "Lethergy Earring+1", augments = {} }
+    gear.jse_ear2 = { name = "Lethergy Earring+1", augments = { 'R. Ear:Accuracy+11 Mag. Acc.+11', '"Double Attack"+3%' } }
     gear.jse_neck = "Dis. Torque +2"
-    gear.ghostfyre_back = { name = "Ghostfyre Cape", augments = {} }
+    gear.ghostfyre_back = { name = "Ghostfyre Cape" }
 
     -- Artifact Gear
     gear.af1_head = "Atro. Chapeau +4"
