@@ -38,12 +38,18 @@ gear.bunzi_feet = { name = "Bunzi's Sabots", augments = {} }
 
 gear.sakpata_sword = { name = "Sakpata's Sword", augments = {} }
 
+gear.ikenga_head = { name = "Ikenga's Hat", augments = { 'Rng. Atk.+14', '"Mag. Atk. Bns."+28' } }
+gear.ikenga_body = { name = "Ikenga's Vest" }
+gear.ikenga_hands = { name = "Ikenga's Gloves" }
+gear.ikenga_legs = { name = "Ikenga's Trousers" }
+gear.ikenga_feet = { name = "Ikenga's Clogs" }
+
 gear.gog_ammo = { name = "Coiste Bodhar", augments = {} }
 
 
 -- Augmented Limbus Equipment --
 gear.limbus_ear1 = { name = "Alabaster Earring", augments = { 'Accuracy+2 Rng. Acc.+2 Mag. Acc.+2' } }
-gear.limbus_ring1 = { name = "Murky Earring", augments = { 'Accuracy+2 Rng. Acc.+2 Mag. Acc.+2' } }
+gear.limbus_ring1 = { name = "Murky Ring", augments = { 'Accuracy+2 Rng. Acc.+2 Mag. Acc.+2' } }
 
 gear.sworn_head = { name = "Sworn Crown", augments = {} }
 gear.sworn_body = { name = "Sworn Platemail", augments = {} }

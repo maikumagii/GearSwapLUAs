@@ -9,8 +9,8 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('None', 'Crocea', 'DualCrocea', 'Naegling', 'DualNaeglingAcc', 'DualAeolian',
-        'DualBlackHalo', 'DualBow', 'EnspellOnly')
+    state.Weapons:options('None', 'Crocea', 'Naegling', 'NaeglingAcc', 'Aeolian',
+        'BlackHalo', 'Bow', 'EnspellOnly')
 
 
     -- Defaults when no weather/day
@@ -89,7 +89,7 @@ function user_job_setup()
     -- feet
 
     -- Additional local binds
-    --[[
+
     send_command('bind ^` gs c cycle ElementalMode')
     send_command('bind @` gs c cycle MagicBurstMode')
     send_command('bind ^@!` input /ja "Accession" <me>')
@@ -106,11 +106,12 @@ function user_job_setup()
     send_command('bind @\\\\ input /ma "Shell V" <t>')
     send_command('bind !\\\\ input /ma "Reraise" <me>')
     send_command('bind @f10 gs c cycle RecoverMode')
-    send_command('bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
+    send_command(
+    'bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
     send_command('bind ^q gs c set weapons enspellonly;gs c set unlockweapons true')
     send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c set weapons none')
     send_command('bind !q gs c set skipprocweapons false;gs c set weapons DualProcDaggers;gs c set weaponskillmode proc')
-    ]]
+
     select_default_macro_book()
 end
 
@@ -289,10 +290,11 @@ function init_gear_sets()
         ammo = "Ghastly Tanthum +1",
         -- head = "Ea Hat",
         -- neck = "Sibyl Scarf",
+        neck = gear.jse_neck,
         -- body = "Ea Houppelande",
         body = "Amalric Doublet +1",
         -- hands = gear.bunzi_hands,
-        hands = "Amalric Gages +1",
+        hands = gear.bunzi_hands,
         -- ring1 = "Freke Ring",
         -- ring2 = "Metamorphic Ring+1",
         back = gear.nuke_jse_back,
@@ -540,12 +542,12 @@ function init_gear_sets()
         neck = gear.jse_neck,
         --neck = "Sibyl Scarf",
         --ear1 = "Regal Earring",
-        --ear1 = "Malignance Earring",
+        ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         -- body = gear.af3_body
         body = "Amalric Doublet +1",
         -- hands = gear.af3_hands
-        hands = "Amalric Gages +1",
+        hands = gear.af3_hands,
         ring1 = "Shiva Ring +1",
         ring2 = "Shiva Ring +1",
         -- ring2 = "Freke Ring",
@@ -706,7 +708,7 @@ function init_gear_sets()
         body = gear.af3_body,
         hands = "Malignance Gloves",
         -- hands = gear.sworn_hands,
-        ring1 = "Stikini Ring +1",
+        ring1 = gear.limbus_ring1,
         ring2 = "Stikini Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
@@ -741,16 +743,18 @@ function init_gear_sets()
     sets.NightIdle = {}
 
     -- Weapons sets
-    sets.weapons.Crocea = { main = "Crocea Mors", sub = "Ammurapi Shield" }
-    sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak" }
-    sets.weapons.Naegling = { main = "Naegling", sub = "Ammurapi Shield" }
-    sets.weapons.DualNaegling = { main = "Naegling", sub = "Thibron" }
-    sets.weapons.DualNaeglingAcc = { main = "Naegling", sub = "Flametongue" }
-    sets.weapons.DualAeolian = { main = "Tauret", sub = "Daybreak" }
-    sets.weapons.EnspellOnly = { main = "Ethereal Dagger", sub = "Qutrub Knife", range = "Ullr", ammo = "Beetle Arrow" } -- TODO
-    sets.weapons.DualBlackHalo = { main = "Maxentius", sub = "Thibron" }
-    sets.weapons.DualBow = { main = "Naegling", sub = "Tauret", range = "Ullr" }
+    sets.weapons.Crocea = { main = "Crocea Mors", sub = "Daybreak" }
+    sets.weapons.Naegling = { main = "Naegling", sub = "Thibron" }
+    sets.weapons.NaeglingAcc = { main = "Naegling", sub = "Flametongue" }
+    sets.weapons.Aeolian = { main = "Tauret", sub = "Daybreak" }
+    sets.weapons.EnspellOnly = { main = "Ethereal Dagger", sub = "Qutrub Knife", range = "Ullr", ammo = empty } -- TODO
+    sets.weapons.BlackHalo = { main = "Maxentius", sub = "Thibron" }
+    sets.weapons.Bow = { main = "Naegling", sub = "Tauret", range = "Ullr" }
     sets.weapons.BowMacc = { range = "Ullr", ammo = empty }
+    sets.Weapons.Shield = {
+        sub = "Ammurapi Shield"
+        --sub="Sacro Bulwark",
+    }
 
     sets.buff.Sublimation = { waist = "Embla Sash" }
     sets.buff.DTSublimation = { waist = "Embla Sash" }
