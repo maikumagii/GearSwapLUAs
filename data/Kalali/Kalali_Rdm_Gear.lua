@@ -626,7 +626,7 @@ function init_gear_sets()
         ammo = empty,
     }
 
-    sets.midcast.Stun.Resistant = midcast.Stun
+    sets.midcast.Stun.Resistant = sets.midcast.Stun
 
     -- Sets for special buff conditions on spells.
 
