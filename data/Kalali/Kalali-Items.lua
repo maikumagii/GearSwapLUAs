@@ -29,14 +29,27 @@ gear.nyame_hands = { name = "Nyame Gauntlets", augments = {} }
 gear.nyame_legs = { name = "Nyame Flanchard", augments = {} }
 gear.nyame_feet = { name = "Nyame", augments = {} }
 
+gear.bunzi_rod = { name = "Bunzi's Rod", augments = {} }
 gear.bunzi_head = { name = "Bunzi", augments = {} }
 gear.bunzi_body = { name = "Bunzi Mail", augments = {} }
 gear.bunzi_hands = { name = "Bunzi Gauntlets", augments = {} }
 gear.bunzi_legs = { name = "Bunzi Flanchard", augments = {} }
 gear.bunzi_feet = { name = "Bunzi", augments = {} }
 
+gear.sakpata_sword = { name = "Sakpata's Sword", augments = {} }
+
 gear.gog_ammo = { name = "Coiste Bodhar", augments = {} }
 
+
+-- Augmented Limbus Equipment --
+gear.limbus_ear1 = { name = "Alabaster Earring", augments = {} }
+gear.limbus_ring1 = { name = "Murky Earring", augments = {} }
+
+gear.sworn_head = { name = "Sworn Crown", augments = {} }
+gear.sworn_body = { name = "Sworn Platemail", augments = {} }
+gear.sworn_hands = { name = "Sworn Gauntlets", augments = {} }
+gear.sworn_legs = { name = "Sworn Brais", augments = {} }
+gear.sworn_feet = { name = "Sworn Sabatons", augments = {} }
 
 --Augmented items that you'll use among multiple jobs.
 
