@@ -828,15 +828,15 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.DW.Acc = sets.engage.DW
+    sets.engaged.DW.Acc = sets.engaged.DW
 
-    sets.engaged.DW.FullAcc = sets.engage.DW
+    sets.engaged.DW.FullAcc = sets.engaged.DW
 
-    sets.engaged.DW.DT = sets.engage.DW
+    sets.engaged.DW.DT = sets.engaged.DW
 
-    sets.engaged.DW.Acc.DT = sets.engage.DW
+    sets.engaged.DW.Acc.DT = sets.engaged.DW
 
-    sets.engaged.DW.FullAcc.DT = sets.engage.DW
+    sets.engaged.DW.FullAcc.DT = sets.engaged.DW
 end
 
 -- Select default macro book on initial load or subjob change.
