@@ -9,8 +9,8 @@ function user_job_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('None', 'Crocea', 'Naegling', 'NaeglingAcc', 'Aeolian',
-        'BlackHalo', 'Bow', 'EnspellOnly')
+    state.Weapons:options('None', 'Crocea', 'DualCrocea', 'DualNaegling', 'DualNaeglingAcc', 'DualAeolian',
+        'DualBlackHalo', 'DualBow', 'DualEnspellOnly')
 
 
     -- Defaults when no weather/day
@@ -743,18 +743,17 @@ function init_gear_sets()
     sets.NightIdle = {}
 
     -- Weapons sets
-    sets.weapons.Crocea = { main = "Crocea Mors", sub = "Daybreak" }
-    sets.weapons.Naegling = { main = "Naegling", sub = "Thibron" }
-    sets.weapons.NaeglingAcc = { main = "Naegling", sub = "Flametongue" }
-    sets.weapons.Aeolian = { main = "Tauret", sub = "Daybreak" }
-    sets.weapons.EnspellOnly = { main = "Ethereal Dagger", sub = "Qutrub Knife", range = "Ullr", ammo = empty } -- TODO
-    sets.weapons.BlackHalo = { main = "Maxentius", sub = "Thibron" }
-    sets.weapons.Bow = { main = "Naegling", sub = "Tauret", range = "Ullr" }
-    sets.weapons.BowMacc = { range = "Ullr", ammo = empty }
-    sets.Weapons.Shield = {
-        sub = "Ammurapi Shield"
+    sets.weapons.Crocea = { main = "Crocea Mors", sub = "Ammurapi Shield"
         --sub="Sacro Bulwark",
     }
+    sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak" }
+    sets.weapons.DualNaegling = { main = "Naegling", sub = "Thibron" }
+    sets.weapons.DualNaeglingAcc = { main = "Naegling", sub = "Flametongue" }
+    sets.weapons.DualAeolian = { main = "Tauret", sub = "Daybreak" }
+    sets.weapons.DualEnspellOnly = { main = "Ethereal Dagger", sub = "Qutrub Knife", range = "Ullr", ammo = empty } -- TODO
+    sets.weapons.DualBlackHalo = { main = "Maxentius", sub = "Thibron" }
+    sets.weapons.DualBow = { main = "Naegling", sub = "Tauret", range = "Ullr" }
+    sets.weapons.BowMacc = { range = "Ullr", ammo = empty }
 
     sets.buff.Sublimation = { waist = "Embla Sash" }
     sets.buff.DTSublimation = { waist = "Embla Sash" }

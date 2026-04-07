@@ -7,8 +7,9 @@ function user_job_setup()
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.HybridMode:options('Normal', 'DT')
     state.ExtraMeleeMode = M { ['description'] = 'Extra Melee Mode', 'None', 'DWMax' }
-    state.Weapons:options('Default', 'Naegling', 'LeadenRanged', 'LeadenMelee', 'LastStandRanged',
-        'Aeolian', 'None')
+    state.Weapons:options('Default', 'Naegling', 'DualNaegling', 'LeadenRanged', 'DualLeadenRanged',
+        'LeadenMelee', 'DualLeadenMelee', 'LastStandRanged', 'DualAeolian', 'None')
+
     state.CompensatorMode:options('Always', '300', '1000', 'Never')
 
     gear.RAbullet = "Chrono Bullet"
@@ -106,11 +107,11 @@ function init_gear_sets()
 
     sets.precast.LuzafRing = { ring2 = "Luzaf's Ring" }
 
-    sets.precast.CorsairRoll["Caster's Roll"] = set_combine(sets.precast.CorsairRoll, { legs = gear.af3.legs })
-    sets.precast.CorsairRoll["Courser's Roll"] = set_combine(sets.precast.CorsairRoll, { feet = gear.af3.feet })
-    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, { head = gear.af3.head })
-    sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, { body = gear.af3.body })
-    sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, { hands = gear.af3.hands })
+    sets.precast.CorsairRoll["Caster's Roll"] = set_combine(sets.precast.CorsairRoll, { legs = gear.af3_legs })
+    sets.precast.CorsairRoll["Courser's Roll"] = set_combine(sets.precast.CorsairRoll, { feet = gear.af3_feet })
+    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, { head = gear.af3_head })
+    sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, { body = gear.af3_body })
+    sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, { hands = gear.af3_hands })
 
     sets.precast.CorsairShot = {
         ammo = gear.QDbullet,
@@ -570,33 +571,44 @@ function init_gear_sets()
     }
     sets.weapons.Naegling = {
         main = "Naegling",
+        sub = "Nusku Shield",
+        range = gear.tp_bonus_gun
+    }
+    sets.weapons.DualNaegling = {
+        main = "Naegling",
         sub = "Blurred Knife +1",
         range = gear.tp_bonus_gun
     }
     sets.weapons.LeadenRanged = {
+        main = "Naegling",
+        sub = "Nusku Shield",
+        range = "Death Penalty"
+    }
+    sets.weapons.DualLeadenRanged = {
         main = "Naegling",
         sub = "Tauret",
         range = "Death Penalty"
     }
     sets.weapons.LeadenMelee = {
         main = gear.jse_main_ma,
-        sub = "Tauret",
+        sub = "Nusku Shield",
+        range = "Death Penalty"
+    }
+    sets.weapons.DualLeadenMelee = {
+        main = gear.jse_main_ma,
+        sub = "Blurred Knife +1",
         range = "Death Penalty"
     }
     sets.weapons.LastStandRanged = {
         main = gear.jse_main_stp,
+        sub = "Nusku Shield",
         range = "Fomalhaut"
     }
-    sets.weapons.Aeolian = {
+    sets.weapons.DualAeolian = {
         main = gear.jse_main_ma,
         sub = "Tauret",
         range = gear.tp_bonus_gun
     }
-    sets.Weapons.Shield =
-    {
-        sub = "Nusku Shield"
-    }
-
     -- Engaged sets
 
     -- Variations for TP weapon and (optional) offense/defense modes.  Code will fall back on previous
