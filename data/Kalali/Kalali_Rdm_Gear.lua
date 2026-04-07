@@ -418,7 +418,7 @@ function init_gear_sets()
         -- waist = "Emphatikos Rope",
         legs = "Shedir Seraweels"
     }
-    sets.midcast['Phalanx'] = set_combin(sets.EnhancingSkill, {
+    sets.midcast.Phalanx = set_combine(sets.EnhancingSkill, {
         main = gear.sakpata_sword,
         -- sub = "Colada" (With Phalanx augs)
         sub = "Forfend +1",
@@ -458,7 +458,8 @@ function init_gear_sets()
         head = gear.af2_head,
         neck = "Dls. Torque +2",
         ear1 = "Snotra Earring",
-        -- ear2 = "Regal Earring",
+        -- ear1 = "Regal Earring",
+        -- ear2 = "Snotra Earring",
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = "Regal Cuffs",
@@ -480,7 +481,8 @@ function init_gear_sets()
         head = gear.af2_head,
         neck = "Dls. Torque +2",
         ear1 = "Snotra Earring",
-        -- ear2 = "Regal Earring",
+        -- ear1 = "Regal Earring",
+        -- ear2 = "Snotra Earring",
         ear2 = gear.jse_ear2,
         body = gear.af1_body,
         hands = gear.af1_hands,
@@ -573,7 +575,8 @@ function init_gear_sets()
         head = empty,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        -- ear2 = "Regal Earring",
+        -- ear1 = "Regal Earring",
+        -- ear2 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = "Twilight Cloak",
         hands = gear.af1_hands,
@@ -590,7 +593,8 @@ function init_gear_sets()
         ammo = empty,
         neck = "Erra Pendant",
         ear1 = "Malignance Earring",
-        -- ear2 = "Regal Earring",
+        -- ear1 = "Regal Earring",
+        -- ear2 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af1_body,
         hands = gear.af1_hands,
@@ -688,12 +692,13 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = {
         main = gear.sakpata_sword,
-        sub = "Sacro Bulwark",
+        -- sub = "Sacro Bulwark",
         range = empty,
         ammo = "Staunch Tathlum +1",
         -- head = gear.sworn_head
         head = gear.af1_head,
-        neck = "Loricate Torque +1",
+        neck = "Null Loop",
+        -- neck = "Loricate Torque +1",
         ear1 = gear.limbus_ear1,
         -- ear2 = "Odnowa Earring +1",
         -- ear2 = "Etiolation Earring",
