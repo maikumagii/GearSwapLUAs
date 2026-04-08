@@ -13,28 +13,25 @@ Feel free to contact me OUTSIDE of the game though, and I'm happy to help.
 
 Don't feel disparaged if you can't get it working with this alone a lot of people can't when they're first starting messing with these things.
 
-My github ( https://github.com/Kalali/GearSwap ) If you obtained this cheatsheet elsewhere this should have the up to date versions of most everything
+My github ( https://github.com/Selindrile/GearSwap ) If you obtained this cheatsheet elsewhere this should have the up to date versions of most everything
 	of mine, but also PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME.
 
 My Stream Discord, ( https://discord.gg/ug6xtvQ ) this is the best way to reach me, in the allchat channel or through DM,
 	alternatively you can connect with me through a messenger (They're linked to my FFXIAH account.) If you're relatively computer savvy,
 	it shouldn't be too hard, if not, I'm happy to help explain more or answer questions even if you do get it working.
 
-My Dropbox ( https://www.dropbox.com/sh/flhraba7cf23a7k/AADfZmGmsXcYamFth8UkLoy0a?dl=0 )
-
-
 Again PLEASE DO NOT MESSAGE ME ABOUT ANYTHING THIRD PARTY IN GAME, however feel free to shoot me a way to contact you outside of game, through
 	the game, and I'm happy to help.
 
-
-For full functionality my gearswap and init files do depend on a few other addons that can be found in your launcher, I'll list them here:
+	
+For full functionality my gearswap and init files do depend on a few other addons that can be found in your launcher, I'll list them here: 
 	Addons: Shortcuts, Cancel, Itemizer.    Plugins: Timers, Run
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To make use of other types of gearswap files along with mine, place them in the common folder, and make sure to
 name them Character_Job.lua.
-
+	
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Macros and More~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 [Ctrl+F8]	= Toggle auto-stun mode, will attempt to automatically stun a list of moves in your
@@ -42,8 +39,8 @@ name them Character_Job.lua.
 
 :Macro:		/console gs c toggle AutoStunMode
 
-[Alt+F8]	= Toggle auto-defense mode, will attempt to automatically swap into and out of defensive sets for
-			the specific move, listed in your Name-Globals file.
+[Alt+F8]	= Toggles AutoDefenseMode, will attempt to automatically swap into and out of defensive sets for specific moves.
+			  Edit options by copying the tables from Windower4\addons\GearSwap\libs\Sel-MonsterAbilities.lua to relevant user files and editing them there.
 
 :Macro:		/console gs c toggle AutoDefenseMode
 
@@ -53,7 +50,7 @@ name them Character_Job.lua.
 
 [F9]		= Change offense mode. (Usually Engaged, accuracy modes) Fodder (Trash Mobs) sets generally
 				have more Dual Wield/Multiattack because they don't have to worry about Acc/Atk.
-
+				
 :Macro:		/console gs c cycle OffenseMode
 
 
@@ -70,7 +67,7 @@ name them Character_Job.lua.
 
 [Win+F9]	= Change ranged mode. (Again usually accuracy sets for target's evasion.) This doesn't affect
 				ranged WS, that's the above.
-
+				
 :Macro:		/console gs c cycle RangedMode
 
 
@@ -82,7 +79,7 @@ name them Character_Job.lua.
 
 [Ctrl+F10]	= Change the current Physical defense set, generally things like PDT, Evasion, PDTTwilight
 				that the above command locks in place.
-
+				
 :Macro:		/console gs c cycle PhysicalDefenseMode
 
 
@@ -90,13 +87,13 @@ name them Character_Job.lua.
 				sets, and should also have it likely overwrite any movementspeed reducing slots.
 
 :Macro:		/console gs c toggle Kiting
-
-
+		
+		
 [Win+F7]	= Automatic ranged attacks, to change what weaponskill, use //gs c autows while Rnghelper is active
 			  as well as using //gs c toggle autowsmode to turn on and off auto WS during Rnghelper
-
+			  
 :Macro:		/console gs c toggle RngHelper
-
+		
 [Win+F10]	= Toggle job specific modes, different depending on jobs some examples:
 				Also sometimes Ctrl/Alt/Win + Grave/Tilde (` or ~) or even Backspace, Backslash, Delete, Dash or Equals.
 
@@ -117,17 +114,16 @@ Blm2:		/console gs c cycle MagicBurstMode	(Single makes your next spell burst, w
 
 [Ctrl+F11]	= Change the current Magical defense set, generally things like MDT, MagicEvasion, MDTTwilight
 				that the above command locks in place.
-
+				
 :Macro:		/console gs c cycle MagicalDefenseMode
 
 
 
-[Alt+F11]	= Extra job specific modes, Pld gets extra defense modes, other melee generally get extra
-				melee modes.
-
+[Alt+F11]	= Tends to be modes relevant on specific jobs.
+				
 :Macro:
-Pld:		/console gs c cycle ExtraDefenseMode
-Melees:		/console gs c cycle ExtraMeleeMode
+Pld:		/console gs c cycle ExtraDefenseMode (Though any job can use these modes.)
+Melees:		/console gs c cycle ExtraMeleeMode (Though any job can use these modes.)
 
 
 [Win+F11]	= Casting modes, such as resistant, and fodder mobs, and sets for proccing (Low damage, low recast).
@@ -136,13 +132,13 @@ Melees:		/console gs c cycle ExtraMeleeMode
 
 
 [F12]	= Somewhat "Lock" a resistance set in, only changes some gear for spells and abilities
-				generally an "OH Shit Button" to be used in response to certain abilites.
+				generally an "OH Shit Button" to be used in response to certain events.
 
 :Macro:		/console gs c set DefenseMode Resist
 
 [Ctrl+F12]	= Change the current resistdefense set, generally things like MEVA, Charm, Death
 				that the above command locks in place.
-
+				
 :Macro:		/console gs c cycle ResistDefenseMode
 
 [Win+F12]	= Changes the current idle set, from refresh, regen, PDT, etc.
@@ -162,7 +158,7 @@ Melees:		/console gs c cycle ExtraMeleeMode
 :Macro:		/console gs reload
 
 [Ctrl+Alt+Win+F1] = Toggles windower lighting setttings.
-
+				
 :Macro:		/console gs c cycle MagicalDefenseMode
 
 [Ctrl+Alt+Win+Pause/Break]	= Runs Organizer to obtain your curren't job's gear as listed in your gearswap file.
@@ -216,12 +212,6 @@ Can change default options in the gearswap job_character_gear file with:
 autows = 'Savage Blade'
 autowstp = 1250
 
-[Alt+F8]	= Toggles AutoDefenseMode, automatically pushes your F10-F12 keys for defense.
-			  Edit options in your Windower4\addons\GearSwap\libs\Sel-MonsterAbilities.lua file.
-
-:Macro:		/console gs c toggle AutoDefenseMode
-
-
 --- Addon and Plugin related combinations. These are in init, but they can be moved elsewhere. ---
 
 [Ctrl+Alt+Win+?]	= Load or reload the Addon or Plugin, the ? is the key specific to the related Addon or Plugin.
@@ -237,7 +227,6 @@ autowstp = 1250
 
 My scripts\init.txt loads Request, which is an addon that can be used to answer player's requests, use it with the Shortcuts addon.
 It also loads a few other addons which I've written or found from other sources.
-Non-Official addon mentioned here can be downloaded from: https://www.dropbox.com/sh/qz5rb5je202cbu3/AAAxozfBv_8agarM0NCnPTiZa?dl=0
 
 --- Item Handling ---
 
@@ -294,7 +283,7 @@ skillchain1 - Tier 1 skillchain
 skillchain2 - Tier 2 skillchain
 skillchain3 - Only works on Fire element, does Liquefaction > Fusion
 skillchain4 - 4 Step skillchain for popping Perfidion
-skillchain6 - 6 Step Skillchain for popping Pluton (Requires you have a strategem up and 5 strategem charges to start)
+skillchain6 - 6 Step Skillchain for popping Pluton (Requires you have a stratagem up and 5 stratagem charges to start)
 wsskillchain - Attempts to start skillchain with a weaponskill and finish with a spell (for conserving stratagems).
 endskillchain - Attempts to end a skillchain with the current element.
 tier1 - Casts a tier 1 spell of that element.
