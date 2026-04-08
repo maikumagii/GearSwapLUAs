@@ -47,9 +47,8 @@ function character_user_job_setup()
     gear.str_wsd_jse_back = gear.mnd_wsd_jse_back
 
     -- JSE Weapon/Neck/Earring
-    gear.jse_ear2 = { name = "Lethergy Earring+1", augments = { 'R. Ear:Accuracy+11 Mag. Acc.+11', '"Double Attack"+3%' } }
-    gear.jse_neck = "Dis. Torque +2"
-    gear.ghostfyre_back = { name = "Ghostfyre Cape" }
+    gear.jse_ear2 = "Leth. Earring +1"
+    gear.jse_neck = "Dls. Torque +2"
 
     -- Artifact Gear
     gear.af1_head = "Atro. Chapeau +4"
@@ -182,17 +181,17 @@ function init_gear_sets()
 
 	-- Fast cast sets for spells
 	sets.precast.FC = {main="Sakpata's Sword",sub=gear.sacro_bulwark,ammo=gear.impatiens,
-		head=gear.af1_head,neck=gear.loricate_torque,ear1="Malignance Earring",ear2="Leth. Earring +1", 
+		head=gear.af1_head,neck=gear.loricate_torque,ear1="Malignance Earring",ear2=gear.jse_ear2, 
 		body=gear.af2_body,hands="Nyame Gauntlets",ring1="Murky Ring",ring2=gear.lebeche_ring,
 		back=gear.perimede_cape,waist=gear.witful_belt,legs="Nyame Flanchard",feet="Nyame Sollerets"}
 		
 	sets.precast.FC.DT = {main="Sakpata's Sword",sub=gear.sacro_bulwark,ammo=gear.impatiens,
-		head=gear.af1_head,neck=gear.loricate_torque,ear1="Malignance Earring",ear2="Leth. Earring +1",
+		head=gear.af1_head,neck=gear.loricate_torque,ear1="Malignance Earring",ear2=gear.jse_ear2,
 		body=gear.af2_body,hands="Nyame Gauntlets",ring1="Murky Ring",ring2=gear.lebeche_ring,
 		back=gear.perimede_cape,waist=gear.witful_belt,legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
 	sets.precast.FullFC = {main=gear.grioavolr_fc_staff,sub="Clerisy Strap +1",ammo=gear.impatiens,
-		head=gear.af1_head,neck="Orunmila's Torque",ear1="Malignance Earring",ear2="Leth. Earring +1",
+		head=gear.af1_head,neck="Orunmila's Torque",ear1="Malignance Earring",ear2=gear.jse_ear2,
 		body=gear.af2_body,hands="Gende. Gages +1",ring1=gear.kishar_ring,ring2=gear.lebeche_ring,
 		back=gear.perimede_cape,waist=gear.witful_belt,legs="Aya. Cosciales +2",feet=gear.merlinic_fc_feet}
 		
@@ -263,7 +262,7 @@ function init_gear_sets()
 
 	-- Gear that converts elemental damage done to recover MP.	
 	sets.midcast.FastRecast = {main="Sakpata's Sword",sub=gear.sacro_bulwark,ammo="Staunch Tathlum +1",
-		head=gear.af1_head,neck=gear.loricate_torque,ear1="Malignance Earring",ear2="Leth. Earring +1",
+		head=gear.af1_head,neck=gear.loricate_torque,ear1="Malignance Earring",ear2=gear.jse_ear2,
 		body=gear.af2_body,hands="Bunzi's Gloves",ring1="Murky Ring",ring2=gear.freke_ring,
 		back=gear.mnd_enfeebling_jse_back,waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
@@ -289,14 +288,14 @@ function init_gear_sets()
         back=gear.mnd_enfeebling_jse_back,waist="Emphatikos Rope",legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 		
 	sets.midcast.Cursna = {main=gear.grioavolr_fc_staff,sub="Curatio Grip",range=empty,ammo="Hasty Pinion +1",
-        head="Vanya Hood",neck="Debilis Medallion",ear1="Meili Earring",ear2="Leth. Earring +1",
+        head="Vanya Hood",neck="Debilis Medallion",ear1="Meili Earring",ear2=gear.jse_ear2,
         body=gear.af2_body,hands="Hieros Mittens",ring1="Haoma's Ring",ring2="Menelaus's Ring",
         back="Oretan. Cape +1",waist="Bishop's Sash",legs=gear.af1_legs,feet="Vanya Clogs"}
 
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main=gear.grioavolr_fc_staff,sub="Clemency Grip"})
 	
 	sets.midcast['Enhancing Magic'] = {main="Colada",sub="Ammurapi Shield",ammo="Staunch Tathlum +1",
-		head="Telchine Cap",neck="Dls. Torque +2",ear1="Andoaa Earring",ear2="Leth. Earring +1",
+		head="Telchine Cap",neck=gear.jse_neck,ear1="Andoaa Earring",ear2=gear.jse_ear2,
 		body=gear.af2_body,hands=gear.af1_hands,ring1=gear.kishar_ring,ring2=gear.lebeche_ring,
 		back="Ghostfyre Cape",waist="Embla Sash",legs="Telchine Braconi",feet=gear.af3_feet}
 
@@ -332,7 +331,7 @@ function init_gear_sets()
 	sets.Self_Phalanx.DW = {main="Sakpata's Sword",sub="Egeking"}
 	
 	sets.midcast['Enfeebling Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
-		head=gear.af3_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af3_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
 		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs=gear.chironic_macc_legs,feet="Vitiation Boots +3"}
 		
@@ -344,7 +343,7 @@ function init_gear_sets()
 	sets.midcast['Enfeebling Magic'].DW = {main="Bunzi's Rod",sub="Maxentius"}
 		
 	sets.midcast.Sleep = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-		head=gear.af3_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af3_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1=gear.kishar_ring,ring2=gear.metamorphic_ring,
 		back="Null Shawl",waist="Obstinate Sash",legs=gear.af3_legs,feet=gear.af3_feet} --Obstinate Sash
 		
@@ -372,7 +371,7 @@ function init_gear_sets()
 	sets.midcast.Break.DW = sets.midcast.Sleep.DW
 
 	sets.midcast.Dispel = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-		head=gear.af1_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af1_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af1_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
 		back="Null Shawl",waist="Null Belt",legs=gear.chironic_macc_legs,feet=gear.af3_feet}
 		
@@ -381,7 +380,7 @@ function init_gear_sets()
 	sets.midcast.Dispelga.DW = {main="Daybreak",sub="Bunzi's Rod"}
 	
 	sets.midcast.Frazzle = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
-		head=gear.af3_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af3_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
 		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs=gear.af3_legs,feet="Vitiation Boots +3"}
 		
@@ -399,7 +398,7 @@ function init_gear_sets()
 	sets.midcast.Distract.DW = sets.midcast.Frazzle.DW
 	
 	sets.midcast.Addle = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
-		head=gear.af2_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af2_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
 		back=gear.mnd_enfeebling_jse_back,waist="Obstinate Sash",legs=gear.chironic_macc_legs,feet="Vitiation Boots +3"}
 		
@@ -419,12 +418,12 @@ function init_gear_sets()
 	sets.midcast.Slow.DW = sets.midcast.Addle.DW
 	
 	sets.midcast.Gravity = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
-		head=gear.af3_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af3_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1=gear.kishar_ring,ring2=gear.metamorphic_ring,
 		back=gear.int_enfeebling_jse_back,waist="Obstinate Sash",legs=gear.af3_legs,feet=gear.af3_feet}
 		
 	sets.midcast.Gravity.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
-		head=gear.af3_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af3_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
 		back=gear.int_enfeebling_jse_back,waist="Null Belt",legs=gear.chironic_macc_legs,feet=gear.af3_feet}
 		
@@ -439,7 +438,7 @@ function init_gear_sets()
 	sets.midcast.Blind.DW = sets.midcast.Gravity.DW
 	
 	sets.midcast.Silence = {main="Daybreak",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-		head=gear.af3_head,neck="Dls. Torque +2",ear1="Malignance Earring",ear2="Snotra Earring",
+		head=gear.af3_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1=gear.kishar_ring,ring2=gear.metamorphic_ring,
 		back="Null Shawl",waist="Obstinate Sash",legs=gear.af3_legs,feet=gear.af3_feet}
 		
@@ -467,7 +466,7 @@ function init_gear_sets()
 		back=gear.nuke_jse_back,waist="Acuity Belt +1",legs=gear.af3_legs,feet=gear.af3_feet}
 		
     sets.midcast['Elemental Magic'].Proc = {main="Gleti's Knife",sub=gear.forfend,range=empty,ammo=gear.regal_gem,
-        head="Malignance Chapeau",neck="Null Loop",ear1="Snotra Earring",ear2="Leth. Earring +1",
+        head="Malignance Chapeau",neck="Null Loop",ear1="Snotra Earring",ear2=gear.jse_ear2,
         body="Malignance Tabard",hands="Malignance Gloves",ring1=gear.kishar_ring,ring2="Prolix Ring",
         back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 		
@@ -506,22 +505,22 @@ function init_gear_sets()
 	sets.midcast.Aspir = sets.midcast.Drain
 	
 	sets.midcast['Absorb-TP'] = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2="Leth. Earring +1",
+        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2=gear.jse_ear2,
         body=gear.af2_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
         back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs=gear.af3_legs,feet=gear.af3_feet}
 		
 	sets.midcast['Absorb-TP'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2="Leth. Earring +1",
+        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2=gear.jse_ear2,
         body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
         back="Null Shawl",waist="Null Belt",legs=gear.af3_legs,feet=gear.af3_feet}
 		
 	sets.midcast.Stun = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2="Leth. Earring +1",
+        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2=gear.jse_ear2,
         body=gear.af2_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
         back=gear.mnd_enfeebling_jse_back,waist="Null Belt",legs=gear.af3_legs,feet=gear.af3_feet}
 
 	sets.midcast.Stun.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
-        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2="Leth. Earring +1",
+        head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2=gear.jse_ear2,
         body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorphic_ring,
         back="Null Shawl",waist="Null Belt",legs=gear.af3_legs,feet=gear.af3_feet}
 		
@@ -552,7 +551,7 @@ function init_gear_sets()
 		back="Null Shawl",waist="Null Belt",legs=gear.merlinic_refresh_legs,feet=gear.merlinic_refresh_feet}
 	
 	sets.Ballista = {main="Sakpata's Sword",sub=gear.sacro_bulwark,range=empty,ammo="Staunch Tathlum +1",
-		head="Bunzi's Hat",neck="Dls. Torque +2",ear1="Etiolation Earring",ear2="Leth. Earring +1",
+		head="Bunzi's Hat",neck=gear.jse_neck,ear1="Etiolation Earring",ear2=gear.jse_ear2,
 		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Shneddick Ring",ring2="Shadow Ring",
 		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet=gear.af3_feet}
 
@@ -664,7 +663,7 @@ function init_gear_sets()
 		back="Ghostfyre Cape",waist="Orpheus's Sash",legs="Malignance Tights",feet="Malignance Boots"}
 		
 	sets.engaged.EnspellOnly.Acc = {ammo="Sroda Tathlum",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Leth. Earring +1",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2=gear.jse_ear2,
 		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1=gear.cacoethic_ring,ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Orpheus's Sash",legs="Malignance Tights",feet="Malignance Boots"}		
 
@@ -674,7 +673,7 @@ function init_gear_sets()
 		back="Ghostfyre Cape",waist="Orpheus's Sash",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 		
 	sets.engaged.DualEnspellOnly.Acc = {ammo="Sroda Tathlum",
-		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2="Leth. Earring +1",
+		head="Malignance Chapeau",neck="Null Loop",ear1="Crep. Earring",ear2=gear.jse_ear2,
 		body="Malignance Tabard",hands="Aya. Manopolas +2",ring1=gear.cacoethic_ring,ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Orpheus's Sash",legs="Carmine Cuisses +1",feet="Malignance Boots"}
 end
