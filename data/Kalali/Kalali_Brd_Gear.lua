@@ -6,19 +6,19 @@ function user_job_setup()
     state.Weapons:options('None', 'Aeneas', 'DualWeapons', 'DualNaegling', 'DualTauret', 'DualNukeWeapons')
 
     -- Adjust this if using the Terpander (new +song instrument)
-    info.ExtraSongInstrument = 'Blurred Harp +1'
+    info.ExtraSongInstrument = 'Daurdabla'
     -- How many extra songs we can keep from Daurdabla/Terpander
-    info.ExtraSongs = 1
+    info.ExtraSongs = 2
 
     -- Set this to false if you don't want to use custom timers.
     state.UseCustomTimers = M(false, 'Use Custom Timers')
 
     -- Additional local binds
+    send_command('bind !` gs c toggle AutoBuffMode')
     send_command('bind ^` gs c cycle ExtraSongsMode')
-    send_command('bind !` input /ma "Chocobo Mazurka" <me>')
     send_command('bind @` gs c cycle MagicBurstMode')
+
     send_command('bind @f10 gs c cycle RecoverMode')
-    send_command('bind @f8 gs c toggle AutoNukeMode')
     send_command('bind !q gs c weapons NukeWeapons;gs c update')
     send_command('bind ^q gs c weapons Swords;gs c update')
 
@@ -85,18 +85,18 @@ function init_gear_sets()
         feet = "Telchine Pigaches"
     }
 
-    sets.precast.FC.SongDebuff = set_combine(sets.precast.FC.BardSong, { range = "Marsyas" })
-    sets.precast.FC.SongDebuff.Resistant = set_combine(sets.precast.FC.BardSong, { range = "Blurred Harp +1" })
-    sets.precast.FC.Lullaby = { range = "Marsyas" }
-    sets.precast.FC.Lullaby.Resistant = { range = "Blurred Harp +1" }
-    sets.precast.FC['Horde Lullaby'] = { range = "Marsyas" }
-    sets.precast.FC['Horde Lullaby'].Resistant = { range = "Blurred Harp +1" }
-    sets.precast.FC['Horde Lullaby'].AoE = { range = "Blurred Harp +1" }
-    sets.precast.FC['Horde Lullaby II'] = { range = "Marsyas" }
-    sets.precast.FC['Horde Lullaby II'].Resistant = { range = "Blurred Harp +1" }
-    sets.precast.FC['Horde Lullaby II'].AoE = { range = "Blurred Harp +1" }
+    sets.precast.FC.SongDebuff = set_combine(sets.precast.FC.BardSong, { range = "Daurdabla" })
+    sets.precast.FC.SongDebuff.Resistant = set_combine(sets.precast.FC.BardSong, { range = "Daurdabla" })
+    sets.precast.FC.Lullaby = { range = "Daurdabla" }
+    sets.precast.FC.Lullaby.Resistant = { range = "Daurdabla" }
+    sets.precast.FC['Horde Lullaby'] = { range = "Daurdabla" }
+    sets.precast.FC['Horde Lullaby'].Resistant = { range = "Daurdabla" }
+    sets.precast.FC['Horde Lullaby'].AoE = { range = "Daurdabla" }
+    sets.precast.FC['Horde Lullaby II'] = { range = "Daurdabla" }
+    sets.precast.FC['Horde Lullaby II'].Resistant = { range = "Daurdabla" }
+    sets.precast.FC['Horde Lullaby II'].AoE = { range = "Daurdabla" }
 
-    sets.precast.FC.Mazurka = set_combine(sets.precast.FC.BardSong, { range = "Marsyas" })
+    sets.precast.FC.Mazurka = set_combine(sets.precast.FC.BardSong, { range = "Gjallarhorn" })
     sets.precast.FC['Honor March'] = set_combine(sets.precast.FC.BardSong, { range = "Marsyas" })
 
     sets.precast.FC.Daurdabla = set_combine(sets.precast.FC.BardSong, { range = info.ExtraSongInstrument })
@@ -293,10 +293,18 @@ function init_gear_sets()
 
     sets.midcast.Curaga = sets.midcast.Cure
 
-    sets.Self_Healing = { neck = "Phalaina Locket", hands = "Buremte Gloves", ring2 = "Kunaji Ring", waist =
-    "Gishdubar Sash" }
-    sets.Cure_Received = { neck = "Phalaina Locket", hands = "Buremte Gloves", ring2 = "Kunaji Ring", waist =
-    "Gishdubar Sash" }
+    sets.Self_Healing = {
+        neck = "Phalaina Locket",
+        hands = "Buremte Gloves",
+        ring2 = "Kunaji Ring",
+        waist = "Gishdubar Sash"
+    }
+    sets.Cure_Received = {
+        neck = "Phalaina Locket",
+        hands = "Buremte Gloves",
+        ring2 = "Kunaji Ring",
+        waist = "Gishdubar Sash"
+    }
     sets.Self_Refresh = { back = "Grapevine Cape", waist = "Gishdubar Sash" }
 
     sets.midcast['Enhancing Magic'] = {
@@ -366,8 +374,11 @@ function init_gear_sets()
         feet = "Vanya Clogs"
     })
 
-    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, { main = gear.grioavolr_fc_staff, sub =
-    "Clemency Grip" })
+    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
+        main = gear.grioavolr_fc_staff,
+        sub =
+        "Clemency Grip"
+    })
 
     -- Resting sets
     sets.resting = {

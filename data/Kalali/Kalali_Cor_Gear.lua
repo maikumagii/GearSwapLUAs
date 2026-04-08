@@ -57,8 +57,9 @@ function user_job_setup()
     gear.af3_feet = "" --"Chass. Bottes +1"
 
     -- Additional local binds
+    send_command('bind !` gs c toggle RngHelper')
     send_command('bind ^` gs c cycle ElementalMode')
-    send_command('bind !` gs c elemental quickdraw')
+    send_command('bind @` gs c elemental quickdraw')
 
     send_command('bind ^backspace input /ja "Double-up" <me>')
     send_command('bind @backspace input /ja "Snake Eye" <me>')
@@ -699,15 +700,15 @@ end
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
     if player.sub_job == 'NIN' then
-        set_macro_page(1, 2)
+        set_macro_page(1, 3)
     elseif player.sub_job == 'DNC' then
-        set_macro_page(1, 2)
+        set_macro_page(1, 3)
     elseif player.sub_job == 'RNG' then
-        set_macro_page(1, 2)
+        set_macro_page(1, 3)
     elseif player.sub_job == 'DRG' then
-        set_macro_page(1, 2)
+        set_macro_page(1, 3)
     else
-        set_macro_page(1, 2)
+        set_macro_page(1, 3)
     end
 end
 

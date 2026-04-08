@@ -90,13 +90,15 @@ function user_job_setup()
 
     -- Additional local binds
 
+    send_command('bind !` gs c toggle AutoNukeMode')
     send_command('bind ^` gs c cycle ElementalMode')
     send_command('bind @` gs c cycle MagicBurstMode')
+
     send_command('bind ^@!` input /ja "Accession" <me>')
     send_command('bind ^backspace input /ja "Saboteur" <me>')
     send_command('bind !backspace input /ja "Spontaneity" <t>')
     send_command('bind @backspace input /ja "Composure" <me>')
-    send_command('bind @f8 gs c toggle AutoNukeMode')
+    -- send_command('bind @f8 gs c toggle AutoNukeMode')
     send_command('bind != input /ja "Penury" <me>')
     send_command('bind @= input /ja "Parsimony" <me>')
     send_command('bind ^delete input /ja "Dark Arts" <me>')
@@ -107,7 +109,7 @@ function user_job_setup()
     send_command('bind !\\\\ input /ma "Reraise" <me>')
     send_command('bind @f10 gs c cycle RecoverMode')
     send_command(
-    'bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
+        'bind ^r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c weapons Default;gs c set unlockweapons false')
     send_command('bind ^q gs c set weapons enspellonly;gs c set unlockweapons true')
     send_command('bind !r gs c set skipprocweapons true;gs c reset weaponskillmode;gs c set weapons none')
     send_command('bind !q gs c set skipprocweapons false;gs c set weapons DualProcDaggers;gs c set weaponskillmode proc')
@@ -743,7 +745,9 @@ function init_gear_sets()
     sets.NightIdle = {}
 
     -- Weapons sets
-    sets.weapons.Crocea = { main = "Crocea Mors", sub = "Ammurapi Shield"
+    sets.weapons.Crocea = {
+        main = "Crocea Mors",
+        sub = "Ammurapi Shield"
         --sub="Sacro Bulwark",
     }
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak" }
