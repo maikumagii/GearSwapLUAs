@@ -3,13 +3,15 @@ sets.Capacity = { back = "Mecisto. Mantle" }
 
 sets.buff.Doom = {
     neck = "Nicander's Necklace",
-    ring1 = "Eshmun's Ring",
-    ring2 = "Eshmun's Ring"
+    ring1 = "Purity Ring",
+    --ring1 = "Eshmun's Ring",
+    ring2 = "Eshmun's Ring",
+    waist = "Gishdubar Sash"
 }
 sets.TreasureHunter = { head = "Wh. Rarab Cap +1", ring1 = "Hoxne Ring", ammo = "Perfect Lucky Egg" }
 
 sets.precast.Item['Hallowed Water'] = {}
-sets.precast.Item['Holy Water'] = { neck = "Nicander's Necklace", ring1 = "Purity Ring" }
+sets.precast.Item['Holy Water'] = { neck = "Nicander's Necklace", ring1 = "Purity Ring", waist = "Gishdubar Sash" }
 
 -- Expansion Accessories
 gear.tvr_ring = {}
@@ -57,6 +59,7 @@ gear.sworn_hands = { name = "Sworn Gauntlets", augments = {} }
 gear.sworn_legs = { name = "Sworn Brais", augments = {} }
 gear.sworn_feet = { name = "Sworn Sabatons", augments = {} }
 
+gear.herculean_ta_feet = { name = "Herculean Boots", augments = { 'Accuracy+12 Attack+27', '"Triple Atk."+4%', 'AGI+6' } }
 --Augmented items that you'll use among multiple jobs.
 
 --[[]

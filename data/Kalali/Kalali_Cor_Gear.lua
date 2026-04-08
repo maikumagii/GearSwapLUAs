@@ -618,79 +618,71 @@ function init_gear_sets()
 
     -- Normal melee group
     sets.engaged = {
-        head = "Adhemar Bonnet +1",
+        head = "Malignance Chapeau",
         neck = "Iskur Gorget",
-        ear1 = "Telos Earring",
-        ear2 = "Brutal Earring",
-        --body = "Adhemar Jacket +1",
-        --body = gear.herculean_ta_body
+        ear1 = "Dedition Earring",
+        ear2 = "Telos Earring",
+        body = "Malignance Tabard",
         hands = "Adhemar Wrist. +1",
-        ring1 = "Petrov Ring",
-        ring2 = "Epona's Ring",
+        ring1 = "Epona's Ring",
+        ring2 = "Petrov Ring",
         back = gear.tp_jse_back,
         waist = "Windbuffet Belt +1",
         legs = "Samnuha Tights", -- AUG?
-        --feet = gear.herculean_ta_feet
+        --feet = gear.herc_ta_boots
+        feet = "Malignance Boots"
     }
 
     sets.engaged.Acc = set_combine(sets.engaged, {
-        head = "Malignance Chapeau",
-        --ear1 = "Odnowa Earring +1",
-        body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = gear.limbus_ring1,
+        ring1 = "Chirich Ring +1",
         legs = "Malignance Tights",
         -- legs="Chas. Culottes +3",
-        feet = "Malignance Boots"
     })
 
     sets.engaged.DT = set_combine(sets.engaged, {
-        head = "Malignance Chapeau",
+
         --ear1 = "Odnowa Earring +1",
-        body = "Malignance Tabard",
+        ear1 = gear.limbus_ear1,
         hands = "Malignance Gloves",
         ring1 = gear.limbus_ring1,
         legs = "Malignance Tights",
         -- legs="Chas. Culottes +3",
-        feet = "Malignance Boots"
     })
 
     sets.engaged.Acc.DT = set_combine(sets.engaged.Acc, sets.engaged.DT)
 
     sets.engaged.DW = {
-        head = "Adhemar Bonnet +1",
+        head = "Malignance Chapeau",
         neck = "Iskur Gorget",
-        ear1 = "Telos Earring",
-        ear2 = "Suppanomimi",
-        body = "Adhemar Jacket +1",
+        ear1 = "Dedition Earring",
+        ear2 = "Eabani Earring",
+        body = "Malignance Tabard",
         hands = "Adhemar Wrist. +1",
-        ring1 = "Petrov Ring",
-        ring2 = "Epona's Ring",
+        ring1 = "Epona's Ring",
+        ring2 = "Petrov Ring",
         back = gear.tp_jse_back,
-        waist = "Windbuffet Belt +1",
+        waist = "Reiki Yotai",
         legs = "Samnuha Tights", -- AUG?
         --feet = gear.herc_ta_boots
+        feet = "Malignance Boots"
     }
 
     sets.engaged.DW.Acc = set_combine(sets.engaged.DW, {
-        head = "Malignance Chapeau",
-        --ear1 = "Odnowa Earring +1",
-        body = "Malignance Tabard",
+        ear1 = "Telos Earring",
         hands = "Malignance Gloves",
-        ring1 = gear.limbus_ring1,
+        ring1 = "Chirich Ring +1",
         legs = "Malignance Tights",
-        feet = "Malignance Boots"
+        -- legs="Chas. Culottes +3",
     })
 
     sets.engaged.DW.DT = set_combine(sets.engaged.DW, {
-        head = "Malignance Chapeau",
         --ear1 = "Odnowa Earring +1",
-        body = "Malignance Tabard",
+        ear1 = limbus_ear1,
         hands = "Malignance Gloves",
         ring1 = gear.limbus_ring1,
         legs = "Malignance Tights",
         -- legs="Chas. Culottes +3",
-        feet = "Malignance Boots"
     })
 
     sets.engaged.DW.Acc.DT = set_combine(sets.engaged.DW.Acc, sets.engaged.DW.DT)
