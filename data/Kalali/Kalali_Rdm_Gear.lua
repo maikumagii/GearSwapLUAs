@@ -73,49 +73,117 @@ function character_user_job_setup()
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- main
-        gear.sacro_bulwark = "Ammurapi Shield" -- "Sacro Bulwark"
-        gear.forfend = "Ammurapi Shield" -- "Forfend +1"
-        -- sub = "Diamond Aspis"
-        gear.culminus = "Ammurapi Shield" -- "Culminus"
+        --  "Mpaca's Staff"
+        --  "Pukulatmuj +1"
+        --  "Bolelabunga"                   Overkill? +10% Regen (effectively, 1 HP / tic)
+        gear.sacro_bulwark = "Ammurapi Shield"
+        --  "Sacro Bulwark"
+        gear.forfend = "Ammurapi Shield"
+        --  "Forfend +1"
+        gear.diamond_aspis = ""
+        --  "Diamond Aspis"
+        gear.culminus = "Ammurapi Shield"
+        --  "Culminus"
     -- sub
-       gear.filler_shield = "Ammurapi Shield" -- Removed grip, didn't research sub
-       gear.filler_grip = "Enki Strap"        -- Still using staff in some cases, might as well have a grip
+       gear.filler_shield = "Ammurapi Shield"
+       --   Removed grip, didn't research sub
+       gear.filler_grip = "Enki Strap"
+       --   Still using staff in some cases, might as well have a grip
     -- range
     -- ammo
-        gear.hasty_pinion = "" --       "Hasty Pinion +1"
-        gear.regal_gem = "Staunch Tathlum+1" -- "Regal Gem"
-        gear.impatiens = "Staunch Tathlum+1" -- "Impatiens"
-        gear.oshashas_treatise = ""          -- "Oshasha's Treatise"
+        --  "Homiliary"
+        gear.hasty_pinion = ""
+        --  "Hasty Pinion +1"
+        gear.regal_gem = "Staunch Tathlum+1"
+        --  "Regal Gem"
+        gear.impatiens = "Staunch Tathlum+1"
+        --  "Impatiens"
+        gear.oshashas_treatise = ""
+        --  "Oshasha's Treatise"
     -- head
+        --  "Umuthi Hat"
+        --  "Telchine Cap"
+        --  "Amalric Coif +1"               +2 Refresh Potency
+        --  "Befouled Crown"
+        --  "Null Masque"
     -- neck
-        gear.loricate_torque = "" --    "Loricate Torque +1"
-        gear.fotia_gorget = ""--        "Fotia Gorget"
-        gear.baetyl_pendant = "" --     "Baetyl Pendant"
-        gear.sibyl_scarf = "" --        "Sibyl Scarf"
-        gear.ournmilas_torque = "" --   "Orunmila's Torque"
-        gear.rep_plat_medal = "" --      "Rep. Plat. Medal"
+        --  "Nodens Gorget"                 Stoneskin + 30 HP
+        --  "Sroda Necklace"
+        --  "Mizu. Kubikazari"
+        --  "Debilis Medallion"
+        --  "Anu Torque"
+        --  "Warder's Charm +1"
+        --  "Incanter's Torque"             magic skills + 10
+        gear.loricate_torque = ""
+        --  "Loricate Torque +1"
+        gear.fotia_gorget = ""
+        --  "Fotia Gorget"
+        gear.baetyl_pendant = ""
+        --  "Baetyl Pendant"
+        gear.sibyl_scarf = ""
+        --  "Sibyl Scarf"
+        gear.ournmilas_torque = ""
+        --  "Orunmila's Torque"
+        gear.rep_plat_medal = ""
+        --  "Rep. Plat. Medal"
     -- ear
-        -- gear.regal_earring = "" --   "Regal Earring"
-        gear.zennaroi_ear = "" --       "Zennaroi Earring"
+        --  "Prolix Ring"
+        --  "Mujin Band"
+        --  "Sanare Earring"
+        --  "Etiolation Earring"
+        --  "Ethereal Earring"
+        --  "Andoaa Earring"
+        --  "Crep. Earring"
+        --  "Meili Earring"                  healing skill + 10
+        gear.zennaroi_ear = ""
+        --  "Zennaroi Earring"
     -- body
-        gear.crepuscular_cloak = "" --  "Crepuscular Cloak"
+        --  "Seidr Cotehardie"
+        gear.crepuscular_cloak = ""
+        --  "Crepuscular Cloak"
     -- hands
+        --  "Hieros Mittens"
     -- ring
-        gear.cacoethic_ring = "" --     "Cacoethic Ring +1"
-        gear.kishar_ring = "" --        "Kishar Ring"
-        gear.freke_ring = "" --         "Freke Ring"
-        gear.lebeche_ring = "" --       "Lebeche Ring"
-        gear.metamorphic_ring = "" --   "Metamorphic Ring +1"
-        gear.cornelias_ring = "" --     "Cornelia's Ring"
-        -- gear.archon_ring = "" --     "Archon Ring"           No longer used for Sanguine Blade?
+        --  "Shadow Ring"
+        --  "Sirona's Ring"                 healing skill + 10
+        --  "Haoma's Ring"
+        gear.cacoethic_ring = ""
+        --  "Cacoethic Ring +1"
+        gear.kishar_ring = ""
+        --  "Kishar Ring"
+        gear.freke_ring = ""
+        --  "Freke Ring"
+        gear.lebeche_ring = ""
+        --  "Lebeche Ring"
+        gear.metamorphic_ring = ""
+        --  "Metamorphic Ring +1"
+        gear.cornelias_ring = ""
+        --  "Cornelia's Ring"
     -- back
-        gear.perimede_cape = "" --      "Perimede Cape"
+        --  "Shadow Mantle"
+        --  "Engulfer Cape +1"
+        --  ****"Ghostfyre Cape"                +10 Enhancing, +20% Enhancing Duration
+        --  "Oretan. Cape+1"
+        gear.perimede_cape = ""
+        --  "Perimede Cape"
     -- waist
-        gear.fotia_belt = "" --         "Fotia Belt"
-        gear.witful_belt = "" --        "Witful Belt"
-        gear.emphatikos_rope = "" --    "Emphatikos Rope"
+        --  "Luminary Sash"                 Conserve MP / MND
+    	--  "Bishop's Sash"
+    	--  "Olympus Sash"
+    	--  "Siegel Sash"                   Stoneskin + 20 HP, Casting time -8%
+    	--  "Acuity Belt +1"
+    	--  "Fucho-no-obi"
+    	--  "Plat. Mog. Belt"
+        gear.fotia_belt = ""
+        --  "Fotia Belt"
+        gear.witful_belt = ""
+        --  "Witful Belt"
+        gear.emphatikos_rope = ""
+        --  "Emphatikos Rope"
     -- legs
-        gear.sworn_brais = "Aya. Cosciales +2" -- "Sworn Brais" R0
+        --  "Telchine Braconi"
+        gear.sworn_brais = "Aya. Cosciales +2"
+        --  "Sworn Brais"                   R0 has better Fast Cast
     -- feet
 
 
@@ -292,11 +360,6 @@ function init_gear_sets()
         body="Kaykaus Bliaut +1",hands="Kaykaus Cuffs +1",ring1="Sirona's Ring",ring2="Menelaus's Ring",
         back="Twilight Cape",waist="Hachirin-no-Obi",legs="Kaykaus tights +1",feet="Kaykaus Boots +1"}
 
-    -- neck "Incanter's Torque" magic skills + 10
-    -- ear "Meili Earring" healing skill + 10
-    -- ring "Sirona's Ring" healing skill + 10
-    -- waist "Luminary Sash" Conserve MP / MND
-
     sets.midcast.Cure.DT = {main="Daybreak",sub=gear.culminus,range=empty,ammo="Staunch Tathlum +1",
         head=gear.af3_head,neck=gear.loricate_torque,ear1="Halasz Earring",ear2="Mendi. Earring",
         body="Bunzi's Robe",hands=gear.chironic_nuke_hands,ring1="Murky Ring",ring2=gear.freke_ring,
@@ -307,23 +370,12 @@ function init_gear_sets()
         body=gear.af2_body,hands="Hieros Mittens",ring1="Haoma's Ring",ring2="Menelaus's Ring",
         back="Oretan. Cape +1",waist="Bishop's Sash",legs=gear.af1_legs,feet=FILLER}
 
-	-- neck Debilis Medallion
-	-- hands "Hieros Mittens"
-	-- ring "Haoma's Ring"
-	-- back "Oretan. Cape+1"
-	-- waist "Bishop's Sash"
-	-- feet ???
-
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main="Crocea Mors",sub=gear.filler_shield})
 
 	sets.midcast['Enhancing Magic'] = {main="Colada",sub="Ammurapi Shield",ammo="Staunch Tathlum +1",
 		head="Telchine Cap",neck=gear.jse_neck,ear1="Andoaa Earring",ear2=gear.jse_ear2,
 		body=gear.af2_body,hands=gear.af1_hands,ring1=gear.kishar_ring,ring2=gear.lebeche_ring,
 		back="Ghostfyre Cape",waist="Embla Sash",legs="Telchine Braconi",feet=gear.af3_feet}
-
-	-- head "Telchine Cap"
-	-- ear "Andoaa Earring"
-	-- legs "Telchine Braconi"
 
 	--Atrophy Gloves are better than Lethargy for me despite the set bonus for duration on others.
 	sets.buff.ComposureOther = {head=gear.af3_head,
@@ -337,13 +389,6 @@ function init_gear_sets()
 		body=gear.af2_body,hands=gear.af2_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
 		back="Ghostfyre Cape",waist="Olympus Sash",legs=gear.af1_legs,feet=gear.af3_feet}
 
-	-- main "Pukulatmuj +1"
-	-- head "Befouled Crown"
-	-- neck "Sroda Necklace"
-	-- back "Ghostfyre Cape"   +10 Enhancing, +20% Enhancing Duration
-	-- waist "Olympus Sash"
-	-- head "Amalric Coif +1"  +2 Refresh Potency
-
 	sets.midcast.Refresh = {head="Amalric Coif +1",body=gear.af1_body,legs=gear.af3_legs}
 	sets.midcast.Aquaveil = {head="Amalric Coif +1",waist=gear.emphatikos_rope,legs="Shedir Seraweels"} --hands="Regal Cuffs"
 	sets.midcast.BarElement = {legs="Shedir Seraweels"}
@@ -355,10 +400,6 @@ function init_gear_sets()
 	sets.midcast.Protect = {ring2="Sheltered Ring"}
 	sets.midcast.Shell = {ring2="Sheltered Ring"}
 	sets.midcast.Regen = {main="Bolelabunga",sub="Ammurapi Shield"}
-
-	-- main "Bolelabunga" Overkill? +10% Regen (effectively, 1 HP / tic)
-	-- neck "Nodens Gorget" Stoneskin + 30 HP
-	-- waist "Siegel Sash" Stoneskin + 20 HP, Casting time -8%
 
 	sets.midcast.Curaga = sets.midcast.Cure
 	sets.Self_Healing = {neck="Phalaina Locket",ear1="Etiolation Earring",ring2="Kunaji Ring",waist="Gishdubar Sash"}
@@ -507,7 +548,7 @@ function init_gear_sets()
     sets.midcast['Elemental Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head=gear.af3_head,neck=gear.sibyl_scarf,ear1="Malignance Earring",ear2="Friomisi Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1=gear.freke_ring,ring2=gear.metamorphic_ring,
-		back=gear.nuke_jse_back,waist="Acuity Belt +1",legs=gear.af3_legs,feet=gear.af3_feet} -- LEFT OFF HERE, ADD ACUITY BELT
+		back=gear.nuke_jse_back,waist="Acuity Belt +1",legs=gear.af3_legs,feet=gear.af3_feet}
 
     sets.midcast['Elemental Magic'].Proc = {main="Gleti's Knife",sub=gear.forfend,range=empty,ammo=gear.regal_gem,
         head="Malignance Chapeau",neck="Null Loop",ear1="Snotra Earring",ear2=gear.jse_ear2,
@@ -574,30 +615,9 @@ function init_gear_sets()
 
 	sets.buff.Saboteur = {hands=gear.af3_hands}
 
-	sets.HPDown = {main="Mpaca's Staff",sub=gear.filler_grip,ammo="Homiliary",
-		head="Pixie Hairpin +1",neck=gear.loricate_torque,ear1="Hirudinea Earring",ear2="Ethereal Earring",
-		body="Jhakri Robe +2",hands=gear.af1_hands,ring1="Mephitas's Ring +1",ring2=gear.metamorphic_ring,
-		back="Null Shawl",waist="Luminary Sash",legs="Jhakri Slops +2",feet="Jhakri Pigaches +2"}
-
-    sets.HPCure = {main="Daybreak",sub="Ammurapi Shield",ammo=gear.regal_gem,
-		head="Nyame Helm",neck="Sanctity Necklace",ear1="Etiolation Earring",ear2="Odnowa Earring +1",
-		body="Bunzi's Robe",hands="Bokwus Gloves",ring1="Sirona's Ring",ring2="Kunaji Ring",
-		back="Engulfer Cape +1",waist="Gishdubar Sash",legs="Nyame Flanchard",feet="Medium's Sabots"}
-
 	sets.buff.Doom = set_combine(sets.buff.Doom, {})
 
 	-- Sets to return to when not performing an action.
-
-	-- Resting sets
-	sets.resting = {main="Chatoyant Staff",sub=gear.filler_grip,range=empty,ammo=gear.impatiens,
-		head=gear.af2_head,neck=gear.loricate_torque,ear1="Etiolation Earring",ear2="Ethereal Earring",
-		body=gear.af3_body,hands=gear.merlinic_refresh_hands,ring1="Murky Ring",ring2="Sheltered Ring", -- REPLACE
-		back="Null Shawl",waist="Null Belt",legs=gear.merlinic_refresh_legs,feet=gear.merlinic_refresh_feet} -- REPLACE
-
-	sets.Ballista = {main="Sakpata's Sword",sub=gear.sacro_bulwark,range=empty,ammo="Staunch Tathlum +1",
-		head="Bunzi's Hat",neck=gear.jse_neck,ear1="Etiolation Earring",ear2=gear.jse_ear2,
-		body="Bunzi's Robe",hands="Bunzi's Gloves",ring1="Shneddick Ring",ring2="Shadow Ring",
-		back="Null Shawl",waist="Null Belt",legs="Bunzi's Pants",feet=gear.af3_feet}
 
 	-- Idle sets
 	sets.idle = {main="Mpaca's Staff",sub=gear.filler_grip,ammo="Homiliary",
