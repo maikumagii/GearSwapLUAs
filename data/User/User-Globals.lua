@@ -5,12 +5,12 @@ conserveshadows = false
 --Display related settings.
 
 --Options for automation.
-state.ReEquip 		  		= M(true, 'ReEquip Mode')		 --Set this to false if you don't want to equip your current Weapon set when you aren't wearing any weapons.
-state.AutoArts 		  		= M(true, 'AutoArts') 		 --Set this to false if you don't want to automatically try to keep up Solace/Arts.
-state.AutoLockstyle	 	    = M(true, 'AutoLockstyle Mode') --Set this to false if you don't want gearswap to automatically lockstyle on load and weapon change.
-state.CancelStoneskin 		= M(true, 'Cancel Stone Skin') --Set this to false if you don't want to automatically cancel stoneskin when you're slept.
-state.SkipProcWeapons 		= M(true, 'Skip Proc Weapons') --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
-state.NotifyBuffs	  		= M(false, 'Notify Buffs') 	 --Set this to true if you want to notify your party when you recieve a specific buff/debuff. (List Below)
+state.ReEquip 		  		= M(true, 'ReEquip Mode')		    --Set this to false if you don't want to equip your current Weapon set when you aren't wearing any weapons.
+state.AutoArts 		  		= M(true, 'AutoArts') 		        --Set this to false if you don't want to automatically try to keep up Solace/Arts.
+state.AutoLockstyle	 	    = M(true, 'AutoLockstyle Mode')     --Set this to false if you don't want gearswap to automatically lockstyle on load and weapon change.
+state.CancelStoneskin 		= M(true, 'Cancel Stone Skin')      --Set this to false if you don't want to automatically cancel stoneskin when you're slept.
+state.SkipProcWeapons 		= M(true, 'Skip Proc Weapons')      --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
+state.NotifyBuffs	  		= M(false, 'Notify Buffs') 	        --Set this to true if you want to notify your party when you recieve a specific buff/debuff. (List Below)
 
 --[[Binds you may want to change.
 	Bind special characters.
