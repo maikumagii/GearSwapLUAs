@@ -109,147 +109,151 @@ function character_user_job_setup()
         --  3   "Oshasha's Treatise"            Wsd 3%
     -- head
         gear.umuthi_hat = ""
-        --  "Umuthi Hat"                    Reduced Stoneskin Casting Time, +13 Enhancing, +8 Enspell
+        --  2  Umuthi Hat                    Reduced Stoneskin Casting Time, +13 Enhancing, +8 Enspell
         gear.befouled_crown = ""
-        --  "Befouled Crown"                +16 Enhancing
+        --  1  Befouled Crown                +16 Enhancing
         gear.telchine_cap = ""
-        --  "Telchine Cap"                  Augmented, Enhancing Magic Duration +10%
+        --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
         gear.amalric_coif = ""
-        --  "Amalric Coif +1"               +2 Refresh Potency
+        --  2  Amalric Coif +1               +2 Refresh Potency
         gear.null_masque = ""
-        --  "Null Masque"                   Animon Idle
+        --  1  Null Masque                   Animon Idle
     -- neck
         gear.phalaina_locket = ""
-        --  "Phalaina Locket"               +4% Cure and Cure Received
+        --  2  Phalaina Locket               +4% Cure and Cure Received
         gear.nodens_gorget = ""
-        --  "Nodens Gorget"                 Stoneskin + 30 HP
+        --  1  Nodens Gorget                 Stoneskin + 30 HP
         gear.sroda_necklace = ""
-        --  "Sroda Necklace"                +20 Resist Ailment of Bar-status spells
+        --  1  Sroda Necklace                +20 Resist Ailment of Bar-status spells
         gear.mizu_kubikazari = ""
-        --  "Mizu. Kubikazari"              +10 Magic Burst
+        --  1  Mizu. Kubikazari              +10 Magic Burst
         gear.debilis_medallion = ""
-        --  "Debilis Medallion"             Cursna Set
+        --  1  Debilis Medallion             Cursna Set
         gear.anu_torque = ""
-        --  "Anu Torque"                    +7 STP Default Neck, switch immediately
+        --  2  Anu Torque                    +7 STP Default Neck, switch immediately
         gear.warders_charm = ""
-        --  "Warder's Charm +1"             MDT, MEVA, Animon neck, +10 Magic Burst, +15 Skillchain
+        --  5  Warder's Charm +1             MDT, MEVA, Animon neck, +10 Magic Burst, +15 Skillchain
         gear.incanters_torque = ""
-        --  "Incanter's Torque"             Magic skills + 10 (Melic Torque Enh + Henic Torque Heal -- Synergy)
+        --  4  Incanter's Torque             Magic skills + 10 (Melic Torque Enh + Henic Torque Heal -- Synergy)
         gear.loricate_torque = ""
-        --  "Loricate Torque +1"            -6 DT, SIRD 5%
+        --  7  Loricate Torque +1            -6 DT, SIRD 5%
         gear.fotia_gorget = ""
-        --  "Fotia Gorget"                  fTP replicating WS 
+        --  4  Fotia Gorget                  fTP replicating WS 
         gear.baetyl_pendant = ""
-        --  "Baetyl Pendant"                FC +4%, MAB +13
+        --  3  Baetyl Pendant                FC +4%, MAB +13
         gear.sibyl_scarf = ""
-        --  "Sibyl Scarf"                   INT +10, MAB +10
+        --  4  Sibyl Scarf                   INT +10, MAB +10
         gear.ournmilas_torque = ""
-        --  "Orunmila's Torque"             FC +5%
+        --  1  Orunmila's Torque             FC +5%
         gear.rep_plat_medal = ""
-        --  "Rep. Plat. Medal"              STR +10, ATK + 30, Bastok Citizen Regain +2
+        --  2  Rep. Plat. Medal              STR +10, ATK + 30, Bastok Citizen Regain +2
     -- ear
         gear.prolix_ring = ""
-        --  "Prolix Ring"                   FC +2%
+        --  1  Prolix Ring                   FC +2%
         gear.mujin_band = ""
-        --  "Mujin Band"                    Magic Burst II +5%
+        --  1  Mujin Band                    Magic Burst II +5%
         gear.sanare_earring = ""
-        --  "Sanare Earring"                MDB+4, MEva+6
+        --  5  Sanare Earring                MDB+4, MEva+6
         gear.etiolation_earring = ""
-        --  "Etiolation Earring"            FC +1% MDT - 3%
+        --  9  Etiolation Earring            FC +1% MDT - 3%
         gear.ethereal_earring = ""
-        --  "Ethereal Earring"              Eva+5, Converts 3% Damage Taken to MP
+        --  3  Ethereal Earring              Eva+5, Converts 3% Damage Taken to MP
         gear.andoaa_earring = ""
-        --  "Andoaa Earring"                Enhancing +5
+        --  2  Andoaa Earring                Enhancing +5
         gear.crep_earring = ""
-        --  "Crep. Earring"                 Acc +10, STP +5
+        --  6  Crep. Earring                 Acc +10, STP +5
         gear.meili_earring = ""
-        --  "Meili Earring"                 Healing skill + 10
+        --  4  Meili Earring                 Healing skill + 10
         gear.zennaroi_ear = ""
-        --  "Zennaroi Earring"              MDB +1
+        --  2  Zennaroi Earring              MDB +1
     -- body
         gear.seidr_cotehardie = ""
-        --  "Seidr Cotehardie"              2% Magic damage dealt to MP
+        --  1  Seidr Cotehardie              2% Magic damage dealt to MP
         gear.crepuscular_cloak = ""
-        --  "Crepuscular Cloak"             Impact
+        --  2  Crepuscular Cloak             Impact
     -- hands
-        gear.filler_idle_hands = ""
-        gear.filler_cureDT_hands
-        gear.filler_drain_hands = ""
+        gear.filler_idle_hands = "" -- 1
+        gear.filler_cureDT_hands -- 1
+        gear.filler_drain_hands = "" -- 1
         gear.hieros_mittens = ""
-        --  "Hieros Mittens"                Cursna Set
+        --  1  Hieros Mittens                Cursna Set
     -- ring
         gear.kunaji_ring = ""
-        --  "Kunaji Ring"                   +5 Cure Received
+        --  2  Kunaji Ring                   +5 Cure Received
         gear.shadow_ring = ""
-        --  "Shadow Ring"                   Death protection, MDB
+        --  7  Shadow Ring                   Death protection, MDB
         gear.sironas_ring = ""
-        --  "Sirona's Ring"                 healing skill + 10
+        --  3  Sirona's Ring                 healing skill + 10
         gear.haomas_ring = ""
-        --  "Haoma's Ring"                  +15% Cursnda Success
+        --  1  Haoma's Ring                  +15% Cursnda Success
         gear.sheltered_ring = ""
-        --  "Sheltered Ring"                +10 DEF, +3% MDT (does not have to be equipped)
-        gear.cacoethic_ring = ""            
-        --  "Cacoethic Ring +1"             +11 Accuracy
+        --  2  Sheltered Ring                +10 DEF, +3% MDT (does not have to be equipped)
+        gear.cacoethic_ring = ""
+        --  4  Cacoethic Ring +1             +11 Accuracy
         gear.kishar_ring = ""
-        --  "Kishar Ring"                   FC +4% Enfeebling Duration +10%
+        --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
         gear.freke_ring = ""
-        --  "Freke Ring"                    10 INT, 8 MAB, 10 SIRD
+        --  8  Freke Ring                    10 INT, 8 MAB, 10 SIRD
         gear.lebeche_ring = ""
-        --  "Lebeche Ring"                  QM +2%
+        --  4  Lebeche Ring                  QM +2%
         gear.metamorph_ring = ""
-        --  "Metamorph Ring +1"             +16 INT/MND/CHR, +10 MAcc, +60 MP
+        --  27 Metamorph Ring +1             +16 INT/MND/CHR, +10 MAcc, +60 MP
         gear.cornelias_ring = ""
-        --  "Cornelia's Ring"               +10% WSD
+        --  6  Cornelia's Ring               +10% WSD
     -- back
         gear.shadow_mantle = ""
-        --  "Shadow Mantle"                 Phys Annul
+        --  2  Shadow Mantle                 Phys Annul
         gear.engulfer_cape = ""
-        --  "Engulfer Cape +1"              -4% MDT, Magic Absorb
-        gear.ghostfyre_cape = ""
+        --  2  Engulfer Cape +1              -4% MDT, Magic Absorb
+        gear.ghostfyre_cape = "" -- 4
         --  ****"Ghostfyre Cape"            +10 Enhancing, +20% Enhancing Duration
         gear.oretan_cape = ""
-        --  "Oretan. Cape +1"               +5 Cursna
+        --  1  Oretan. Cape +1               +5 Cursna
         gear.perimede_cape = gear.cure_jse_back
-        --  "Perimede Cape"                 QC+4%
+        --  3  Perimede Cape                 QC+4%
     -- waist
         gear.sacro_cord = ""
-        --  "Sacro Cord"                    +8 INT/MND/MAB/Macc
+        --  1  Sacro Cord                    +8 INT/MND/MAB/Macc
         gear.luminary_sash = ""
-        --  "Luminary Sash"                 Conserve MP / MND
+        --  1  Luminary Sash                 Conserve MP / MND
         gear.bishops_sash = ""
-    	--  "Bishop's Sash"                 +5 Healing (cursna)
+    	--  1  Bishop's Sash                 +5 Healing (cursna)
         gear.olympus_sash = ""
-    	--  "Olympus Sash"                  +5 Enhancing
+    	--  1  Olympus Sash                  +5 Enhancing
         gear.siegel_sash = ""
-    	--  "Siegel Sash"                   Stoneskin + 20 HP, Casting time -8%
+    	--  1  Siegel Sash                   Stoneskin + 20 HP, Casting time -8%
         gear.acuity_belt = ""
-    	--  "Acuity Belt +1"                +16 INT, +15 Macc
+    	--  3  Acuity Belt +1                +16 INT, +15 Macc
         gear.fuchonoobi = ""
-    	--  "Fucho-no-obi"                  +8 Drain/Aspirt Potency
+    	--  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
         gear.plat_mog_belt = ""
-    	--  "Plat. Mog. Belt"               +10% HP, 15 Eva, -3 DT
+    	--  2  Plat. Mog. Belt               +10% HP, 15 Eva, -3 DT
         gear.obstinate_sash = ""
-        --  "Obstinate Sash"                +5 Enfeebling Duration
+        --  6  Obstinate Sash                +5 Enfeebling Duration
         gear.fotia_belt = ""
-        --  "Fotia Belt"                    fTP Belt
+        --  3  Fotia Belt                    fTP Belt
         gear.witful_belt = ""
-        --  "Witful Belt"                   FC +3%, Haste +3%
+        --  3  Witful Belt                   FC +3%, Haste +3%
         gear.emphatikos_rope = ""
-        --  "Emphatikos Rope"               SIRD +12%, Aquaveil +1
+        --  4  Emphatikos Rope               SIRD +12%, Aquaveil +1
     -- legs
         gear.telchine_braconi = ""
-        --  "Telchine Braconi"              + Enhancing Duration
+        --  1  Telchine Braconi              + Enhancing Duration
         gear.sworn_brais = "Aya. Cosciales +2"
-        --  "Sworn Brais"                   R0 has better Fast Cast
-        gear.filler_enfeebling_legs = ""
-        gear.filler_idle_legs = ""
+        --  1  Sworn Brais                   R0 has better Fast Cast
+        gear.filler_enfeebling_legs = "" 
+		--  9
+        gear.filler_idle_legs = "" 
+		--  1
     -- feet
-        gear.filler_idle_feet = ""
-        gear.filler_feet = ""
-        --                                  Was part of a Cursna set, healing skill?
-        gear.filler_FullFC_feet = ""
-        gear.filler_enfeebling_feet = ""
-        gear.filler_drain_feet = ""
+        gear.filler_idle_feet = "" 
+		--  1
+        gear.filler_feet = "" 
+        --  1                               Was part of a Cursna set, healing skill?
+        gear.filler_FullFC_feet = "" 
+		--  0
+        gear.filler_drain_feet = "" 
+		--  1
 
         -- head body hands legs boots "Taeon " xxx gear for +3 Phalanx increase (+15 total) -- DI Dark Matter gear? +5 a piece (+25 total), and Sworn gear (+24 total, only body is better)
 
@@ -478,12 +482,12 @@ function init_gear_sets()
 	sets.midcast['Enfeebling Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
 		head=gear.af3_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back=gear.mnd_enfeebling_jse_back,waist=gear.obstinate_sash,legs=gear.filler_enfeebling_feet,feet=gear.af2_feet}
+		back=gear.mnd_enfeebling_jse_back,waist=gear.obstinate_sash,legs=gear.filler_enfeebling_legs,feet=gear.af2_feet}
 
 	sets.midcast['Enfeebling Magic'].Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head=gear.af3_head,neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af1_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_feet,feet=gear.af3_feet}
+		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_legs,feet=gear.af3_feet}
 
 	sets.midcast['Enfeebling Magic'].DW = {main="Bunzi's Rod",sub="Maxentius"}
 
@@ -505,7 +509,7 @@ function init_gear_sets()
 	sets.midcast.Sleep.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af1_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_feet,feet=gear.af3_feet}
+		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_legs,feet=gear.af3_feet}
 
 	sets.midcast.Bind.Resistant = sets.midcast.Sleep.Resistant
 	sets.midcast.Break.Resistant = sets.midcast.Sleep.Resistant
@@ -517,7 +521,7 @@ function init_gear_sets()
 	sets.midcast.Dispel = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head=gear.af1_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af1_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_feet,feet=gear.af3_feet}
+		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_legs,feet=gear.af3_feet}
 
 	sets.midcast.Dispel.DW = {main="Bunzi's Rod",sub="Maxentius"}
 	sets.midcast.Dispelga = set_combine(sets.midcast.Dispel, {main="Daybreak",sub="Ammurapi Shield"})
@@ -533,7 +537,7 @@ function init_gear_sets()
 	sets.midcast.Frazzle.Resistant = {main="Daybreak",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af1_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_feet,feet=gear.af3_feet}
+		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_legs,feet=gear.af3_feet}
 
 	sets.midcast.Distract.Resistant = sets.midcast.Frazzle.Resistant
 
@@ -544,7 +548,7 @@ function init_gear_sets()
 	sets.midcast.Addle = {main="Daybreak",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
 		head=gear.af2_head,neck=gear.jse_neck,ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back=gear.mnd_enfeebling_jse_back,waist=gear.obstinate_sash,legs=gear.filler_enfeebling_feet,feet=gear.af2_feet}
+		back=gear.mnd_enfeebling_jse_back,waist=gear.obstinate_sash,legs=gear.filler_enfeebling_legs,feet=gear.af2_feet}
 
 	sets.midcast.Paralyze = sets.midcast.Addle
 	sets.midcast.Slow = sets.midcast.Addle
@@ -552,7 +556,7 @@ function init_gear_sets()
 	sets.midcast.Addle.Resistant = {main="Daybreak",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head=gear.af2_head,neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_feet,feet=gear.af3_feet}
+		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_legs,feet=gear.af3_feet}
 
 	sets.midcast.Paralyze.Resistant = sets.midcast.Addle.Resistant
 	sets.midcast.Slow.Resistant = sets.midcast.Addle.Resistant
@@ -589,7 +593,7 @@ function init_gear_sets()
 	sets.midcast.Silence.Resistant = {main="Bunzi's Rod",sub="Ammurapi Shield",range="Ullr",ammo=empty,
 		head=gear.af1_head,neck="Null Loop",ear1="Malignance Earring",ear2="Snotra Earring",
 		body=gear.af1_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
-		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_feet,feet=gear.af3_feet}
+		back="Null Shawl",waist="Null Belt",legs=gear.filler_enfeebling_legs,feet=gear.af3_feet}
 
 	sets.midcast.Silence.DW = {main="Bunzi's Rod",sub="Daybreak"}
 
