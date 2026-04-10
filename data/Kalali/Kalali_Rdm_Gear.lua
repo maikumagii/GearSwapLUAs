@@ -10,7 +10,7 @@ function character_user_job_setup()
 	state.ResistDefenseMode:options('MEVA')
 	state.BuffWeaponsMode = M{'Always','Never'}
 	state.AutoBuffMode = M{['description'] = 'Auto Buff Mode','Off','Auto','AutoMelee','AutoMage'}
-	state.Weapons:options('None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc',--[['DualPrime']],'DualAeolian','DualEnspellOnly',--[['DualProcSword']])
+	state.Weapons:options('None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly','DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc'--[[,'DualPrime']],'DualAeolian','DualEnspellOnly'--[[,'DualProcSword']])
 	state.WeaponSets:options('Default','Dual'--[[,'Proc','Dynamis']])
 
 	weapon_sets = {
@@ -62,12 +62,12 @@ function character_user_job_setup()
     gear.af2_body = "Viti. Tabard +3"
     gear.af2_hands = "Viti. Gloves +3"
     gear.af2_legs = {}
-    gear.af2_feet = "Viti. Boots +3" -- Need for Immunobreak macroing
+    gear.af2_feet = "Vitiation Boots +3" -- Need for Immunobreak macroing
 
     -- Empy Gear
     gear.af3_head = "Leth. Chappel +2"
     gear.af3_body = "Lethargy Sayon +2"
-    gear.af3_hands = "Leth. Gantherots +2"
+    gear.af3_hands = "Leth. Ganth. +2"
     gear.af3_legs = "Leth. Fuseau +2"
     gear.af3_feet = "Leth. Houseaux +2"
 
@@ -101,9 +101,9 @@ function character_user_job_setup()
         --  1   "Homiliary"                     Idle Refresh +1
         gear.hasty_pinion = ""
         --  3   "Hasty Pinion +1"               Haste +1%, for sets that don't Haste Cap
-        gear.regal_gem = "Staunch Tathlum+1"
+        gear.regal_gem = "Staunch Tathlum +1"
         --  14  "Regal Gem"                     Enfeebling Set (required)
-        gear.impatiens = "Staunch Tathlum+1"
+        gear.impatiens = "Staunch Tathlum +1"
         --  3   "Impatiens"                     SIRD 10%, QC 2%
         gear.oshashas_treatise = ""
         --  3   "Oshasha's Treatise"            Wsd 3%
@@ -173,7 +173,7 @@ function character_user_job_setup()
         --  "Crepuscular Cloak"             Impact
     -- hands
         gear.filler_idle_hands = ""
-        gear.filler_cureDT_hands
+        gear.filler_cureDT_hands = ""
         gear.filler_drain_hands = ""
         gear.hieros_mittens = ""
         --  "Hieros Mittens"                Cursna Set
@@ -338,7 +338,7 @@ function init_gear_sets()
 	sets.precast.FullFC = {main="Crocea Mors",sub=gear.filler_shield,ammo=gear.impatiens,
 		head=gear.af1_head,neck=gear.ournmilas_torque,ear1="Malignance Earring",ear2=gear.jse_ear2,
 		body=gear.af2_body,hands=gear.gende_gages,ring1=gear.kishar_ring,ring2=gear.lebeche_ring,
-		back=gear.perimede_cape,waist=gear.witful_belt,legs=gear.sworn_brais,feet=gear.filler_FullFC=feet}
+		back=gear.perimede_cape,waist=gear.witful_belt,legs=gear.sworn_brais,feet=gear.filler_FullFC}
 
 	sets.precast.FC.Impact = set_combine(sets.precast.FullFC, {head=empty,body=gear.crepuscular_cloak})
 	sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {main="Daybreak",sub=gear.sacro_bulwark})
@@ -724,7 +724,7 @@ function init_gear_sets()
 
 	sets.Kiting = {ring2="Shneddick Ring"}
 	sets.latent_refresh = {waist=gear.fuchonoobi}
-	sets.latent_refresh_grip = {sub=gear.filler_grip}
+	--sets.latent_refresh_grip = {sub=gear.filler_grip}
 	sets.DayIdle = {}
 	sets.NightIdle = {}
 

@@ -10,6 +10,7 @@ sets.buff.Doom = {
     --ring1 = "Eshmun's Ring",
     --ring2 = "Eshmun's Ring",
     waist = "Gishdubar Sash"
+}
 sets.TreasureHunter = { head = "Wh. Rarab Cap +1", ring1 = "Hoxne Ring", ammo = "Perfect Lucky Egg" }
 
 sets.midcast.Item['Hallowed Water'] = {}
