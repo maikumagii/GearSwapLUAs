@@ -15,7 +15,7 @@ function character_user_job_setup()
 
 	weapon_sets = {
 		['Default'] = {'None','Naegling','Maxentius','Crocea','Tauret','EnspellOnly'},
-		['Dual'] = {'DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc',--[['DualPrime']],'DualAeolian','DualEnspellOnly'},
+		['Dual'] = {'DualWeapons','DualWeaponsAcc','DualMaxentius','DualCrocea','DualMaxentiusAcc'--[[,'DualPrime']],'DualAeolian','DualEnspellOnly'},
 		--[[['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','DualTauretCrocea','DualAeolian'},
 		['Proc'] = {'ProcSword','ProcDagger','DualProcSword','DualProcDagger'},]]
 	}
