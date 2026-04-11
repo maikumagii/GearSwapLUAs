@@ -168,9 +168,9 @@ function character_user_job_setup()
         --  1  Prolix Ring                   FC +2%
         gear.mujin_band = "Stikini Ring +1"
         --  1  Mujin Band                    Magic Burst II +5%
-        gear.sanare_earring = "Alabaster Earring"
+        gear.sanare_earring = "Eabani Earring"
         --  5  Sanare Earring                MDB+4, MEva+6
-        gear.ethereal_earring = "Alabaster Earring"
+        gear.ethereal_earring = "Eabani Earring"
         --  3  Ethereal Earring              Eva+5, Converts 3% Damage Taken to MP
         gear.crep_earring = "Sherida Earring"
         --  6  Crep. Earring                 Acc +10, STP +5
