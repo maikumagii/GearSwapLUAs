@@ -32,11 +32,11 @@ function character_user_job_setup()
 	--gear.int_enfeebling_jse_back = {name="Sucellos's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','Haste+10',}}
 	--gear.str_wsd_jse_back = {name="Sucellos's Cape",augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%','Damage taken-5%',}}
 	--gear.physical_mnd_wsd_jse_back = {name="Sucellos's Cape",augments={'MND+20','Accuracy+20 Attack+20','MND+10','Weapon skill damage +10%','Damage taken-5%',}}
-	gear.magical_mnd_wsd_jse_back = {name="Sucellos's Cape",augments={ 'MND+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'MND+10', 'Weapon skill damage +10%' } }
+	gear.magical_mnd_wsd_jse_back = {name="Sucellos's Cape",augments={ 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+10', 'Weapon skill damage +10%' } }
 	--gear.int_wsd_jse_back = {name="Sucellos's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','Weapon skill damage +10%','Damage taken-5%',}}
-	gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', 'Phys. dmg. taken-10%', } }       --TODO
-	gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'Accuracy+10', '"Dual Wield"+10', 'Phys. dmg. taken-10%' } }
-    gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10', 'Phys. dmg. taken-10%', } } --TODO
+	gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20/Mag. Dmg.+20', '"Mag. Atk. Bns."+10', 'Phys. dmg. taken-10%', } }       --TODO
+	gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20',--[[ 'Accuracy+10',]] '"Dual Wield"+10', 'Phys. dmg. taken-10%' } }
+    gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10%', 'Phys. dmg. taken-10%', } } --TODO
 
     -- Unimplemented Ambuscade Capes with redirects to capes I do have
     gear.mnd_enfeebling_jse_back = gear.magical_mnd_wsd_jse_back
@@ -73,6 +73,7 @@ function character_user_job_setup()
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
+		gear.gletis_knife = "Blurred Knife +1"
         gear.sacro_bulwark = "Ammurapi Shield"
         --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
         gear.pukulatmuj = "Crocea Mors"
@@ -97,6 +98,7 @@ function character_user_job_setup()
         --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
         gear.telchine_braconi = gear.af3_legs
         --  1  Telchine Braconi              + Enhancing Duration
+		gear.crepuscular_earring = "Telos Earring"
 
     -- Useful but mostly optimization
         gear.egeking = gear.forfend
@@ -176,7 +178,7 @@ function character_user_job_setup()
         --  4  Meili Earring                 Healing skill + 10
         gear.zennaroi_ear = "Alabaster Earring"
         --  2  Zennaroi Earring              MDB +1
-        gear.crepuscular_cloak = "Twilight Cloak"
+        gear.crepuscular_cloak = "" --"Twilight Cloak"
         --  2  Crepuscular Cloak          	 Impact (can't cast without, so it's ok!)
     -- hands
         gear.hieros_mittens = gear.af1_hands
@@ -259,7 +261,7 @@ function init_gear_sets()
 	sets.weapons.Maxentius = {main="Maxentius",sub="Ammurapi Shield",range=empty}
 	sets.weapons.Tauret = {main="Tauret",sub="Ammurapi Shield",range=empty}
 	sets.weapons.DualWeapons = {main="Naegling",sub=gear.tp_sword,range=empty}
-	sets.weapons.DualWeaponsAcc = {main="Naegling",sub="Gleti's Knife",range=empty}
+	sets.weapons.DualWeaponsAcc = {main="Naegling",sub=gear.gletis_knife,range=empty}
 	--sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
 	--sets.weapons.DualEvisceration = {}
 	sets.weapons.DualCrocea = {main="Crocea Mors",sub="Daybreak",range=empty}
@@ -273,7 +275,7 @@ function init_gear_sets()
 	--sets.weapons.DualBow = {}
 	--sets.weapons.BowMacc = {}
 	sets.weapons.DualMaxentius = {main="Maxentius",sub=gear.tp_sword,range=empty}
-	sets.weapons.DualMaxentiusAcc = {main="Maxentius",sub="Gleti's Knife",range=empty}
+	sets.weapons.DualMaxentiusAcc = {main="Maxentius",sub=gear.gletis_knife,range=empty}
 
 	--Temporary Weapon Sets for Dynamis RP
 	--sets.weapons.DualCroceaSavageBlade = {main="Crocea Mors",sub=gear.tp_sword}
@@ -286,13 +288,13 @@ function init_gear_sets()
 
 	-- Steps (Pure Acc)
     sets.precast.Step = {ammo=gear.hasty_pinion,
-		head="Malignance Chapeau",neck="Null Loop",ear1=gear.zennaroi_ear,ear2="Crepuscular Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1=gear.zennaroi_ear,ear2=gear.crepuscular_earring,
 		body="Malignance Tabard",hands="Malignance Gloves",ring1=gear.cacoethic_ring,ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
 	-- Violent Flourish (Macc & Acc)
     sets.precast.JA['Violent Flourish'] = {ammo=gear.regal_gem,--Or range="Ullr" but swapping to this makes you lose TP.
-		head=gear.af3_head,neck="Null Loop",ear1="Malignance Earring",ear2="Crepuscular Earring",
+		head=gear.af3_head,neck="Null Loop",ear1="Malignance Earring",ear2=gear.crepuscular_earring,
 		body="Malignance Tabard",hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
 		back="Null Shawl",waist="Null Belt",legs=gear.af3_legs,feet=gear.af3_feet}
 
@@ -329,7 +331,7 @@ function init_gear_sets()
 		back=gear.str_wsd_jse_back,waist=gear.fotia_belt,legs="Nyame Flanchard",feet=gear.af3_feet}
 
 	sets.precast.WS.Proc = 	{ammo=gear.hasty_pinion,
-		head="Malignance Chapeau",neck="Null Loop",ear1=gear.zennaroi_ear,ear2="Crepuscular Earring",
+		head="Malignance Chapeau",neck="Null Loop",ear1=gear.zennaroi_ear,ear2=gear.crepuscular_earring,
 		body="Malignance Tabard",hands="Malignance Gloves",ring1=gear.cacoethic_ring,ring2="Chirich Ring +1",
 		back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
 
@@ -407,7 +409,7 @@ function init_gear_sets()
 
     sets.midcast.Cure.DT = {main="Daybreak",sub=gear.culminus,range=empty,ammo="Staunch Tathlum +1",
         head=gear.af3_head,neck=gear.loricate_torque,ear1="Halasz Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands="Kaykaus Cuffs +1"ring1="Murky Ring",ring2=gear.freke_ring,
+        body="Bunzi's Robe",hands="Kaykaus Cuffs +1",ring1="Murky Ring",ring2=gear.freke_ring,
         back=gear.mnd_enfeebling_jse_back,waist=gear.emphatikos_rope,legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast.Cursna = {main="Crocea Mors",sub=gear.filler_shield,range=empty,ammo=gear.hasty_pinion,
@@ -417,7 +419,7 @@ function init_gear_sets()
 
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main="Crocea Mors",sub=gear.filler_shield})
 
-	sets.midcast['Enhancing Magic'] = {main="Colada",sub="Ammurapi Shield",ammo="Staunch Tathlum +1",
+	sets.midcast['Enhancing Magic'] = {main=gear.Colada,sub="Ammurapi Shield",ammo="Staunch Tathlum +1",
 		head=gear.telchine_cap,neck=gear.jse_neck,ear1=gear.andoaa_earring,ear2=gear.jse_ear2,
 		body=gear.af2_body,hands=gear.af1_hands,ring1=gear.kishar_ring,ring2=gear.lebeche_ring,
 		back=gear.ghostfyre_cape,waist="Embla Sash",legs=gear.telchine_braconi,feet=gear.af3_feet}
@@ -449,7 +451,7 @@ function init_gear_sets()
 	sets.Self_Healing = {ear1=gear.etiolation_earring,waist="Gishdubar Sash"}
 	sets.Cure_Received = {waist="Gishdubar Sash"}
 	sets.Self_Refresh = {waist="Gishdubar Sash"}
-	sets.Self_Phalanx = {main="Sakpata's Sword",head="Taeon Chapeau",body="Taeon Tabard",hands="Taeon Gloves",back=gear.mnd_enfeebling_jse_back,legs="Taeon Tights",feet="Taeon Boots",ammo="Staunch Tathlum +1"}
+	sets.Self_Phalanx = {main="Sakpata's Sword"--[[,head="Taeon Chapeau",body="Taeon Tabard",hands="Taeon Gloves",back=gear.mnd_enfeebling_jse_back,legs="Taeon Tights",feet="Taeon Boots",ammo="Staunch Tathlum +1"]]}
 	sets.Self_Phalanx.DW = {main="Sakpata's Sword",sub=gear.egeking}
 
 	sets.midcast['Enfeebling Magic'] = {main="Bunzi's Rod",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
@@ -586,7 +588,7 @@ function init_gear_sets()
 		body=gear.af3_body,hands=gear.af3_hands,ring1=gear.freke_ring,ring2=gear.metamorph_ring,
 		back=gear.nuke_jse_back,waist=gear.acuity_belt,legs=gear.af3_legs,feet=gear.af3_feet}
 
-    sets.midcast['Elemental Magic'].Proc = {main="Gleti's Knife",sub=gear.forfend,range=empty,ammo=gear.regal_gem,
+    sets.midcast['Elemental Magic'].Proc = {main=gear.gletis_knife,sub=gear.forfend,range=empty,ammo=gear.regal_gem,
         head="Malignance Chapeau",neck="Null Loop",ear1="Snotra Earring",ear2=gear.jse_ear2,
         body="Malignance Tabard",hands="Malignance Gloves",ring1=gear.kishar_ring,ring2=gear.prolix_ring,
         back="Null Shawl",waist="Null Belt",legs="Malignance Tights",feet="Malignance Boots"}
@@ -659,7 +661,7 @@ function init_gear_sets()
 	sets.idle = {main=gear.mpacas_staff,sub=gear.filler_shield--[[Should Be Grip]],ammo=gear.homillary,
 		head=gear.af2_head,neck=gear.sibyl_scarf,ear1=gear.etiolation_earring,ear2=gear.ethereal_earring,
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
-		back="Null Shawl",waist="Null Belt",legs=gear."Nyame Flanchard",feet=gear."Nyame Sollerets"}
+		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 
 	sets.idle.PDT = {main="Daybreak",sub=gear.sacro_bulwark,ammo="Staunch Tathlum +1",
 		head="Nyame Helm",neck=gear.loricate_torque,ear1=gear.etiolation_earring,ear2=gear.ethereal_earring,
