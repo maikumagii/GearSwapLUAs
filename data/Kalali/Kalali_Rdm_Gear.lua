@@ -75,164 +75,143 @@ function character_user_job_setup()
     -- Actually important
         gear.sacro_bulwark = "Ammurapi Shield"
         --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
-        gear.pukulatmuj = ""
+        gear.pukulatmuj = "Crocea Mors"
         --  1  Pukulatmuj +1                 Enhancing Set, (required)
         gear.forfend = "Ammurapi Shield"
         --  2  Forfend +1                    R15 Enhancing Set (required)
-        gear.regal_gem = "Staunch Tathlum+1"
+        gear.regal_gem = "Staunch Tathlum +1"
         --  14 Regal Gem                     Enfeebling Set (required)
-        gear.warders_charm = ""
+        gear.warders_charm = "Null Loop"
         --  5  Warder's Charm +1             MDT, MEVA, Animon neck, +10 Magic Burst, +15 Skillchain
-        gear.loricate_torque = ""
+        gear.loricate_torque = "Null Loop"
         --  7  Loricate Torque +1            -6 DT, SIRD 5%
-        gear.kishar_ring = ""
+        gear.kishar_ring = "Stikini Ring +1"
         --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
-        gear.metamorph_ring = ""
+        gear.metamorph_ring = "Stikini Ring +1"
         --  27 Metamorph Ring +1             +16 INT/MND/CHR, +10 MAcc, +60 MP
-        gear.witful_belt = ""
+        gear.witful_belt = "Null Belt"
         --  3  Witful Belt                   FC +3%, Haste +3%
-        gear.emphatikos_rope = ""
+        gear.emphatikos_rope = "Null Belt"
         --  4  Emphatikos Rope               SIRD +12%, Aquaveil +1
-        gear.telchine_cap = ""
+        gear.telchine_cap = gear.af3_head
         --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
-        gear.telchine_braconi = ""
+        gear.telchine_braconi = gear.af3_legs
         --  1  Telchine Braconi              + Enhancing Duration
 
     -- Useful but mostly optimization
-        gear.egeking = ""
+        gear.egeking = gear.forfend
         --  1  Egeking                       +2 Phalanx
-        gear.rubicundity = ""
-        --  1  Rubicundity                   Drain Set, +20 Drain/Aspir Potency (They will take an extra 20 hp/mp)
-        gear.mpacas_staff = ""
+        gear.mpacas_staff = "Crocea Mors"
         --  1  Mpaca's Staff                 Idle Set, +2 Refresh
 		--	   easy enough to get, 2 MP refresh worth
-        gear.impatiens = "Staunch Tathlum+1"
+        gear.impatiens = "Staunch Tathlum +1"
         --  3  Impatiens                     SIRD 10%, QC 2%
-        gear.umuthi_hat = ""
+        gear.umuthi_hat = gear.af3_head
         --  2  Umuthi Hat                    Reduced Stoneskin Casting Time, +13 Enhancing, +8 Enspell
-        gear.amalric_coif = ""
+        gear.amalric_coif = gear.af3_head
         --  2  Amalric Coif +1               +2 Refresh Potency
-        gear.incanters_torque = ""
+        gear.incanters_torque = "Null Loop"
         --  4  Incanter's Torque             Magic skills + 10 (Melic Torque Enh + Henic Torque Heal -- Synergy)
-        gear.baetyl_pendant = ""
+        gear.baetyl_pendant = gear.jse_neck
         --  3  Baetyl Pendant                FC +4%, MAB +13
-        gear.sibyl_scarf = ""
+        gear.sibyl_scarf = gear.jse_neck
         --  4  Sibyl Scarf                   INT +10, MAB +10
-        gear.ournmilas_torque = ""
+        gear.ournmilas_torque = gear.jse_neck
         --  1  Orunmila's Torque             FC +5%
-        gear.etiolation_earring = ""
+        gear.etiolation_earring = "Alabaster Earring"
         --  9  Etiolation Earring            FC +1% MDT - 3%
-        gear.andoaa_earring = ""
+        gear.andoaa_earring = "Alabaster Earring"
         --  2  Andoaa Earring                Enhancing +5
-        gear.freke_ring = ""
+        gear.freke_ring = "Shiva Ring +1"
         --  8  Freke Ring                    10 INT, 8 MAB, 10 SIRD
-        gear.cornelias_ring = ""
+        gear.cornelias_ring = "Shiva Ring +1"
         --  6  Cornelia's Ring               +10% WSD
         gear.perimede_cape = gear.cure_jse_back
         --  3  Perimede Cape                 QC+4%
-        gear.acuity_belt = ""
+        gear.acuity_belt = "Eschan Stone"
     	--  3  Acuity Belt +1                +16 INT, +15 Macc
-        gear.obstinate_sash = ""
+        gear.obstinate_sash = "Embla Sash"
         --  6  Obstinate Sash                +5 Enfeebling Duration
 
     -- Pure min/max or niche
-        --  gear.bolelebunga = ""
-        --  1  Bolelabunga                   Overkill? +10% Regen (effectively, 1 HP / tic)
         gear.diamond_aspis = ""
         --  0  Diamond Aspis                 Swap piece
         gear.culminus = "Ammurapi Shield"
         --  3  Culminus                      Low Tier Nuke, highest +Magic Damage
-        gear.homillary = "Staunch Tathlum+1"
+        gear.homillary = "Staunch Tathlum +1"
         --  1  Homiliary                     Idle Refresh +1
         gear.hasty_pinion = ""
-        --  3   "Hasty Pinion +1"               Haste +1%, for sets that don't Haste Cap
+        --  3   "Hasty Pinion +1"            Haste +1%, for sets that don't Haste Cap
         gear.regal_gem = "Staunch Tathlum +1"
-        --  14  "Regal Gem"                     Enfeebling Set (required)
+        --  14  "Regal Gem"                  Enfeebling Set (required)
         gear.impatiens = "Staunch Tathlum +1"
-        --  3   "Impatiens"                     SIRD 10%, QC 2%
-        --  3  Hasty Pinion +1               Haste +1%, for sets that don't Haste Cap
-        gear.oshashas_treatise = ""
+        --  3   "Impatiens"                  SIRD 10%, QC 2%
+        gear.oshashas_treatise = "Coiste Bodhar"
         --  3  Oshasha's Treatise            Wsd 3%
-        gear.befouled_crown = ""
+        gear.befouled_crown = gear.af3_head
         --  1  Befouled Crown                +16 Enhancing
-        gear.null_masque = ""
+        gear.null_masque = gear.af3_head
         --  1  Null Masque                   Animon Idle
-        gear.phalaina_locket = ""
-        --  2  Phalaina Locket               +4% Cure and Cure Received
-        gear.nodens_gorget = ""
-        --  1  Nodens Gorget                 Stoneskin + 30 HP
-        gear.sroda_necklace = ""
-        --  1  Sroda Necklace                +20 Resist Ailment of Bar-status spells
-        gear.mizu_kubikazari = ""
+        gear.mizu_kubikazari = "Eschan Stone"
         --  1  Mizu. Kubikazari              +10 Magic Burst
-        gear.debilis_medallion = ""
+        gear.debilis_medallion = gear.jse_neck
         --  1  Debilis Medallion             Cursna Set
-        gear.anu_torque = ""
+        gear.anu_torque = "Null Loop"
         --  2  Anu Torque                    +7 STP Default Neck, switch immediately
-        gear.fotia_gorget = ""
+        gear.fotia_gorget = "Null Loop"
         --  4  Fotia Gorget                  fTP replicating WS
-        gear.rep_plat_medal = ""
+        gear.rep_plat_medal = "Null Loop"
         --  2  Rep. Plat. Medal              STR +10, ATK + 30, Bastok Citizen Regain +2
-        gear.prolix_ring = ""
+        gear.prolix_ring = "Stikini Ring +1"
         --  1  Prolix Ring                   FC +2%
-        gear.mujin_band = ""
+        gear.mujin_band = "Stikini Ring +1"
         --  1  Mujin Band                    Magic Burst II +5%
-        gear.sanare_earring = ""
+        gear.sanare_earring = "Alabaster Earring"
         --  5  Sanare Earring                MDB+4, MEva+6
-        gear.ethereal_earring = ""
+        gear.ethereal_earring = "Alabaster Earring"
         --  3  Ethereal Earring              Eva+5, Converts 3% Damage Taken to MP
-        gear.crep_earring = ""
+        gear.crep_earring = "Sherida Earring"
         --  6  Crep. Earring                 Acc +10, STP +5
-        gear.meili_earring = ""
+        gear.meili_earring = "Alabaster Earring"
         --  4  Meili Earring                 Healing skill + 10
-        gear.zennaroi_ear = ""
+        gear.zennaroi_ear = "Alabaster Earring"
         --  2  Zennaroi Earring              MDB +1
-        gear.seidr_cotehardie = ""
-        --  1  Seidr Cotehardie              2% Magic damage dealt to MP
-        gear.crepuscular_cloak = ""
-        --  "Crepuscular Cloak"             Impact
+        gear.crepuscular_cloak = "Twilight Cloak"
+        --  2  Crepuscular Cloak          	 Impact (can't cast without, so it's ok!)
     -- hands
-        gear.filler_idle_hands = ""
-        gear.filler_cureDT_hands = ""
-        gear.filler_drain_hands = ""
-        --  2  Crepuscular Cloak             Impact
-        gear.hieros_mittens = ""
+        gear.hieros_mittens = gear.af1_hands
         --  1  Hieros Mittens                Cursna Set
-        gear.kunaji_ring = ""
-        --  2  Kunaji Ring                   +5 Cure Received
         gear.shadow_ring = ""
         --  7  Shadow Ring                   Death protection, MDB
-        gear.sironas_ring = ""
+        gear.sironas_ring = "Stikini Ring +1"
         --  3  Sirona's Ring                 healing skill + 10
-        gear.haomas_ring = ""
-        --  1  Haoma's Ring                  +15% Cursnda Success
+        gear.haomas_ring = "Stikini Ring +1"
+        --  1  Haoma's Ring                  +15% Cursna Success
         gear.sheltered_ring = ""
         --  2  Sheltered Ring                +10 DEF, +3% MDT (does not have to be equipped)
-        gear.cacoethic_ring = ""
+        gear.cacoethic_ring = "Chirich Ring +1"
         --  4  Cacoethic Ring +1             +11 Accuracy
         gear.lebeche_ring = ""
         --  4  Lebeche Ring                  QM +2%
-        gear.shadow_mantle = ""
+        gear.shadow_mantle = "Null Shawl"
         --  2  Shadow Mantle                 Phys Annul
-        gear.engulfer_cape = ""
+        gear.engulfer_cape = "Null Shawl"
         --  2  Engulfer Cape +1              -4% MDT, Magic Absorb
-        gear.oretan_cape = ""
+        gear.oretan_cape = "Null Shawl"
         --  1  Oretan. Cape +1               +5 Cursna
-        gear.sacro_cord = ""
+        gear.sacro_cord = "Eschan Stone"
         --  1  Sacro Cord                    +8 INT/MND/MAB/Macc
-        gear.luminary_sash = ""
+        gear.luminary_sash = "Embla Sash"
         --  1  Luminary Sash                 Conserve MP / MND
-        gear.bishops_sash = ""
+        gear.bishops_sash = "Embla Sash"
     	--  1  Bishop's Sash                 +5 Healing (cursna)
-        gear.olympus_sash = ""
-    	--  1  Olympus Sash                  +5 Enhancing
-        gear.siegel_sash = ""
-    	--  1  Siegel Sash                   Stoneskin + 20 HP, Casting time -8%
-        gear.fuchonoobi = ""
+        gear.olympus_sash = "Embla Sash"
+    	--  1  Olympus Sash                  +5 Enhancing=
+        gear.fuchonoobi = "Eschan Stone"
     	--  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
-        gear.plat_mog_belt = ""
+        gear.plat_mog_belt = "Null Belt"
     	--  2  Plat. Mog. Belt               +10% HP, 15 Eva, -3 DT
-        gear.fotia_belt = ""
+        gear.fotia_belt = "Sailfi Belt +1"
         --  3  Fotia Belt                    fTP Belt
 
     -- Ignored placeholders
@@ -240,33 +219,20 @@ function character_user_job_setup()
         --   3  Removed grip and replaced with Crocea, didn't research sub (FullFC, Status Removal, Cursna)
         gear.filler_grip = "Enki Strap"
         --   3  Still using staff in some cases, might as well have a grip (Light Weather Cure, Idle, Latent Refresh)
-        gear.filler_idle_hands = "" -- 1
-        gear.filler_cureDT_hands -- 1
-        gear.filler_drain_hands = "" -- 1
-        gear.ghostfyre_cape = "" -- 4
+        gear.ghostfyre_cape = "Ghostfyre Cape" -- 4
         --  ****"Ghostfyre Cape"            +10 Enhancing, +20% Enhancing Duration
 
     -- Other placeholders
         gear.sworn_brais = "Aya. Cosciales +2"
-        --  1  Sworn Brais                   R0 has better Fast Cast
-        gear.filler_enfeebling_legs = "" 
-		--  9
-        gear.filler_idle_legs = "" 
-		--  1
-    -- feet
-        gear.filler_idle_feet = "" 
-		--  1
-        gear.filler_feet = "" 
-        --  1                               Was part of a Cursna set, healing skill?
-        gear.filler_FullFC_feet = "" 
-		--  0
-        gear.filler_drain_feet = "" 
-		--  1
-
-        -- head body hands legs boots "Taeon " xxx gear for +3 Phalanx increase (+15 total) -- DI Dark Matter gear? +5 a piece (+25 total), and Sworn gear (+24 total, only body is better)
+        --  1  Sworn Brais               	R0 has better Fast Cast
+        gear.filler_enfeebling_legs = gear.af3_legs
+		--  9								Likely Chironic Legs
 
 
-		-- Additional local binds
+    -- head body hands legs boots "Taeon " xxx gear for +3 Phalanx increase (+15 total) -- DI Dark Matter gear? +5 a piece (+25 total), and Sworn gear (+24 total, only body is better)
+
+
+	-- Additional local binds
 	send_command('bind @` gs c cycle ElementalMode')
 	send_command('bind ^` gs c scholar dark')
 	send_command('bind !` gs c scholar light')
@@ -441,13 +407,13 @@ function init_gear_sets()
 
     sets.midcast.Cure.DT = {main="Daybreak",sub=gear.culminus,range=empty,ammo="Staunch Tathlum +1",
         head=gear.af3_head,neck=gear.loricate_torque,ear1="Halasz Earring",ear2="Mendi. Earring",
-        body="Bunzi's Robe",hands=gear.filler_cureDT_hands,ring1="Murky Ring",ring2=gear.freke_ring,
+        body="Bunzi's Robe",hands="Kaykaus Cuffs +1"ring1="Murky Ring",ring2=gear.freke_ring,
         back=gear.mnd_enfeebling_jse_back,waist=gear.emphatikos_rope,legs="Bunzi's Pants",feet="Bunzi's Sabots"}
 
 	sets.midcast.Cursna = {main="Crocea Mors",sub=gear.filler_shield,range=empty,ammo=gear.hasty_pinion,
         head="Kaykaus Mitra +1",neck=gear.debilis_medallion,ear1=gear.meili_earring,ear2=gear.jse_ear2,
         body=gear.af2_body,hands=gear.hieros_mittens,ring1=gear.haomas_ring,ring2="Menelaus's Ring",
-        back=gear.oretan_cape,waist=gear.bishops_sash,legs=gear.af1_legs,feet=gear.filler_feet}
+        back=gear.oretan_cape,waist=gear.bishops_sash,legs=gear.af1_legs,feet=gear.af1_feet}
 
 	sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {main="Crocea Mors",sub=gear.filler_shield})
 
@@ -471,18 +437,17 @@ function init_gear_sets()
 	sets.midcast.Refresh = {head=gear.amalric_coif,body=gear.af1_body,legs=gear.af3_legs}
 	sets.midcast.Aquaveil = {head=gear.amalric_coif,hands="Regal Cuffs",waist=gear.emphatikos_rope,legs="Shedir Seraweels"} --hands="Regal Cuffs"
 	sets.midcast.BarElement = {legs="Shedir Seraweels"}
-	sets.midcast.BarStatus = {neck=gear.sroda_necklace}
 	sets.midcast.Temper = sets.EnhancingSkill
 	sets.midcast.Enspell = sets.EnhancingSkill
 	sets.midcast.BoostStat = {hands=gear.af2_hands}
-	sets.midcast.Stoneskin = {neck=gear.nodens_gorget,waist=gear.siegel_sash}--ring2="Earthcry Earring"  -- Misisng  Seraweels?
+	sets.midcast.Stoneskin = {legs="Shedir Seraweels"}
 	sets.midcast.Protect = {ring2=gear.sheltered_ring}
 	sets.midcast.Shell = {ring2=gear.sheltered_ring}
 	sets.midcast.Regen = {main="Crocea Mors",sub="Ammurapi Shield"}
 
 	sets.midcast.Curaga = sets.midcast.Cure
-	sets.Self_Healing = {neck=gear.phalaina_locket,ear1=gear.etiolation_earring,ring2=gear.kunaji_ring,waist="Gishdubar Sash"}
-	sets.Cure_Received = {neck=gear.phalaina_locket,ring2=gear.kunaji_ring,waist="Gishdubar Sash"}
+	sets.Self_Healing = {ear1=gear.etiolation_earring,waist="Gishdubar Sash"}
+	sets.Cure_Received = {waist="Gishdubar Sash"}
 	sets.Self_Refresh = {waist="Gishdubar Sash"}
 	sets.Self_Phalanx = {main="Sakpata's Sword",head="Taeon Chapeau",body="Taeon Tabard",hands="Taeon Gloves",back=gear.mnd_enfeebling_jse_back,legs="Taeon Tights",feet="Taeon Boots",ammo="Staunch Tathlum +1"}
 	sets.Self_Phalanx.DW = {main="Sakpata's Sword",sub=gear.egeking}
@@ -637,7 +602,7 @@ function init_gear_sets()
 		gear.nuke_jse_back,waist=gear.acuity_belt,legs=gear.af3_legs,feet=gear.af3_feet}
 
 	-- Gear that Recovers MP when nuking.
-	sets.RecoverMP = {body=gear.seidr_cotehardie}
+	-- sets.RecoverMP = {body=gear.seidr_cotehardie}
 
 	-- Gear for Magic Burst mode.
     sets.MagicBurst = {main="Bunzi's Rod",sub="Ammurapi Shield",neck=gear.mizu_kubikazari,hands="Bunzi's Gloves",ring1=gear.mujin_band}
@@ -653,10 +618,10 @@ function init_gear_sets()
 		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2=gear.metamorph_ring,
 		back="Null Shawl",waist="Null Belt",legs=gear.af3_legs,feet=gear.af3_feet}
 
-    sets.midcast.Drain = {main=gear.rubicundity,sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
+    sets.midcast.Drain = {main="Crocea Mors",sub="Ammurapi Shield",range=empty,ammo=gear.regal_gem,
         head="Pixie Hairpin +1",neck="Erra Pendant",ear1="Malignance Earring",ear2="Snotra Earring",
-        body=gear.af3_body,hands=gear.filler_drain_hands,ring1="Evanescence Ring",ring2=gear.metamorph_ring,
-        back=gear.nuke_jse_back,waist=gear.fuchonoobi,legs=gear.filler_drain_feet,feet=gear.af3_feet}
+        body=gear.af1_body,hands=gear.af1_hands,ring1="Evanescence Ring",ring2=gear.metamorph_ring,
+        back=gear.nuke_jse_back,waist=gear.fuchonoobi,legs=gear.af1_legs,feet=gear.af3_feet}
 
 	sets.midcast.Aspir = sets.midcast.Drain
 
@@ -691,10 +656,10 @@ function init_gear_sets()
 	-- Sets to return to when not performing an action.
 
 	-- Idle sets
-	sets.idle = {main="Mpaca's Staff",sub=gear.filler_grip,ammo=gear.homillary,
+	sets.idle = {main=gear.mpacas_staff,sub=gear.filler_shield--[[Should Be Grip]],ammo=gear.homillary,
 		head=gear.af2_head,neck=gear.sibyl_scarf,ear1=gear.etiolation_earring,ear2=gear.ethereal_earring,
-		body=gear.af3_body,hands=gear.filler_idle_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
-		back="Null Shawl",waist="Null Belt",legs=gear.filler_idle_legs,feet=gear.filler_idle_feet}
+		body=gear.af3_body,hands=gear.af3_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
+		back="Null Shawl",waist="Null Belt",legs=gear."Nyame Flanchard",feet=gear."Nyame Sollerets"}
 
 	sets.idle.PDT = {main="Daybreak",sub=gear.sacro_bulwark,ammo="Staunch Tathlum +1",
 		head="Nyame Helm",neck=gear.loricate_torque,ear1=gear.etiolation_earring,ear2=gear.ethereal_earring,
@@ -736,7 +701,6 @@ function init_gear_sets()
 
 	sets.Kiting = {ring2="Shneddick Ring"}
 	sets.latent_refresh = {waist=gear.fuchonoobi}
-	--sets.latent_refresh_grip = {sub=gear.filler_grip}
 	sets.DayIdle = {}
 	sets.NightIdle = {}
 
