@@ -260,7 +260,7 @@ function init_gear_sets()
 	sets.weapons.Crocea = {main="Crocea Mors",sub="Ammurapi Shield",range=empty}
 	sets.weapons.Maxentius = {main="Maxentius",sub="Ammurapi Shield",range=empty}
 	sets.weapons.Tauret = {main="Tauret",sub="Ammurapi Shield",range=empty}
-	sets.weapons.DualWeapons = {main="Naegling",sub=gear.tp_sword,range=empty}
+	sets.weapons.DualWeapons = {main="Naegling",sub=gear.tp_bonus_sword,range=empty}
 	sets.weapons.DualWeaponsAcc = {main="Naegling",sub=gear.gletis_knife,range=empty}
 	--sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
 	--sets.weapons.DualEvisceration = {}
@@ -274,11 +274,11 @@ function init_gear_sets()
 	sets.weapons.DualEnspellOnly = {main="Qutrub Knife",sub="Ethereal Dagger"}
 	--sets.weapons.DualBow = {}
 	--sets.weapons.BowMacc = {}
-	sets.weapons.DualMaxentius = {main="Maxentius",sub=gear.tp_sword,range=empty}
+	sets.weapons.DualMaxentius = {main="Maxentius",sub=gear.tp_bonus_sword,range=empty}
 	sets.weapons.DualMaxentiusAcc = {main="Maxentius",sub=gear.gletis_knife,range=empty}
 
 	--Temporary Weapon Sets for Dynamis RP
-	--sets.weapons.DualCroceaSavageBlade = {main="Crocea Mors",sub=gear.tp_sword}
+	--sets.weapons.DualCroceaSavageBlade = {main="Crocea Mors",sub=gear.tp_bonus_sword}
 	--sets.weapons.DualTauretCrocea = {main="Tauret",sub="Crocea Mors"}
 
 	-- Precast Sets
