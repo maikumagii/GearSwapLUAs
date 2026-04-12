@@ -26,9 +26,9 @@ function character_user_job_setup()
     send_command('bind !` input /ja "Burst Affinity" <me>')
     send_command('bind ^@!` gs c cycle SkillchainMode')
     send_command(
-    'bind ^backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Mighty Guard" <me>')
+        'bind ^backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Mighty Guard" <me>')
     send_command(
-    'bind !backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Carcharian Verve" <me>')
+        'bind !backspace input /ja "Unbridled Learning" <me>;wait 1;input /ja "Diffusion" <me>;wait 2;input /ma "Carcharian Verve" <me>')
     send_command('bind @backspace input /ja "Convergence" <me>')
     send_command('bind @f10 gs c toggle LearningMode')
     send_command('bind ^@!` gs c cycle MagicBurstMode')
@@ -252,43 +252,110 @@ function init_gear_sets()
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS,
-        { head = "Jhakri Coronal +2", ear1 = "Regal Earring", body = "Jhakri Robe +2", ring2 = "Rufescent Ring", legs =
-        "Jhakri Slops +2", feet = "Jhakri Pigaches +2" })
+        {
+            head = "Jhakri Coronal +2",
+            ear1 = "Regal Earring",
+            body = "Jhakri Robe +2",
+            ring2 = "Rufescent Ring",
+            legs =
+            "Jhakri Slops +2",
+            feet = "Jhakri Pigaches +2"
+        })
     sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS.Acc,
-        { head = "Jhakri Coronal +2", ear1 = "Regal Earring", ear2 = "Telos Earring", ring1 = "Rufescent Ring", legs =
-        "Jhakri Slops +2", feet = "Jhakri Pigaches +2" })
+        {
+            head = "Jhakri Coronal +2",
+            ear1 = "Regal Earring",
+            ear2 = "Telos Earring",
+            ring1 = "Rufescent Ring",
+            legs =
+            "Jhakri Slops +2",
+            feet = "Jhakri Pigaches +2"
+        })
     sets.precast.WS['Requiescat'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Requiescat'].DT = set_combine(sets.precast.WS.DT, {})
     sets.precast.WS['Requiescat'].Fodder = set_combine(sets.precast.WS['Requiescat'], {})
 
     sets.precast.WS['Realmrazer'] = set_combine(sets.precast.WS,
-        { head = "Jhakri Coronal +2", ear1 = "Regal Earring", body = "Jhakri Robe +2", ring2 = "Rufescent Ring", legs =
-        "Jhakri Slops +2", feet = "Jhakri Pigaches +2" })
+        {
+            head = "Jhakri Coronal +2",
+            ear1 = "Regal Earring",
+            body = "Jhakri Robe +2",
+            ring2 = "Rufescent Ring",
+            legs =
+            "Jhakri Slops +2",
+            feet = "Jhakri Pigaches +2"
+        })
     sets.precast.WS['Realmrazer'].Acc = set_combine(sets.precast.WS.Acc,
-        { head = "Jhakri Coronal +2", ear1 = "Regal Earring", ear2 = "Telos Earring", ring1 = "Rufescent Ring", legs =
-        "Jhakri Slops +2", feet = "Jhakri Pigaches +2" })
+        {
+            head = "Jhakri Coronal +2",
+            ear1 = "Regal Earring",
+            ear2 = "Telos Earring",
+            ring1 = "Rufescent Ring",
+            legs =
+            "Jhakri Slops +2",
+            feet = "Jhakri Pigaches +2"
+        })
     sets.precast.WS['Realmrazer'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Realmrazer'].DT = set_combine(sets.precast.WS.DT, {})
     sets.precast.WS['Realmrazer'].Fodder = set_combine(sets.precast.WS['Realmrazer'], {})
 
     sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS,
-        { ammo = "Falcon Eye", head = "Adhemar Bonnet +1", neck = "Mirage Stole +2", ear1 = "Moonshade Earring", ear2 =
-        "Odr Earring", body = "Abnoba Kaftan", hands = "Adhemar Wrist. +1", ring2 = "Begrudging Ring", back = gear
-        .crit_jse_back, feet = "Thereoid Greaves" })
+        {
+            ammo = "Falcon Eye",
+            head = "Adhemar Bonnet +1",
+            neck = "Mirage Stole +2",
+            ear1 = "Moonshade Earring",
+            ear2 =
+            "Odr Earring",
+            body = "Abnoba Kaftan",
+            hands = "Adhemar Wrist. +1",
+            ring2 = "Begrudging Ring",
+            back = gear
+                .crit_jse_back,
+            feet = "Thereoid Greaves"
+        })
     sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS.Acc,
-        { ear1 = "Moonshade Earring", ear2 = "Odr Earring", ring2 = "Begrudging Ring", body = "Sayadio's Kaftan", back =
-        gear.crit_jse_back, legs = "Carmine Cuisses +1" })
+        {
+            ear1 = "Moonshade Earring",
+            ear2 = "Odr Earring",
+            ring2 = "Begrudging Ring",
+            body = "Sayadio's Kaftan",
+            back =
+                gear.crit_jse_back,
+            legs = "Carmine Cuisses +1"
+        })
     sets.precast.WS['Chant du Cygne'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Chant du Cygne'].DT = set_combine(sets.precast.WS.DT, { back = gear.crit_jse_back })
     sets.precast.WS['Chant du Cygne'].Fodder = set_combine(sets.precast.WS['Chant du Cygne'], {})
 
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,
-        { head = "Lilitu Headpiece", neck = "Mirage Stole +2", ear1 = "Moonshade Earring", ear2 = "Ishvara Earring", body =
-        "Assim. Jubbah +3", hands = "Jhakri Cuffs +2", ring1 = "Ifrit Ring +1", ring2 = "Rufescent Ring", back = gear
-        .wsd_jse_back, waist = "Sailfi Belt +1", legs = "Luhlaza Shalwar +3", feet = gear.herculean_wsd_feet })
+        {
+            head = "Lilitu Headpiece",
+            neck = "Mirage Stole +2",
+            ear1 = "Moonshade Earring",
+            ear2 = "Ishvara Earring",
+            body =
+            "Assim. Jubbah +3",
+            hands = "Jhakri Cuffs +2",
+            ring1 = "Ifrit Ring +1",
+            ring2 = "Rufescent Ring",
+            back = gear
+                .wsd_jse_back,
+            waist = "Sailfi Belt +1",
+            legs = "Luhlaza Shalwar +3",
+            feet = gear.herculean_wsd_feet
+        })
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS.Acc,
-        { neck = "Mirage Stole +2", ear1 = "Moonshade Earring", hands = "Jhakri Cuffs +2", back = gear.wsd_jse_back, waist =
-        "Grunfeld Rope", legs = "Luhlaza Shalwar +3", feet = gear.herculean_wsd_feet })
+        {
+            neck = "Mirage Stole +2",
+            ear1 = "Moonshade Earring",
+            hands = "Jhakri Cuffs +2",
+            back = gear.wsd_jse_back,
+            waist =
+            "Grunfeld Rope",
+            legs = "Luhlaza Shalwar +3",
+            feet = gear.herculean_wsd_feet
+        })
     sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Savage Blade'].DT = set_combine(sets.precast.WS.DT, { back = gear.wsd_jse_back })
     sets.precast.WS['Savage Blade'].Fodder = set_combine(sets.precast.WS['Savage Blade'], {})
@@ -300,12 +367,33 @@ function init_gear_sets()
     sets.precast.WS['Vorpal Blade'].Fodder = sets.precast.WS['Chant du Cygne'].Fodder
 
     sets.precast.WS['Expiacion'] = set_combine(sets.precast.WS,
-        { head = "Lilitu Headpiece", neck = "Mirage Stole +2", ear1 = "Moonshade Earring", ear2 = "Ishvara Earring", body =
-        "Assim. Jubbah +3", hands = "Jhakri Cuffs +2", ring1 = "Ifrit Ring +1", ring2 = "Rufescent Ring", back = gear
-        .wsd_jse_back, waist = "Sailfi Belt +1", legs = "Luhlaza Shalwar +3", feet = gear.herculean_wsd_feet })
+        {
+            head = "Lilitu Headpiece",
+            neck = "Mirage Stole +2",
+            ear1 = "Moonshade Earring",
+            ear2 = "Ishvara Earring",
+            body =
+            "Assim. Jubbah +3",
+            hands = "Jhakri Cuffs +2",
+            ring1 = "Ifrit Ring +1",
+            ring2 = "Rufescent Ring",
+            back = gear
+                .wsd_jse_back,
+            waist = "Sailfi Belt +1",
+            legs = "Luhlaza Shalwar +3",
+            feet = gear.herculean_wsd_feet
+        })
     sets.precast.WS['Expiacion'].Acc = set_combine(sets.precast.WS.Acc,
-        { neck = "Mirage Stole +2", ear1 = "Moonshade Earring", body = "Assim. Jubbah +3", hands = "Jhakri Cuffs +2", back =
-        gear.wsd_jse_back, legs = "Luhlaza Shalwar +3", feet = gear.herculean_wsd_feet })
+        {
+            neck = "Mirage Stole +2",
+            ear1 = "Moonshade Earring",
+            body = "Assim. Jubbah +3",
+            hands = "Jhakri Cuffs +2",
+            back =
+                gear.wsd_jse_back,
+            legs = "Luhlaza Shalwar +3",
+            feet = gear.herculean_wsd_feet
+        })
     sets.precast.WS['Expiacion'].FullAcc = set_combine(sets.precast.WS.FullAcc,
         { body = "Assim. Jubbah +3", hands = "Jhakri Cuffs +2" })
     sets.precast.WS['Expiacion'].DT = set_combine(sets.precast.WS.DT, { back = gear.wsd_jse_back })
@@ -552,8 +640,15 @@ function init_gear_sets()
     }
 
     sets.midcast['Blue Magic'].Magical.Resistant = set_combine(sets.midcast['Blue Magic'].Magical,
-        { neck = "Mirage Stole +2", hands = "Jhakri Cuffs +2", ring1 = "Stikini Ring +1", ring2 = "Stikini Ring +1", waist =
-        "Yamabuki-no-Obi", feet = "Jhakri Pigaches +2" })
+        {
+            neck = "Mirage Stole +2",
+            hands = "Jhakri Cuffs +2",
+            ring1 = "Stikini Ring +1",
+            ring2 = "Stikini Ring +1",
+            waist =
+            "Yamabuki-no-Obi",
+            feet = "Jhakri Pigaches +2"
+        })
 
     sets.midcast['Blue Magic'].Magical.Fodder = {
         main = "Bunzi's Rod",
@@ -654,9 +749,18 @@ function init_gear_sets()
     }
 
     sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'],
-        { main = "Pukulatmuj +1", sub = "Sakpata's Sword", head = "Carmine Mask +1", ear2 = "Mimir Earring", body = gear
-        .taeon_phalanx_body, hands = gear.herculean_phalanx_hands, legs = "Carmine Cuisses +1", feet = gear
-        .herculean_nuke_feet })
+        {
+            main = "Pukulatmuj +1",
+            sub = "Sakpata's Sword",
+            head = "Carmine Mask +1",
+            ear2 = "Mimir Earring",
+            body = gear
+                .taeon_phalanx_body,
+            hands = gear.herculean_phalanx_hands,
+            legs = "Carmine Cuisses +1",
+            feet = gear
+                .herculean_nuke_feet
+        })
 
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], { head = "Amalric Coif +1" })
 
@@ -1084,8 +1188,14 @@ function init_gear_sets()
     sets.MP_Knockback = {}
     sets.SuppaBrutal = { ear1 = "Suppanomimi", ear2 = "Brutal Earring" }
     sets.DWEarrings = { ear1 = "Dudgeon Earring", ear2 = "Heartseeker Earring" }
-    sets.DWMax = { ear1 = "Dudgeon Earring", ear2 = "Heartseeker Earring", body = "Adhemar Jacket +1", waist =
-    "Reiki Yotai", legs = "Carmine Cuisses +1" }
+    sets.DWMax = {
+        ear1 = "Dudgeon Earring",
+        ear2 = "Heartseeker Earring",
+        body = "Adhemar Jacket +1",
+        waist =
+        "Reiki Yotai",
+        legs = "Carmine Cuisses +1"
+    }
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 
     -- Weapons sets
@@ -1372,11 +1482,22 @@ function init_gear_sets()
     }
 
     sets.Self_Healing = { waist = "Gishdubar Sash" }
-    sets.Cure_Received = { neck = "Phalaina Locket", hands = "Buremte Gloves", ring2 = "Kunaji Ring", waist =
-    "Gishdubar Sash" }
+    sets.Cure_Received = {
+        neck = "Phalaina Locket",
+        hands = "Buremte Gloves",
+        ring2 = "Kunaji Ring",
+        waist =
+        "Gishdubar Sash"
+    }
     sets.Self_Refresh = { back = "Grapevine Cape", waist = "Gishdubar Sash" }
-    sets.MagicBurst = { body = "Samnuha Coat", hands = "Amalric Gages +1", legs = "Assim. Shalwar +3", ring1 =
-    "Mujin Band", ring2 = "Locus Ring" }
+    sets.MagicBurst = {
+        body = "Samnuha Coat",
+        hands = "Amalric Gages +1",
+        legs = "Assim. Shalwar +3",
+        ring1 =
+        "Mujin Band",
+        ring2 = "Locus Ring"
+    }
     sets.Phalanx_Received = { hands = gear.herculean_phalanx_hands, feet = gear.herculean_nuke_feet }
 end
 

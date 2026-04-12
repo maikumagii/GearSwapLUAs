@@ -227,8 +227,11 @@ function init_gear_sets()
         feet = "Vanya Clogs"
     }
 
-    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, { main = gear.grioavolr_fc_staff, sub =
-    "Clemency Grip" })
+    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
+        main = gear.grioavolr_fc_staff,
+        sub =
+        "Clemency Grip"
+    })
 
     sets.midcast['Enhancing Magic'] = {
         main = "Gada",
@@ -251,7 +254,8 @@ function init_gear_sets()
     sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'],
         { main = "Bolelabunga", head = "Arbatel Bonnet +3", back = "Bookworm's Cape" })
 
-    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], { neck = "Nodens Gorget", waist = "Siegel Sash" })
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'],
+        { neck = "Nodens Gorget", waist = "Siegel Sash" })
 
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], { head = "Amalric Coif +1" })
 
@@ -638,12 +642,27 @@ function init_gear_sets()
         { head = empty, body = "Crepuscular Cloak" })
 
     -- Gear for Magic Burst mode.
-    sets.MagicBurst = { main = "Bunzi's Rod", sub = "Ammurapi Shield", neck = "Mizukage-no-Kubikazari", ring2 =
-    "Mujin Band" }
-    sets.HelixBurst = { main = "Bunzi's Rod", sub = "Ammurapi Shield", neck = "Mizukage-no-Kubikazari", ring2 =
-    "Mujin Band" }
-    sets.ResistantHelixBurst = { main = "Bunzi's Rod", sub = "Ammurapi Shield", neck = "Mizukage-no-Kubikazari", ring2 =
-    "Mujin Band" }
+    sets.MagicBurst = {
+        main = "Bunzi's Rod",
+        sub = "Ammurapi Shield",
+        neck = "Mizukage-no-Kubikazari",
+        ring2 =
+        "Mujin Band"
+    }
+    sets.HelixBurst = {
+        main = "Bunzi's Rod",
+        sub = "Ammurapi Shield",
+        neck = "Mizukage-no-Kubikazari",
+        ring2 =
+        "Mujin Band"
+    }
+    sets.ResistantHelixBurst = {
+        main = "Bunzi's Rod",
+        sub = "Ammurapi Shield",
+        neck = "Mizukage-no-Kubikazari",
+        ring2 =
+        "Mujin Band"
+    }
 
     -- Gear that converts elemental damage done to recover MP.
     sets.RecoverMP = {} --body="Seidr Cotehardie"
@@ -867,7 +886,7 @@ function init_gear_sets()
     sets.buff['Klimaform'] = { feet = "Arbatel Loafers +3" }
     sets.buff.Doom = set_combine(sets.buff.Doom, {})
     sets.buff['Light Arts'] = {} --legs="Academic's Pants +3"
-    sets.buff['Dark Arts'] = {} --body="Academic's Gown +3"
+    sets.buff['Dark Arts'] = {}  --body="Academic's Gown +3"
     sets.buff.Sublimation = { waist = "Embla Sash", ear1 = "Savant's Earring" }
     sets.buff.DTSublimation = { waist = "Embla Sash", ear1 = "Savant's Earring" }
 

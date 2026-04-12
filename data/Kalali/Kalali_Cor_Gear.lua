@@ -8,10 +8,20 @@ function character_user_job_setup()
     state.HybridMode:options('Normal', 'DT')
     state.Weapons:options('Default', 'Ranged', 'Savage', 'Evisceration', 'DualWeapons', 'DualEvisceration',
         'DualLeadenRanged', 'DualLeadenMelee', 'DualAeolian', 'DualRanged', 'DualProcWeapons')
-    autows_list = { ['Default'] = 'Savage Blade', ['Evisceration'] = 'Evisceration', ['Savage'] = 'Savage Blade',
-        ['Ranged'] = 'Last Stand', ['DualWeapons'] = 'Savage Blade', ['DualSavageWeapons'] = 'Savage Blade',
-        ['DualEvisceration'] = 'Evisceration', ['DualLeadenRanged'] = 'Leaden Salute', ['DualLeadenMelee'] =
-    'Leaden Salute', ['DualAeolian'] = 'Aeolian Edge', ['DualRanged'] = 'Last Stand' }
+    autows_list = {
+        ['Default'] = 'Savage Blade',
+        ['Evisceration'] = 'Evisceration',
+        ['Savage'] = 'Savage Blade',
+        ['Ranged'] = 'Last Stand',
+        ['DualWeapons'] = 'Savage Blade',
+        ['DualSavageWeapons'] = 'Savage Blade',
+        ['DualEvisceration'] = 'Evisceration',
+        ['DualLeadenRanged'] = 'Leaden Salute',
+        ['DualLeadenMelee'] =
+        'Leaden Salute',
+        ['DualAeolian'] = 'Aeolian Edge',
+        ['DualRanged'] = 'Last Stand'
+    }
     state.CompensatorMode:options('Always', '300', '1000', 'Never')
 
     gear.RAbullet = "Eminent Bullet"
@@ -94,22 +104,22 @@ function init_gear_sets()
 
     -- Precast sets to enhance JAs
 
-    sets.precast.JA['Triple Shot'] = {}                                                               --body="Chasseur's Frac +3"
-    sets.precast.JA['Snake Eye'] = {}                                                                 --legs="Lanun Trews +3" (+1 is fine)
-    sets.precast.JA['Wild Card'] = {}                                                                 --feet="Lanun Bottes +3"
-    sets.precast.JA['Random Deal'] = {}                                                               --body="Lanun Frac +3"
-    sets.precast.JA['Double Up'] = {}                                                                 --main="Rostam",sub="Rostam"
-    sets.precast.FoldDoubleBust = {}                                                                  --hands="Lanun Gants +3"
+    sets.precast.JA['Triple Shot'] = {}                                                                            --body="Chasseur's Frac +3"
+    sets.precast.JA['Snake Eye'] = {}                                                                              --legs="Lanun Trews +3" (+1 is fine)
+    sets.precast.JA['Wild Card'] = {}                                                                              --feet="Lanun Bottes +3"
+    sets.precast.JA['Random Deal'] = {}                                                                            --body="Lanun Frac +3"
+    sets.precast.JA['Double Up'] = {}                                                                              --main="Rostam",sub="Rostam"
+    sets.precast.FoldDoubleBust = {}                                                                               --hands="Lanun Gants +3"
 
     sets.precast.CorsairRoll = { range = "Compensator", neck = "Regal Necklace", back = gear.ranger_wsd_jse_back } --main="Rostam",legs="Desultor Tassets"
 
     sets.precast.LuzafRing = { ring2 = "Luzaf's Ring" }
 
-    sets.precast.CorsairRoll["Caster's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --legs="Chas. Culottes +3"
-    sets.precast.CorsairRoll["Courser's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --feet="Chass. Bottes +3"
-    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --head="Chass. Tricorne +3"
+    sets.precast.CorsairRoll["Caster's Roll"] = set_combine(sets.precast.CorsairRoll, {})    --legs="Chas. Culottes +3"
+    sets.precast.CorsairRoll["Courser's Roll"] = set_combine(sets.precast.CorsairRoll, {})   --feet="Chass. Bottes +3"
+    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, {})   --head="Chass. Tricorne +3"
     sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --body="Chasseur's Frac +3"
-    sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, {})  --hands="Chasseur's Gants +3"
+    sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, {})     --hands="Chasseur's Gants +3"
     sets.precast.CorsairRoll["Bolter's Roll"] = set_combine(sets.precast.CorsairRoll, {})
     sets.precast.CorsairRoll.Recast = {}
     sets.precast.CorsairRoll.Weak = {}
@@ -296,7 +306,7 @@ function init_gear_sets()
 
     sets.midcast.Cure = {}
 
-    sets.Self_Healing = { neck = "Phalaina Locket", ring2 = "Kunaji Ring", waist = "Gishdubar Sash" } --hands="Buremte Gloves",
+    sets.Self_Healing = { neck = "Phalaina Locket", ring2 = "Kunaji Ring", waist = "Gishdubar Sash" }  --hands="Buremte Gloves",
     sets.Cure_Received = { neck = "Phalaina Locket", ring2 = "Kunaji Ring", waist = "Gishdubar Sash" } --hands="Buremte Gloves",
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
 

@@ -357,10 +357,20 @@ function init_gear_sets()
 
     sets.midcast.Curaga = sets.midcast.Cure
 
-    sets.Self_Healing = { neck = "Phalaina Locket", hands = "Buremte Gloves", ring2 = "Kunaji Ring", waist =
-    "Gishdubar Sash" }
-    sets.Cure_Received = { neck = "Phalaina Locket", hands = "Buremte Gloves", ring2 = "Kunaji Ring", waist =
-    "Gishdubar Sash" }
+    sets.Self_Healing = {
+        neck = "Phalaina Locket",
+        hands = "Buremte Gloves",
+        ring2 = "Kunaji Ring",
+        waist =
+        "Gishdubar Sash"
+    }
+    sets.Cure_Received = {
+        neck = "Phalaina Locket",
+        hands = "Buremte Gloves",
+        ring2 = "Kunaji Ring",
+        waist =
+        "Gishdubar Sash"
+    }
     sets.Self_Refresh = { back = "Grapevine Cape", waist = "Gishdubar Sash" }
 
     sets.midcast['Enhancing Magic'] = {
@@ -430,8 +440,11 @@ function init_gear_sets()
         feet = "Vanya Clogs"
     })
 
-    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, { main = gear.grioavolr_fc_staff, sub =
-    "Clemency Grip" })
+    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
+        main = gear.grioavolr_fc_staff,
+        sub =
+        "Clemency Grip"
+    })
 
     -- Resting sets
     sets.resting = {

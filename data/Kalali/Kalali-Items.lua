@@ -1,6 +1,6 @@
 --Gearsets your character will use among multiple jobs.
 --sets.Sheltered = {ring2="Sheltered Ring"}
-sets.Capacity = {back="Mecisto. Mantle"}
+sets.Capacity = { back = "Mecisto. Mantle" }
 
 
 sets.buff.RolledEleven = {} --ring2="Roller's Ring"
@@ -23,3 +23,4 @@ gear.tp_bonus_gun = "Anarchy +2"
 
 -- Geas Fete Augmented Gear
 gear.herculean_ta_feet = { name = "Herculean Boots", augments = { 'Accuracy+12 Attack+27', '"Triple Atk."+4%', 'AGI+6' } }
+gear.chironic_macc_legs = { name = "Chironic Hose", augments = { 'Mag. Acc.+20', '“Mag. ATK. Bns.”+4', '“Fast Cast”+3%' } }
