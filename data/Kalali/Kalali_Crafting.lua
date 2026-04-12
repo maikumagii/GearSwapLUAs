@@ -25,3 +25,11 @@ sets.crafting.Synergy = {}
 sets.crafting.Gathering = {}
 sets.crafting.Fishing = {range="Ebisu Fishing Rod",neck="Fisher's Torque",body="Fisherman's Smock",hands="Fsh. Gloves",ring1="Noddy Ring",ring2=="Puffin Ring",waist="Fisher's Rope",legs="Fisherman's Hose",feet="Waders"}
 ]]
+sets.crafting.Fishing = {
+    range = "Lu Shang's F. Rod",
+    body = "Angler's Tunica",
+    hands = "Aangler's Gloves",
+    waist = "Fisher's Rope",
+    legs = "Angler's Hose",
+    feet = "Angler's Boots"
+}

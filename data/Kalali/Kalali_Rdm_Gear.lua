@@ -135,8 +135,6 @@ function character_user_job_setup()
     --  4  Sibyl Scarf                   INT +10, MAB +10
     gear.ournmilas_torque = gear.jse_neck
     --  1  Orunmila's Torque             FC +5%
-    gear.etiolation_earring = "Alabaster Earring"
-    --  9  Etiolation Earring            FC +1% MDT - 3%
     gear.andoaa_earring = "Alabaster Earring"
     --  2  Andoaa Earring                Enhancing +5
     gear.freke_ring = "Shiva Ring +1"
@@ -234,7 +232,7 @@ function character_user_job_setup()
     -- Ignored placeholders
     gear.filler_shield = "Ammurapi Shield"
     --   3  Removed grip and replaced with Crocea, didn't research sub (FullFC, Status Removal, Cursna)
-    gear.filler_grip = "Enki Strap"
+    gear.filler_grip = "Umbra Strap"
     --   3  Still using staff in some cases, might as well have a grip (Light Weather Cure, Idle, Latent Refresh)
     gear.ghostfyre_cape = "Ghostfyre Cape" -- 4
     --  ****"Ghostfyre Cape"            +10 Enhancing, +20% Enhancing Duration
@@ -734,8 +732,7 @@ function init_gear_sets()
         head = "Amalric Coif +1",
         hands = "Regal Cuffs",
         waist = gear.emphatikos_rope,
-        legs =
-        "Shedir Seraweels"
+        legs = "Shedir Seraweels"
     } --hands="Regal Cuffs"
     sets.midcast.BarElement = { legs = "Shedir Seraweels" }
     sets.midcast.Temper = sets.EnhancingSkill
@@ -747,12 +744,18 @@ function init_gear_sets()
     sets.midcast.Regen = { main = "Crocea Mors", sub = "Ammurapi Shield" }
 
     sets.midcast.Curaga = sets.midcast.Cure
-    sets.Self_Healing = { ear1 = gear.etiolation_earring, waist = "Gishdubar Sash" }
+    sets.Self_Healing = { ear1 = "Etiolation Earring", waist = "Gishdubar Sash" }
     sets.Cure_Received = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
     sets.Self_Phalanx = {
-        main =
-        "Sakpata's Sword" --[[,head="Taeon Chapeau",body="Taeon Tabard",hands="Taeon Gloves",back=gear.mnd_enfeebling_jse_back,legs="Taeon Tights",feet="Taeon Boots",ammo="Staunch Tathlum +1"]]
+        main = "Sakpata's Sword" --[[,
+        head = "Taeon Chapeau",
+        body = "Taeon Tabard",
+        hands = "Taeon Gloves",
+        back = gear.mnd_enfeebling_jse_back,
+        legs = "Taeon Tights",
+        feet = "Taeon Boots",
+        ammo = "Staunch Tathlum +1"]]
     }
     sets.Self_Phalanx.DW = { main = "Sakpata's Sword", sub = gear.egeking }
 
@@ -761,7 +764,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = empty,
         ammo = gear.regal_gem,
-        head = gear.af3_head,
+        head = gear.af2_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
         ear2 = "Snotra Earring",
@@ -771,7 +774,7 @@ function init_gear_sets()
         ring2 = gear.metamorph_ring,
         back = gear.mnd_enfeebling_jse_back,
         waist = gear.obstinate_sash,
-        legs = gear.chironic_macc_legs,
+        legs = gear.af3_legs,
         feet = gear.af2_feet
     }
 
@@ -780,7 +783,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = "Ullr",
         ammo = empty,
-        head = gear.af3_head,
+        head = gear.af1_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Snotra Earring",
@@ -791,7 +794,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.chironic_macc_legs,
-        feet = gear.af3_feet
+        feet = gear.af1_feet
     }
 
     sets.midcast['Enfeebling Magic'].DW = { main = "Bunzi's Rod", sub = "Maxentius" }
@@ -866,8 +869,8 @@ function init_gear_sets()
         ring2 = gear.metamorph_ring,
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = gear.chironic_macc_legs,
-        feet = gear.af3_feet
+        legs = gear.af1_legs,
+        feet = gear.af1_feet
     }
 
     sets.midcast.Dispel.DW = { main = "Bunzi's Rod", sub = "Maxentius" }
@@ -879,7 +882,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = empty,
         ammo = gear.regal_gem,
-        head = gear.af3_head,
+        head = gear.af2_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
         ear2 = "Snotra Earring",
@@ -935,7 +938,7 @@ function init_gear_sets()
         ring2 = gear.metamorph_ring,
         back = gear.mnd_enfeebling_jse_back,
         waist = gear.obstinate_sash,
-        legs = gear.chironic_macc_legs,
+        legs = gear.af3_legs,
         feet = gear.af2_feet
     }
 
@@ -1334,7 +1337,7 @@ function init_gear_sets()
         ammo = gear.homillary,
         head = gear.af2_head,
         neck = gear.sibyl_scarf,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.ethereal_earring,
         body = gear.af3_body,
         hands = gear.af3_hands,
@@ -1352,7 +1355,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = gear.loricate_torque,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.ethereal_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
@@ -1371,7 +1374,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
         neck = gear.warders_charm,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
@@ -1390,7 +1393,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
         neck = gear.warders_charm,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
@@ -1409,7 +1412,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.null_masque,
         neck = gear.warders_charm,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
@@ -1428,7 +1431,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = gear.loricate_torque,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.ethereal_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
@@ -1449,7 +1452,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
         neck = gear.warders_charm,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
@@ -1468,7 +1471,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
         neck = gear.warders_charm,
-        ear1 = gear.etiolation_earring,
+        ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
