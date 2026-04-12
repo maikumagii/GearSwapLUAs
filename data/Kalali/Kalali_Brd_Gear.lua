@@ -119,15 +119,15 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
     sets.precast.FC = {
-        main = "gear.grioavolr_fc_staff",
-        sub = "Clerisy Strap +1",
+        main = "gear.grioavolr_fc_staff", --Missing
+        sub = "Clerisy Strap +1",         --Missing
         ammo = gear.impatiens,
         head = "Bunzi's Hat",
-        neck = "Voltsurge Torque",
-        ear1 = "Enchntr. Earring +1",
+        neck = "Voltsurge Torque",    --Missing
+        ear1 = "Enchntr. Earring +1", --Missing
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Leyline Gloves",
+        hands = "Leyline Gloves", --Missing
         ring1 = gear.kishar_ring,
         ring2 = gear.lebeche_ring,
         back = gear.magic_jse_back,
@@ -137,15 +137,15 @@ function init_gear_sets()
     }
 
     sets.precast.FC.DT = {
-        main = gear.grioavolr_fc_staff,
-        sub = "Clerisy Strap +1",
+        main = gear.grioavolr_fc_staff, --Missing
+        sub = "Clerisy Strap +1",       --Missing
         ammo = gear.impatiens,
         head = "Bunzi's Hat",
-        neck = "Voltsurge Torque",
-        ear1 = "Enchntr. Earring +1",
+        neck = "Voltsurge Torque",    --Missing
+        ear1 = "Enchntr. Earring +1", --Missing
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Leyline Gloves",
+        hands = "Leyline Gloves", --Missing
         ring1 = gear.kishar_ring,
         ring2 = gear.lebeche_ring,
         back = gear.magic_jse_back,
@@ -154,10 +154,17 @@ function init_gear_sets()
         feet = gear.af2_feet
     }
 
-    sets.precast.FC.Cure = set_combine(sets.precast.FC, { feet = "Vanya Clogs" })
+    sets.precast.FC.Cure = set_combine(sets.precast.FC, {
+        feet = "Vanya Clogs" --Missing
+    })
 
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, { waist = "Siegel Sash" })
-    sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { main = "Daybreak", sub = gear.genmei_shield })
+    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {
+        waist = "Siegel Sash", --Missing
+    })
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {
+        main = "Daybreak",
+        sub = gear.genmei_shield, --Missing
+    })
 
     sets.precast.FC.BardSong = {
         main = "Kali",
@@ -209,70 +216,76 @@ function init_gear_sets()
     sets.precast.WS = {
         ammo = "Aurgelmir Orb +1",
         head = "Aya. Zucchetto +2",
-        neck = "Caro Necklace",
+        neck = "Caro Necklace",    --Missing
         ear1 = "Moonshade Earring",
-        ear2 = "Mache Earring +1",
+        ear2 = "Mache Earring +1", --Missing
         body = "Ayanmo Corazza +2",
         hands = "Aya. Manopolas +2",
-        ring1 = "Ramuh Ring +1",
+        ring1 = "Ramuh Ring +1", --Missing
         ring2 = "Ilabrat Ring",
         back = gear.melee_jse_back,
-        waist = "Grunfeld Rope",
-        legs = "Aya. Cosciales +2",
-        feet = "Aya. Gambieras +2"
+        waist = "Grunfeld Rope",    --Missing
+        legs = "Aya. Cosciales +2", --Missing
+        feet = "Aya. Gambieras +2"  --Missing
     }
 
     sets.precast.WS.Acc = {
         ammo = "Aurgelmir Orb +1",
         head = "Aya. Zucchetto +2",
-        neck = "Combatant's Torque",
+        neck = "Combatant's Torque", --Missing
         ear1 = "Moonshade Earring",
-        ear2 = "Mache Earring +1",
+        ear2 = "Mache Earring +1",   --Missing
         body = "Ayanmo Corazza +2",
         hands = "Aya. Manopolas +2",
-        ring1 = "Ramuh Ring +1",
+        ring1 = "Ramuh Ring +1", --Missing
         ring2 = "Ilabrat Ring",
         back = gear.melee_jse_back,
-        waist = "Olseni Belt",
-        legs = "Aya. Cosciales +2",
-        feet = "Aya. Gambieras +2"
+        waist = "Olseni Belt",      --Missing
+        legs = "Aya. Cosciales +2", --Missing
+        feet = "Aya. Gambieras +2"  --Missing
     }
 
     sets.precast.WS['Savage Blade'] = {
         ammo = "Aurgelmir Orb +1",
         head = "Aya. Zucchetto +2",
-        neck = "Caro Necklace",
+        neck = "Caro Necklace", --Missing
         ear1 = "Moonshade Earring",
         ear2 = "Ishvara Earring",
         body = "Ayanmo Corazza +2",
         hands = "Aya. Manopolas +2",
-        ring1 = "Rufescent Ring",
+        ring1 = "Rufescent Ring", --Missing
         ring2 = "Ilabrat Ring",
         back = gear.melee_jse_back,
         waist = "Sailfi Belt +1",
-        legs = "Aya. Cosciales +2",
-        feet = "Aya. Gambieras +2"
+        legs = "Aya. Cosciales +2", --Missing
+        feet = "Aya. Gambieras +2"  --Missing
     }
 
     sets.precast.WS['Aeolian Edge'] = {
         ammo = "Aurgelmir Orb +1",
-        head = "Cath Palug Crown",
+        head = "Cath Palug Crown", --Missing
         neck = gear.baetyl_pendant,
         ear1 = "Moonshade Earring",
         ear2 = "Friomisi Earring",
-        body = "Chironic Doublet",
-        hands = gear.chironic_enfeeble_hands,
+        body = "Chironic Doublet",            --Missing
+        hands = gear.chironic_enfeeble_hands, --Missing
         ring1 = gear.metamorph_ring,
         ring2 = "Shiva Ring +1",
         back = gear.melee_jse_back,
-        waist = "Refoccilation Stone",
-        legs = "Gyve Trousers",
-        feet = gear.chironic_nuke_feet
+        waist = "Refoccilation Stone", --Missing
+        legs = "Gyve Trousers",        --Missing
+        feet = gear.chironic_nuke_feet --Missing
     }
 
     -- Swap to these on Moonshade using WS if at 3000 TP
-    sets.MaxTP = { ear1 = "Ishvara Earring", ear2 = "Telos Earring", }
-    sets.AccMaxTP = { ear1 = "Mache Earring +1", ear2 = "Telos Earring" }
+    sets.MaxTP = {
+        ear1 = "Ishvara Earring",
+        ear2 = "Telos Earring",
+    }
+    sets.AccMaxTP = {
+        ear1 = "Mache Earring +1", --Missing
+        ear2 = "Telos Earring",
+    }
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
 
@@ -280,20 +293,20 @@ function init_gear_sets()
 
     -- General set for recast times.
     sets.midcast.FastRecast = {
-        main = gear.grioavolr_fc_staff,
-        sub = "Clerisy Strap +1",
+        main = gear.grioavolr_fc_staff, --Missing
+        sub = "Clerisy Strap +1",       --Missing
         range = gear.fc_linos,
         head = "Bunzi's Hat",
-        neck = "Voltsurge Torque",
-        ear1 = "Enchntr. Earring +1",
+        neck = "Voltsurge Torque",    --Missing
+        ear1 = "Enchntr. Earring +1", --Missing
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Leyline Gloves",
+        hands = "Leyline Gloves", --Missing
         ring1 = gear.kishar_ring,
         ring2 = gear.lebeche_ring,
         back = gear.magic_jse_back,
         waist = gear.witful_belt,
-        legs = "Aya. Cosciales +2",
+        legs = "Aya. Cosciales +2", --Missing
         feet = gear.af2_feet
     }
 
@@ -327,19 +340,22 @@ function init_gear_sets()
         ammo = empty,
         head = gear.af3_head,
         neck = "Mnbw. Whistle +1",
-        ear1 = "Enchntr. Earring +1",
+        ear1 = "Enchntr. Earring +1", --Missing
         ear2 = "Loquac. Earring",
         body = gear.af3_body,
-        hands = "Inyan. Dastanas +2",
+        hands = "Inyan. Dastanas +2", --Missing
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
-        waist = "Kobo Obi",
+        waist = "Kobo Obi", --Missing
         legs = "Inyanga Shalwar +2",
         feet = gear.af1_feet
     }
 
-    sets.midcast.SongEffect.DW = { main = "Kali", sub = "Kali" } --Only weapons in this set. This set is overlayed onto  SongEffect
+    sets.midcast.SongEffect.DW = {
+        main = "Kali",
+        sub = "Kali",
+    } --Only weapons in this set. This set is overlayed onto  SongEffect
 
     -- For song defbuffs (duration primary, accuracy secondary)
     sets.midcast.SongDebuff = {
@@ -349,8 +365,8 @@ function init_gear_sets()
         ammo = empty,
         head = "Inyanga Tiara +2",
         neck = "Mnbw. Whistle +1",
-        ear1 = "Regal Earring",
-        ear2 = "Digni. Earring",
+        ear1 = "Regal Earring",  --Missing
+        ear2 = "Digni. Earring", --Missing
         body = gear.af3_body,
         hands = "Inyan. Dastanas +2",
         ring1 = gear.metamorph_ring,
@@ -361,7 +377,10 @@ function init_gear_sets()
         feet = gear.af1_feet
     }
 
-    sets.midcast.SongDebuff.DW = { main = "Kali", sub = "Kali" } --Only weapons in this set. This set is overlayed onto  SongDebuff
+    sets.midcast.SongDebuff.DW = {
+        main = "Kali",
+        sub = "Kali",
+    } --Only weapons in this set. This set is overlayed onto  SongDebuff
 
     -- For song debuffs (accuracy primary, duration secondary)
     sets.midcast.SongDebuff.Resistant = {
@@ -369,18 +388,18 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = "Gjallarhorn",
         ammo = empty,
-        head = "Inyanga Tiara +2",
+        head = "Inyanga Tiara +2",    --Missing
         neck = "Mnbw. Whistle +1",
-        ear1 = "Regal Earring",
-        ear2 = "Digni. Earring",
+        ear1 = "Regal Earring",       --Missing
+        ear2 = "Digni. Earring",      --Missing
         body = "Inyanga Jubbah +2",
-        hands = "Inyan. Dastanas +2",
+        hands = "Inyan. Dastanas +2", --Missing
         ring1 = gear.metamorph_ring,
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
         waist = gear.acuity_belt,
         legs = "Inyanga Shalwar +2",
-        feet = "Aya. Gambieras +2"
+        feet = "Aya. Gambieras +2" --Missing
     }
 
     -- Song-specific recast reduction
