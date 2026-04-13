@@ -6,9 +6,18 @@ function character_user_job_setup()
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
     state.Weapons:options('None', 'Naegling', 'Aeneas', 'DualWeapons', 'DualNaegling', 'DualTauret', 'DualAeolian')
 
-    gear.melee_jse_back = { name = "Intarabus's Cape", augments = { 'Accuracy+20 Attack+20' } }
+    gear.melee_str_wsd_back = { name = "Intarabus's Cape" }
+    gear.melee_chr_wsd_back = gear.melee_str_wsd_back
+    gear.melee_dex_wsd_back = gear.melee_str_wsd_back
+    gear.melee_int_wsd_back = gear.melee_str_wsd_back
     gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'CHR+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'Mag. Acc.+10', '"Fast Cast"+10', 'Damage taken-5%', } }
 
+    gear.linos_str_wsd = { name = "Linos" } -- Savage Blade
+    gear.linos_chr_wsd = { name = "Linos" } -- Mordant Rime
+    gear.linos_dex_wsd = { name = "Linos" } -- Rudra's Storm
+    gear.linos_int_wsd = { name = "Linos" } -- Aeolian Edge
+    gear.linos_fc = { name = "Linos" }
+    gear.linos_tp = { name = "Linos" }
     -- JSE Weapon/Neck/Earring
     gear.jse_ear2 = "Fili Earring +1"
     gear.jse_neck = "Bard's Charm +2"
@@ -36,8 +45,9 @@ function character_user_job_setup()
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
+    gear.aeneas = "Naegling"
     gear.genmei_shield = "Ammurapi Shield"
-    gear.fc_linos = "Daurdabla"
+    gear.linos_fc = "Daurdabla"
     gear.gletis_knife = "Blurred Knife +1"
     gear.loricate_torque = "Null Loop"
     --  7  Loricate Torque +1            -6 DT, SIRD 5%
@@ -80,6 +90,10 @@ function character_user_job_setup()
     --  1  Luminary Sash                 Conserve MP / MND
     gear.fuchonoobi = "Eschan Stone"
     --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
+    gear.voltsurge_torque = "Null Loop"   -- Acc, DEX
+    gear.kentarch_belt = "Sailfi Belt +1" -- DEX
+    gear.regal_earring = "Telos Earring"  -- Macc, Acc, CHR
+    gear.digni_earring = "Digni. Earring" -- Macc
 
 
     info.ExtraSongInstrument = 'Daurdabla'
@@ -119,15 +133,15 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
     sets.precast.FC = {
-        main = "gear.grioavolr_fc_staff", --Missing
-        sub = "Clerisy Strap +1",         --Missing
+        main = "Kali",
+        sub = "Ammurapi Shield",
         ammo = gear.impatiens,
         head = "Bunzi's Hat",
-        neck = "Voltsurge Torque",    --Missing
-        ear1 = "Enchntr. Earring +1", --Missing
+        neck = gear.voltesurge_torque,
+        ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Leyline Gloves", --Missing
+        hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
         ring2 = gear.lebeche_ring,
         back = gear.magic_jse_back,
@@ -137,15 +151,15 @@ function init_gear_sets()
     }
 
     sets.precast.FC.DT = {
-        main = gear.grioavolr_fc_staff, --Missing
-        sub = "Clerisy Strap +1",       --Missing
+        main = "Kali",
+        sub = gear.genmei_shield,
         ammo = gear.impatiens,
         head = "Bunzi's Hat",
-        neck = "Voltsurge Torque",    --Missing
-        ear1 = "Enchntr. Earring +1", --Missing
+        neck = gear.voltesurge_torque,
+        ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Leyline Gloves", --Missing
+        hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
         ring2 = gear.lebeche_ring,
         back = gear.magic_jse_back,
@@ -155,12 +169,9 @@ function init_gear_sets()
     }
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {
-        feet = "Vanya Clogs" --Missing
+        feet = "Kaykaus Boots+1" --Missing
     })
 
-    sets.precast.FC['Enhancing Magic'] = set_combine(sets.precast.FC, {
-        waist = "Siegel Sash", --Missing
-    })
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {
         main = "Daybreak",
         sub = gear.genmei_shield, --Missing
@@ -169,7 +180,7 @@ function init_gear_sets()
     sets.precast.FC.BardSong = {
         main = "Kali",
         sub = gear.genmei_shield,
-        range = gear.fc_linos,
+        range = gear.linos_fc,
         ammo = empty,
         head = gear.af3_head,
         neck = gear.loricate_torque,
@@ -214,68 +225,102 @@ function init_gear_sets()
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
-        ammo = "Aurgelmir Orb +1",
-        head = "Aya. Zucchetto +2",
-        neck = "Caro Necklace",    --Missing
+        range = gear.linos_str_wsd,
+        head = "Nyame Helm",
+        neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
-        ear2 = "Mache Earring +1", --Missing
-        body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +2",
-        ring1 = "Ramuh Ring +1", --Missing
+        ear2 = "Ishvara Earring",
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
         ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Grunfeld Rope",    --Missing
-        legs = "Aya. Cosciales +2", --Missing
-        feet = "Aya. Gambieras +2"  --Missing
+        back = gear.melee_str_wsd_back,
+        waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.WS.Acc = {
-        ammo = "Aurgelmir Orb +1",
-        head = "Aya. Zucchetto +2",
-        neck = "Combatant's Torque", --Missing
+        range = gear.linos_str_wsd,
+        head = "Nyame Helm",
+        neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
-        ear2 = "Mache Earring +1",   --Missing
-        body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +2",
-        ring1 = "Ramuh Ring +1", --Missing
+        ear2 = "Ishvara Earring",
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
         ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Olseni Belt",      --Missing
-        legs = "Aya. Cosciales +2", --Missing
-        feet = "Aya. Gambieras +2"  --Missing
+        back = gear.melee_str_wsd_back,
+        waist = "Null Belt",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.WS['Savage Blade'] = {
-        ammo = "Aurgelmir Orb +1",
-        head = "Aya. Zucchetto +2",
-        neck = "Caro Necklace", --Missing
+        range = gear.linos_str_wsd,
+        head = "Nyame Helm",
+        neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
         ear2 = "Ishvara Earring",
-        body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +2",
-        ring1 = "Rufescent Ring", --Missing
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
         ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
+        back = gear.melee_str_wsd_back,
         waist = "Sailfi Belt +1",
-        legs = "Aya. Cosciales +2", --Missing
-        feet = "Aya. Gambieras +2"  --Missing
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+
+    sets.precast.WS["Rudra's Storm"] = {
+        range = gear.linos_dex_wsd,
+        head = "Nyame Helm",
+        neck = gear.jse_neck,
+        ear1 = "Moonshade Earring",
+        ear2 = "Ishvara Earring",
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Ilabrat Ring",
+        back = gear.melee_str_wsd_back,
+        waist = gear.kentarch_belt,
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+
+    sets.precast.WS['Mordant Rime'] = {
+        range = gear.linos_chr_wsd,
+        head = "Nyame Helm",
+        neck = gear.jse_neck,
+        ear1 = gear.regal_earring,
+        ear2 = "Ishvara Earring",
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
+        ring2 = gear.metamorph_ring,
+        back = gear.melee_str_wsd_back,
+        waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.WS['Aeolian Edge'] = {
-        ammo = "Aurgelmir Orb +1",
-        head = "Cath Palug Crown", --Missing
+        range = gear.linos_str_wsd,
+        head = "Nyame Helm",
         neck = gear.baetyl_pendant,
         ear1 = "Moonshade Earring",
         ear2 = "Friomisi Earring",
-        body = "Chironic Doublet",            --Missing
-        hands = gear.chironic_enfeeble_hands, --Missing
-        ring1 = gear.metamorph_ring,
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
         ring2 = "Shiva Ring +1",
-        back = gear.melee_jse_back,
-        waist = "Refoccilation Stone", --Missing
-        legs = "Gyve Trousers",        --Missing
-        feet = gear.chironic_nuke_feet --Missing
+        back = gear.melee_int_wsd_back,
+        waist = "Orpheus's Sash",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
+
+
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = {
@@ -283,7 +328,7 @@ function init_gear_sets()
         ear2 = "Telos Earring",
     }
     sets.AccMaxTP = {
-        ear1 = "Mache Earring +1", --Missing
+        ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
     }
 
@@ -293,20 +338,20 @@ function init_gear_sets()
 
     -- General set for recast times.
     sets.midcast.FastRecast = {
-        main = gear.grioavolr_fc_staff, --Missing
-        sub = "Clerisy Strap +1",       --Missing
-        range = gear.fc_linos,
+        main = "Kali",
+        sub = "Ammurapi Shield",
+        range = gear.linos_fc,
         head = "Bunzi's Hat",
-        neck = "Voltsurge Torque",    --Missing
-        ear1 = "Enchntr. Earring +1", --Missing
+        neck = gear.voltesurge_torque,
+        ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Leyline Gloves", --Missing
+        hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
         ring2 = gear.lebeche_ring,
         back = gear.magic_jse_back,
         waist = gear.witful_belt,
-        legs = "Aya. Cosciales +2", --Missing
+        legs = "Aya. Cosciales +2",
         feet = gear.af2_feet
     }
 
@@ -322,7 +367,7 @@ function init_gear_sets()
     sets.midcast['Horde Lullaby II'].AoE = { range = "Daurdabla" }
     sets.midcast.Madrigal = { head = gear.af3_head }
     sets.midcast.Paeon = {}
-    sets.midcast.March = { hands = gear.af3_hands }
+    sets.midcast.March = { hands = gear.af3_hands, }
     sets.midcast['Honor March'] = set_combine(sets.midcast.March, { range = "Marsyas" })
     sets.midcast.Minuet = { body = gear.af3_body }
     sets.midcast.Minne = {}
@@ -340,10 +385,10 @@ function init_gear_sets()
         ammo = empty,
         head = gear.af3_head,
         neck = "Mnbw. Whistle +1",
-        ear1 = "Enchntr. Earring +1", --Missing
+        ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = gear.af3_body,
-        hands = "Inyan. Dastanas +2", --Missing
+        hands = "Inyan. Dastanas +2",
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
@@ -365,8 +410,8 @@ function init_gear_sets()
         ammo = empty,
         head = "Inyanga Tiara +2",
         neck = "Mnbw. Whistle +1",
-        ear1 = "Regal Earring",  --Missing
-        ear2 = "Digni. Earring", --Missing
+        ear1 = gear.regal_earring,
+        ear2 = gear.digni_earring,
         body = gear.af3_body,
         hands = "Inyan. Dastanas +2",
         ring1 = gear.metamorph_ring,
@@ -388,38 +433,38 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = "Gjallarhorn",
         ammo = empty,
-        head = "Inyanga Tiara +2",    --Missing
+        head = gear.af1_head,
         neck = "Mnbw. Whistle +1",
-        ear1 = "Regal Earring",       --Missing
-        ear2 = "Digni. Earring",      --Missing
-        body = "Inyanga Jubbah +2",
-        hands = "Inyan. Dastanas +2", --Missing
+        ear1 = gear.regal_earring,
+        ear2 = "Digni. Earring",
+        body = gear.af1_body,
+        hands = gear.af1_hands,
         ring1 = gear.metamorph_ring,
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
         waist = gear.acuity_belt,
-        legs = "Inyanga Shalwar +2",
-        feet = "Aya. Gambieras +2" --Missing
+        legs = gear.af1_feet,
+        feet = gear.af1_legs
     }
 
     -- Song-specific recast reduction
     sets.midcast.SongRecast = {
-        main = gear.grioavolr_fc_staff, --Missing
-        sub = "Clerisy Strap +1",       --Missing
+        main = "Kali",
+        sub = "Ammurapi Shield",
         range = "Daurdabla",
         ammo = empty,
         head = "Bunzi's Hat",
-        neck = "Voltsurge Torque",    --Missing
-        ear1 = "Enchntr. Earring +1", --Missing
+        neck = gear.voltesurge_torque,
+        ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Gendewitha Gages +1", --Missing
+        hands = "Gendewitha Gages +1",
         ring1 = gear.kishar_ring,
         ring2 = gear.prolix_ring,
         back = gear.magic_jse_back,
         waist = gear.witful_belt,
         legs = gear.af3_legs,
-        feet = "Aya. Gambieras +2" --Missing
+        feet = gear.af1_feet
     }
 
     -- Cast spell with normal gear, except using Daurdabla instead
@@ -430,18 +475,18 @@ function init_gear_sets()
 
     -- Other general spells and classes.
     sets.midcast.Cure = {
-        main = "Serenity",    --Missing
-        sub = "Curatio Grip", --Missing
+        main = "Daybreak",
+        sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
         head = "Kaykaus Mitra +1",
         neck = gear.incaters_torque,
-        ear1 = "Gifted Earring", --Missing
-        ear2 = "Mendi. Earring",
+        ear1 = "Mendi. Earring",
+        ear2 = "Fili Earring +1",
         body = "Kaykaus Bliaut +1",
         hands = "Kaykaus Cuffs +1",
-        ring1 = "Janniston Ring",  --Missing
+        ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
-        back = "Tempered Cape +1", --Missing
+        back = gear.magic_jse_back,
         waist = gear.luminary_sash,
         legs = "Kaykaus tights +1",
         feet = "Kaykaus Boots +1"
@@ -463,49 +508,24 @@ function init_gear_sets()
         ring1 = gear.haomas_ring,
         ring2 = "Menelaus's Ring",
         waist = gear.witful_belt,
-        feet = "Vanya Clogs" --Missing
     })
-
-    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
-        main = gear.grioavolr_fc_staff, --Missing
-        sub = "Clemency Grip"           --Missing
-    })
-
-    -- Resting sets
-    sets.resting = {
-        main = "Chatoyant Staff",
-        sub = "Umbra Strap",
-        ammo = "Staunch Tathlum +1",
-        head = empty, --Missing
-        neck = gear.loricate_torque,
-        ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",           --Missing
-        body = "Respite Cloak",              --Missing
-        hands = gear.chironic_refresh_hands, --Missing
-        ring1 = "Defending Ring",            --Missing
-        ring2 = "Dark Ring",                 --Missing
-        back = "Umbra Cape",
-        waist = "Flume Belt +1",
-        legs = "Assid. Pants +1",         --Missing
-        feet = gear.chironic_refresh_feet --Missing
-    }
 
     sets.idle = {
-        main = "Mpaca's Staff", --Missing
+        main = gear.mpacas_staff,
         sub = "Umbra Strap",
         ammo = "Staunch Tathlum +1",
-        head = empty,
+        head = gear.af3_head,
         neck = gear.loricate_torque,
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Respite Cloak",              --Missing
-        hands = gear.chironic_refresh_hands, --Missing
+        body = "Null Shawl",
+        hands = gear.af3_hadns,
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
         back = "Umbra Cape",
         waist = "Flume Belt +1",
-        legs = "Assid. Pants +1",         --Missing
-        feet = gear.chironic_refresh_feet --Missing
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.idle.NoRefresh = {
@@ -518,10 +538,10 @@ function init_gear_sets()
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Defending Ring", --Missing
-        ring2 = "Shadow Ring",    --Missing
-        back = "Moonlight Cape",  --Missing
-        waist = "Carrier's Sash", --Missing
+        ring1 = "Murky Ring",
+        ring2 = gear.shadow_ring,
+        back = gear.magic_jse_cape,
+        waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
@@ -536,10 +556,10 @@ function init_gear_sets()
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Defending Ring", --Missing
-        ring2 = "Shadow Ring",    --Missing
-        back = "Moonlight Cape",  --Missing
-        waist = "Carrier's Sash", --Missing
+        ring1 = "Murky Ring",
+        ring2 = gear.shadow_ring,
+        back = gear.magic_jse_cape,
+        waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -547,8 +567,8 @@ function init_gear_sets()
     -- Defense sets
 
     sets.defense.PDT = {
-        main = "Terra's Staff", --Missing
-        sub = "Umbra Strap",
+        main = "Daybreak",
+        sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = gear.loricate_torque,
@@ -556,17 +576,17 @@ function init_gear_sets()
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Defending Ring", --Missing
-        ring2 = "Shadow Ring",    --Missing
-        back = "Moonlight Cape",  --Missing
-        waist = "Carrier's Sash", --Missing
+        ring1 = "Murky Ring",
+        ring2 = gear.shadow_ring,
+        back = gear.magic_jse_cape,
+        waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
 
     sets.defense.MDT = {
-        main = "Terra's Staff", --Missing
-        sub = "Umbra Strap",
+        main = "Daybreak",
+        sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = gear.loricate_torque,
@@ -574,18 +594,15 @@ function init_gear_sets()
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Defending Ring", --Missing
-        ring2 = "Shadow Ring",    --Missing
-        back = "Moonlight Cape",  --Missing
-        waist = "Carrier's Sash", --Missing
+        ring1 = "Murky Ring",
+        ring2 = gear.shadow_ring,
+        back = gear.magic_jse_cape,
+        waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
 
     sets.Kiting = { feet = "Fili Cothurnes +1" }
-    sets.latent_refresh = { waist = gear.fuchonoobi }
-    sets.latent_refresh_grip = { sub = "Oneiros Grip" } --Missing
-    sets.TPEat = { neck = "Chrys. Torque" }             --Missing
 
     -- Engaged sets
 
@@ -595,122 +612,128 @@ function init_gear_sets()
     -- EG: sets.engaged.Dagger.Accuracy.Evasion
 
     sets.engaged = {
-        main = "Aeneas", --Missing
+        main = "Naegling",
         sub = gear.genmei_shield,
-        ammo = "Aurgelmir Orb +1",
+        range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
-        neck = "Asperity Necklace", --Missing
+        neck = "Bard's Charm +2",
         ear1 = "Cessance Earring",
-        ear2 = "Brutal Earring",
+        ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +2",
-        ring1 = "Petrov Ring",
-        ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
+        hands = "Bunzi's Gloves ",
+        ring1 = "Moonlight Ring",
+        ring2 = "Moonlight Ring",
+        back = "Null Shawl",
         waist = "Windbuffet Belt +1",
-        legs = "Aya. Cosciales +2", --Missing
-        feet = "Battlecast Gaiters" --Missing
-    }
-    sets.engaged.DT = {
-        main = "Aeneas", --Missing
-        sub = gear.genmei_shield,
-        ammo = "Aurgelmir Orb +1",
-        head = "Nyame Helm",
-        neck = gear.loricate_torque,
-        ear1 = "Cessance Earring",
-        ear2 = "Brutal Earring",
-        body = "Nyame Mail",
-        hands = "Nyame Gauntlets",
-        ring1 = "Petrov Ring",
-        ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Windbuffet Belt +1",
-        legs = "Nyame Flanchard",
+        legs = "Volte Tights",
         feet = "Nyame Sollerets"
     }
+
+    sets.engaged = {
+        main = "Naegling",
+        sub = gear.genmei_shield,
+        range = gear.linos_tp,
+        head = "Aya. Zucchetto +2",
+        neck = "Bard's Charm +2",
+        ear1 = "Cessance Earring",
+        ear2 = "Telos Earring",
+        body = "Ayanmo Corazza +2",
+        hands = "Bunzi's Gloves ",
+        ring1 = "Moonlight Ring",
+        ring2 = "Moonlight Ring",
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Volte Tights",
+        feet = "Nyame Sollerets"
+    }
+
     sets.engaged.Acc = {
-        main = "Aeneas", --Missing
+        main = "Naegling",
         sub = gear.genmei_shield,
-        ammo = "Aurgelmir Orb +1",
+        range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
-        neck = "Combatant's Torque", --Missing
-        ear1 = "Digni. Earring",     --Missing
+        neck = "Bard's Charm +2",
+        ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +2",
-        ring1 = "Ramuh Ring +1", --Missing
-        ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Olseni Belt",      --Missing
-        legs = "Aya. Cosciales +2", --Missing
-        feet = "Aya. Gambieras +2"  --Missing
-    }
-    sets.engaged.DW = {
-        main = "Aeneas", --Missing
-        sub = "Blurred Knife +1",
-        ammo = "Aurgelmir Orb +1",
-        head = "Aya. Zucchetto +2",
-        neck = "Asperity Necklace", --Missing
-        ear1 = "Suppanomimi",
-        ear2 = "Brutal Earring",
-        body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +2",
-        ring1 = "Petrov Ring",
-        ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Reiki Yotai",
-        legs = "Aya. Cosciales +2", --Missing
-        feet = "Battlecast Gaiters" --Missing
-    }
-    sets.engaged.DW.DT = {
-        main = "Aeneas", --Missing
-        sub = "Blurred Knife +1",
-        ammo = "Aurgelmir Orb +1",
-        head = "Nyame Helm",
-        neck = gear.loricate_torque,
-        ear1 = "Suppanomimi",
-        ear2 = "Brutal Earring",
-        body = "Nyame Mail",
-        hands = "Nyame Gauntlets",
-        ring1 = "Petrov Ring",
-        ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Reiki Yotai",
-        legs = "Nyame Flanchard",
+        hands = "Bunzi's Gloves ",
+        ring1 = "Moonlight Ring",
+        ring2 = "Moonlight Ring",
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Volte Tights",
         feet = "Nyame Sollerets"
     }
-    sets.engaged.DW.Acc = {
-        main = "Aeneas", --Missing
+
+    sets.engaged.DW = {
+        main = "Naegling",
         sub = "Blurred Knife +1",
-        ammo = "Aurgelmir Orb +1",
+        range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
-        neck = "Combatant's Torque",
-        ear1 = "Suppanomimi",
+        neck = "Bard's Charm +2",
+        ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Aya. Manopolas +2",
-        ring1 = "Ramuh Ring +1",
-        ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Reiki Yotai",
-        legs = "Aya. Cosciales +2", --Missing
-        feet = "Aya. Gambieras +2"  --Missing
+        hands = "Bunzi's Gloves ",
+        ring1 = "Moonlight Ring",
+        ring2 = "Moonlight Ring",
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Volte Tights",
+        feet = "Nyame Sollerets"
     }
-    sets.engaged.DW.Acc.DT = {
-        main = "Aeneas",
+
+    sets.engaged.DW.DT = {
+        main = "Naegling",
         sub = "Blurred Knife +1",
-        ammo = "Aurgelmir Orb +1",
-        head = "Nyame Helm",
-        neck = "Combatant's Torque", --Missing
-        ear1 = "Suppanomimi",
+        range = gear.linos_tp,
+        head = "Aya. Zucchetto +2",
+        neck = "Bard's Charm +2",
+        ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Nyame Gauntlets",
-        ring1 = "Defending Ring",
-        ring2 = "Ilabrat Ring",
-        back = gear.melee_jse_back,
-        waist = "Reiki Yotai",
-        legs = "Nyame Flanchard",
+        hands = "Bunzi's Gloves ",
+        ring1 = "Moonlight Ring",
+        ring2 = "Moonlight Ring",
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Volte Tights",
+        feet = "Nyame Sollerets"
+    }
+
+    sets.engaged.DW.Acc = {
+        main = "Naegling", --Missing
+        sub = "Blurred Knife +1",
+        range = gear.linos_tp,
+        head = "Aya. Zucchetto +2",
+        neck = "Bard's Charm +2",
+        ear1 = "Cessance Earring",
+        ear2 = "Telos Earring",
+        body = "Ayanmo Corazza +2",
+        hands = "Bunzi's Gloves ",
+        ring1 = "Moonlight Ring",
+        ring2 = "Moonlight Ring",
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Volte Tights",
+        feet = "Nyame Sollerets"
+    }
+
+    sets.engaged.DW.Acc.DT = {
+        main = "Naegling",
+        sub = "Blurred Knife +1",
+        range = gear.linos_tp,
+        head = "Aya. Zucchetto +2",
+        neck = "Bard's Charm +2",
+        ear1 = "Cessance Earring",
+        ear2 = "Telos Earring",
+        body = "Ayanmo Corazza +2",
+        hands = "Bunzi's Gloves ",
+        ring1 = "Moonlight Ring",
+        ring2 = "Moonlight Ring",
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Volte Tights",
         feet = "Nyame Sollerets"
     }
 end

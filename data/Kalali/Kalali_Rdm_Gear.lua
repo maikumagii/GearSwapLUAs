@@ -61,7 +61,7 @@ function character_user_job_setup()
     gear.int_wsd_jse_back = gear.nuke_jse_back
     gear.str_wsd_jse_back = gear.magical_mnd_wsd_jse_back
     gear.physical_mnd_wsd_jse_back = gear.magical_mnd_wsd_jse_back
-    gear.str_wsd_jse_back = gear.mnd_wsd_jse_back
+    gear.str_wsd_jse_back = gear.physical_mnd_wsd_jse_back
 
     -- JSE Weapon/Neck/Earring
     gear.jse_ear2 = "Leth. Earring +1"
@@ -151,8 +151,6 @@ function character_user_job_setup()
     -- Pure min/max or niche
     gear.diamond_aspis = ""
     --  0  Diamond Aspis                 Swap piece
-    gear.culminus = "Ammurapi Shield"
-    --  3  Culminus                      Low Tier Nuke, highest +Magic Damage
     gear.homillary = "Staunch Tathlum +1"
     --  1  Homiliary                     Idle Refresh +1
     gear.hasty_pinion = ""
@@ -641,7 +639,7 @@ function init_gear_sets()
 
     sets.midcast.Cure.DT = {
         main = "Daybreak",
-        sub = gear.culminus,
+        sub = "Culminus",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
@@ -1060,7 +1058,7 @@ function init_gear_sets()
     --After Bunzi's is augmented it will probably win on low-tier nukes.
     sets.midcast['Elemental Magic'] = {
         main = "Bunzi's Rod",
-        sub = gear.culminus,
+        sub = "Culminus",
         ammo = "Ghastly Tathlum +1",
         head = gear.af3_head,
         neck = gear.baetyl_pendant,
@@ -1078,7 +1076,7 @@ function init_gear_sets()
 
     sets.midcast['Elemental Magic'].DT = {
         main = "Bunzi's Rod",
-        sub = gear.culminus,
+        sub = "Culminus",
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
         neck = gear.loricate_torque,
