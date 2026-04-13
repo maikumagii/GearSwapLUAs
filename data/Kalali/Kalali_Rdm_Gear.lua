@@ -43,7 +43,7 @@ function character_user_job_setup()
         ['CroceaDaybreak'] = "Seraph Blade",
         ["DualTauretCrocea"] = "Aeolian Edge"
     }
-    trust_list = { "Joachim", "Ulmia", "Qultada", "Sylvie (UC)", "Monbreaux" }
+    trust_list = { "Joachim", "Ulmia", "Qultada", "Sylvie (UC)", "Monberaux" }
 
     --gear.mnd_enfeebling_jse_back = {name="Sucellos's Cape",augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','MND+10','Haste+10','Damage taken-5%',}}
     --gear.int_enfeebling_jse_back = {name="Sucellos's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+10','Haste+10',}}
@@ -163,8 +163,6 @@ function character_user_job_setup()
     --  3   "Impatiens"                  SIRD 10%, QC 2%
     gear.oshashas_treatise = "Coiste Bodhar"
     --  3  Oshasha's Treatise            Wsd 3%
-    gear.befouled_crown = gear.af3_head
-    --  1  Befouled Crown                +16 Enhancing
     gear.null_masque = gear.af3_head
     --  1  Null Masque                   Animon Idle
     gear.mizu_kubikazari = "Eschan Stone"
@@ -299,7 +297,7 @@ function init_gear_sets()
 
     -- Steps (Pure Acc)
     sets.precast.Step = {
-        ammo = gear.hasty_pinion,
+        ammo = "Aurgelmir Orb +1",
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.zennaroi_ear,
@@ -415,7 +413,7 @@ function init_gear_sets()
     }
 
     sets.precast.WS.Proc = {
-        ammo = gear.hasty_pinion,
+        ammo = "Aurgelmir Orb +1",
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.zennaroi_ear,
@@ -664,7 +662,7 @@ function init_gear_sets()
         main = "Crocea Mors",
         sub = gear.filler_shield,
         range = empty,
-        ammo = gear.hasty_pinion,
+        ammo = "Staunch Tathlum +1",
         head = "Kaykaus Mitra +1",
         neck = gear.debilis_medallion,
         ear1 = gear.meili_earring,
@@ -713,7 +711,7 @@ function init_gear_sets()
         main = gear.pukulatmuj,
         sub = gear.forfend,
         ammo = "Staunch Tathlum +1",
-        head = gear.befouled_crown,
+        head = "Befouled Crown",
         neck = gear.incanters_torque,
         ear1 = gear.andoaa_earring,
         ear2 = "Mimir Earring",
