@@ -93,10 +93,6 @@ function character_user_job_setup()
     gear.gletis_knife = "Blurred Knife +1"
     gear.sacro_bulwark = "Ammurapi Shield"
     --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
-    gear.pukulatmuj = "Crocea Mors"
-    --  1  Pukulatmuj +1                 Enhancing Set, (required)
-    gear.forfend = "Ammurapi Shield"
-    --  2  Forfend +1                    R15 Enhancing Set (required)
     gear.regal_gem = "Staunch Tathlum +1"
     --  14 Regal Gem                     Enfeebling Set (required)
     gear.warders_charm = "Null Loop"
@@ -118,7 +114,7 @@ function character_user_job_setup()
     gear.crepuscular_earring = "Telos Earring"
 
     -- Useful but mostly optimization
-    gear.egeking = gear.forfend
+    gear.egeking = "Forfend +1"
     --  1  Egeking                       +2 Phalanx
     gear.mpacas_staff = "Crocea Mors"
     --  1  Mpaca's Staff                 Idle Set, +2 Refresh
@@ -704,8 +700,8 @@ function init_gear_sets()
     --Red Mage enhancing sets are handled in a different way from most, layered on due to the way Composure works
     --Don't set combine a full set with these spells, they should layer on Enhancing Set > Composure (If Applicable) > Spell
     sets.EnhancingSkill = {
-        main = gear.pukulatmuj,
-        sub = gear.forfend,
+        main = "Pukulatmuj +1",
+        sub = "Forfend +1",
         ammo = "Staunch Tathlum +1",
         head = "Befouled Crown",
         neck = gear.incanters_torque,
@@ -1111,7 +1107,7 @@ function init_gear_sets()
 
     sets.midcast['Elemental Magic'].Proc = {
         main = gear.gletis_knife,
-        sub = gear.forfend,
+        sub = "Forfend +1",
         range = empty,
         ammo = gear.regal_gem,
         head = "Malignance Chapeau",
