@@ -27,21 +27,21 @@ function character_user_job_setup()
     gear.af1_body = {}  --"Brioso Just. +3"
     gear.af1_hands = {} --"Brioso Cuffs"
     gear.af1_legs = {}  --"Brioso Cannions"
-    gear.af1_feet = "Brioso Slippers +3"
+    gear.af1_feet = {}  -- "Brioso Slippers +3"
 
     -- Relic Gear
     gear.af2_head = {}
-    gear.af2_body = "Bihu Just. +3"
+    gear.af2_body = "Bihu Jstcrps. +3"
     gear.af2_hands = {}
     gear.af2_legs = {}
-    gear.af2_feet = "Bihu Slippers +3"
+    gear.af2_feet = {} --"Bihu Slippers +3"
 
     -- Empy Gear
-    gear.af3_head = "Fili Calot +2"
+    gear.af3_head = "Fili Calot +1"
     gear.af3_body = "Fili Hongreline +2"
     gear.af3_hands = "Fili Manchettes +2"
-    gear.af3_legs = "Fili Rhingrave +2"
-    gear.af3_feet = "Fili Cothurnes +2"
+    gear.af3_legs = "Fili Rhingrave +1"
+    gear.af3_feet = "Fili Cothurnes +1"
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
@@ -57,9 +57,11 @@ function character_user_job_setup()
     --  27 Metamorph Ring +1             +16 INT/MND/CHR, +10 MAcc, +60 MP
     gear.witful_belt = "Null Belt"
     --  3  Witful Belt                   FC +3%, Haste +3%
-    gear.mpacas_staff = "Mpaca's Staff"
+    gear.mpacas_staff = "Kali" -- "Mpaca's Staff"
     --  1  Mpaca's Staff                 Idle Set, +2 Refresh
-    --	   easy enough to get, 2 MP refresh worth
+    --
+    --       easy enough to get, 2 MP refresh worth
+    gear.umbra_strap = "Ammurapi Shield" -- "Umbra Strap"
     gear.impatiens = "Staunch Tathlum +1"
     --  3  Impatiens                     SIRD 10%, QC 2%
     gear.baetyl_pendant = gear.jse_neck
@@ -93,7 +95,7 @@ function character_user_job_setup()
     gear.voltsurge_torque = "Null Loop"   -- Acc, DEX
     gear.kentarch_belt = "Sailfi Belt +1" -- DEX
     gear.regal_earring = "Telos Earring"  -- Macc, Acc, CHR
-    gear.digni_earring = "Digni. Earring" -- Macc
+
 
 
     info.ExtraSongInstrument = 'Daurdabla'
@@ -169,12 +171,12 @@ function init_gear_sets()
     }
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, {
-        feet = "Kaykaus Boots+1" --Missing
+        feet = "Kaykaus Boots +1"
     })
 
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {
         main = "Daybreak",
-        sub = gear.genmei_shield, --Missing
+        sub = gear.genmei_shield,
     })
 
     sets.precast.FC.BardSong = {
@@ -392,7 +394,7 @@ function init_gear_sets()
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
-        waist = "Kobo Obi", --Missing
+        waist = "Embla Sash",
         legs = "Inyanga Shalwar +2",
         feet = gear.af1_feet
     }
@@ -411,7 +413,7 @@ function init_gear_sets()
         head = "Inyanga Tiara +2",
         neck = "Mnbw. Whistle +1",
         ear1 = gear.regal_earring,
-        ear2 = gear.digni_earring,
+        ear2 = "Fili Earring +1",
         body = gear.af3_body,
         hands = "Inyan. Dastanas +2",
         ring1 = gear.metamorph_ring,
@@ -436,7 +438,7 @@ function init_gear_sets()
         head = gear.af1_head,
         neck = "Mnbw. Whistle +1",
         ear1 = gear.regal_earring,
-        ear2 = "Digni. Earring",
+        ear2 = "Fili Earring +1",
         body = gear.af1_body,
         hands = gear.af1_hands,
         ring1 = gear.metamorph_ring,
@@ -458,7 +460,7 @@ function init_gear_sets()
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "Gendewitha Gages +1",
+        hands = "gear.af3_hands",
         ring1 = gear.kishar_ring,
         ring2 = gear.prolix_ring,
         back = gear.magic_jse_back,
@@ -512,17 +514,17 @@ function init_gear_sets()
 
     sets.idle = {
         main = gear.mpacas_staff,
-        sub = "Umbra Strap",
+        sub = gear.umbra_strap,
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
         neck = gear.loricate_torque,
         ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",
+        ear2 = "Alabaster Earring",
         body = "Null Shawl",
         hands = gear.af3_hadns,
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
-        back = "Umbra Cape",
+        back = "Null Shawl",
         waist = "Flume Belt +1",
         legs = gear.af3_legs,
         feet = gear.af3_feet

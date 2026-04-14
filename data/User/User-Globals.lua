@@ -5,13 +5,13 @@ conserveshadows        = false
 --Display related settings.
 
 --Options for automation.
-state.ReEquip          = M(true, 'ReEquip Mode')             --Set this to false if you don't want to equip your current Weapon set when you aren't wearing any weapons.
-state.AutoArts         = M(true, 'AutoArts')                 --Set this to false if you don't want to automatically try to keep up Solace/Arts.
-state.AutoLockstyle    = M(true, 'AutoLockstyle Mode')       --Set this to false if you don't want gearswap to automatically lockstyle on load and weapon change.
-state.CancelStoneskin  = M(true, 'Cancel Stone Skin')        --Set this to false if you don't want to automatically cancel stoneskin when you're slept.
-state.HoxneAmpullaMode = M(false, 'Hoxne Ampulla Mode')      --Equips Hoxne Ampulla, uses it after 5 seconds, then keeps range/ammo locked until toggled off.
-state.SkipProcWeapons  = M(true, 'Skip Proc Weapons')        --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
-state.NotifyBuffs      = M(false, 'Notify Buffs')            --Set this to true if you want to notify your party when you recieve a specific buff/debuff. (List Below)
+state.ReEquip          = M(true, 'ReEquip Mode')        --Set this to false if you don't want to equip your current Weapon set when you aren't wearing any weapons.
+state.AutoArts         = M(true, 'AutoArts')            --Set this to false if you don't want to automatically try to keep up Solace/Arts.
+state.AutoLockstyle    = M(true, 'AutoLockstyle Mode')  --Set this to false if you don't want gearswap to automatically lockstyle on load and weapon change.
+state.CancelStoneskin  = M(true, 'Cancel Stone Skin')   --Set this to false if you don't want to automatically cancel stoneskin when you're slept.
+state.HoxneAmpullaMode = M(false, 'Hoxne Ampulla Mode') --Equips Hoxne Ampulla, uses it after 5 seconds, then keeps range/ammo locked until toggled off.
+state.SkipProcWeapons  = M(true, 'Skip Proc Weapons')   --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
+state.NotifyBuffs      = M(false, 'Notify Buffs')       --Set this to true if you want to notify your party when you recieve a specific buff/debuff. (List Below)
 
 --[[Binds you may want to change.
 	Bind special characters.
@@ -62,7 +62,7 @@ local function set_hoxne_ampulla_mode(enabled)
     if enabled then
         equip({ ammo = hoxne_ampulla_name })
         disable('range', 'ammo')
-        send_command('wait 5;input /item "' .. hoxne_ampulla_name .. '" <me>')
+        send_command('gs c useitem ammo Hoxne Ampulla')
     else
         send_command('gs c update')
     end

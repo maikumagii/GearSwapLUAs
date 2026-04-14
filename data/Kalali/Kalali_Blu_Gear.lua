@@ -12,30 +12,30 @@ function character_user_job_setup()
 
     state.ExtraMeleeMode = M { ['description'] = 'Extra Melee Mode', 'None', 'MP', 'SuppaBrutal', 'DWEarrings', 'DWMax' }
 
-    gear.stp_jse_back = { name = "Rosmerta's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'Accuracy+10', '"Store TP"+10', } }
+    gear.stp_jse_back = { name = "Rosmerta's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'DEX+10', '"Store TP"+10', 'Phys. dmg. taken-10%', } }
     gear.wsd_jse_back = { name = "Rosmerta's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', } }
-    gear.nuke_jse_back = { name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
+    --gear.nuke_jse_back = { name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
 
     -- Artifact Gear
-    gear.af1_head = {}  --"Brioso Roundlet"
-    gear.af1_body = {}  --"Brioso Just. +3"
-    gear.af1_hands = {} --"Brioso Cuffs"
-    gear.af1_legs = {}  --"Brioso Cannions"
-    gear.af1_feet = "Brioso Slippers +3"
+    gear.af1_head = {}                     --"Brioso Roundlet"
+    gear.af1_body = { "Assim. Jubbah +4" } --"Brioso Just. +3"
+    gear.af1_hands = {}                    --"Brioso Cuffs"
+    gear.af1_legs = {}                     --"Brioso Cannions"
+    gear.af1_feet = {}                     --"Brioso Slippers +3"
 
     -- Relic Gear
     gear.af2_head = {}
-    gear.af2_body = "Bihu Just. +3"
+    gear.af2_body = {}
     gear.af2_hands = {}
-    gear.af2_legs = {}
-    gear.af2_feet = "Bihu Slippers +3"
+    gear.af2_legs = { "Luh. Shalwar +4" }
+    gear.af2_feet = {} --"Bihu Slippers +2"
 
     -- Empy Gear
-    gear.af3_head = "Fili Calot +2"
-    gear.af3_body = "Fili Hongreline +2"
-    gear.af3_hands = "Fili Manchettes +2"
-    gear.af3_legs = "Fili Rhingrave +2"
-    gear.af3_feet = "Fili Cothurnes +2"
+    gear.af3_head = { "Hashishin Kavuk +3" }
+    gear.af3_body = { "Hashishin Minitan +2" }
+    gear.af3_hands = { "Hashi. Bazu. +2" }
+    gear.af3_legs = { "Hashishin Tayt +2" }
+    gear.af3_feet = { "Hashi. Basmak +2" }
 
 
     autows = 'Expiacion'
@@ -62,12 +62,12 @@ function init_gear_sets()
     -- Start defining the sets
     --------------------------------------
 
-    sets.buff['Burst Affinity'] = { legs = "Assim. Shalwar +3", feet = "Hashi. Basmak +1" }
+    sets.buff['Burst Affinity'] = { legs = "Assim. Shalwar +3", feet = gear.af3_feet }
     sets.buff['Chain Affinity'] = { feet = "Assim. Charuqs +2" }
     sets.buff.Convergence = { head = "Luh. Keffiyeh +3" }
     sets.buff.Diffusion = { feet = "Luhlaza Charuqs +3" }
     sets.buff.Enchainment = {}
-    sets.buff.Efflux = { back = gear.da_jse_back, legs = "Hashishin Tayt +1" }
+    sets.buff.Efflux = { back = gear.da_jse_back, legs = gear.af3_legs }
     sets.buff.Doom = set_combine(sets.buff.Doom, {})
 
     -- Precast Sets
@@ -78,21 +78,21 @@ function init_gear_sets()
     -- Fast cast sets for spells
 
     sets.precast.FC = {
-        main = "Vampirism",
+        main = "Vampirism", -- MISSING
         sub = "Sakpata's Sword",
         ammo = "Impatiens",
-        head = "Carmine Mask +1",
-        neck = "Voltsurge Torque",
-        ear1 = "Enchntr. Earring +1",
+        head = "Carmine Mask +1",     -- MISSING
+        neck = "Voltsurge Torque",    -- MISSING
+        ear1 = "Enchntr. Earring +1", -- MISSING
         ear2 = "Loquac. Earring",
-        body = "Luhlaza Jubbah +3",
-        hands = "Leyline Gloves",
-        ring1 = "Kishar Ring",
-        ring2 = "Lebeche Ring",
-        back = "Perimede Cape",
-        waist = "Witful Belt",
-        legs = "Psycloth Lappas",
-        feet = "Carmine Greaves +1"
+        body = "Luhlaza Jubbah +3",   -- MISSING
+        hands = "Leyline Gloves",     -- MISSING
+        ring1 = "Kishar Ring",        -- MISSING
+        ring2 = "Lebeche Ring",       -- MISSING
+        back = "Perimede Cape",       -- MISSING
+        waist = "Witful Belt",        -- MISSING
+        legs = "Psycloth Lappas",     -- MISSING
+        feet = "Carmine Greaves +1"   -- MISSING
     }
 
     sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, { body = "Hashishin Mintan +1" })
@@ -102,48 +102,48 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
         ammo = "Aurgelmir Orb +1",
-        head = "Lilitu Headpiece",
-        neck = "Fotia Gorget",
+        head = "Lilitu Headpiece", -- MISSING
+        neck = "Fotia Gorget",     -- MISSING
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
         body = "Adhemar Jacket +1",
         hands = "Jhakri Cuffs +2",
         ring1 = "Epona's Ring",
-        ring2 = "Apate Ring",
+        ring2 = "Apate Ring", -- MISSING
         back = gear.da_jse_back,
-        waist = "Fotia Belt",
+        waist = "Fotia Belt", -- MISSING
         legs = "Samnuha Tights",
         feet = gear.herculean_ta_feet
     }
 
     sets.precast.WS.Acc = {
-        ammo = "Falcon Eye",
-        head = "Carmine Mask +1",
-        neck = "Fotia Gorget",
-        ear1 = "Mache Earring +1",
+        ammo = "Falcon Eye",       -- MISSING
+        head = "Carmine Mask +1",  -- MISSING
+        neck = "Fotia Gorget",     -- MISSING
+        ear1 = "Mache Earring +1", -- MISSING
         ear2 = "Telos Earring",
-        body = "Assim. Jubbah +3",
-        hands = "Assim. Bazu. +3",
+        body = gear.af1_body,
+        hands = "Assim. Bazu. +3", -- MISSING
         ring1 = "Epona's Ring",
         ring2 = "Ilabrat Ring",
-        back = gear.da_jse_back,
-        waist = "Fotia Belt",
+        back = gear.da_jse_back,      -- MISSING
+        waist = "Fotia Belt",         -- MISSING
         legs = "Carmine Cuisses +1",
-        feet = gear.herculean_ta_feet
+        feet = gear.herculean_ta_feet -- MISSING
     }
 
     sets.precast.WS.FullAcc = {
-        ammo = "Falcon Eye",
-        head = "Carmine Mask +1",
+        ammo = "Falcon Eye",       -- MISSING
+        head = "Carmine Mask +1",  -- MISSING
         neck = "Mirage Stole +2",
-        ear1 = "Mache Earring +1",
-        ear2 = "Odr Earring",
-        body = "Assim. Jubbah +3",
-        hands = "Assim. Bazu. +3",
-        ring1 = "Ramuh Ring +1",
-        ring2 = "Ramuh Ring +1",
-        back = gear.da_jse_back,
-        waist = "Olseni Belt",
+        ear1 = "Mache Earring +1", -- MISSING
+        ear2 = "Odr Earring",      -- MISSING
+        body = gear.af1_body,
+        hands = "Assim. Bazu. +3", -- MISSING
+        ring1 = "Ramuh Ring +1",   -- MISSING
+        ring2 = "Ramuh Ring +1",   -- MISSING
+        back = gear.da_jse_back,   -- MISSING
+        waist = "Olseni Belt",     -- MISSING
         legs = "Carmine Cuisses +1",
         feet = "Malignance Boots"
     }
@@ -151,32 +151,32 @@ function init_gear_sets()
     sets.precast.WS.DT = {
         ammo = "Aurgelmir Orb +1",
         head = "Malignance Chapeau",
-        neck = "Loricate Torque +1",
+        neck = "Loricate Torque +1", -- MISSING
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Murky Ring",
         ring2 = "Ilabrat Ring",
-        back = gear.da_jse_back,
-        waist = "Fotia Belt",
+        back = gear.da_jse_back, -- MISSING
+        waist = "Fotia Belt",    -- MISSING
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
 
     sets.precast.WS.Fodder = {
         ammo = "Aurgelmir Orb +1",
-        head = "Lilitu Headpiece",
-        neck = "Fotia Gorget",
+        head = "Lilitu Headpiece", -- MISSING
+        neck = "Fotia Gorget",     -- MISSING
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
         body = "Adhemar Jacket +1",
         hands = "Jhakri Cuffs +2",
         ring1 = "Epona's Ring",
         ring2 = "Apate Ring",
-        back = gear.da_jse_back,
-        waist = "Fotia Belt",
-        legs = "Samnuha Tights",
+        back = gear.da_jse_back, -- MISSING
+        waist = "Fotia Belt",    -- MISSING
+        legs = "Samnuha Tights", -- MISSING
         feet = gear.herculean_ta_feet
     }
 
@@ -221,8 +221,7 @@ function init_gear_sets()
             ear1 = "Regal Earring",
             ear2 = "Telos Earring",
             ring1 = "Rufescent Ring",
-            legs =
-            "Jhakri Slops +2",
+            legs = "Jhakri Slops +2",
             feet = "Jhakri Pigaches +2"
         })
     sets.precast.WS['Realmrazer'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
@@ -235,8 +234,7 @@ function init_gear_sets()
             head = "Adhemar Bonnet +1",
             neck = "Mirage Stole +2",
             ear1 = "Moonshade Earring",
-            ear2 =
-            "Odr Earring",
+            ear2 = "Odr Earring",
             body = "Abnoba Kaftan",
             hands = "Adhemar Wrist. +1",
             ring2 = "Begrudging Ring",
@@ -265,14 +263,14 @@ function init_gear_sets()
             ear1 = "Moonshade Earring",
             ear2 = "Ishvara Earring",
             body =
-            "Assim. Jubbah +3",
+                gear.af1_body,
             hands = "Jhakri Cuffs +2",
             ring1 = "Ifrit Ring +1",
             ring2 = "Rufescent Ring",
             back = gear
                 .wsd_jse_back,
             waist = "Sailfi Belt +1",
-            legs = "Luhlaza Shalwar +3",
+            legs = gear.af2_legs,
             feet = gear.herculean_wsd_feet
         })
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS.Acc,
@@ -283,7 +281,7 @@ function init_gear_sets()
             back = gear.wsd_jse_back,
             waist =
             "Grunfeld Rope",
-            legs = "Luhlaza Shalwar +3",
+            legs = gear.af2_legs,
             feet = gear.herculean_wsd_feet
         })
     sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
@@ -303,29 +301,29 @@ function init_gear_sets()
             ear1 = "Moonshade Earring",
             ear2 = "Ishvara Earring",
             body =
-            "Assim. Jubbah +3",
+                gear.af1_body,
             hands = "Jhakri Cuffs +2",
             ring1 = "Ifrit Ring +1",
             ring2 = "Rufescent Ring",
             back = gear
                 .wsd_jse_back,
             waist = "Sailfi Belt +1",
-            legs = "Luhlaza Shalwar +3",
+            legs = gear.af2_legs,
             feet = gear.herculean_wsd_feet
         })
     sets.precast.WS['Expiacion'].Acc = set_combine(sets.precast.WS.Acc,
         {
             neck = "Mirage Stole +2",
             ear1 = "Moonshade Earring",
-            body = "Assim. Jubbah +3",
+            body = gear.af1_body,
             hands = "Jhakri Cuffs +2",
             back =
                 gear.wsd_jse_back,
-            legs = "Luhlaza Shalwar +3",
+            legs = gear.af2_legs,
             feet = gear.herculean_wsd_feet
         })
     sets.precast.WS['Expiacion'].FullAcc = set_combine(sets.precast.WS.FullAcc,
-        { body = "Assim. Jubbah +3", hands = "Jhakri Cuffs +2" })
+        { body = gear.af1_body, hands = "Jhakri Cuffs +2" })
     sets.precast.WS['Expiacion'].DT = set_combine(sets.precast.WS.DT, { back = gear.wsd_jse_back })
     sets.precast.WS['Expiacion'].Fodder = set_combine(sets.precast.WS['Expiacion'], {})
 
@@ -341,7 +339,7 @@ function init_gear_sets()
         ring2 = "Archon Ring",
         back = gear.nuke_jse_back,
         waist = "Yamabuki-no-Obi",
-        legs = "Luhlaza Shalwar +3",
+        legs = gear.af2_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -359,7 +357,7 @@ function init_gear_sets()
         ring2 = "Shiva Ring +1",
         back = gear.nuke_jse_back,
         waist = "Yamabuki-no-Obi",
-        legs = "Luhlaza Shalwar +3",
+        legs = gear.af2_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -409,6 +407,7 @@ function init_gear_sets()
         feet = "Jhakri Pigaches +2"
     }
 
+    sets.midcast['Blue Magic'].PhysicalAcc = set_combine(sets.midcast['Blue Magic'].Physical, {})
     sets.midcast['Blue Magic'].PhysicalAcc.Resistant = set_combine(sets.midcast['Blue Magic'].PhysicalAcc, {})
     sets.midcast['Blue Magic'].PhysicalAcc.Fodder = sets.midcast['Blue Magic'].Fodder
 
@@ -460,7 +459,7 @@ function init_gear_sets()
         ring2 = "Shiva Ring +1",
         back = gear.nuke_jse_back,
         waist = gear.ElementalObi,
-        legs = "Luhlaza Shalwar +3",
+        legs = gear.af2_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -496,7 +495,7 @@ function init_gear_sets()
         ring2 = "Shiva Ring +1",
         back = gear.nuke_jse_back,
         waist = gear.ElementalObi,
-        legs = "Luhlaza Shalwar +3",
+        legs = gear.af2_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -540,7 +539,7 @@ function init_gear_sets()
         ring2 = "Shiva Ring +1",
         back = gear.ElementalCape,
         waist = gear.ElementalObi,
-        legs = "Luhlaza Shalwar +3",
+        legs = gear.af2_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -691,12 +690,12 @@ function init_gear_sets()
         neck = "Mirage Stole +2",
         ear1 = "Regal Earring",
         ear2 = "Digni. Earring",
-        body = "Assim. Jubbah +3",
+        body = gear.af1_body,
         hands = "Luh. Bazubands +1",
         ring1 = "Kunaji Ring",
         ring2 = "Meridian Ring",
         back = "Cornflower Cape",
-        legs = "Hashishin Tayt +1",
+        legs = gear.af3_legs,
         feet = "Luhlaza Charuqs +3"
     }
 
@@ -822,13 +821,13 @@ function init_gear_sets()
         neck = "Mirage Stole +2",
         ear1 = "Gifted Earring",
         ear2 = "Njordr Earring",
-        body = "Assim. Jubbah +3",
+        body = gear.af1_body,
         hands = "Rawhide Gloves",
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
         back = "Cornflower Cape",
         waist = "Witful Belt",
-        legs = "Hashishin Tayt +1",
+        legs = gear.af3_legs,
         feet = "Luhlaza Charuqs +3"
     }
 
@@ -840,8 +839,8 @@ function init_gear_sets()
         neck = "Incanter's Torque",
         ear1 = "Gifted Earring",
         ear2 = "Loquac. Earring",
-        body = "Assim. Jubbah +3",
-        hands = "Hashi. Bazu. +1",
+        body = gear.af1_body,
+        hands = gear.af3_hands,
         ring1 = "Kishar Ring",
         ring2 = "Dark Ring",
         back = "Aurist's Cape +1",
@@ -1063,7 +1062,7 @@ function init_gear_sets()
         neck = "Mirage Stole +2",
         ear1 = "Mache Earring +1",
         ear2 = "Telos Earring",
-        body = "Assim. Jubbah +3",
+        body = gear.af1_body,
         hands = "Assim. Bazu. +3",
         ring1 = "Ramuh Ring +1",
         ring2 = "Ramuh Ring +1",

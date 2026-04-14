@@ -193,9 +193,7 @@ function character_user_job_setup()
     gear.hieros_mittens = gear.af1_hands
     --  1  Hieros Mittens                Cursna Set
     gear.shadow_ring = ""
-    --  7  Shadow Ring                   Death protection, MDB
-    gear.sironas_ring = "Stikini Ring +1"
-    --  3  Sirona's Ring                 healing skill + 10
+    --  7  Shadow Ring                   Death protection, MD
     gear.haomas_ring = "Stikini Ring +1"
     --  1  Haoma's Ring                  +15% Cursna Success
     gear.sheltered_ring = ""
@@ -590,7 +588,7 @@ function init_gear_sets()
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
         hands = "Kaykaus Cuffs +1",
-        ring1 = gear.sironas_ring,
+        ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
         back = gear.mnd_enfeebling_jse_back,
         waist = gear.luminary_sash,
@@ -609,7 +607,7 @@ function init_gear_sets()
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
         hands = "Kaykaus Cuffs +1",
-        ring1 = gear.sironas_ring,
+        ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
         back = "Twilight Cape",
         waist = "Hachirin-no-Obi",
@@ -629,7 +627,7 @@ function init_gear_sets()
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
         hands = "Kaykaus Cuffs +1",
-        ring1 = gear.sironas_ring,
+        ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
         back = "Twilight Cape",
         waist = "Hachirin-no-Obi",
