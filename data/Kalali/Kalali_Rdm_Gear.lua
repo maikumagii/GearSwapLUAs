@@ -112,8 +112,6 @@ function character_user_job_setup()
     gear.crepuscular_earring = "Telos Earring"
 
     -- Useful but mostly optimization
-    gear.egeking = "Forfend +1"
-    --  1  Egeking                       +2 Phalanx
     gear.mpacas_staff = "Crocea Mors"
     --  1  Mpaca's Staff                 Idle Set, +2 Refresh
     --	   easy enough to get, 2 MP refresh worth
@@ -147,18 +145,10 @@ function character_user_job_setup()
     --  0  Diamond Aspis                 Swap piece
     gear.homillary = "Staunch Tathlum +1"
     --  1  Homiliary                     Idle Refresh +1
-    gear.hasty_pinion = ""
-    --  3   "Hasty Pinion +1"            Haste +1%, for sets that don't Haste Cap
-    gear.regal_gem = "Staunch Tathlum +1"
-    --  14  "Regal Gem"                  Enfeebling Set (required)
-    gear.impatiens = "Staunch Tathlum +1"
-    --  3   "Impatiens"                  SIRD 10%, QC 2%
     gear.oshashas_treatise = "Coiste Bodhar"
     --  3  Oshasha's Treatise            Wsd 3%
     gear.null_masque = gear.af3_head
     --  1  Null Masque                   Animon Idle
-    gear.mizu_kubikazari = "Eschan Stone"
-    --  1  Mizu. Kubikazari              +10 Magic Burst
     gear.debilis_medallion = gear.jse_neck
     --  1  Debilis Medallion             Cursna Set
     gear.anu_torque = "Null Loop"
@@ -192,10 +182,6 @@ function character_user_job_setup()
     --  1  Haoma's Ring                  +15% Cursna Success
     gear.sheltered_ring = ""
     --  2  Sheltered Ring                +10 DEF, +3% MDT (does not have to be equipped)
-    gear.cacoethic_ring = "Chirich Ring +1"
-    --  4  Cacoethic Ring +1             +11 Accuracy
-    gear.lebeche_ring = ""
-    --  4  Lebeche Ring                  QM +2%
     gear.shadow_mantle = "Null Shawl"
     --  2  Shadow Mantle                 Phys Annul
     gear.engulfer_cape = "Null Shawl"
@@ -294,7 +280,7 @@ function init_gear_sets()
         ear2 = gear.crepuscular_earring,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = gear.cacoethic_ring,
+        ring1 = "Chirich Ring +1",
         ring2 = "Chirich Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
@@ -337,7 +323,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
         waist = gear.witful_belt,
         legs = "Nyame Flanchard",
@@ -355,7 +341,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
         waist = gear.witful_belt,
         legs = "Nyame Flanchard",
@@ -373,7 +359,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = gear.gende_gages,
         ring1 = gear.kishar_ring,
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
         waist = gear.witful_belt,
         legs = gear.sworn_brais,
@@ -410,7 +396,7 @@ function init_gear_sets()
         ear2 = gear.crepuscular_earring,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = gear.cacoethic_ring,
+        ring1 = "Chirich Ring +1",
         ring2 = "Chirich Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
@@ -680,7 +666,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = gear.af1_hands,
         ring1 = gear.kishar_ring,
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.ghostfyre_cape,
         waist = "Embla Sash",
         legs = gear.telchine_braconi,
@@ -745,7 +731,7 @@ function init_gear_sets()
         feet = "Taeon Boots",
         ammo = "Staunch Tathlum +1"]]
     }
-    sets.Self_Phalanx.DW = { main = "Sakpata's Sword", sub = gear.egeking }
+    sets.Self_Phalanx.DW = { main = "Sakpata's Sword", sub = "Egeking" }
 
     sets.midcast['Enfeebling Magic'] = {
         main = "Bunzi's Rod",
@@ -1166,7 +1152,7 @@ function init_gear_sets()
     sets.MagicBurst = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
-        neck = gear.mizu_kubikazari,
+        neck = "Mizu. Kubikazari",
         hands =
         "Bunzi's Gloves",
         ring1 = gear.mujin_band
@@ -1640,7 +1626,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Aya. Manopolas +2",
-        ring1 = gear.cacoethic_ring,
+        ring1 = "Chirich Ring +1",
         ring2 = "Chirich Ring +1",
         back = "Null Shawl",
         waist = "Orpheus's Sash",
@@ -1672,7 +1658,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Aya. Manopolas +2",
-        ring1 = gear.cacoethic_ring,
+        ring1 = "Chirich Ring +1",
         ring2 = "Chirich Ring +1",
         back = "Null Shawl",
         waist = "Orpheus's Sash",

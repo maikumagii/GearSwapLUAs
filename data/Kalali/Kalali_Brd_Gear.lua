@@ -13,12 +13,14 @@ function character_user_job_setup()
     gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'Mag. Acc+8/Mag. Dmg.+8', '"Fast Cast"+10', } }
     --gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'CHR+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'Mag. Acc.+10', '"Fast Cast"+10', 'Damage taken-5%', } }
 
-    gear.linos_str_wsd = { name = "Linos", augments = {'STR+8', 'Attack+15', 'Weapon skill damage +2%'} } -- Savage Blade
-    gear.linos_chr_wsd = { name = "Linos", augments = {'CHR+8', 'Attack+20', 'Weapon skill damage +3%'} } -- Mordant Rime
-    gear.linos_dex_wsd = gear.linos_chr_wsd -- Rudra's Storm
-    gear.linos_int_wsd = gear.linos_chr_wsd -- Aeolian Edge
+    gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
+    gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
+    gear.linos_dex_wsd = gear
+    .linos_chr_wsd                                                                                          -- Rudra's Storm
+    gear.linos_int_wsd = gear
+    .linos_chr_wsd                                                                                          -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
-    gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadrule Attack +3%'} }
+    gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadrule Attack +3%' } }
     -- JSE Weapon/Neck/Earring
     gear.jse_ear2 = "Fili Earring +1"
     gear.jse_neck = "Bard's Charm +2"
@@ -79,8 +81,6 @@ function character_user_job_setup()
     --  7  Shadow Ring                   Death protection, MDB
     gear.haomas_ring = "Stikini Ring +1"
     --  1  Haoma's Ring                  +15% Cursna Success
-    gear.lebeche_ring = ""
-    --  4  Lebeche Ring                  QM +2%
     gear.shadow_mantle = "Null Shawl"
     --  2  Shadow Mantle                 Phys Annul
     gear.engulfer_cape = "Null Shawl"
@@ -144,7 +144,7 @@ function init_gear_sets()
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = gear.witful_belt,
         legs = "Aya. Cosciales +2",
@@ -162,7 +162,7 @@ function init_gear_sets()
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = gear.witful_belt,
         legs = "Aya. Cosciales +2",
@@ -190,7 +190,7 @@ function init_gear_sets()
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = gear.witful_belt,
         legs = "Kaykaus Tights +1",
@@ -349,7 +349,7 @@ function init_gear_sets()
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
-        ring2 = gear.lebeche_ring,
+        ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = gear.witful_belt,
         legs = "Aya. Cosciales +2",
