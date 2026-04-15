@@ -4,7 +4,7 @@ function character_user_job_setup()
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc', 'Fodder')
     state.CastingMode:options('Normal', 'SIRD', 'Resistant', 'FullMacc', 'Fodder', 'Proc')
-    state.IdleMode:options('Normal', 'Sphere', 'PDT', 'DTHippo')
+    state.IdleMode:options('Normal', 'PDT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
@@ -17,25 +17,25 @@ function character_user_job_setup()
     --gear.nuke_jse_back = { name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
 
     -- Artifact Gear
-    gear.af1_head = {}                     --"Brioso Roundlet"
-    gear.af1_body = { "Assim. Jubbah +4" } --"Brioso Just. +3"
-    gear.af1_hands = {}                    --"Brioso Cuffs"
-    gear.af1_legs = {}                     --"Brioso Cannions"
-    gear.af1_feet = {}                     --"Brioso Slippers +3"
+    gear.af1_head = ""                     --"Brioso Roundlet"
+    gear.af1_body =  "Assim. Jubbah +4"  --"Brioso Just. +3"
+    gear.af1_hands = ""                    --"Brioso Cuffs"
+    gear.af1_legs = ""                     --"Brioso Cannions"
+    gear.af1_feet = ""                     --"Brioso Slippers +3"
 
     -- Relic Gear
-    gear.af2_head = {}
-    gear.af2_body = {}
-    gear.af2_hands = {}
-    gear.af2_legs = { "Luh. Shalwar +4" }
-    gear.af2_feet = {} --"Bihu Slippers +2"
+    gear.af2_head = ""
+    gear.af2_body = ""
+    gear.af2_hands = ""
+    gear.af2_legs =  "Luh. Shalwar +4" 
+    gear.af2_feet = "" --"Bihu Slippers +2"
 
     -- Empy Gear
-    gear.af3_head = { "Hashishin Kavuk +3" }
-    gear.af3_body = { "Hashishin Minitan +2" }
-    gear.af3_hands = { "Hashi. Bazu. +2" }
-    gear.af3_legs = { "Hashishin Tayt +2" }
-    gear.af3_feet = { "Hashi. Basmak +2" }
+    gear.af3_head =  "Hashishin Kavuk +3" 
+    gear.af3_body =  "Hashishin Minitan +2" 
+    gear.af3_hands =  "Hashi. Bazu. +2" 
+    gear.af3_legs =  "Hashishin Tayt +2" 
+    gear.af3_feet =  "Hashi. Basmak +2" 
 
 
     autows = 'Expiacion'
@@ -62,10 +62,10 @@ function init_gear_sets()
     -- Start defining the sets
     --------------------------------------
 
-    sets.buff['Burst Affinity'] = { legs = "Assim. Shalwar +3", feet = gear.af3_feet }
-    sets.buff['Chain Affinity'] = { feet = "Assim. Charuqs +2" }
-    sets.buff.Convergence = { head = "Luh. Keffiyeh +3" }
-    sets.buff.Diffusion = { feet = "Luhlaza Charuqs +3" }
+    sets.buff['Burst Affinity'] = { legs = gear.af1_legs, feet = gear.af3_feet }
+    sets.buff['Chain Affinity'] = { feet = gear.af1_feet }
+    sets.buff.Convergence = { head = gear.af2_head }
+    sets.buff.Diffusion = { feet = gear.af2_feet }
     sets.buff.Enchainment = {}
     sets.buff.Efflux = { back = gear.da_jse_back, legs = gear.af3_legs }
     sets.buff.Doom = set_combine(sets.buff.Doom, {})
@@ -123,7 +123,7 @@ function init_gear_sets()
         ear1 = "Mache Earring +1", -- MISSING
         ear2 = "Telos Earring",
         body = gear.af1_body,
-        hands = "Assim. Bazu. +3", -- MISSING
+        hands = gear.af1_hands,
         ring1 = "Epona's Ring",
         ring2 = "Ilabrat Ring",
         back = gear.da_jse_back,      -- MISSING
@@ -139,7 +139,7 @@ function init_gear_sets()
         ear1 = "Mache Earring +1", -- MISSING
         ear2 = "Odr Earring",      -- MISSING
         body = gear.af1_body,
-        hands = "Assim. Bazu. +3", -- MISSING
+        hands = gear.af1_hands,
         ring1 = "Ramuh Ring +1",   -- MISSING
         ring2 = "Ramuh Ring +1",   -- MISSING
         back = gear.da_jse_back,   -- MISSING
@@ -552,7 +552,7 @@ function init_gear_sets()
         main = "Tizona",
         sub = "Sakpata's Sword",
         ammo = "Pemphredo Tathlum",
-        head = "Assim. Keffiyeh +3",
+        head = gear.af1_head,
         neck = "Mirage Stole +2",
         ear1 = "Regal Earring",
         ear2 = "Njordr Earring",
@@ -562,7 +562,7 @@ function init_gear_sets()
         ring2 = "Stikini Ring +1",
         back = "Cornflower Cape",
         waist = "Acuity Belt +1",
-        legs = "Assim. Shalwar +3",
+        legs = gear.af1_legs,
         feet = "Malignance Boots"
     }
 
@@ -895,8 +895,6 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.idle.DTHippo = set_combine(sets.idle.PDT, { legs = "Carmine Cuisses +1", feet = "Hippo. Socks +1" })
-
     -- Defense sets
     sets.defense.PDT = {
         main = "Sakpata's Sword",
@@ -954,20 +952,19 @@ function init_gear_sets()
 
     sets.defense.NukeLock = sets.midcast['Blue Magic'].Magical
 
-    sets.Kiting = { legs = "Carmine Cuisses +1" }
+    sets.Kiting = { ring2 = "Shneddick Ring" }
 
     -- Extra Melee sets.  Apply these on top of melee sets.
     sets.Knockback = {}
-    sets.MP = { waist = "Flume Belt +1", ear1 = "Suppanomimi", ear2 = "Ethereal Earring" }
+    sets.MP = { }
     sets.MP_Knockback = {}
     sets.SuppaBrutal = { ear1 = "Suppanomimi", ear2 = "Brutal Earring" }
     sets.DWEarrings = { ear1 = "Dudgeon Earring", ear2 = "Heartseeker Earring" }
     sets.DWMax = {
-        ear1 = "Dudgeon Earring",
-        ear2 = "Heartseeker Earring",
+        ear1 = "Suppanomimi",
+        ear2 = "Eabani Earring",
         body = "Adhemar Jacket +1",
-        waist =
-        "Reiki Yotai",
+        waist = "Reiki Yotai",
         legs = "Carmine Cuisses +1"
     }
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
@@ -1063,7 +1060,7 @@ function init_gear_sets()
         ear1 = "Mache Earring +1",
         ear2 = "Telos Earring",
         body = gear.af1_body,
-        hands = "Assim. Bazu. +3",
+        hands = gear.af1_hands,
         ring1 = "Ramuh Ring +1",
         ring2 = "Ramuh Ring +1",
         back = gear.da_jse_back,
@@ -1254,14 +1251,7 @@ function init_gear_sets()
 
     sets.Self_Healing = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { back = "Amalric Coif +1", waist = "Gishdubar Sash" }
-    sets.MagicBurst = {
-        body = "Samnuha Coat",
-        hands = "Amalric Gages +1",
-        legs = "Assim. Shalwar +3",
-        ring1 = "Mujin Band",
-        ring2 = "Locus Ring"
-    }
-    sets.Phalanx_Received = { hands = gear.herculean_phalanx_hands, feet = gear.herculean_nuke_feet }
+    sets.Phalanx_Received = { }
 end
 
 -- Select default macro book on initial load or subjob change.

@@ -6,18 +6,19 @@ function character_user_job_setup()
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
     state.Weapons:options('None', 'Naegling', 'Aeneas', 'DualWeapons', 'DualNaegling', 'DualTauret', 'DualAeolian')
 
-    gear.melee_str_wsd_back = { name = "Intarabus's Cape" }
+    gear.melee_str_wsd_back = { name = "Intarabus's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', } }
     gear.melee_chr_wsd_back = gear.melee_str_wsd_back
     gear.melee_dex_wsd_back = gear.melee_str_wsd_back
     gear.melee_int_wsd_back = gear.melee_str_wsd_back
-    gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'CHR+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'Mag. Acc.+10', '"Fast Cast"+10', 'Damage taken-5%', } }
+    gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'Mag. Acc+8/Mag. Dmg.+8', '"Fast Cast"+10', } }
+    --gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'CHR+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'Mag. Acc.+10', '"Fast Cast"+10', 'Damage taken-5%', } }
 
-    gear.linos_str_wsd = { name = "Linos" } -- Savage Blade
-    gear.linos_chr_wsd = { name = "Linos" } -- Mordant Rime
-    gear.linos_dex_wsd = { name = "Linos" } -- Rudra's Storm
-    gear.linos_int_wsd = { name = "Linos" } -- Aeolian Edge
-    gear.linos_fc = { name = "Linos" }
-    gear.linos_tp = { name = "Linos" }
+    gear.linos_str_wsd = { name = "Linos", augments = {'STR+8', 'Attack+15', 'Weapon skill damage +2%'} } -- Savage Blade
+    gear.linos_chr_wsd = { name = "Linos", augments = {'CHR+8', 'Attack+20', 'Weapon skill damage +3%'} } -- Mordant Rime
+    gear.linos_dex_wsd = gear.linos_chr_wsd -- Rudra's Storm
+    gear.linos_int_wsd = gear.linos_chr_wsd -- Aeolian Edge
+    gear.linos_fc = gear.linos_chr_wsd
+    gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadrule Attack +3%'} }
     -- JSE Weapon/Neck/Earring
     gear.jse_ear2 = "Fili Earring +1"
     gear.jse_neck = "Bard's Charm +2"
@@ -53,8 +54,6 @@ function character_user_job_setup()
     --  7  Loricate Torque +1            -6 DT, SIRD 5%
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
-    gear.metamorph_ring = "Stikini Ring +1"
-    --  27 Metamorph Ring +1             +16 INT/MND/CHR, +10 MAcc, +60 MP
     gear.witful_belt = "Null Belt"
     --  3  Witful Belt                   FC +3%, Haste +3%
     gear.mpacas_staff = "Kali" -- "Mpaca's Staff"
@@ -299,7 +298,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = "Nyame Gauntlets",
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.metamorph_ring,
+        ring2 = "Metamorph Ring +1",
         back = gear.melee_str_wsd_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
@@ -416,7 +415,7 @@ function init_gear_sets()
         ear2 = "Fili Earring +1",
         body = gear.af3_body,
         hands = "Inyan. Dastanas +2",
-        ring1 = gear.metamorph_ring,
+        ring1 = "Metamorph Ring +1",
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
         waist = gear.acuity_belt,
@@ -441,7 +440,7 @@ function init_gear_sets()
         ear2 = "Fili Earring +1",
         body = gear.af1_body,
         hands = gear.af1_hands,
-        ring1 = gear.metamorph_ring,
+        ring1 = "Metamorph Ring +1",
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
         waist = gear.acuity_belt,
