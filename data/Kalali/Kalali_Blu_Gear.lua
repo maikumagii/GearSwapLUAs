@@ -1,41 +1,39 @@
 function character_user_job_setup()
     -- Options: Override default values
-    state.OffenseMode:options('Fodder', 'Normal', 'Acc', 'FullAcc')
+    state.OffenseMode:options('Normal', 'Acc', 'FullAcc')
     state.HybridMode:options('Normal', 'DT')
-    state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc', 'Fodder')
-    state.CastingMode:options('Normal', 'SIRD', 'Resistant', 'FullMacc', 'Fodder', 'Proc')
+    state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc')
+    state.CastingMode:options('Normal', 'SIRD', 'Resistant', 'FullMacc')
     state.IdleMode:options('Normal', 'PDT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
     state.Weapons:options('Tizbron', 'Tiztongue', 'None', 'MeleeClubs', 'HybridWeapons', 'Naegbron', 'Naegtongue')
 
-    state.ExtraMeleeMode = M { ['description'] = 'Extra Melee Mode', 'None', 'MP', 'SuppaBrutal', 'DWEarrings', 'DWMax' }
-
     gear.stp_jse_back = { name = "Rosmerta's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'DEX+10', '"Store TP"+10', 'Phys. dmg. taken-10%', } }
     gear.wsd_jse_back = { name = "Rosmerta's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', } }
     --gear.nuke_jse_back = { name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
 
     -- Artifact Gear
-    gear.af1_head = ""                     --"Brioso Roundlet"
-    gear.af1_body =  "Assim. Jubbah +4"  --"Brioso Just. +3"
-    gear.af1_hands = ""                    --"Brioso Cuffs"
-    gear.af1_legs = ""                     --"Brioso Cannions"
-    gear.af1_feet = ""                     --"Brioso Slippers +3"
+    gear.af1_head = ""
+    gear.af1_body = "Assim. Jubbah +4"
+    gear.af1_hands = ""
+    gear.af1_legs = ""
+    gear.af1_feet = ""
 
     -- Relic Gear
     gear.af2_head = ""
     gear.af2_body = ""
     gear.af2_hands = ""
-    gear.af2_legs =  "Luh. Shalwar +4" 
-    gear.af2_feet = "" --"Bihu Slippers +2"
+    gear.af2_legs = "Luh. Shalwar +4"
+    gear.af2_feet = ""
 
     -- Empy Gear
-    gear.af3_head =  "Hashishin Kavuk +3" 
-    gear.af3_body =  "Hashishin Minitan +2" 
-    gear.af3_hands =  "Hashi. Bazu. +2" 
-    gear.af3_legs =  "Hashishin Tayt +2" 
-    gear.af3_feet =  "Hashi. Basmak +2" 
+    gear.af3_head = "Hashishin Kavuk +3"
+    gear.af3_body = "Hashishin Minitan +2"
+    gear.af3_hands = "Hashi. Bazu. +2"
+    gear.af3_legs = "Hashishin Tayt +2"
+    gear.af3_feet = "Hashi. Basmak +2"
 
 
     autows = 'Expiacion'
@@ -88,7 +86,7 @@ function init_gear_sets()
         body = "Luhlaza Jubbah +3",   -- MISSING
         hands = "Leyline Gloves",     -- MISSING
         ring1 = "Kishar Ring",        -- MISSING
-        ring2 = "Lebeche Ring",       -- MISSING
+        ring2 = "Lebeche Ring",
         back = "Perimede Cape",       -- MISSING
         waist = "Witful Belt",        -- MISSING
         legs = "Psycloth Lappas",     -- MISSING
@@ -140,10 +138,10 @@ function init_gear_sets()
         ear2 = "Odr Earring",      -- MISSING
         body = gear.af1_body,
         hands = gear.af1_hands,
-        ring1 = "Ramuh Ring +1",   -- MISSING
-        ring2 = "Ramuh Ring +1",   -- MISSING
-        back = gear.da_jse_back,   -- MISSING
-        waist = "Olseni Belt",     -- MISSING
+        ring1 = "Ramuh Ring +1", -- MISSING
+        ring2 = "Ramuh Ring +1", -- MISSING
+        back = gear.da_jse_back, -- MISSING
+        waist = "Olseni Belt",   -- MISSING
         legs = "Carmine Cuisses +1",
         feet = "Malignance Boots"
     }
@@ -162,22 +160,6 @@ function init_gear_sets()
         waist = "Fotia Belt",    -- MISSING
         legs = "Malignance Tights",
         feet = "Malignance Boots"
-    }
-
-    sets.precast.WS.Fodder = {
-        ammo = "Aurgelmir Orb +1",
-        head = "Lilitu Headpiece", -- MISSING
-        neck = "Fotia Gorget",     -- MISSING
-        ear1 = "Cessance Earring",
-        ear2 = "Brutal Earring",
-        body = "Adhemar Jacket +1",
-        hands = "Jhakri Cuffs +2",
-        ring1 = "Epona's Ring",
-        ring2 = "Apate Ring",
-        back = gear.da_jse_back, -- MISSING
-        waist = "Fotia Belt",    -- MISSING
-        legs = "Samnuha Tights", -- MISSING
-        feet = gear.herculean_ta_feet
     }
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
@@ -203,7 +185,6 @@ function init_gear_sets()
         })
     sets.precast.WS['Requiescat'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Requiescat'].DT = set_combine(sets.precast.WS.DT, {})
-    sets.precast.WS['Requiescat'].Fodder = set_combine(sets.precast.WS['Requiescat'], {})
 
     sets.precast.WS['Realmrazer'] = set_combine(sets.precast.WS,
         {
@@ -226,7 +207,6 @@ function init_gear_sets()
         })
     sets.precast.WS['Realmrazer'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Realmrazer'].DT = set_combine(sets.precast.WS.DT, {})
-    sets.precast.WS['Realmrazer'].Fodder = set_combine(sets.precast.WS['Realmrazer'], {})
 
     sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS,
         {
@@ -254,7 +234,6 @@ function init_gear_sets()
         })
     sets.precast.WS['Chant du Cygne'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Chant du Cygne'].DT = set_combine(sets.precast.WS.DT, { back = gear.crit_jse_back })
-    sets.precast.WS['Chant du Cygne'].Fodder = set_combine(sets.precast.WS['Chant du Cygne'], {})
 
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,
         {
@@ -286,13 +265,11 @@ function init_gear_sets()
         })
     sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Savage Blade'].DT = set_combine(sets.precast.WS.DT, { back = gear.wsd_jse_back })
-    sets.precast.WS['Savage Blade'].Fodder = set_combine(sets.precast.WS['Savage Blade'], {})
 
     sets.precast.WS['Vorpal Blade'] = sets.precast.WS['Chant du Cygne']
     sets.precast.WS['Vorpal Blade'].Acc = sets.precast.WS['Chant du Cygne'].Acc
     sets.precast.WS['Vorpal Blade'].FullAcc = sets.precast.WS['Chant du Cygne'].FullAcc
     sets.precast.WS['Vorpal Blade'].DT = sets.precast.WS['Chant du Cygne'].DT
-    sets.precast.WS['Vorpal Blade'].Fodder = sets.precast.WS['Chant du Cygne'].Fodder
 
     sets.precast.WS['Expiacion'] = set_combine(sets.precast.WS,
         {
@@ -300,13 +277,11 @@ function init_gear_sets()
             neck = "Mirage Stole +2",
             ear1 = "Moonshade Earring",
             ear2 = "Ishvara Earring",
-            body =
-                gear.af1_body,
+            body = gear.af1_body,
             hands = "Jhakri Cuffs +2",
             ring1 = "Ifrit Ring +1",
             ring2 = "Rufescent Ring",
-            back = gear
-                .wsd_jse_back,
+            back = gear.wsd_jse_back,
             waist = "Sailfi Belt +1",
             legs = gear.af2_legs,
             feet = gear.herculean_wsd_feet
@@ -317,15 +292,13 @@ function init_gear_sets()
             ear1 = "Moonshade Earring",
             body = gear.af1_body,
             hands = "Jhakri Cuffs +2",
-            back =
-                gear.wsd_jse_back,
+            back = gear.wsd_jse_back,
             legs = gear.af2_legs,
             feet = gear.herculean_wsd_feet
         })
     sets.precast.WS['Expiacion'].FullAcc = set_combine(sets.precast.WS.FullAcc,
         { body = gear.af1_body, hands = "Jhakri Cuffs +2" })
     sets.precast.WS['Expiacion'].DT = set_combine(sets.precast.WS.DT, { back = gear.wsd_jse_back })
-    sets.precast.WS['Expiacion'].Fodder = set_combine(sets.precast.WS['Expiacion'], {})
 
     sets.precast.WS['Sanguine Blade'] = {
         ammo = "Ghastly Tathlum +1",
@@ -407,42 +380,6 @@ function init_gear_sets()
         feet = "Jhakri Pigaches +2"
     }
 
-    sets.midcast['Blue Magic'].PhysicalAcc = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalAcc.Resistant = set_combine(sets.midcast['Blue Magic'].PhysicalAcc, {})
-    sets.midcast['Blue Magic'].PhysicalAcc.Fodder = sets.midcast['Blue Magic'].Fodder
-
-    sets.midcast['Blue Magic'].PhysicalStr = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalStr.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalStr.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
-    sets.midcast['Blue Magic'].PhysicalDex = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalDex.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalDex.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
-    sets.midcast['Blue Magic'].PhysicalVit = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalVit.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalVit.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
-    sets.midcast['Blue Magic'].PhysicalAgi = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalAgi.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalAgi.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
-    sets.midcast['Blue Magic'].PhysicalInt = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalInt.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalInt.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
-    sets.midcast['Blue Magic'].PhysicalMnd = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalMnd.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalMnd.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
-    sets.midcast['Blue Magic'].PhysicalChr = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalChr.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalChr.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
-    sets.midcast['Blue Magic'].PhysicalHP = set_combine(sets.midcast['Blue Magic'].Physical, {})
-    sets.midcast['Blue Magic'].PhysicalHP.Resistant = set_combine(sets.midcast['Blue Magic'].Physical.Resistant, {})
-    sets.midcast['Blue Magic'].PhysicalHP.Fodder = set_combine(sets.midcast['Blue Magic'].Physical.Fodder, {})
-
     -- Magical Spells --
 
     sets.midcast['Blue Magic'].Magical = {
@@ -499,49 +436,16 @@ function init_gear_sets()
         feet = "Amalric Nails +1"
     }
 
-    sets.midcast['Blue Magic'].Magical.Proc = {
-        ammo = "Hasty Pinion +1",
-        head = "Carmine Mask +1",
-        ear1 = "Enchntr. Earring +1",
-        ear2 = "Loquac. Earring",
-        body = "Luhlaza Jubbah +3",
-        hands = "Leyline Gloves",
-        ring1 = "Kishar Ring",
-        ring2 = "Prolix Ring",
-        back = "Swith Cape +1",
-        waist = "Witful Belt",
-        legs = "Psycloth Lappas",
-        feet = "Carmine Greaves +1"
-    }
-
     sets.midcast['Blue Magic'].Magical.Resistant = set_combine(sets.midcast['Blue Magic'].Magical,
         {
             neck = "Mirage Stole +2",
             hands = "Jhakri Cuffs +2",
             ring1 = "Stikini Ring +1",
             ring2 = "Stikini Ring +1",
-            waist =
-            "Yamabuki-no-Obi",
+            waist = "Yamabuki-no-Obi",
             feet = "Jhakri Pigaches +2"
         })
 
-    sets.midcast['Blue Magic'].Magical.Fodder = {
-        main = "Bunzi's Rod",
-        sub = "Maxentius",
-        ammo = "Pemphredo Tathlum",
-        head = "Jhakri Coronal +2",
-        neck = "Baetyl Pendant",
-        ear1 = "Regal Earring",
-        ear2 = "Friomisi Earring",
-        body = "Amalric Doublet +1",
-        hands = "Amalric Gages +1",
-        ring1 = "Metamor. Ring +1",
-        ring2 = "Shiva Ring +1",
-        back = gear.ElementalCape,
-        waist = gear.ElementalObi,
-        legs = gear.af2_legs,
-        feet = "Amalric Nails +1"
-    }
 
     sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical, { ring2 = "Stikini Ring +1" })
     sets.midcast['Blue Magic'].MagicalChr = set_combine(sets.midcast['Blue Magic'].Magical, {})
@@ -736,8 +640,6 @@ function init_gear_sets()
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
-
-    sets.midcast['Blue Magic'].Stun.Fodder = sets.midcast['Blue Magic'].Stun
 
     -- Other Specific Spells --
 
@@ -954,21 +856,6 @@ function init_gear_sets()
 
     sets.Kiting = { ring2 = "Shneddick Ring" }
 
-    -- Extra Melee sets.  Apply these on top of melee sets.
-    sets.Knockback = {}
-    sets.MP = { }
-    sets.MP_Knockback = {}
-    sets.SuppaBrutal = { ear1 = "Suppanomimi", ear2 = "Brutal Earring" }
-    sets.DWEarrings = { ear1 = "Dudgeon Earring", ear2 = "Heartseeker Earring" }
-    sets.DWMax = {
-        ear1 = "Suppanomimi",
-        ear2 = "Eabani Earring",
-        body = "Adhemar Jacket +1",
-        waist = "Reiki Yotai",
-        legs = "Carmine Cuisses +1"
-    }
-    sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
-
     -- Weapons sets
     sets.weapons.Tizbron = { main = "Tizona", sub = "Thibron" }
     sets.weapons.Tiztongue = { main = "Tizona", sub = "Flametongue" }
@@ -1087,42 +974,6 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.Fodder = {
-        main = "Tizona",
-        aub = gear.tp_bonus_sword,
-        ammo = "Aurgelmir Orb +1",
-        head = "Dampening Tam",
-        neck = "Mirage Stole +2",
-        ear1 = "Dedition Earring",
-        ear2 = "Brutal Earring",
-        body = "Adhemar Jacket +1",
-        hands = "Adhemar Wrist. +1",
-        ring1 = "Epona's Ring",
-        ring2 = "Petrov Ring",
-        back = gear.da_jse_back,
-        waist = "Windbuffet Belt +1",
-        legs = "Samnuha Tights",
-        feet = gear.herculean_ta_feet
-    }
-
-    sets.engaged.Fodder.AM = {
-        main = "Tizona",
-        aub = gear.tp_bonus_sword,
-        ammo = "Aurgelmir Orb +1",
-        head = "Dampening Tam",
-        neck = "Mirage Stole +2",
-        ear1 = "Dedition Earring",
-        ear2 = "Telos Earring",
-        body = "Adhemar Jacket +1",
-        hands = "Adhemar Wrist. +1",
-        ring1 = "Epona's Ring",
-        ring2 = "Petrov Ring",
-        back = gear.stp_jse_back,
-        waist = "Windbuffet Belt +1",
-        legs = "Samnuha Tights",
-        feet = "Carmine Greaves +1"
-    }
-
     sets.engaged.DT = {
         main = "Tizona",
         aub = gear.tp_bonus_sword,
@@ -1213,64 +1064,20 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.Fodder.DT = {
-        main = "Tizona",
-        aub = gear.tp_bonus_sword,
-        ammo = "Aurgelmir Orb +1",
-        head = "Malignance Chapeau",
-        neck = "Loricate Torque +1",
-        ear1 = "Cessance Earring",
-        ear2 = "Brutal Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
-        ring1 = "Murky Ring",
-        ring2 = "Petrov Ring",
-        back = gear.da_jse_back,
-        waist = "Reiki Yotai",
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
-    }
-
-    sets.engaged.Fodder.DT.AM = {
-        main = "Tizona",
-        aub = gear.tp_bonus_sword,
-        ammo = "Aurgelmir Orb +1",
-        head = "Malignance Chapeau",
-        neck = "Loricate Torque +1",
-        ear1 = "Cessance Earring",
-        ear2 = "Telos Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
-        ring1 = "Murky Ring",
-        ring2 = "Petrov Ring",
-        back = gear.stp_jse_back,
-        waist = "Reiki Yotai",
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
-    }
-
     sets.Self_Healing = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { back = "Amalric Coif +1", waist = "Gishdubar Sash" }
-    sets.Phalanx_Received = { }
+    sets.Phalanx_Received = {}
 end
 
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
     -- Default macro set/book
-    if player.sub_job == 'DNC' then
-        set_macro_page(4, 2)
-    elseif player.sub_job == 'NIN' then
-        set_macro_page(5, 2)
-    elseif player.sub_job == 'WAR' then
-        set_macro_page(7, 2)
-    elseif player.sub_job == 'RUN' then
-        set_macro_page(3, 2)
-    elseif player.sub_job == 'THF' then
-        set_macro_page(2, 2)
+    if player.sub_job == 'WAR' then
+        set_macro_page(2, 1)
     elseif player.sub_job == 'RDM' then
-        set_macro_page(1, 2)
+        set_macro_page(3, 1)
     else
-        set_macro_page(6, 2)
+        set_macro_page(1, 1)
     end
 end
 

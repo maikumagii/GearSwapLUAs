@@ -604,15 +604,11 @@ end
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
     if player.sub_job == 'NIN' then
-        set_macro_page(2, 11)
+        set_macro_page(3, 3)
     elseif player.sub_job == 'DNC' then
-        set_macro_page(1, 11)
-    elseif player.sub_job == 'RNG' then
-        set_macro_page(9, 11)
-    elseif player.sub_job == 'DRG' then
-        set_macro_page(5, 11)
+        set_macro_page(2, 3)
     else
-        set_macro_page(2, 11)
+        set_macro_page(1, 3)
     end
 end
 
