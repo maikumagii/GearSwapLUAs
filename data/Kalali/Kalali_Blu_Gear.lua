@@ -496,7 +496,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Sailfi Belt +1",
         legs = "Samnuha Tights",
-        feet = "Herculean Boots"
+        feet = gear.herculean_ta_feet
     } 
 
     sets.engaged.AM = set_combine(sets.engaged, {
