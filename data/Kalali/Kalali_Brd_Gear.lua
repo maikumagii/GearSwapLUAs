@@ -516,7 +516,7 @@ function init_gear_sets()
         ear1 = "Etiolation Earring",
         ear2 = "Alabaster Earring",
         body = "Null Shawl",
-        hands = gear.af3_hadns,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
         back = "Null Shawl",
