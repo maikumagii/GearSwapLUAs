@@ -95,8 +95,6 @@ function character_user_job_setup()
     --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
     gear.regal_gem = "Staunch Tathlum +1"
     --  14 Regal Gem                     Enfeebling Set (required)
-    gear.warders_charm = "Null Loop"
-    --  5  Warder's Charm +1             MDT, MEVA, Animon neck, +10 Magic Burst, +15 Skillchain
     gear.loricate_torque = "Null Loop"
     --  7  Loricate Torque +1            -6 DT, SIRD 5%
     gear.kishar_ring = "Stikini Ring +1"
@@ -135,8 +133,6 @@ function character_user_job_setup()
     --  6  Cornelia's Ring               +10% WSD
     gear.perimede_cape = gear.cure_jse_back
     --  3  Perimede Cape                 QC+4%
-    gear.acuity_belt = "Eschan Stone"
-    --  3  Acuity Belt +1                +16 INT, +15 Macc
     gear.obstinate_sash = "Embla Sash"
     --  6  Obstinate Sash                +5 Enfeebling Duration
     --
@@ -1084,7 +1080,7 @@ function init_gear_sets()
         ring1 = gear.freke_ring,
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
-        waist = gear.acuity_belt,
+        waist = "Acuity Belt +1",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -1121,7 +1117,7 @@ function init_gear_sets()
         ring1 = gear.freke_ring,
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
-        waist = gear.acuity_belt,
+        waist = "Acuity Belt +1",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -1140,7 +1136,7 @@ function init_gear_sets()
         ring1 = gear.freke_ring,
         ring2 = "Metamorph Ring +1",
         gear.nuke_jse_back,
-        waist = gear.acuity_belt,
+        waist = "Acuity Belt +1",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -1347,7 +1343,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
-        neck = gear.warders_charm,
+        neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
@@ -1366,7 +1362,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
-        neck = gear.warders_charm,
+        neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
@@ -1385,7 +1381,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.null_masque,
-        neck = gear.warders_charm,
+        neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
@@ -1425,7 +1421,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
-        neck = gear.warders_charm,
+        neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",
@@ -1444,7 +1440,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
-        neck = gear.warders_charm,
+        neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Bunzi's Robe",

@@ -67,8 +67,6 @@ function character_user_job_setup()
     --  3  Impatiens                     SIRD 10%, QC 2%
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
-    gear.acuity_belt = "Eschan Stone"
-    --  3  Acuity Belt +1                +16 INT, +15 Macc
     gear.debilis_medallion = gear.jse_neck
     --  1  Debilis Medallion             Cursna Set
     gear.prolix_ring = "Stikini Ring +1"
@@ -418,7 +416,7 @@ function init_gear_sets()
         ring1 = "Metamorph Ring +1",
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
-        waist = gear.acuity_belt,
+        waist = "Acuity Belt +1",
         legs = "Inyanga Shalwar +2",
         feet = gear.af1_feet
     }
@@ -443,7 +441,7 @@ function init_gear_sets()
         ring1 = "Metamorph Ring +1",
         ring2 = "Stikini Ring +1",
         back = gear.magic_jse_back,
-        waist = gear.acuity_belt,
+        waist = "Acuity Belt +1",
         legs = gear.af1_feet,
         feet = gear.af1_legs
     }

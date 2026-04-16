@@ -1,6 +1,6 @@
 function character_user_job_setup()
     -- Options: Override default values
-    state.OffenseMode:options('Normal', 'Acc', 'FullAcc')
+    state.OffenseMode:options('Normal', 'Acc', 'HighBuff')
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc')
     state.CastingMode:options('Normal', 'SIRD', 'Resistant', 'FullMacc')
@@ -14,6 +14,7 @@ function character_user_job_setup()
     gear.wsd_jse_back = { name = "Rosmerta's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', } }
     --gear.nuke_jse_back = { name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
 
+    gear.jse_neck = "Mirage Stole +2"
     -- Artifact Gear
     gear.af1_head = ""
     gear.af1_body = "Assim. Jubbah +4"
@@ -71,7 +72,7 @@ function init_gear_sets()
     -- Precast Sets
 
     -- Precast sets to enhance JAs
-    sets.precast.JA['Azure Lore'] = { hands = "Luh. Bazubands +1" }
+    sets.precast.JA['Azure Lore'] = { hands = gear.af2_hands }
 
     -- Fast cast sets for spells
 
@@ -83,257 +84,104 @@ function init_gear_sets()
         neck = "Voltsurge Torque",    -- MISSING
         ear1 = "Enchntr. Earring +1", -- MISSING
         ear2 = "Loquac. Earring",
-        body = "Luhlaza Jubbah +3",   -- MISSING
-        hands = "Leyline Gloves",     -- MISSING
-        ring1 = "Kishar Ring",        -- MISSING
+        body = gear.af2_body,
+        hands = "Leyline Gloves",   -- MISSING
+        ring1 = "Kishar Ring",      -- MISSING
         ring2 = "Lebeche Ring",
-        back = "Perimede Cape",       -- MISSING
-        waist = "Witful Belt",        -- MISSING
-        legs = "Psycloth Lappas",     -- MISSING
-        feet = "Carmine Greaves +1"   -- MISSING
+        back = "Perimede Cape",     -- MISSING
+        waist = "Witful Belt",      -- MISSING
+        legs = "Psycloth Lappas",   -- MISSING
+        feet = "Carmine Greaves +1" -- MISSING
     }
 
-    sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, { body = "Hashishin Mintan +1" })
+    sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, { body = gear.af3_body })
 
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
-        ammo = "Aurgelmir Orb +1",
-        head = "Lilitu Headpiece", -- MISSING
-        neck = "Fotia Gorget",     -- MISSING
-        ear1 = "Cessance Earring",
-        ear2 = "Brutal Earring",
-        body = "Adhemar Jacket +1",
+        ammo = "Coisted Bodhar",
+        head = gear.af3_head,
+        neck = gear.jse_neck,
+        ear1 = "Moonshade Earring",
+        ear2 = "Ishvara Earring",
+        body = gear.af1_body,
         hands = "Jhakri Cuffs +2",
-        ring1 = "Epona's Ring",
-        ring2 = "Apate Ring", -- MISSING
-        back = gear.da_jse_back,
-        waist = "Fotia Belt", -- MISSING
-        legs = "Samnuha Tights",
-        feet = gear.herculean_ta_feet
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Sroda Ring",
+        back = gear.wsd_jse_back,
+        waist = "Sailfi Belt +1",
+        legs = gear.af2_legs,
+        feet = "Nyame Flanchard"
     }
 
-    sets.precast.WS.Acc = {
-        ammo = "Falcon Eye",       -- MISSING
-        head = "Carmine Mask +1",  -- MISSING
-        neck = "Fotia Gorget",     -- MISSING
-        ear1 = "Mache Earring +1", -- MISSING
-        ear2 = "Telos Earring",
-        body = gear.af1_body,
-        hands = gear.af1_hands,
-        ring1 = "Epona's Ring",
-        ring2 = "Ilabrat Ring",
-        back = gear.da_jse_back,      -- MISSING
-        waist = "Fotia Belt",         -- MISSING
-        legs = "Carmine Cuisses +1",
-        feet = gear.herculean_ta_feet -- MISSING
-    }
+    sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 
-    sets.precast.WS.FullAcc = {
-        ammo = "Falcon Eye",       -- MISSING
-        head = "Carmine Mask +1",  -- MISSING
-        neck = "Mirage Stole +2",
-        ear1 = "Mache Earring +1", -- MISSING
-        ear2 = "Odr Earring",      -- MISSING
-        body = gear.af1_body,
-        hands = gear.af1_hands,
-        ring1 = "Ramuh Ring +1", -- MISSING
-        ring2 = "Ramuh Ring +1", -- MISSING
-        back = gear.da_jse_back, -- MISSING
-        waist = "Olseni Belt",   -- MISSING
-        legs = "Carmine Cuisses +1",
-        feet = "Malignance Boots"
-    }
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        hands = "Gleti's Gauntlets",
+        --waist = "Kentarch Belt +1",
+        ring2 = "Sroda Ring"
+    })
 
-    sets.precast.WS.DT = {
-        ammo = "Aurgelmir Orb +1",
-        head = "Malignance Chapeau",
-        neck = "Loricate Torque +1", -- MISSING
-        ear1 = "Cessance Earring",
-        ear2 = "Brutal Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
-        ring1 = "Murky Ring",
-        ring2 = "Ilabrat Ring",
-        back = gear.da_jse_back, -- MISSING
-        waist = "Fotia Belt",    -- MISSING
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
-    }
+    sets.precast.WS.DT = set_combine(sets.precast.WS, {})
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
-    sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS,
-        {
-            head = "Jhakri Coronal +2",
-            ear1 = "Regal Earring",
-            body = "Jhakri Robe +2",
-            ring2 = "Rufescent Ring",
-            legs =
-            "Jhakri Slops +2",
-            feet = "Jhakri Pigaches +2"
-        })
-    sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS.Acc,
-        {
-            head = "Jhakri Coronal +2",
-            ear1 = "Regal Earring",
-            ear2 = "Telos Earring",
-            ring1 = "Rufescent Ring",
-            legs =
-            "Jhakri Slops +2",
-            feet = "Jhakri Pigaches +2"
-        })
-    sets.precast.WS['Requiescat'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
+    sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
+        neck = gear.fotia_gorget,
+        ear2 = gear.regal_earring,
+        ring1 = "Metamor. Ring +1",
+        ring2 = "Epona's Ring",
+        waist = gear.fotia_belt
+    })
+
+    sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS.Acc, {
+        neck = gear.fotia_gorget,
+        ear2 = gear.regal_earring,
+        ring1 = "Metamor. Ring +1",
+        ring2 = "Epona's Ring",
+        waist = gear.fotia_belt
+    })
+
+    sets.precast.WS['Requiescat'].HighBuff = set_combine(sets.precast.WS.HighBuff, {
+        head = gear.null_masque,
+        neck = gear.fotia_gorget,
+        ear1 = "Brutal Earring",
+        ear2 = gear.regal_earring,
+        body = "Gleti's Cuirass",
+        ring1 = "Metamor. Ring +1",
+        ring2 = "Sroda Ring",
+        waist = gear.fotia_belt,
+        legs = "Gleti's Breeches"
+    })
+
     sets.precast.WS['Requiescat'].DT = set_combine(sets.precast.WS.DT, {})
 
-    sets.precast.WS['Realmrazer'] = set_combine(sets.precast.WS,
-        {
-            head = "Jhakri Coronal +2",
-            ear1 = "Regal Earring",
-            body = "Jhakri Robe +2",
-            ring2 = "Rufescent Ring",
-            legs =
-            "Jhakri Slops +2",
-            feet = "Jhakri Pigaches +2"
-        })
-    sets.precast.WS['Realmrazer'].Acc = set_combine(sets.precast.WS.Acc,
-        {
-            head = "Jhakri Coronal +2",
-            ear1 = "Regal Earring",
-            ear2 = "Telos Earring",
-            ring1 = "Rufescent Ring",
-            legs = "Jhakri Slops +2",
-            feet = "Jhakri Pigaches +2"
-        })
-    sets.precast.WS['Realmrazer'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
-    sets.precast.WS['Realmrazer'].DT = set_combine(sets.precast.WS.DT, {})
+    sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS.HighBuff, {})
+    sets.precast.WS['Savage Blade'].DT = set_combine(sets.precast.WS.DT, {})
 
-    sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS,
-        {
-            ammo = "Falcon Eye",
-            head = "Adhemar Bonnet +1",
-            neck = "Mirage Stole +2",
-            ear1 = "Moonshade Earring",
-            ear2 = "Odr Earring",
-            body = "Abnoba Kaftan",
-            hands = "Adhemar Wrist. +1",
-            ring2 = "Begrudging Ring",
-            back = gear
-                .crit_jse_back,
-            feet = "Thereoid Greaves"
-        })
-    sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS.Acc,
-        {
-            ear1 = "Moonshade Earring",
-            ear2 = "Odr Earring",
-            ring2 = "Begrudging Ring",
-            body = "Sayadio's Kaftan",
-            back =
-                gear.crit_jse_back,
-            legs = "Carmine Cuisses +1"
-        })
-    sets.precast.WS['Chant du Cygne'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
-    sets.precast.WS['Chant du Cygne'].DT = set_combine(sets.precast.WS.DT, { back = gear.crit_jse_back })
-
-    sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,
-        {
-            head = "Lilitu Headpiece",
-            neck = "Mirage Stole +2",
-            ear1 = "Moonshade Earring",
-            ear2 = "Ishvara Earring",
-            body =
-                gear.af1_body,
-            hands = "Jhakri Cuffs +2",
-            ring1 = "Ifrit Ring +1",
-            ring2 = "Rufescent Ring",
-            back = gear
-                .wsd_jse_back,
-            waist = "Sailfi Belt +1",
-            legs = gear.af2_legs,
-            feet = gear.herculean_wsd_feet
-        })
-    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS.Acc,
-        {
-            neck = "Mirage Stole +2",
-            ear1 = "Moonshade Earring",
-            hands = "Jhakri Cuffs +2",
-            back = gear.wsd_jse_back,
-            waist =
-            "Grunfeld Rope",
-            legs = gear.af2_legs,
-            feet = gear.herculean_wsd_feet
-        })
-    sets.precast.WS['Savage Blade'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
-    sets.precast.WS['Savage Blade'].DT = set_combine(sets.precast.WS.DT, { back = gear.wsd_jse_back })
-
-    sets.precast.WS['Vorpal Blade'] = sets.precast.WS['Chant du Cygne']
-    sets.precast.WS['Vorpal Blade'].Acc = sets.precast.WS['Chant du Cygne'].Acc
-    sets.precast.WS['Vorpal Blade'].FullAcc = sets.precast.WS['Chant du Cygne'].FullAcc
-    sets.precast.WS['Vorpal Blade'].DT = sets.precast.WS['Chant du Cygne'].DT
-
-    sets.precast.WS['Expiacion'] = set_combine(sets.precast.WS,
-        {
-            head = "Lilitu Headpiece",
-            neck = "Mirage Stole +2",
-            ear1 = "Moonshade Earring",
-            ear2 = "Ishvara Earring",
-            body = gear.af1_body,
-            hands = "Jhakri Cuffs +2",
-            ring1 = "Ifrit Ring +1",
-            ring2 = "Rufescent Ring",
-            back = gear.wsd_jse_back,
-            waist = "Sailfi Belt +1",
-            legs = gear.af2_legs,
-            feet = gear.herculean_wsd_feet
-        })
-    sets.precast.WS['Expiacion'].Acc = set_combine(sets.precast.WS.Acc,
-        {
-            neck = "Mirage Stole +2",
-            ear1 = "Moonshade Earring",
-            body = gear.af1_body,
-            hands = "Jhakri Cuffs +2",
-            back = gear.wsd_jse_back,
-            legs = gear.af2_legs,
-            feet = gear.herculean_wsd_feet
-        })
-    sets.precast.WS['Expiacion'].FullAcc = set_combine(sets.precast.WS.FullAcc,
-        { body = gear.af1_body, hands = "Jhakri Cuffs +2" })
-    sets.precast.WS['Expiacion'].DT = set_combine(sets.precast.WS.DT, { back = gear.wsd_jse_back })
+    sets.precast.WS['Expiacion'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Expiacion'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Expiacion'].HighBuff = set_combine(sets.precast.WS.HighBuff, {})
+    sets.precast.WS['Expiacion'].DT = set_combine(sets.precast.WS.DT, {})
 
     sets.precast.WS['Sanguine Blade'] = {
         ammo = "Ghastly Tathlum +1",
         head = "Pixie Hairpin +1",
-        neck = "Baetyl Pendant",
-        ear1 = "Regal Earring",
+        neck = gear.sibyl_scarf, --"Baetyl Pendant", -- Sibyl Scarf
+        ear1 = gear.regal_earring,
         ear2 = "Friomisi Earring",
-        body = "Amalric Doublet +1",
+        body = gear.nyame_mail, -- "Amalric Doublet +1",
         hands = "Jhakri Cuffs +2",
-        ring1 = "Metamor. Ring +1",
-        ring2 = "Archon Ring",
-        back = gear.nuke_jse_back,
-        waist = "Yamabuki-no-Obi",
+        ring1 = "Epaminondas's Ring",
+        ring2 = gear.archon_ring,     -- "Metamor. Ring +1",
+        back = gear.int_wsd_jse_back, -- str wsd back
+        waist = "Orpheus's Sash",
         legs = gear.af2_legs,
-        feet = "Amalric Nails +1"
+        feet = gear.af3_feet
     }
-
-    sets.precast.WS['Sanguine Blade'].DT = set_combine(sets.precast.WS.DT, { back = gear.nuke_jse_back })
-
-    sets.precast.WS['Flash Nova'] = {
-        ammo = "Ghastly Tathlum +1",
-        head = "Jhakri Coronal +2",
-        neck = "Baetyl Pendant",
-        ear1 = "Regal Earring",
-        ear2 = "Friomisi Earring",
-        body = "Amalric Doublet +1",
-        hands = "Jhakri Cuffs +2",
-        ring1 = "Metamor. Ring +1",
-        ring2 = "Shiva Ring +1",
-        back = gear.nuke_jse_back,
-        waist = "Yamabuki-no-Obi",
-        legs = gear.af2_legs,
-        feet = "Amalric Nails +1"
-    }
-
     sets.precast.WS['Sanguine Blade'].DT = set_combine(sets.precast.WS.DT, { back = gear.nuke_jse_back })
 
     -- Swap to these on Moonshade using WS if at 3000 TP
@@ -348,7 +196,7 @@ function init_gear_sets()
         head = "Carmine Mask +1",
         ear1 = "Enchntr. Earring +1",
         ear2 = "Loquac. Earring",
-        body = "Luhlaza Jubbah +3",
+        body = gear.af2_body,
         hands = "Leyline Gloves",
         ring1 = "Kishar Ring",
         ring2 = "Prolix Ring",
@@ -590,17 +438,17 @@ function init_gear_sets()
 
     sets.midcast['Blue Magic'].Breath = {
         ammo = "Mavi Tathlum",
-        head = "Luh. Keffiyeh +3",
+        head = gear.af2_head,
         neck = "Mirage Stole +2",
         ear1 = "Regal Earring",
         ear2 = "Digni. Earring",
         body = gear.af1_body,
-        hands = "Luh. Bazubands +1",
+        hands = gear.af2_hands,
         ring1 = "Kunaji Ring",
         ring2 = "Meridian Ring",
         back = "Cornflower Cape",
         legs = gear.af3_legs,
-        feet = "Luhlaza Charuqs +3"
+        feet = gear.af2_feet
     }
 
     -- Physical Added Effect Spells most notably "Stun" spells --
@@ -719,7 +567,7 @@ function init_gear_sets()
         main = "Iris",
         sub = "Iris",
         ammo = "Mavi Tathlum",
-        head = "Luh. Keffiyeh +3",
+        head = gear.af2_head,
         neck = "Mirage Stole +2",
         ear1 = "Gifted Earring",
         ear2 = "Njordr Earring",
@@ -730,14 +578,14 @@ function init_gear_sets()
         back = "Cornflower Cape",
         waist = "Witful Belt",
         legs = gear.af3_legs,
-        feet = "Luhlaza Charuqs +3"
+        feet = gear.af2_feet
     }
 
     sets.midcast['Blue Magic'].Buff = {
         main = "Vampirism",
         sub = "Vampirism",
         ammo = "Mavi Tathlum",
-        head = "Luh. Keffiyeh +3",
+        head = gear.af2_head,
         neck = "Incanter's Torque",
         ear1 = "Gifted Earring",
         ear2 = "Loquac. Earring",
