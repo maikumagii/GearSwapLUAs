@@ -15,12 +15,10 @@ function character_user_job_setup()
 
     gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
     gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
-    gear.linos_dex_wsd = gear
-        .linos_chr_wsd                                                                                      -- Rudra's Storm
-    gear.linos_int_wsd = gear
-        .linos_chr_wsd                                                                                      -- Aeolian Edge
+    gear.linos_dex_wsd = gear.linos_chr_wsd                                                                                      -- Rudra's Storm
+    gear.linos_int_wsd = gear.linos_chr_wsd                                                                                      -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
-    gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadrule Attack +3%' } }
+    gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadruple Attack +3%' } }
     -- JSE Weapon/Neck/Earring
     gear.jse_ear2 = "Fili Earring +1"
     gear.jse_neck = "Bard's Charm +2"
@@ -40,9 +38,9 @@ function character_user_job_setup()
     gear.af2_feet = {} --"Bihu Slippers +3"
 
     -- Empy Gear
-    gear.af3_head = "Fili Calot +1"
+    gear.af3_head = "Fili Calot +2"
     gear.af3_body = "Fili Hongreline +2"
-    gear.af3_hands = "Fili Manchettes +2"
+    gear.af3_hands = "Fili Manchettes +1"
     gear.af3_legs = "Fili Rhingrave +1"
     gear.af3_feet = "Fili Cothurnes +1"
 
@@ -457,7 +455,7 @@ function init_gear_sets()
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
-        hands = "gear.af3_hands",
+        hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
         ring2 = gear.prolix_ring,
         back = gear.magic_jse_back,
@@ -619,7 +617,7 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves ",
+        hands = "Bunzi's Gloves",
         ring1 = "Moonlight Ring",
         ring2 = "Moonlight Ring",
         back = "Null Shawl",
@@ -637,7 +635,7 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves ",
+        hands = "Bunzi's Gloves",
         ring1 = "Moonlight Ring",
         ring2 = "Moonlight Ring",
         back = "Null Shawl",
@@ -655,7 +653,7 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves ",
+        hands = "Bunzi's Gloves",
         ring1 = "Moonlight Ring",
         ring2 = "Moonlight Ring",
         back = "Null Shawl",
@@ -673,7 +671,7 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves ",
+        hands = "Bunzi's Gloves",
         ring1 = "Moonlight Ring",
         ring2 = "Moonlight Ring",
         back = "Null Shawl",
@@ -691,7 +689,7 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves ",
+        hands = "Bunzi's Gloves",
         ring1 = "Moonlight Ring",
         ring2 = "Moonlight Ring",
         back = "Null Shawl",
@@ -709,7 +707,7 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves ",
+        hands = "Bunzi's Gloves",
         ring1 = "Moonlight Ring",
         ring2 = "Moonlight Ring",
         back = "Null Shawl",
@@ -727,7 +725,7 @@ function init_gear_sets()
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves ",
+        hands = "Bunzi's Gloves",
         ring1 = "Moonlight Ring",
         ring2 = "Moonlight Ring",
         back = "Null Shawl",
