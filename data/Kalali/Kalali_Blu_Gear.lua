@@ -331,14 +331,14 @@ function init_gear_sets()
         ammo = "Pemphredo Tathlum",
         head = "Malignance Chapeau",
         neck = "Mirage Stole +2",
-        ear1 = "Regal Earring",
-        ear2 = "Digni. Earring",
+        ear1 = gear.regal_earring,
+        ear2 = gear.jse_earring,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Metamor. Ring +1",
         ring2 = "Stikini Ring +1",
         back = "Cornflower Cape",
-        waist = "Luminary Sash",
+        waist = "Null Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
