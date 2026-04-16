@@ -8,7 +8,7 @@ function character_user_job_setup()
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('Tizbron', 'Tiztongue', 'None', 'MeleeClubs', 'HybridWeapons', 'Naegbron', 'Naegtongue')
+    state.Weapons:options('Tizbron', 'Tiztongue', 'None', 'MeleeClubs', 'Naegbron', 'Naegtongue')
 
     gear.stp_jse_back = { name = "Rosmerta's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'DEX+10', '"Store TP"+10', 'Phys. dmg. taken-10%', } }
     gear.str_wsd_jse_back = { name = "Rosmerta's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', } }
@@ -50,7 +50,7 @@ function character_user_job_setup()
     gear.null_masque = ""
     gear.loricate_torque = "Null Loop"
     gear.luminary_sash = "Null Belt"
-
+    gear.genmei_shield = ""
 
     autows = 'Expiacion'
 
@@ -199,7 +199,7 @@ function init_gear_sets()
     sets.AccMaxTP = { ear1 = "Regal Earring", ear2 = "Telos Earring" }
 
     -- Midcast Sets
-    sets.midcast.FastRecast = set_combine(sets.precast.FC { })
+    sets.midcast.FastRecast = set_combine(sets.precast.FC, { })
 
     sets.midcast['Blue Magic'] = {}
 
@@ -254,7 +254,6 @@ function init_gear_sets()
     }
 
     sets.midcast['Blue Magic'].Magical.FullMacc = sets.midcast['Blue Magic'].MagicAccuracy
-    sets.midcast['Blue Magic'].Subduction.FullMacc = sets.midcast['Blue Magic'].MagicAccuracy
 
     sets.midcast['Enfeebling Magic'] = {
         main = "Tizona",
@@ -263,7 +262,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = gear.regal_earring,
-        ear2 = gear.jse_earring
+        ear2 = gear.jse_earring,
         body = gear.af3_body,
         hands = "Regal Cuffs",
         ring1 = "Metamor. Ring +1",
@@ -296,7 +295,7 @@ function init_gear_sets()
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'],
         { legs = "Shedir Seraweels" })
 
-    sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], { legs = "Shedir Seraweels" })
+    sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], { legs = "Shedir Seraweels" })
 
     --sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
     --sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
@@ -311,7 +310,7 @@ function init_gear_sets()
         sub = "Sakpata's Sword",
         ammo = "Staunch Tathlum +1",
         neck = gear.loricate_torque,
-        ear1 = "gear.regal_earring,
+        ear1 = gear.regal_earring,
         ear2 = "Mendi. Earring",
         body = "Vrikodara Jupon",
         ring1 = "Naji's Loop",
@@ -360,7 +359,7 @@ function init_gear_sets()
         --body = gear.af1_body,
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
-        back = "Cornflower Cape",-
+        back = "Cornflower Cape",
         legs = gear.af3_legs,
         --feet = gear.af2_feet
     }
@@ -378,94 +377,94 @@ function init_gear_sets()
 
     -- Idle sets
     sets.idle = {
-        main = "Bolelabunga",
-        sub = "Genmei Shield",
+        main = "Sakpata's Sword",
+        sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
-        head = "Rawhide Mask",
-        neck = "Loricate Torque +1",
+        head = "Nyame Helm",
+        neck = gear.loricate_torque,
         ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",
-        body = "Jhakri Robe +2",
-        hands = gear.herculean_refresh_hands,
+        ear2 = "Alabaster Earring",
+        body = gear.af3_body,
+        hands = "Nyame Gauntlets",
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
-        back = "Umbra Cape",
-        waist = "Flume Belt +1",
-        legs = "Lengo Pants",
-        feet = gear.herculean_refresh_feet
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sabots"
     }
 
     sets.idle.PDT = {
         main = "Sakpata's Sword",
-        sub = "Genmei Shield",
+        sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = "Loricate Torque +1",
+        neck = gear.loricate_torque,
         ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",
-        body = "Jhakri Robe +2",
+        ear2 = "Alabaster Earring",
+        body = gear.af3_body,
         hands = "Nyame Gauntlets",
-        ring1 = "Murky Ring",
-        ring2 = "Dark Ring",
-        back = "Moonlight Cape",
+        ring1 = "Stikini Ring +1",
+        ring2 = "Stikini Ring +1",
+        back = "Null Shawl",
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        feet = "Nyame Sabots"
     }
 
     -- Defense sets
     sets.defense.PDT = {
         main = "Sakpata's Sword",
-        sub = "Genmei Shield",
+        sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = "Loricate Torque +1",
+        neck = gear.loricate_torque,
         ear1 = "Etiolation Earring",
-        ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        ear2 = "Alabaster Earring",
+        body = gear.af3_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = "Shadow Ring",
-        back = "Shadow Mantle",
+        ring2 = "Stikini Ring +1",
+        back = "Null Shawl",
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        feet = "Nyame Sabots"
     }
 
     sets.defense.MDT = {
-        main = "Bolelabunga",
-        sub = "Genmei Shield",
+        main = "Sakpata's Sword",
+        sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        ear2 = "Alabaster Earring",
+        body = gear.af3_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = "Shadow Ring",
-        back = "Moonlight Cape",
-        waist = "Carrier's Sash",
+        ring2 = "Stikini Ring +1",
+        back = "Null Shawl",
+        waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        feet = "Nyame Sabots"
     }
 
     sets.defense.MEVA = {
-        main = "Bolelabunga",
-        sub = "Genmei Shield",
+        main = "Sakpata's Sword",
+        sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
-        head = "Malignance Chapeau",
+        head = "Nyame Helm",
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = "Sanare Earring",
-        body = "Malignance Tabard",
-        hands = "Leyline Gloves",
-        ring1 = "Vengeful Ring",
-        ring2 = "Purity Ring",
-        back = gear.nuke_jse_back,
-        waist = "Carrier's Sash",
-        legs = "Telchine Braconi",
-        feet = "Malignance Boots"
+        ear2 = "Alabaster Earring",
+        body = gear.af3_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Murky Ring",
+        ring2 = "Stikini Ring +1",
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sabots"
     }
 
     sets.defense.NukeLock = sets.midcast['Blue Magic'].Magical
@@ -538,7 +537,7 @@ function init_gear_sets()
         ear2 = "Eabani Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = "Chirich Ring +1"
+        ring1 = "Chirich Ring +1",
         ring2 = "Chirich Ring +1",
         back = "Null Shawl",
         waist = "Reiki Yotai",
@@ -578,7 +577,7 @@ function init_gear_sets()
         neck = "Mirage Stole +2",
         ear1 = "Telos Earring",
         ring1 = "Chirich Ring +1",
-    }
+    })
 
     sets.engaged.Acc.DT.AM = set_combine(sets.engaged.Acc.DT, {
         back = gear.stp_jse_back,
@@ -611,7 +610,6 @@ autows_list = {
     ['Tizbron'] = 'Expiacion',
     ['Tiztongue'] = 'Expiacion',
     ['MeleeClubs'] = 'Black Halo',
-    ['HybridWeapons'] = 'Sanguine Blade',
     ['Naegbron'] = 'Savage Blade',
     ['Naegtongue'] = 'Savage Blade'
 }
