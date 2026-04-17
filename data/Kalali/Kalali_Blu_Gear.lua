@@ -34,7 +34,7 @@ function character_user_job_setup()
 
     -- Empy Gear
     gear.af3_head = "Hashishin Kavuk +3"
-    gear.af3_body = "Hashishin Minitan +2"
+    gear.af3_body = "Hashishin Mintan +2"
     gear.af3_hands = "Hashi. Bazu. +2"
     gear.af3_legs = "Hashishin Tayt +2"
     gear.af3_feet = "Hashi. Basmak +2"
@@ -122,7 +122,7 @@ function init_gear_sets()
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = gear.af2_legs,
-        feet = "Nyame Flanchard"
+        feet = "Nyame Sabots"
     }
 
     sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
