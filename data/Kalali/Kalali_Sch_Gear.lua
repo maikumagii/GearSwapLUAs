@@ -33,6 +33,36 @@ function character_user_job_setup()
     gear.af3_hands = "Arbatel Bracers +3"
     gear.af3_legs = "Arbatel Pants +3"
     gear.af3_feet = "Arbatel Loafers +3"
+    gear.kishar_ring = ""
+    gear.perimede_cape = ""
+    gear.oshashas_treatise = ""
+    gear.fotia_gorget = ""
+    gear.fotia_belt = ""
+    gear.cornelias_ring = ""
+    gear.luminary_sash = ""
+    gear.orunmilas_torque = ""
+    gear.incanters_torque = ""
+    gear.meili_earring = ""
+    gear.sibyl_scarf = ""
+    gear.debilis_medallion = ""
+    gear.hieros_mittens = ""
+    gear.bishops_sash = ""
+    gear.telchine_cap = ""
+    gear.andoaa_earring = ""
+    gear.telchine_braconi = ""
+    gear.obstinate_sash = ""
+    gear.freke_ring = ""
+    gear.sacro_cord = ""
+    gear.fuchonoobi = ""
+    gear.null_masque = ""
+    gear.crep_earring = ""
+    gear.prolix_ring = ""
+    gear.homiliary = ""
+    gear.ethereal_earring = ""
+    gear.sanare_earring = ""
+    gear.shadow_ring = ""
+    gear.shadow_mantle = ""
+    gear.plat_mog_belt = ""
 
     -- Additional local binds
     send_command('bind @` gs c cycle ElementalMode')
@@ -75,14 +105,14 @@ function init_gear_sets()
         sub = "Khonsu",
         ammo = "Impatiens",
         head = gear.merlinic_fc_head,
-        neck = "Orunmila's Torque",
+        neck = gear.orunmilas_torque,
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
         body = "Pinga Tunic",
         hands = "Gende. Gages +1",
-        ring1 = "Kishar Ring",
+        ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
-        back = "Perimede Cape",
+        back = gear.perimede_cape,
         waist = "Witful Belt",
         legs = "Pinga Pants",
         feet = gear.merlinic_fc_feet
@@ -93,14 +123,14 @@ function init_gear_sets()
         sub = "Khonsu",
         ammo = "Impatiens",
         head = gear.merlinic_fc_head,
-        neck = "Orunmila's Torque",
+        neck = gear.orunmilas_torque,
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
         body = "Pinga Tunic",
         hands = "Gende. Gages +1",
-        ring1 = "Kishar Ring",
+        ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
-        back = "Perimede Cape",
+        back = gear.perimede_cape,
         waist = "Witful Belt",
         legs = "Pinga Pants",
         feet = gear.merlinic_fc_feet
@@ -116,17 +146,17 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
 
     sets.precast.WS = {
-        ammo = "Oshasha's Treatise",
+        ammo = gear.oshashas_treatise,
         head = "Nyame Helm",
-        neck = "Fotia Gorget",
+        neck = gear.fotia_gorget,
         ear1 = "Brutal Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Epaminondas's Ring",
-        ring2 = "Cornelia's Ring",
+        ring2 = gear.cornelias_ring,
         back = "Null Shawl",
-        waist = "Fotia Belt",
+        waist = gear.fotia_belt,
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -142,7 +172,7 @@ function init_gear_sets()
         ring1 = "Mephitas's Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Pahtli Cape",
-        waist = "Luminary Sash",
+        waist = gear.luminary_sash,
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -154,12 +184,12 @@ function init_gear_sets()
         sub = "Khonsu",
         ammo = "Pemphredo Tathlum",
         head = gear.merlinic_fc_head,
-        neck = "Orunmila's Torque",
+        neck = gear.orunmilas_torque,
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
         body = "Pinga Tunic",
         hands = "Gende. Gages +1",
-        ring1 = "Kishar Ring",
+        ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = "Solemnity Cape",
         waist = "Cornelia's Belt",
@@ -173,15 +203,15 @@ function init_gear_sets()
         range = empty,
         ammo = "Pemphredo Tathlum",
         head = "Vanya Hood",
-        neck = "Incanter's Torque",
-        ear1 = "Meili Earring",
+        neck = gear.incanters_torque,
+        ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Pinga Tunic",
         hands = gear.chironic_nuke_hands,
         ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
         back = "Solemnity Cape",
-        waist = "Luminary Sash",
+        waist = gear.luminary_sash,
         legs = "Pinga Pants",
         feet = "Vanya Clogs"
     }
@@ -192,8 +222,8 @@ function init_gear_sets()
         range = empty,
         ammo = "Pemphredo Tathlum",
         head = "Vanya Hood",
-        neck = "Incanter's Torque",
-        ear1 = "Meili Earring",
+        neck = gear.incanters_torque,
+        ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Pinga Tunic",
         hands = gear.chironic_nuke_hands,
@@ -211,8 +241,8 @@ function init_gear_sets()
         range = empty,
         ammo = "Pemphredo Tathlum",
         head = "Vanya Hood",
-        neck = "Incanter's Torque",
-        ear1 = "Meili Earring",
+        neck = gear.incanters_torque,
+        ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Pinga Tunic",
         hands = gear.chironic_nuke_hands,
@@ -228,7 +258,7 @@ function init_gear_sets()
 
     sets.Self_Healing = { waist = "Gishdubar Sash" }
     sets.Cure_Received = { waist = "Gishdubar Sash" }
-    sets.Self_Refresh = { back = "Grapevine Cape", waist = "Gishdubar Sash", feet = "Inspirited Boots" }
+    sets.Self_Refresh = { waist = "Gishdubar Sash" }
 
     sets.midcast.Cursna = {
         main = gear.grioavolr_fc_staff,
@@ -236,15 +266,15 @@ function init_gear_sets()
         range = empty,
         ammo = "Hasty Pinion +1",
         head = "Vanya Hood",
-        neck = "Debilis Medallion",
+        neck = gear.debilis_medallion,
         ear1 = "Malignance Earring",
-        ear2 = "Meili Earring",
+        ear2 = gear.meili_earring,
         body = "Pinga Tunic",
-        hands = "Hieros Mittens",
+        hands = gear.hieros_mittens,
         ring1 = "Haoma's Ring",
         ring2 = "Menelaus's Ring",
         back = "Oretan. Cape +1",
-        waist = "Bishop's Sash",
+        waist = gear.bishops_sash,
         legs = "Pinga Pants",
         feet = "Vanya Clogs"
     }
@@ -259,17 +289,17 @@ function init_gear_sets()
         main = "Gada",
         sub = "Ammurapi Shield",
         ammo = "Savant's Treatise",
-        head = "Telchine Cap",
-        neck = "Incanter's Torque",
-        ear1 = "Andoaa Earring",
+        head = gear.telchine_cap,
+        neck = gear.incanters_torque,
+        ear1 = gear.andoaa_earring,
         ear2 = "Gifted Earring",
         body = "Telchine Chas.",
         hands = "Telchine Gloves",
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
-        back = "Perimede Cape",
+        back = gear.perimede_cape,
         waist = "Embla Sash",
-        legs = "Telchine Braconi",
+        legs = gear.telchine_braconi,
         feet = "Telchine Pigaches"
     }
 
@@ -307,10 +337,10 @@ function init_gear_sets()
         ear2 = "Arbatel Earring +2",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = "Kishar Ring",
+        ring1 = gear.kishar_ring,
         ring2 = "Stikini Ring +1",
         back = "Null Shawl",
-        waist = "Obstinate Sash",
+        waist = gear.obstinate_sash,
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -374,7 +404,7 @@ function init_gear_sets()
         ear2 = "Arbatel Earring +2",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = "Freke Ring",
+        ring1 = gear.freke_ring,
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
@@ -413,7 +443,7 @@ function init_gear_sets()
         ring1 = "Evanescence Ring",
         ring2 = "Stikini Ring +1",
         back = "Null Shawl",
-        waist = "Fucho-no-obi",
+        waist = gear.fuchonoobi,
         legs = gear.chironic_aspir_legs,
         feet = gear.af3_feet
     }
@@ -444,14 +474,14 @@ function init_gear_sets()
         sub = "Khonsu",
         ammo = "Impatiens",
         head = "Amalric Coif +1",
-        neck = "Orunmila's Torque",
+        neck = gear.orunmilas_torque,
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
         body = "Volte Doublet",
         hands = "Gende. Gages +1",
-        ring1 = "Kishar Ring",
+        ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
-        back = "Perimede Cape",
+        back = gear.perimede_cape,
         waist = "Cornelia's Belt",
         legs = "Artsieq Hose",
         feet = "Regal Pumps +1"
@@ -486,10 +516,10 @@ function init_gear_sets()
         ear2 = "Arbatel Earring +2",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = "Freke Ring",
+        ring1 = gear.freke_ring,
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
-        waist = "Sacro Cord",
+        waist = gear.sacro_cord,
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -516,9 +546,9 @@ function init_gear_sets()
         main = "Maxentius",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Null Masque",
+        head = gear.null_masque,
         neck = "Null Loop",
-        ear1 = "Crep. Earring",
+        ear1 = gear.crep_earring,
         ear2 = "Gwati Earring",
         body = "Volte Doublet",
         hands = "Volte Bracers",
@@ -534,7 +564,7 @@ function init_gear_sets()
         main = "Mafic Cudgel",
         sub = "Genmei Shield",
         ammo = "Impatiens",
-        head = "Null Masque",
+        head = gear.null_masque,
         neck = "Null Loop",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
@@ -557,12 +587,12 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
         head = gear.af3_head,
-        neck = "Sibyl Scarf",
+        neck = gear.sibyl_scarf,
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = "Freke Ring",
+        ring1 = gear.freke_ring,
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
@@ -593,12 +623,12 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
         head = gear.af3_head,
-        neck = "Sibyl Scarf",
+        neck = gear.sibyl_scarf,
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = "Freke Ring",
+        ring1 = gear.freke_ring,
         ring2 = "Metamor. Ring +1",
         back = "Bookworm's Cape",
         waist = "Acuity Belt +1",
@@ -629,13 +659,13 @@ function init_gear_sets()
         sub = empty,
         ammo = "Impatiens",
         head = "Vanya Hood",
-        neck = "Orunmila's Torque",
+        neck = gear.orunmilas_torque,
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Volte Doublet",
         hands = "Gende. Gages +1",
-        ring1 = "Kishar Ring",
-        ring2 = "Prolix Ring",
+        ring1 = gear.kishar_ring,
+        ring2 = gear.prolix_ring,
         back = "Swith Cape +1",
         waist = "Witful Belt",
         legs = "Psycloth Lappas",
@@ -698,11 +728,11 @@ function init_gear_sets()
     sets.resting = {
         main = "Mpaca's Staff",
         sub = "Oneiros Grip",
-        ammo = "Homiliary",
-        head = "Null Masque",
-        neck = "Sibyl Scarf",
+        ammo = gear.homiliary,
+        head = gear.null_masque,
+        neck = gear.sibyl_scarf,
         ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",
+        ear2 = gear.ethereal_earring,
         body = gear.af3_body,
         hands = gear.chironic_refresh_hands,
         ring1 = "Stikini Ring +1",
@@ -718,11 +748,11 @@ function init_gear_sets()
     sets.idle = {
         main = "Mpaca's Staff",
         sub = "Oneiros Grip",
-        ammo = "Homiliary",
-        head = "Null Masque",
-        neck = "Sibyl Scarf",
+        ammo = gear.homiliary,
+        head = gear.null_masque,
+        neck = gear.sibyl_scarf,
         ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",
+        ear2 = gear.ethereal_earring,
         body = gear.af3_body,
         hands = gear.chironic_refresh_hands,
         ring1 = "Stikini Ring +1",
@@ -740,13 +770,13 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",
+        ear2 = gear.ethereal_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Defending Ring",
-        ring2 = "Shadow Ring",
-        back = "Shadow Mantle",
-        waist = "Plat. Mog. Belt",
+        ring2 = gear.shadow_ring,
+        back = gear.shadow_mantle,
+        waist = gear.plat_mog_belt,
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -759,11 +789,11 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = "Sanare Earring",
+        ear2 = gear.sanare_earring,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Defending Ring",
-        ring2 = "Shadow Ring",
+        ring2 = gear.shadow_ring,
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.af3_legs,
@@ -778,11 +808,11 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Etiolation Earring",
-        ear2 = "Sanare Earring",
+        ear2 = gear.sanare_earring,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Defending Ring",
-        ring2 = "Shadow Ring",
+        ring2 = gear.shadow_ring,
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.af3_legs,
@@ -798,13 +828,13 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = "Ethereal Earring",
+        ear2 = gear.ethereal_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Defending Ring",
-        ring2 = "Shadow Ring",
-        back = "Shadow Mantle",
-        waist = "Plat. Mog. Belt",
+        ring2 = gear.shadow_ring,
+        back = gear.shadow_mantle,
+        waist = gear.plat_mog_belt,
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -817,11 +847,11 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = "Sanare Earring",
+        ear2 = gear.sanare_earring,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Defending Ring",
-        ring2 = "Shadow Ring",
+        ring2 = gear.shadow_ring,
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.af3_legs,
@@ -836,11 +866,11 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Etiolation Earring",
-        ear2 = "Sanare Earring",
+        ear2 = gear.sanare_earring,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Defending Ring",
-        ring2 = "Shadow Ring",
+        ring2 = gear.shadow_ring,
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.af3_legs,
@@ -848,7 +878,7 @@ function init_gear_sets()
     }
 
     sets.Kiting = { ring2 = "Shneddick Ring" }
-    sets.latent_refresh = { waist = "Fucho-no-obi" }
+    sets.latent_refresh = { waist = gear.fuchonoobi }
     sets.latent_refresh_grip = { sub = "Oneiros Grip" }
 
     -- Engaged sets
@@ -883,7 +913,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Null Loop",
-        ear1 = "Crep. Earring",
+        ear1 = gear.crep_earring,
         ear2 = "Telos Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
@@ -915,17 +945,17 @@ function init_gear_sets()
     sets.HPDown = {
         main = "Mpaca's Staff",
         sub = "Oneiros Grip",
-        ammo = "Homiliary",
+        ammo = gear.homiliary,
         head = "Wivre Hairpin",
         neck = "Loricate Torque +1",
         ear1 = "Hirudinea Earring",
-        ear2 = "Ethereal Earring",
+        ear2 = gear.ethereal_earring,
         body = "Jhakri Robe +2",
         hands = "Jhakri Cuffs +2",
         ring1 = "Mephitas's Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
-        waist = "Luminary Sash",
+        waist = gear.luminary_sash,
         legs = "Jhakri Slops +1",
         feet = "Jhakri Pigaches +2"
     }
@@ -933,7 +963,7 @@ function init_gear_sets()
     sets.HPCure = {
         main = "Daybreak",
         sub = "Ammurapi Shield",
-        ammo = "Regal Gem",
+        ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Sanctity Necklace",
         ear1 = "Etiolation Earring",
