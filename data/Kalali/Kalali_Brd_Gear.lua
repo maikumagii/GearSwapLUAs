@@ -61,8 +61,6 @@ function character_user_job_setup()
     --
     --       easy enough to get, 2 MP refresh worth
     gear.umbra_strap = "Ammurapi Shield" -- "Umbra Strap"
-    gear.impatiens = "Staunch Tathlum +1"
-    --  3  Impatiens                     SIRD 10%, QC 2%
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
     gear.debilis_medallion = gear.jse_neck
@@ -75,14 +73,10 @@ function character_user_job_setup()
     --  1  Hieros Mittens                Cursna Set
     gear.shadow_ring = ""
     --  7  Shadow Ring                   Death protection, MDB
-    gear.haomas_ring = "Stikini Ring +1"
-    --  1  Haoma's Ring                  +15% Cursna Success
     gear.shadow_mantle = "Null Shawl"
     --  2  Shadow Mantle                 Phys Annul
     gear.engulfer_cape = "Null Shawl"
     --  2  Engulfer Cape +1              -4% MDT, Magic Absorb
-    gear.oretan_cape = "Null Shawl"
-    --  1  Oretan. Cape +1               +5 Cursna]
     gear.luminary_sash = "Embla Sash"
     --  1  Luminary Sash                 Conserve MP / MND
     gear.fuchonoobi = "Eschan Stone"
@@ -131,7 +125,7 @@ function init_gear_sets()
     sets.precast.FC = {
         main = "Kali",
         sub = "Ammurapi Shield",
-        ammo = gear.impatiens,
+        ammo = "Impatiens",
         head = "Bunzi's Hat",
         neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
@@ -149,7 +143,7 @@ function init_gear_sets()
     sets.precast.FC.DT = {
         main = "Kali",
         sub = gear.genmei_shield,
-        ammo = gear.impatiens,
+        ammo = "Impatiens",
         head = "Bunzi's Hat",
         neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
@@ -500,8 +494,8 @@ function init_gear_sets()
     sets.midcast.Cursna = set_combine(sets.midcast.Cure, {
         neck = gear.debilis_medallion,
         hands = gear.hieros_mittens,
-        back = gear.oretan_cape,
-        ring1 = gear.haomas_ring,
+        back = "Oretan. Cape +1",
+        ring1 = "Haoma's Ring",
         ring2 = "Menelaus's Ring",
         waist = gear.witful_belt,
     })

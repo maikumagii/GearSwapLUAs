@@ -6,27 +6,25 @@ function character_user_job_setup()
     state.CastingMode:options('Normal', 'Fodder', 'Proc')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.HybridMode:options('Normal', 'DT')
-    state.Weapons:options('Default', 'Ranged', 'Savage', 'Evisceration', 'DualWeapons', 'DualEvisceration',
-        'DualLeadenRanged', 'DualLeadenMelee', 'DualAeolian', 'DualRanged', 'DualProcWeapons')
+    state.Weapons:options('Default', 'Ranged', 'Savage', 'DualWeapons',
+        'DualSavageWeapons', 'DualLeadenRanged', 'DualLeadenMelee', 'DualAeolian')
     autows_list = {
         ['Default'] = 'Savage Blade',
-        ['Evisceration'] = 'Evisceration',
         ['Savage'] = 'Savage Blade',
         ['Ranged'] = 'Last Stand',
         ['DualWeapons'] = 'Savage Blade',
         ['DualSavageWeapons'] = 'Savage Blade',
-        ['DualEvisceration'] = 'Evisceration',
         ['DualLeadenRanged'] = 'Leaden Salute',
         ['DualLeadenMelee'] = 'Leaden Salute',
         ['DualAeolian'] = 'Aeolian Edge',
-        ['DualRanged'] = 'Last Stand'
     }
+
     state.CompensatorMode:options('Always', '300', '1000', 'Never')
 
-    gear.RAbullet = "Eminent Bullet"
-    gear.WSbullet = "Eminent Bullet"
-    gear.MAbullet = "Eminent Bullet" --For MAB WS, do not put single-use bullets here.
-    gear.QDbullet = "Animikii Bullet"
+    gear.RAbullet = "Chrono Bullet"
+    gear.WSbullet = "Chrono Bullet"
+    gear.MAbullet = "Living Bullet" --For MAB WS, do not put single-use bullets here.
+    gear.QDbullet = "Living Bullet"
     options.ammo_warning_limit = 15
     --Ikenga_vest_bonus = 190  -- It is 190 at R20. Uncomment if you need to manually adjust because you are using below R20
 
@@ -75,6 +73,20 @@ function character_user_job_setup()
     gear.af3_legs = "" --"Chas. Culottes +1"
     gear.af3_feet = "" --"Chass. Bottes +1"
 
+    gear.cornelias_ring = ""
+    gear.crep_earring = ""
+    gear.yemaya_belt = ""
+    gear.sanctity_necklace = ""
+    gear.regal_ring = ""
+    gear.volte_cap = ""
+    gear.volte_bracers = ""
+    gear.null_mask = ""
+    gear.genmei_earring = ""
+    gear.sanare_earring = ""
+    gear.ethereal_earring = ""
+    gear.archon_ring = ""
+
+
     -- Additional local binds
     send_command('bind ^` gs c cycle ElementalMode')
     send_command('bind !` gs c elemental quickdraw')
@@ -104,22 +116,22 @@ function init_gear_sets()
 
     -- Precast sets to enhance JAs
 
-    sets.precast.JA['Triple Shot'] = {}                                                                  --body="Chasseur's Frac +3"
-    sets.precast.JA['Snake Eye'] = {}                                                                    --legs="Lanun Trews +3" (+1 is fine)
-    sets.precast.JA['Wild Card'] = {}                                                                    --feet="Lanun Bottes +3"
-    sets.precast.JA['Random Deal'] = {}                                                                  --body="Lanun Frac +3"
-    sets.precast.JA['Double Up'] = {}                                                                    --main="Rostam",sub="Rostam"
-    sets.precast.FoldDoubleBust = {}                                                                     --hands="Lanun Gants +3"
+    sets.precast.JA['Triple Shot'] = { body = gear.af3_body }
+    sets.precast.JA['Snake Eye'] = {} --legs="Lanun Trews +3" (+1 is fine)
+    sets.precast.JA['Wild Card'] = { feet = gear.af2_feet }
+    sets.precast.JA['Random Deal'] = { body = gear.af2_body }
+    sets.precast.JA['Double Up'] = {}
+    sets.precast.FoldDoubleBust = {}                                                                       --hands="Lanun Gants +3"
 
     sets.precast.CorsairRoll = { main = "Rostam", range = "Compensator", back = gear.ranger_wsd_jse_back } --main="Rostam",legs="Desultor Tassets"
 
     sets.precast.LuzafRing = { ring2 = "Luzaf's Ring" }
 
-    sets.precast.CorsairRoll["Caster's Roll"] = set_combine(sets.precast.CorsairRoll, {})    --legs="Chas. Culottes +3"
-    sets.precast.CorsairRoll["Courser's Roll"] = set_combine(sets.precast.CorsairRoll, {})   --feet="Chass. Bottes +3"
-    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, {})   --head="Chass. Tricorne +3"
-    sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --body="Chasseur's Frac +3"
-    sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, {})     --hands="Chasseur's Gants +3"
+    sets.precast.CorsairRoll["Caster's Roll"] = set_combine(sets.precast.CorsairRoll, {})  --legs="Chas. Culottes +3"
+    sets.precast.CorsairRoll["Courser's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --feet="Chass. Bottes +3"
+    sets.precast.CorsairRoll["Blitzer's Roll"] = set_combine(sets.precast.CorsairRoll, {}) --head="Chass. Tricorne +3"
+    sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, { body = gear.af3_body })
+    sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, { hands = gear.af3_hands })
     sets.precast.CorsairRoll["Bolter's Roll"] = set_combine(sets.precast.CorsairRoll, {})
     sets.precast.CorsairRoll.Recast = {}
     sets.precast.CorsairRoll.Weak = {}
@@ -127,60 +139,35 @@ function init_gear_sets()
     --Standard TP Generating Shot
     sets.precast.CorsairShot = {
         ammo = gear.QDbullet,
-        head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
-        ear1 = gear.crep_earring,
-        ear2 = "Telos Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
-        ring1 = "Chirich Ring +1",
-        ring2 = "Chirich Ring +1",
+        head = "Nyame Helm",
+        neck = gear.jse_neck,
+        ear1 = "Friomisi Earring",
+        --ear2 = "Crematio Earring",
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Crepuscular Ring",
+        ring2 = "Dingir Ring",
         back = gear.ranger_wsd_jse_back,
-        waist = gear.yemaya_belt, -- MISSING
+        waist = "Eschan Stone",
         legs = "Malignance Tights",
-        feet = "Malignance Boots",
-
-        gear.crep_earring =
-        gear.yemaya_belt =
+        feet = gear.af2_feet
     }
 
     --Damage shot for use with CastingMode: Fodder
     sets.precast.CorsairShot.Damage = {
         ammo = gear.QDbullet,
         head = "Nyame Helm",
-        neck = gear.sanctity_necklace, -- Only 1
+        neck = gear.jse_neck,
         ear1 = "Friomisi Earring",
-        ear2 = "Crematio Earring",
-        body = "Nyame Mail",
+        --ear2 = "Crematio Earring",
+        body = gear.af2_body,
         hands = "Nyame Gauntlets",
         ring1 = "Crepuscular Ring",
-        ring2 = gear.regal_ring,
+        ring2 = "Dingir Ring",
         back = gear.ranger_wsd_jse_back,
         waist = "Eschan Stone",
         legs = "Malignance Tights",
-        feet = gear.af3_feet
-    }
-
-        gear.sanctity_necklace =
-        gear.regal_ring =
-        gear.volte_cap =
-        gear.volte_bracers =
-
-    --TH & Low Damage Shot for Procs.
-    sets.precast.CorsairShot.Proc = {
-        ammo = gear.RAbullet,
-        head = gear.volte_cap,
-        neck = "Iskur Gorget",
-        ear1 = gear.crep_earring,
-        ear2 = "Telos Earring",
-        body = "Malignance Tabard",
-        hands = gear.volte_bracers,
-        ring1 = "Chirich Ring +1",
-        ring2 = "Chirich Ring +1",
-        back = gear.ranger_wsd_jse_back,
-        waist = gear.yemaya_belt,
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
+        feet = gear.af2_feet
     }
 
     --Macc Shot for Sleep/Dispel
@@ -202,14 +189,6 @@ function init_gear_sets()
 
     sets.precast.CorsairShot['Dark Shot'] = set_combine(sets.precast.CorsairShot['Light Shot'], {})
 
-    -- Waltz set (chr and vit)
-    sets.precast.Waltz = {}
-
-    sets.Self_Waltz = { head = "Mummu Bonnet +2", body = "Passion Jacket" } -- MISSING
-
-    -- Don't need any special gear for Healing Waltz.
-    sets.precast.Waltz['Healing Waltz'] = {}
-
     sets.precast.Step = {
         ammo = gear.QDbullet,
         head = "Malignance Chapeau",
@@ -230,8 +209,8 @@ function init_gear_sets()
         ammo = gear.QDbullet,
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,    -- MISSING
-        ear2 = gear.jse_earring, -- MISSING
+        ear1 = gear.crep_earring,
+        ear2 = gear.jse_earring,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Metamor. Ring +1",
@@ -250,20 +229,26 @@ function init_gear_sets()
 
     sets.precast.RA = {
         ammo = gear.RAbullet,
+        head = gear.af3_head, -- MISSING
+        neck = gear.jse_neck,
+        body = gear.af1_body, -- Oshosi Vest +1 better
+        --hands = "Carmine Fin. Ga. +1",
         ring1 = "Crepuscular Ring",
-        waist = gear.yemaya_belt,
-        feet = "Meg. Jam. +2" -- MISSING?
-    } -- NEEDS WORK
+        --back = gear.jse_snapshot_back,
+        waist = gear.yemaya_belt, -- Impulse Belt 3%
+        legs = "Adhemar Kecks +1",
+        feet = "Meg. Jam. +2"
+    }
 
-    sets.precast.RA.Flurry = set_combine(sets.precast.RA, {})
-    sets.precast.RA.Flurry2 = set_combine(sets.precast.RA, {})
+    sets.precast.RA.Flurry = set_combine(sets.precast.RA, { body = gear.af1_body })
+    sets.precast.RA.Flurry2 = set_combine(sets.precast.RA, { body = gear.af1_body })
 
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
         head = "Nyame Helm",
-        neck = "Fotia Gorget", -- MISSING
+        neck = gear.fotia_gorget,
         ear1 = "Moonshade Earring",
         ear2 = "Telos Earring",
         body = "Nyame Mail",
@@ -271,12 +256,11 @@ function init_gear_sets()
         ring1 = gear.regal_ring,
         ring2 = gear.cornelias_ring,
         back = gear.str_wsd_jse_back,
-        waist = "Fotia Belt",      -- MISSING
+        waist = gear.fotia_belt,
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
 
-    gear.cornelias_ring =
 
     sets.precast.WS.Acc = {
         head = "Nyame Helm",
@@ -308,6 +292,100 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
+    sets.precast.WS['Savage Blade'] = {
+        head = "Nyame Helm",
+        neck = gear.rep_plat_medal,
+        ear1 = "Ishvara Earring",
+        ear2 = "Moonshade Earring",
+        body = "Nyame Mail",
+        hands = gear.af3_hands,
+        ring1 = "Sroda Ring",
+        ring2 = "Epaminondas's Ring",
+        back = gear.str_wsd_jse_back,
+        waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+
+    sets.precast.WS['Aeolian Edge'] = {
+        head = gear.af2_head,
+        neck = gear.rep_plat_medal,
+        ear1 = "Sherida Earring",
+        ear2 = "Moonshade Earring",
+        body = "Nyame Mail",
+        hands = gear.af1_hands,
+        ring1 = "Sroda Ring",
+        ring2 = gear.cornelias_ring,
+        back = gear.str_wsd_jse_back,
+        waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = gear.af3_feet
+    }
+
+    sets.precast.WS['Leaden Salute'] = {
+        ammo = gear.MAbullet,
+        head = "Pixie Hairpin +1",
+        neck = gear.jse_neck,
+        ear1 = "Friomisi Earring",
+        ear2 = "Moonshade Earring",
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = gear.archon_ring,
+        ring2 = "Dingir Ring",
+        back = gear.magic_wsd_jse_back,
+        waist = "Eschan Stone",
+        legs = "Nyame Flanchard",
+        feet = gear.af2_feet
+    }
+
+    sets.precast.WS['Last Stand'] = {
+        ammo = gear.RAbullet,
+        head = gear.af2_head,
+        neck = gear.fotia_gorget,
+        ear1 = "Ishvara Earring",
+        ear2 = "Moonshade Earring",
+        body = gear.af1_body, --body = "Ikegana's Vest",
+        hands = gear.af3_hands,
+        ring1 = "Dingir Ring",
+        ring2 = "Epaminondas's Ring",
+        back = gear.ranger_wsd_jse_back,
+        waist = gear.fotia_belt,
+        legs = "Nyame Flanchard",
+        feet = gear.af2_feet
+    }
+
+    sets.precast.WS['Wildfire'] = {
+        ammo = gear.MAbullet,
+        head = "Nyame Helm",
+        neck = gear.jse_neck,
+        ear1 = "Friomisi Earring",
+        ear2 = "Moonshade Earring",
+        body = gear.af2_body,
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Dingir Ring",
+        back = gear.magic_wsd_jse_back,
+        waist = "Eschan Stone",
+        legs = "Nyame Flanchard",
+        feet = gear.af2_feet
+    }
+
+    sets.precast.WS['Hot Shot'] = {
+        ammo = gear.MAbullet,
+        head = "Nyame Helm",
+        neck = gear.fotia_gorget,
+        ear1 = "Friomisi Earring",
+        ear2 = "Moonshade Earring",
+        body = gear.af1_body,
+        hands = gear.af3_hands,
+        ring1 = "Dingir Ring",
+        ring2 = "Epaminondas's Ring",
+        back = gear.ranger_wsd_jse_back,
+        waist = gear.fotia_belt,
+        legs = "Nyame Flanchard",
+        feet = gear.af2_feet
+    }
+
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = {}
     sets.AccMaxTP = {}
@@ -319,25 +397,25 @@ function init_gear_sets()
 
     sets.midcast.Cure = {}
 
-    sets.Self_Healing = { neck = "Phalaina Locket", ring2 = "Kunaji Ring", waist = "Gishdubar Sash" }  --hands="Buremte Gloves",-- MISSING
-    sets.Cure_Received = { neck = "Phalaina Locket", ring2 = "Kunaji Ring", waist = "Gishdubar Sash" } --hands="Buremte Gloves",-- MISSING
+    sets.Self_Healing = { waist = "Gishdubar Sash" }
+    sets.Cure_Received = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
 
     sets.midcast.Utsusemi = sets.midcast.FastRecast
 
     -- Ranged gear
-    sets.midcast.RA = {
+    sets.midcast.RA = { --ADD
         ammo = gear.RAbullet,
         head = "Malignance Chapeau",
         neck = "Iskur Gorget",
-        ear1 = gear.crep_earring, -- MISSING
+        ear1 = gear.crep_earring,
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Crepuscular Ring",
-        ring2 = "Chirich Ring +1",
+        ring2 = "Ilabrat Ring",
         back = gear.ranger_wsd_jse_back,
-        waist = gear.yemaya_belt, -- MISSING
+        waist = gear.yemaya_belt,
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -346,19 +424,25 @@ function init_gear_sets()
         ammo = gear.RAbullet,
         head = "Malignance Chapeau",
         neck = "Iskur Gorget",
-        ear1 = gear.crep_earring, -- MISSING
+        ear1 = gear.crep_earring,
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Crepuscular Ring",
-        ring2 = "Chirich Ring +1",
+        ring2 = "Ilabrat Ring",
         back = gear.ranger_wsd_jse_back,
-        waist = gear.yemaya_belt, -- MISSING
+        waist = gear.yemaya_belt,
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
 
-    sets.buff['Triple Shot'] = {}
+    sets.buff['Triple Shot'] = {
+        --head = "Oshosi Mask +1",
+        body = gear.af3_body,
+        --hands = gear.af2_hands,
+        --legs = "Osh. Trousers +1",
+        --feet = "Osh. Leggings +1"
+    }
 
     -- Sets to return to when not performing an action.
 
@@ -373,10 +457,10 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = {
         ammo = gear.RAbullet,
-        head = "Null Masque",
+        head = gear.null_masque,
         neck = "Loricate Torque +1",
-        ear1 = "Genmei Earring",     -- MISSING
-        ear2 = "Sanare Earring",     -- MISSING
+        ear1 = gear.genmei_earring,
+        ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -387,12 +471,13 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
+
     sets.idle.PDT = {
         ammo = gear.RAbullet,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
-        ear1 = "Genmei Earring",     -- MISSING
-        ear2 = "Sanare Earring",     -- MISSING
+        ear1 = gear.genmei_earring,
+        ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -405,11 +490,11 @@ function init_gear_sets()
 
     sets.idle.Refresh = {
         ammo = gear.RAbullet,
-        head = "Null Masque",
+        head = gear.null_masque,
         neck = "Loricate Torque +1",
-        ear1 = "Genmei Earring",     -- MISSING
-        ear2 = "Ethereal Earring",   -- MISSING
-        body = "Mekosu. Harness",    -- MISSING
+        ear1 = gear.genmei_earring,
+        ear2 = gear.ethereal_earring,
+        body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
@@ -424,8 +509,8 @@ function init_gear_sets()
         ammo = gear.RAbullet,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
-        ear1 = "Genmei Earring",     -- MISSING
-        ear2 = "Sanare Earring",     -- MISSING
+        ear1 = gear.genmei_earring,
+        ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -440,8 +525,8 @@ function init_gear_sets()
         ammo = gear.RAbullet,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
-        ear1 = "Genmei Earring",     -- MISSING
-        ear2 = "Sanare Earring",     -- MISSING
+        ear1 = gear.genmei_earring,
+        ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -456,8 +541,8 @@ function init_gear_sets()
         ammo = gear.RAbullet,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
-        ear1 = "Genmei Earring", -- MISSING
-        ear2 = "Sanare Earring", -- MISSING
+        ear1 = gear.genmei_earring,
+        ear2 = gear.sanare_earring,
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -473,17 +558,13 @@ function init_gear_sets()
 
     -- Weapons sets
     sets.weapons.Default = { main = "Naegling", sub = "Nusku Shield", range = "Fomalhaut" }
-    sets.weapons.Ranged = { main = gear.jse_main_stp, sub = "Nusku Shield", range = "Fomalhaut" }
-    sets.weapons.Evisceration = { main = "Tauret", sub = "Nusku Shield", range = gear.tp_bonus_gun }
     sets.weapons.DualWeapons = { main = "Naegling", sub = "Blurred Knife +1", range = "Fomalhaut" }
-    sets.weapons.DualSavageWeapons = { main = "Naegling", sub = "Blurred Knife +1", range = gear.tp_bonus_gun }
-    sets.weapons.DualEvisceration = { main = "Tauret", sub = "Blurred Knife +1", range = gear.tp_bonus_gun }
+    sets.weapons.Ranged = { main = gear.jse_main_stp, sub = "Nusku Shield", range = "Fomalhaut" }
     sets.weapons.Savage = { main = "Naegling", sub = "Nusku Shield", range = gear.tp_bonus_gun }
+    sets.weapons.DualSavageWeapons = { main = "Naegling", sub = "Blurred Knife +1", range = gear.tp_bonus_gun }
     sets.weapons.DualLeadenRanged = { main = gear.jse_main_stp, sub = "Tauret", range = "Death Penalty" }
-    sets.weapons.DualLeadenMelee = { main = "Naegling", sub = "Atoyac", range = "Death Penalty" }
-    sets.weapons.DualAeolian = { main = gear.jse_main_ma, sub = "Tauret", range = gear.tp_bonus_gun  }
-    sets.weapons.DualLeadenMeleeAcc = { main = "Naegling", sub = "Blurred Knife +1", range = "Death Penalty" }
-    sets.weapons.DualRanged = { main = gear.jse_main_stp, sub = "Nuksu Shield", range = "Fomalhaut" }
+    sets.weapons.DualLeadenMelee = { main = gear.jse_main_ma, sub = "Tauret", range = "Death Penalty" }
+    sets.weapons.DualAeolian = { main = gear.jse_main_ma, sub = "Tauret", range = gear.tp_bonus_gun }
 
     -- Engaged sets
 

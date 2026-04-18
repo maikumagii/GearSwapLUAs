@@ -111,7 +111,7 @@ function character_user_job_setup()
     gear.mpacas_staff = "Crocea Mors"
     --  1  Mpaca's Staff                 Idle Set, +2 Refresh
     --	   easy enough to get, 2 MP refresh worth
-    gear.impatiens = "Staunch Tathlum +1"
+    gear.impatiens = "Impatiens"
     --  3  Impatiens                     SIRD 10%, QC 2%
     gear.umuthi_hat = gear.af3_head
     --  2  Umuthi Hat                    Reduced Stoneskin Casting Time, +13 Enhancing, +8 Enspell
@@ -153,8 +153,6 @@ function character_user_job_setup()
     --  2  Rep. Plat. Medal              STR +10, ATK + 30, Bastok Citizen Regain +2
     gear.prolix_ring = "Stikini Ring +1"
     --  1  Prolix Ring                   FC +2%
-    gear.mujin_band = "Stikini Ring +1"
-    --  1  Mujin Band                    Magic Burst II +5%
     gear.sanare_earring = "Eabani Earring"
     --  5  Sanare Earring                MDB+4, MEva+6
     gear.ethereal_earring = "Eabani Earring"
@@ -172,16 +170,10 @@ function character_user_job_setup()
     --  1  Hieros Mittens                Cursna Set
     gear.shadow_ring = ""
     --  7  Shadow Ring                   Death protection, MD
-    gear.haomas_ring = "Stikini Ring +1"
-    --  1  Haoma's Ring                  +15% Cursna Success
-    gear.sheltered_ring = ""
-    --  2  Sheltered Ring                +10 DEF, +3% MDT (does not have to be equipped)
     gear.shadow_mantle = "Null Shawl"
     --  2  Shadow Mantle                 Phys Annul
     gear.engulfer_cape = "Null Shawl"
     --  2  Engulfer Cape +1              -4% MDT, Magic Absorb
-    gear.oretan_cape = "Null Shawl"
-    --  1  Oretan. Cape +1               +5 Cursna
     gear.sacro_cord = "Eschan Stone"
     --  1  Sacro Cord                    +8 INT/MND/MAB/Macc
     gear.luminary_sash = "Embla Sash"
@@ -639,9 +631,9 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
         hands = gear.hieros_mittens,
-        ring1 = gear.haomas_ring,
+        ring1 = "Haoma's Ring",
         ring2 = "Menelaus's Ring",
-        back = gear.oretan_cape,
+        back = "Oretan. Cape +1",
         waist = gear.bishops_sash,
         legs = gear.af1_legs,
         feet = gear.af1_feet
@@ -707,8 +699,8 @@ function init_gear_sets()
     sets.midcast.Enspell = sets.EnhancingSkill
     sets.midcast.BoostStat = { hands = gear.af2_hands }
     sets.midcast.Stoneskin = { legs = "Shedir Seraweels" }
-    sets.midcast.Protect = { ring2 = gear.sheltered_ring }
-    sets.midcast.Shell = { ring2 = gear.sheltered_ring }
+    sets.midcast.Protect = { ring2 = "Sheltered Ring" }
+    sets.midcast.Shell = { ring2 = "Sheltered Ring" }
     sets.midcast.Regen = { main = "Crocea Mors", sub = "Ammurapi Shield" }
 
     sets.midcast.Curaga = sets.midcast.Cure
@@ -1149,7 +1141,7 @@ function init_gear_sets()
         neck = "Mizu. Kubikazari",
         hands =
         "Bunzi's Gloves",
-        ring1 = gear.mujin_band
+        ring1 = "Mujin Band"
     }
     sets.midcast['Elemental Magic'].DW = { main = "Bunzi's Rod", sub = "Daybreak" }
 

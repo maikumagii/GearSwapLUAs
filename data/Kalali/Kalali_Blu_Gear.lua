@@ -93,7 +93,7 @@ function init_gear_sets()
 
     sets.precast.FC = {
         main = "Sakpata's Sword",
-        --ammo = "Impatiens",
+        ammo = "Impatiens",
         neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
@@ -297,10 +297,10 @@ function init_gear_sets()
 
     sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], { legs = "Shedir Seraweels" })
 
-    --sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
-    --sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
-    --sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
-    --sets.midcast.Shellra = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
+    sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
+    sets.midcast.Protectra = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
+    sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
+    sets.midcast.Shellra = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
 
     sets.element.Dark = { head = "Pixie Hairpin +1", --[[ring2 = "Archon Ring"]] }
     sets.element.Light = {} --ring2="Weatherspoon Ring"
