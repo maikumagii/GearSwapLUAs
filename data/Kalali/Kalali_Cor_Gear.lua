@@ -80,11 +80,14 @@ function character_user_job_setup()
     gear.regal_ring = ""
     gear.volte_cap = ""
     gear.volte_bracers = ""
-    gear.null_mask = ""
+    gear.null_masque = ""
     gear.genmei_earring = ""
     gear.sanare_earring = ""
     gear.ethereal_earring = ""
     gear.archon_ring = ""
+    gear.fotia_gorget = ""
+    gear.fotia_belt = ""
+    gear.rep_plat_medal = ""
 
 
     -- Additional local binds
@@ -313,7 +316,7 @@ function init_gear_sets()
         ear1 = "Sherida Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
-        hands = gear.af1_hands,
+        hands = "Nyame Gauntlets",
         ring1 = "Sroda Ring",
         ring2 = gear.cornelias_ring,
         back = gear.str_wsd_jse_back,
