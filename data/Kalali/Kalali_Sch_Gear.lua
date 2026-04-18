@@ -11,7 +11,7 @@ function character_user_job_setup()
     autows_list = { ['Maxentius'] = 'Black Halo' }
 
     gear.nuke_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', '"Mag.Atk.Bns."+10', } }
-    gear.jse_neck = {}
+    gear.jse_neck = "Argute Stole +2"
 
     -- Artifact Gear
     gear.af1_head = "Acad. Mortar. +3"
@@ -25,12 +25,12 @@ function character_user_job_setup()
     gear.af2_body = "Pedagogy Gown +3"
     gear.af2_hands = "Pedagogy Bracers +3"
     gear.af2_legs = "Pedagogy Pants +3"
-    gear.af2_feet = "Pedagogy Loafers +3"
+    gear.af2_feet = ""
 
     -- Empy Gear
-    gear.af3_head = "Arbatel Bonnet +3"
-    gear.af3_body = "Arbatel Gown +3"
-    gear.af3_hands = "Arbatel Bracers +3"
+    gear.af3_head = "Arbatel Bonnet +2"
+    gear.af3_body = "Arbatel Gown +2"
+    gear.af3_hands = "Arbatel Bracers +2"
     gear.af3_legs = "Arbatel Pants +3"
     gear.af3_feet = "Arbatel Loafers +3"
     gear.kishar_ring = ""
@@ -295,8 +295,8 @@ function init_gear_sets()
         ear2 = "Gifted Earring",
         body = "Telchine Chas.",
         hands = "Telchine Gloves",
-        ring1 = "Stikini Ring +1",
-        ring2 = "Stikini Ring +1",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = gear.perimede_cape,
         waist = "Embla Sash",
         legs = gear.telchine_braconi,
@@ -306,8 +306,6 @@ function init_gear_sets()
     sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'],
         { main = "Musa", head = gear.af3_head, back = "Bookworm's Cape" })
 
-    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'],
-        { neck = "Nodens Gorget", waist = "Siegel Sash" })
 
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], { head = "Amalric Coif +1" })
 
@@ -552,8 +550,8 @@ function init_gear_sets()
         ear2 = "Gwati Earring",
         body = "Volte Doublet",
         hands = "Volte Bracers",
-        ring1 = "Stikini Ring +1",
-        ring2 = "Stikini Ring +1",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.chironic_macc_legs,
@@ -570,8 +568,8 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         body = "Volte Doublet",
         hands = "Volte Bracers",
-        ring1 = "Stikini Ring +1",
-        ring2 = "Stikini Ring +1",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.chironic_macc_legs,
@@ -735,8 +733,8 @@ function init_gear_sets()
         ear2 = gear.ethereal_earring,
         body = gear.af3_body,
         hands = gear.chironic_refresh_hands,
-        ring1 = "Stikini Ring +1",
-        ring2 = "Stikini Ring +1",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.merlinic_refresh_legs,
@@ -755,8 +753,8 @@ function init_gear_sets()
         ear2 = gear.ethereal_earring,
         body = gear.af3_body,
         hands = gear.chironic_refresh_hands,
-        ring1 = "Stikini Ring +1",
-        ring2 = "Stikini Ring +1",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.merlinic_refresh_legs,
@@ -899,8 +897,8 @@ function init_gear_sets()
         ear2 = "Dedition Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Chirich Ring +1",
-        ring2 = "Chirich Ring +1",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -917,8 +915,8 @@ function init_gear_sets()
         ear2 = "Telos Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Chirich Ring +1",
-        ring2 = "Chirich Ring +1",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",

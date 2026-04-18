@@ -7,8 +7,8 @@ sets.buff.RolledEleven = {} --ring2="Roller's Ring"
 sets.buff.Doom = {
     neck = "Nicander's Necklace",
     ring1 = "Purity Ring",
-    --ring1 = "Eshmun's Ring",
-    --ring2 = "Eshmun's Ring",
+    --ring1 = { name = "Eshmun's Ring", bag = "Wardrobe" },
+    --ring2 = { name = "Eshmun's Ring", bag = "Wardrobe 2" },
     waist = "Gishdubar Sash"
 }
 sets.TreasureHunter = { head = "Wh. Rarab Cap +1", ring1 = "Hoxne Ring", ammo = "Perfect Lucky Egg" }
