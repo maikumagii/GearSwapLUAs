@@ -11,6 +11,28 @@ function character_user_job_setup()
     autows_list = { ['Maxentius'] = 'Black Halo' }
 
     gear.nuke_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', '"Mag.Atk.Bns."+10', } }
+    gear.jse_neck = {}
+
+    -- Artifact Gear
+    gear.af1_head = "Acad. Mortar. +3"
+    gear.af1_body = "Acad. Gown +3"
+    gear.af1_hands = "Acad. Bracers +3"
+    gear.af1_legs = "Acad. Pants +3"
+    gear.af1_feet = "Acad. Loafers +3"
+
+    -- Relic Gear
+    gear.af2_head = "Pedagogy Mortar. +3"
+    gear.af2_body = "Pedagogy Gown +3"
+    gear.af2_hands = "Pedagogy Bracers +3"
+    gear.af2_legs = "Pedagogy Pants +3"
+    gear.af2_feet = "Pedagogy Loafers +3"
+
+    -- Empy Gear
+    gear.af3_head = "Arbatel Bonnet +3"
+    gear.af3_body = "Arbatel Gown +3"
+    gear.af3_hands = "Arbatel Bracers +3"
+    gear.af3_legs = "Arbatel Pants +3"
+    gear.af3_feet = "Arbatel Loafers +3"
 
     -- Additional local binds
     send_command('bind @` gs c cycle ElementalMode')
@@ -36,7 +58,7 @@ function init_gear_sets()
     --------------------------------------
 
     -- Weapons sets
-    sets.weapons.Mpaca = { main = "Mpaca's Staff", sub = "Clerisy Strap +1" }
+    sets.weapons.Mpaca = { main = "Mpaca's Staff", sub = "Khonsu" }
     sets.weapons.Bunzi = { main = "Bunzi's Rod", sub = "Ammurapi Shield" }
     sets.weapons.Maxentius = { main = "Maxentius", sub = "Ammurapi Shield" }
 
@@ -44,13 +66,13 @@ function init_gear_sets()
 
     -- Precast Sets
 
-    sets.precast.JA['Tabula Rasa'] = {} --legs="Peda. Pants +1"
-    sets.precast.JA['Enlightenment'] = { body = "Peda. Gown +1" }
+    sets.precast.JA['Tabula Rasa'] = {} --legs=gear.af2_legs
+    sets.precast.JA['Enlightenment'] = { body = gear.af2_body }
 
     -- Fast cast sets for spells
     sets.precast.FC = {
         main = gear.grioavolr_fc_staff,
-        sub = "Clerisy Strap +1",
+        sub = "Khonsu",
         ammo = "Impatiens",
         head = gear.merlinic_fc_head,
         neck = "Orunmila's Torque",
@@ -68,7 +90,7 @@ function init_gear_sets()
 
     sets.precast.FC.DT = {
         main = gear.grioavolr_fc_staff,
-        sub = "Clerisy Strap +1",
+        sub = "Khonsu",
         ammo = "Impatiens",
         head = gear.merlinic_fc_head,
         neck = "Orunmila's Torque",
@@ -84,7 +106,7 @@ function init_gear_sets()
         feet = gear.merlinic_fc_feet
     }
 
-    sets.precast.FC.Arts = { feet = "Acad. Loafers +3" }
+    sets.precast.FC.Arts = { feet = gear.af1_feet }
     sets.precast.FC.Impact = set_combine(sets.precast.FC, { head = empty, body = "Crepuscular Cloak" })
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { main = "Daybreak", sub = "Genmei Shield" })
     sets.precast.FC.Impact = set_combine(sets.precast.FC['Elemental Magic'], { head = empty, body = "Crepuscular Cloak" })
@@ -115,21 +137,21 @@ function init_gear_sets()
         neck = "Sanctity Necklace",
         ear1 = "Etiolation Earring",
         ear2 = "Moonshade Earring",
-        body = "Arbatel Gown +3",
+        body = gear.af3_body,
         hands = "Nyame Gauntlets",
         ring1 = "Mephitas's Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Pahtli Cape",
         waist = "Luminary Sash",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     -- Midcast Sets
 
     sets.midcast.FastRecast = {
         main = gear.grioavolr_fc_staff,
-        sub = "Clerisy Strap +1",
+        sub = "Khonsu",
         ammo = "Pemphredo Tathlum",
         head = gear.merlinic_fc_head,
         neck = "Orunmila's Torque",
@@ -252,7 +274,7 @@ function init_gear_sets()
     }
 
     sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'],
-        { main = "Bolelabunga", head = "Arbatel Bonnet +3", back = "Bookworm's Cape" })
+        { main = "Musa", head = gear.af3_head, back = "Bookworm's Cape" })
 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'],
         { neck = "Nodens Gorget", waist = "Siegel Sash" })
@@ -279,36 +301,36 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Kishar Ring",
         ring2 = "Stikini Ring +1",
         back = "Null Shawl",
         waist = "Obstinate Sash",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast['Enfeebling Magic'].Resistant = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'], {})
@@ -328,18 +350,18 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Kaustra = {
@@ -350,32 +372,32 @@ function init_gear_sets()
         neck = "Saevus Pendant +1",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Kaustra.Resistant = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Drain = {
@@ -386,32 +408,32 @@ function init_gear_sets()
         neck = "Erra Pendant",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
+        body = gear.af3_body,
         hands = gear.chironic_aspir_gloves,
         ring1 = "Evanescence Ring",
         ring2 = "Stikini Ring +1",
         back = "Null Shawl",
         waist = "Fucho-no-obi",
         legs = gear.chironic_aspir_legs,
-        feet = "Arbatel Loafers +3"
+        feet = gear.af3_feet
     }
 
     sets.midcast.Drain.Resistant = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Aspir = sets.midcast.Drain
@@ -419,7 +441,7 @@ function init_gear_sets()
 
     sets.midcast.Stun = {
         main = gear.grioavolr_fc_staff,
-        sub = "Clerisy Strap +1",
+        sub = "Khonsu",
         ammo = "Impatiens",
         head = "Amalric Coif +1",
         neck = "Orunmila's Torque",
@@ -439,18 +461,18 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     -- Elemental Magic sets are default for handling low-tier nukes.
@@ -458,36 +480,36 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Culminus",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Saevus Pendant +1",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Sacro Cord",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast['Elemental Magic'].Resistant = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast['Elemental Magic']['9k'] = {
@@ -505,7 +527,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.chironic_macc_legs,
-        feet = "Arbatel Loafers +3"
+        feet = gear.af3_feet
     }
 
     sets.midcast['Elemental Magic'].Proc = {
@@ -534,72 +556,72 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast['Elemental Magic'].HighTierNuke.Resistant = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Helix = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = "Bookworm's Cape",
         waist = "Acuity Belt +1",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Helix.Resistant = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Helix.Proc = {
@@ -629,13 +651,13 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Arbatel Earring +2",
         body = "Crepuscular Cloak",
-        hands = "Arbatel Bracers +3",
+        hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Metamor. Ring +1",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Impact.OccultAcumen = set_combine(sets.midcast['Elemental Magic'].OccultAcumen,
@@ -681,7 +703,7 @@ function init_gear_sets()
         neck = "Sibyl Scarf",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Arbatel Gown +3",
+        body = gear.af3_body,
         hands = gear.chironic_refresh_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
@@ -701,7 +723,7 @@ function init_gear_sets()
         neck = "Sibyl Scarf",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Arbatel Gown +3",
+        body = gear.af3_body,
         hands = gear.chironic_refresh_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
@@ -734,18 +756,18 @@ function init_gear_sets()
         sub = "Genmei Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Defending Ring",
         ring2 = "Shadow Ring",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.idle.MEVA = {
@@ -753,18 +775,18 @@ function init_gear_sets()
         sub = "Genmei Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Defending Ring",
         ring2 = "Shadow Ring",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     -- Defense sets
@@ -792,18 +814,18 @@ function init_gear_sets()
         sub = "Genmei Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Defending Ring",
         ring2 = "Shadow Ring",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.defense.MEVA = {
@@ -811,18 +833,18 @@ function init_gear_sets()
         sub = "Genmei Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
-        head = "Arbatel Bonnet +3",
+        head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
-        body = "Arbatel Gown +3",
-        hands = "Arbatel Bracers +3",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
         ring1 = "Defending Ring",
         ring2 = "Shadow Ring",
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Arbatel Pants +3",
-        feet = "Arbatel Loafers +3"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.Kiting = { ring2 = "Shneddick Ring" }
@@ -874,16 +896,16 @@ function init_gear_sets()
     }
 
     -- Buff sets: Gear that needs to be worn to actively enhance a current player buff.
-    sets.buff['Ebullience'] = { head = "Arbatel Bonnet +3" }
-    sets.buff['Rapture'] = { head = "Arbatel Bonnet +3" }
-    sets.buff['Perpetuance'] = { hands = "Arbatel Bracers +3" }
-    sets.buff['Immanence'] = { hands = "Arbatel Bracers +3" }
-    sets.buff['Penury'] = { legs = "Arbatel Pants +3" }
-    sets.buff['Parsimony'] = { legs = "Arbatel Pants +3" }
+    sets.buff['Ebullience'] = { head = gear.af3_head }
+    sets.buff['Rapture'] = { head = gear.af3_head }
+    sets.buff['Perpetuance'] = { hands = gear.af3_hands }
+    sets.buff['Immanence'] = { hands = gear.af3_hands }
+    sets.buff['Penury'] = { legs = gear.af3_legs }
+    sets.buff['Parsimony'] = { legs = gear.af3_legs }
     sets.buff['Focalization'] = {}
     sets.buff['Celerity'] = {}
     sets.buff['Alacrity'] = {}
-    sets.buff['Klimaform'] = { feet = "Arbatel Loafers +3" }
+    sets.buff['Klimaform'] = { feet = gear.af3_feet }
     sets.buff.Doom = set_combine(sets.buff.Doom, {})
     sets.buff['Light Arts'] = {} --legs="Academic's Pants +3"
     sets.buff['Dark Arts'] = {}  --body="Academic's Gown +3"
