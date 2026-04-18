@@ -15,8 +15,10 @@ function character_user_job_setup()
 
     gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
     gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
-    gear.linos_dex_wsd = gear.linos_chr_wsd                                                                                      -- Rudra's Storm
-    gear.linos_int_wsd = gear.linos_chr_wsd                                                                                      -- Aeolian Edge
+    gear.linos_dex_wsd = gear
+        .linos_chr_wsd                                                                                      -- Rudra's Storm
+    gear.linos_int_wsd = gear
+        .linos_chr_wsd                                                                                      -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
     gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadruple Attack +3%' } }
     -- JSE Weapon/Neck/Earring
@@ -50,8 +52,6 @@ function character_user_job_setup()
     gear.genmei_shield = "Ammurapi Shield"
     gear.linos_fc = "Daurdabla"
     gear.gletis_knife = "Blurred Knife +1"
-    gear.loricate_torque = "Null Loop"
-    --  7  Loricate Torque +1            -6 DT, SIRD 5%
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.witful_belt = "Null Belt"
@@ -180,7 +180,7 @@ function init_gear_sets()
         range = gear.linos_fc,
         ammo = empty,
         head = gear.af3_head,
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Loquac. Earring",
         ear2 = gear.jse_ear2,
         body = "Inyanga Jubbah +2",
@@ -512,10 +512,10 @@ function init_gear_sets()
         sub = gear.umbra_strap,
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Alabaster Earring",
-        body = "Null Shawl",
+        body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
@@ -530,7 +530,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",
@@ -548,7 +548,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",
@@ -568,7 +568,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",
@@ -586,7 +586,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.sanare_earring,
         body = "Nyame Mail",

@@ -12,7 +12,8 @@ function character_user_job_setup()
 
     gear.stp_jse_back = { name = "Rosmerta's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'DEX+10', '"Store TP"+10', 'Phys. dmg. taken-10%', } }
     gear.str_wsd_jse_back = { name = "Rosmerta's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', } }
-    gear.nuke_jse_back = "Cornflower Cape" --{ name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
+    gear.nuke_jse_back =
+    "Cornflower Cape" --{ name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
     gear.int_wsd_jse_back = gear.str_wsd_jse_back
 
     gear.jse_neck = "Mirage Stole +2"
@@ -48,7 +49,6 @@ function character_user_job_setup()
     gear.fotia_belt = ""
     gear.acuity_belt = ""
     gear.null_masque = ""
-    gear.loricate_torque = "Null Loop"
     gear.luminary_sash = "Null Belt"
     gear.genmei_shield = ""
 
@@ -78,8 +78,8 @@ function init_gear_sets()
 
     sets.buff['Burst Affinity'] = { --[[legs = gear.af1_legs,]] feet = gear.af3_feet }
     sets.buff['Chain Affinity'] = {} --feet = gear.af1_feet }
-    sets.buff.Convergence = { } -- head = gear.af2_head }
-    sets.buff.Diffusion = { } --feet = gear.af2_feet }
+    sets.buff.Convergence = {}       -- head = gear.af2_head }
+    sets.buff.Diffusion = {}         --feet = gear.af2_feet }
     sets.buff.Enchainment = {}
     sets.buff.Efflux = { --[[back = gear.stp_jse_back,]] legs = gear.af3_legs }
     sets.buff.Doom = set_combine(sets.buff.Doom, {})
@@ -87,21 +87,21 @@ function init_gear_sets()
     -- Precast Sets
 
     -- Precast sets to enhance JAs
-    sets.precast.JA['Azure Lore'] = { } --hands = gear.af2_hands }
+    sets.precast.JA['Azure Lore'] = {} --hands = gear.af2_hands }
 
     -- Fast cast sets for spells
 
     sets.precast.FC = {
-        main = "Sakpata's Sword", 
-        --ammo = "Impatiens",  
-        --neck = "Voltsurge Torque",  
-        ear1 = "Etiolation Earring", 
+        main = "Sakpata's Sword",
+        --ammo = "Impatiens",
+        --neck = "Voltsurge Torque",
+        ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         --body = gear.af2_body,
-        --ring1 = "Kishar Ring", 
+        --ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         --back = "Perimede Cape", OR BLU Fast Cast cape?
-        --waist = "Witful Belt", 
+        --waist = "Witful Belt",
     }
 
     sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, { body = gear.af3_body })
@@ -183,11 +183,11 @@ function init_gear_sets()
         neck = gear.sibyl_scarf,
         ear1 = gear.regal_earring,
         ear2 = "Friomisi Earring",
-        body =  "Amalric Doublet +1", 
+        body = "Amalric Doublet +1",
         hands = "Jhakri Cuffs +2",
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.archon_ring,  
-        back = gear.int_wsd_jse_back, 
+        ring2 = gear.archon_ring,
+        back = gear.int_wsd_jse_back,
         waist = "Orpheus's Sash",
         legs = gear.af2_legs,
         feet = gear.af3_feet
@@ -199,7 +199,7 @@ function init_gear_sets()
     sets.AccMaxTP = { ear1 = "Regal Earring", ear2 = "Telos Earring" }
 
     -- Midcast Sets
-    sets.midcast.FastRecast = set_combine(sets.precast.FC, { })
+    sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
 
     sets.midcast['Blue Magic'] = {}
 
@@ -285,7 +285,7 @@ function init_gear_sets()
         --waist = "Olympus Sash",
     }
 
-    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'], {  })
+    sets.midcast['Phalanx'] = set_combine(sets.midcast['Enhancing Magic'], {})
 
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], { head = "Amalric Coif +1" })
 
@@ -309,7 +309,7 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Sakpata's Sword",
         ammo = "Staunch Tathlum +1",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = gear.regal_earring,
         ear2 = "Mendi. Earring",
         body = "Vrikodara Jupon",
@@ -345,7 +345,7 @@ function init_gear_sets()
 
     sets.midcast['Blue Magic'].Healing = {
         ammo = "Staunch Tathlum +1",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         body = "Vrikodara Jupon",
         ring1 = "Naji's Loop",
         waist = gear.luminary_sash,
@@ -381,7 +381,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Alabaster Earring",
         body = gear.af3_body,
@@ -399,7 +399,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Alabaster Earring",
         body = gear.af3_body,
@@ -418,7 +418,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Alabaster Earring",
         body = gear.af3_body,
@@ -496,7 +496,7 @@ function init_gear_sets()
         waist = "Sailfi Belt +1",
         legs = "Samnuha Tights",
         feet = gear.herculean_ta_feet
-    } 
+    }
 
     sets.engaged.AM = set_combine(sets.engaged, {
         head = "Malignance Chapeau",
@@ -581,12 +581,12 @@ function init_gear_sets()
 
     sets.engaged.Acc.DT.AM = set_combine(sets.engaged.Acc.DT, {
         back = gear.stp_jse_back,
-     })
+    })
 
     sets.engaged.FullAcc.DT = set_combine(sets.engaged.Acc.DT, {
         neck = "Null Loop",
     })
-    
+
     sets.engaged.FullAcc.DT.AM = sets.engaged.FullAcc.DT
 
     sets.Self_Healing = { waist = "Gishdubar Sash" }

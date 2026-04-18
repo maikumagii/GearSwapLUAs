@@ -64,7 +64,7 @@ function character_user_job_setup()
     gear.str_wsd_jse_back = gear.physical_mnd_wsd_jse_back
 
     -- JSE Weapon/Neck/Earring
-    gear.jse_ear2 = "Leth. Earring +1"
+    gear.jse_ear2 = "Leth. Earring +2"
     gear.jse_neck = "Dls. Torque +2"
 
     -- Artifact Gear
@@ -95,8 +95,6 @@ function character_user_job_setup()
     --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
     gear.regal_gem = "Staunch Tathlum +1"
     --  14 Regal Gem                     Enfeebling Set (required)
-    gear.loricate_torque = "Null Loop"
-    --  7  Loricate Torque +1            -6 DT, SIRD 5%
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.witful_belt = "Null Belt"
@@ -313,7 +311,7 @@ function init_gear_sets()
         sub = gear.sacro_bulwark,
         ammo = gear.impatiens,
         head = gear.af1_head,
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
@@ -331,7 +329,7 @@ function init_gear_sets()
         sub = gear.sacro_bulwark,
         ammo = gear.impatiens,
         head = gear.af1_head,
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
@@ -540,7 +538,7 @@ function init_gear_sets()
         sub = gear.sacro_bulwark,
         ammo = "Staunch Tathlum +1",
         head = gear.af1_head,
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
@@ -617,7 +615,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Halasz Earring",
         ear2 = "Mendi. Earring",
         body = "Bunzi's Robe",
@@ -1053,7 +1051,7 @@ function init_gear_sets()
         sub = "Culminus",
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
@@ -1324,7 +1322,7 @@ function init_gear_sets()
         sub = gear.sacro_bulwark,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.ethereal_earring,
         body = "Nyame Mail",
@@ -1400,7 +1398,7 @@ function init_gear_sets()
         sub = gear.sacro_bulwark,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.loricate_torque,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.ethereal_earring,
         body = "Nyame Mail",
