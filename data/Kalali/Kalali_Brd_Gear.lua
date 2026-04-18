@@ -87,7 +87,6 @@ function character_user_job_setup()
     --  1  Luminary Sash                 Conserve MP / MND
     gear.fuchonoobi = "Eschan Stone"
     --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
-    gear.voltsurge_torque = "Null Loop"   -- Acc, DEX
     gear.kentarch_belt = "Sailfi Belt +1" -- DEX
     gear.regal_earring = "Telos Earring"  -- Macc, Acc, CHR
 
@@ -134,7 +133,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = gear.impatiens,
         head = "Bunzi's Hat",
-        neck = gear.voltesurge_torque,
+        neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
@@ -152,7 +151,7 @@ function init_gear_sets()
         sub = gear.genmei_shield,
         ammo = gear.impatiens,
         head = "Bunzi's Hat",
-        neck = gear.voltesurge_torque,
+        neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
@@ -339,7 +338,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = gear.linos_fc,
         head = "Bunzi's Hat",
-        neck = gear.voltesurge_torque,
+        neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
@@ -451,7 +450,7 @@ function init_gear_sets()
         range = "Daurdabla",
         ammo = empty,
         head = "Bunzi's Hat",
-        neck = gear.voltesurge_torque,
+        neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",

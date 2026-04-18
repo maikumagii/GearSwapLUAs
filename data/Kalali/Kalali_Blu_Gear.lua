@@ -94,7 +94,7 @@ function init_gear_sets()
     sets.precast.FC = {
         main = "Sakpata's Sword",
         --ammo = "Impatiens",
-        --neck = "Voltsurge Torque",
+        neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         --body = gear.af2_body,
@@ -122,7 +122,7 @@ function init_gear_sets()
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = gear.af2_legs,
-        feet = "Nyame Sabots"
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
@@ -196,7 +196,7 @@ function init_gear_sets()
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear1 = "Cessance Earring", ear2 = "Brutal Earring" }
-    sets.AccMaxTP = { ear1 = "Regal Earring", ear2 = "Telos Earring" }
+    sets.AccMaxTP = { ear1 = gear.regal_earring, ear2 = "Telos Earring" }
 
     -- Midcast Sets
     sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
@@ -281,7 +281,7 @@ function init_gear_sets()
         ear2 = "Mimir Earring",
         ring1 = "Stikini Ring +1",
         ring2 = "Stikini Ring +1",
-        back = "Perimede Cape",
+        --back = "Perimede Cape",
         --waist = "Olympus Sash",
     }
 
@@ -315,7 +315,7 @@ function init_gear_sets()
         body = "Vrikodara Jupon",
         ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
-        back = "Moonlight Cape",
+        --back = "Moonlight Cape",
         waist = gear.luminary_sash,
     }
 
@@ -391,7 +391,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sabots"
+        feet = "Nyame Sollerets"
     }
 
     sets.idle.PDT = {
@@ -409,7 +409,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sabots"
+        feet = "Nyame Sollerets"
     }
 
     -- Defense sets
@@ -428,7 +428,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sabots"
+        feet = "Nyame Sollerets"
     }
 
     sets.defense.MDT = {
@@ -446,7 +446,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sabots"
+        feet = "Nyame Sollerets"
     }
 
     sets.defense.MEVA = {
@@ -464,7 +464,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sabots"
+        feet = "Nyame Sollerets"
     }
 
     sets.defense.NukeLock = sets.midcast['Blue Magic'].Magical
@@ -494,8 +494,8 @@ function init_gear_sets()
         ring2 = "Chirich Ring +1",
         back = "Null Shawl",
         waist = "Sailfi Belt +1",
-        legs = "Samnuha Tights",
-        feet = gear.herculean_ta_feet
+        legs = "Malignance Tights",
+        feet = "Malignance Boots"
     }
 
     sets.engaged.AM = set_combine(sets.engaged, {
