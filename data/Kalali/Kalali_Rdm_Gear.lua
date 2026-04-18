@@ -97,10 +97,6 @@ function character_user_job_setup()
     --  14 Regal Gem                     Enfeebling Set (required)
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
-    gear.witful_belt = "Null Belt"
-    --  3  Witful Belt                   FC +3%, Haste +3%
-    gear.emphatikos_rope = "Null Belt"
-    --  4  Emphatikos Rope               SIRD +12%, Aquaveil +1
     gear.telchine_cap = gear.af3_head
     --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
     gear.telchine_braconi = gear.af3_legs
@@ -111,8 +107,6 @@ function character_user_job_setup()
     gear.mpacas_staff = "Crocea Mors"
     --  1  Mpaca's Staff                 Idle Set, +2 Refresh
     --	   easy enough to get, 2 MP refresh worth
-    gear.impatiens = "Impatiens"
-    --  3  Impatiens                     SIRD 10%, QC 2%
     gear.umuthi_hat = gear.af3_head
     --  2  Umuthi Hat                    Reduced Stoneskin Casting Time, +13 Enhancing, +8 Enspell
     gear.incanters_torque = "Null Loop"
@@ -301,7 +295,7 @@ function init_gear_sets()
     sets.precast.FC = {
         main = "Sakpata's Sword",
         sub = gear.sacro_bulwark,
-        ammo = gear.impatiens,
+        ammo = "Impatiens",
         head = gear.af1_head,
         neck = "Loricate Torque +1",
         ear1 = "Malignance Earring",
@@ -311,7 +305,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -319,7 +313,7 @@ function init_gear_sets()
     sets.precast.FC.DT = {
         main = "Sakpata's Sword",
         sub = gear.sacro_bulwark,
-        ammo = gear.impatiens,
+        ammo = "Impatiens",
         head = gear.af1_head,
         neck = "Loricate Torque +1",
         ear1 = "Malignance Earring",
@@ -329,7 +323,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -337,7 +331,7 @@ function init_gear_sets()
     sets.precast.FullFC = {
         main = "Crocea Mors",
         sub = gear.filler_shield,
-        ammo = gear.impatiens,
+        ammo = "Impatiens",
         head = gear.af1_head,
         neck = gear.ournmilas_torque,
         ear1 = "Malignance Earring",
@@ -347,7 +341,7 @@ function init_gear_sets()
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = gear.sworn_brais,
         feet = gear.filler_FullFC
     }
@@ -538,7 +532,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = gear.freke_ring,
         back = gear.mnd_enfeebling_jse_back,
-        waist = gear.emphatikos_rope,
+        waist = "Emphatikos Rope",
         legs = "Bunzi's Pants",
         feet = "Bunzi's Sabots"
     }
@@ -615,7 +609,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = gear.freke_ring,
         back = gear.mnd_enfeebling_jse_back,
-        waist = gear.emphatikos_rope,
+        waist = "Emphatikos Rope",
         legs = "Bunzi's Pants",
         feet = "Bunzi's Sabots"
     }
@@ -691,7 +685,7 @@ function init_gear_sets()
     sets.midcast.Aquaveil = {
         head = "Amalric Coif +1",
         hands = "Regal Cuffs",
-        waist = gear.emphatikos_rope,
+        waist = "Emphatikos Rope",
         legs = "Shedir Seraweels"
     } --hands="Regal Cuffs"
     sets.midcast.BarElement = { legs = "Shedir Seraweels" }
@@ -1051,7 +1045,7 @@ function init_gear_sets()
         ring1 = gear.freke_ring,
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
-        waist = gear.emphatikos_rope,
+        waist = "Emphatikos Rope",
         legs = "Bunzi's Pants",
         feet = gear.af3_feet
     }

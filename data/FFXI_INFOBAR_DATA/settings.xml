@@ -1,5 +1,0 @@
-<global>
-<NoTarget>${name} (${main_job}${main_job_level}/${sub_job}${sub_job_level}) ${zone_name}</NoTarget>
-<TargetMOB>${name} Aggro: ${isagressive}, Link: ${islinking}, Detect: ${detect}, Weakness: ${weakness} (${family}, ${levelrange}, ${isnm})</TargetMOB>
-<TargetNPC>${name} ${zone_name}</TargetNPC>
-<TargetPC>${name} (${main_job}${main_job_level}/${sub_job}${sub_job_level}) ${zone_name}</TargetPC>

@@ -54,8 +54,6 @@ function character_user_job_setup()
     gear.gletis_knife = "Blurred Knife +1"
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
-    gear.witful_belt = "Null Belt"
-    --  3  Witful Belt                   FC +3%, Haste +3%
     gear.mpacas_staff = "Kali" -- "Mpaca's Staff"
     --  1  Mpaca's Staff                 Idle Set, +2 Refresh
     --
@@ -135,7 +133,7 @@ function init_gear_sets()
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = "Aya. Cosciales +2",
         feet = gear.af2_feet
     }
@@ -153,7 +151,7 @@ function init_gear_sets()
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = "Aya. Cosciales +2",
         feet = gear.af2_feet
     }
@@ -181,7 +179,7 @@ function init_gear_sets()
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = "Kaykaus Tights +1",
         feet = gear.af3_feet
     }
@@ -340,7 +338,7 @@ function init_gear_sets()
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = "Aya. Cosciales +2",
         feet = gear.af2_feet
     }
@@ -452,7 +450,7 @@ function init_gear_sets()
         ring1 = gear.kishar_ring,
         ring2 = gear.prolix_ring,
         back = gear.magic_jse_back,
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
         legs = gear.af3_legs,
         feet = gear.af1_feet
     }
@@ -497,7 +495,7 @@ function init_gear_sets()
         back = "Oretan. Cape +1",
         ring1 = "Haoma's Ring",
         ring2 = "Menelaus's Ring",
-        waist = gear.witful_belt,
+        waist = "Witful Belt",
     })
 
     sets.idle = {
