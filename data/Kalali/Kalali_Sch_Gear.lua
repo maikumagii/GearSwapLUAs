@@ -1,7 +1,7 @@
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function character_user_job_setup()
     state.OffenseMode:options('Normal')
-    state.CastingMode:options('Normal', 'Resistant', 'Proc', 'OccultAcumen', '9k')
+    state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT')
     state.HybridMode:options('Normal', 'PDT')
     state.Weapons:options('None', 'Musa', 'Chatoyant', 'Mpaca', 'Bunzi', 'Maxentius')
@@ -30,7 +30,7 @@ function character_user_job_setup()
     gear.af2_feet = ""
 
     -- Empy Gear
-    gear.af3_head = "Arbatel Bonnet +2"
+    gear.af3_head = "Arbatel Bonnet +3"
     gear.af3_body = "Arbatel Gown +2"
     gear.af3_hands = "Arbatel Bracers +2"
     gear.af3_legs = "Arbatel Pants +3"
@@ -38,26 +38,24 @@ function character_user_job_setup()
 
 
     gear.kishar_ring = ""
-    gear.perimede_cape = ""
+    gear.perimede_cape = "Null Belt"
     gear.oshashas_treatise = ""
-    gear.fotia_gorget = ""
-    gear.fotia_belt = ""
+    gear.fotia_gorget = "Null Loop"
+    gear.fotia_belt = "Null Belt"
     gear.cornelias_ring = ""
-    gear.luminary_sash = ""
-    gear.orunmilas_torque = ""
-    gear.incanters_torque = ""
+    gear.luminary_sash = "Null Belt"
+    gear.orunmilas_torque = "Null Loop"
+    gear.incanters_torque = "Null Loop"
     gear.meili_earring = ""
-    gear.sibyl_scarf = ""
-    gear.debilis_medallion = ""
+    gear.sibyl_scarf = "Null Loop"
+    gear.debilis_medallion = "Null Loop"
     gear.hieros_mittens = ""
     gear.bishops_sash = ""
-    gear.telchine_cap = ""
     gear.andoaa_earring = ""
-    gear.telchine_braconi = ""
-    gear.obstinate_sash = ""
+    gear.obstinate_sash = "Null Belt"
     gear.freke_ring = ""
-    gear.sacro_cord = ""
-    gear.fuchonoobi = ""
+    gear.sacro_cord = "Null Belt"
+    gear.fuchonoobi = "Null Belt"
     gear.null_masque = ""
     gear.crep_earring = ""
     gear.prolix_ring = ""
@@ -65,8 +63,8 @@ function character_user_job_setup()
     gear.ethereal_earring = ""
     gear.sanare_earring = ""
     gear.shadow_ring = ""
-    gear.shadow_mantle = ""
-    gear.plat_mog_belt = ""
+    gear.shadow_mantle = "Null Shawl"
+    gear.plat_mog_belt = "Null Belt"
 
     -- Additional local binds
     send_command('bind @` gs c cycle ElementalMode')
@@ -115,7 +113,7 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
         --body = "Pinga Tunic",
-        --hands = "Gende. Gages +1",
+        hands = gear.af1_hands,
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
@@ -133,7 +131,7 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
         --body = "Pinga Tunic",
-        --hands = "Gende. Gages +1",
+        hands = gear.af1_hands,
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
@@ -194,7 +192,7 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
         --body = "Pinga Tunic",
-        --hands = "Gende. Gages +1",
+        hands = gear.af1_hands,
         ring1 = gear.kishar_ring,
         ring2 = "Lebeche Ring",
         --back = "Solemnity Cape",
@@ -292,18 +290,18 @@ function init_gear_sets()
 
     sets.midcast['Enhancing Magic'] = {
         --ammo = "Savant's Treatise",
-        head = gear.telchine_cap,
+        head = gear.af3_head,
         neck = gear.incanters_torque,
         ear1 = gear.andoaa_earring,
         --ear2 = "Gifted Earring",
-        --body = "Telchine Chas.",
-        --hands = "Telchine Gloves",
+        body = gear.af2_body,
+        hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = gear.perimede_cape,
         waist = "Embla Sash",
-        legs = gear.telchine_braconi,
-        --feet = "Telchine Pigaches"
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
     }
 
     sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'],
@@ -541,45 +539,6 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
-    sets.midcast['Elemental Magic']['9k'] = {
-        main = "Maxentius",
-        sub = "Ammurapi Shield",
-        ammo = "Pemphredo Tathlum",
-        head = gear.null_masque,
-        neck = "Null Loop",
-        ear1 = gear.crep_earring,
-        ear2 = "Gwati Earring",
-        --body = "Volte Doublet",
-        --hands = "Volte Bracers",
-        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = "Null Shawl",
-        waist = "Null Belt",
-        --legs = --[[codex removed]]
-        feet = gear.af3_feet
-    }
-
-    sets.midcast['Elemental Magic'].Proc = {
-        --main = "Mafic Cudgel",
-        --sub = "Genmei Shield",
-        ammo = "Impatiens",
-        head = gear.null_masque,
-        neck = "Null Loop",
-        ear1 = "Etiolation Earring",
-        ear2 = "Loquac. Earring",
-        --body = "Volte Doublet",
-        --hands = "Volte Bracers",
-        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = "Null Shawl",
-        waist = "Null Belt",
-        --legs = --[[codex removed]]
-        --feet = "Medium's Sabots"
-    }
-
-    sets.midcast['Elemental Magic'].OccultAcumen = {}
-
-
     -- Custom refinements for certain nuke tiers
     sets.midcast['Elemental Magic'].HighTierNuke = {
         main = "Bunzi's Rod",
@@ -653,24 +612,6 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
-    sets.midcast.Helix.Proc = {
-        main = empty,
-        sub = empty,
-        ammo = "Impatiens",
-        --head = "Vanya Hood",
-        neck = gear.orunmilas_torque,
-        ear1 = "Etiolation Earring",
-        ear2 = "Loquac. Earring",
-        --body = "Volte Doublet",
-        --hands = "Gende. Gages +1",
-        ring1 = gear.kishar_ring,
-        ring2 = gear.prolix_ring,
-        --back = "Swith Cape +1",
-        waist = "Witful Belt",
-        --legs = "Psycloth Lappas",
-        --feet = "Regal Pumps +1"
-    }
-
     sets.midcast.Impact = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
@@ -689,8 +630,6 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
-    sets.midcast.Impact.OccultAcumen = set_combine(sets.midcast['Elemental Magic'].OccultAcumen,
-        { head = empty, body = "Crepuscular Cloak" })
 
     -- Gear for Magic Burst mode.
     sets.MagicBurst = {

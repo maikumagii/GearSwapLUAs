@@ -55,6 +55,15 @@ send_command('bind ^@!backspace gs c buffup')            --Buffup macro because 
 NotifyBuffs = S { 'doom', 'petrification' }
 
 local hoxne_ampulla_name = 'Hoxne Ampulla'
+local warp_ring_name = 'Warp Ring'
+local warp_ring_wait_seconds = 9
+local warp_ring_zone_timeout = 60
+local warp_ring_state = {
+    active = false,
+    start_zone = nil,
+    ready_deadline = 0,
+    zone_deadline = 0,
+}
 
 local function set_hoxne_ampulla_mode(enabled)
     enable('range', 'ammo')
@@ -68,8 +77,103 @@ local function set_hoxne_ampulla_mode(enabled)
     end
 end
 
+local function reset_warp_ring_state()
+    warp_ring_state.active = false
+    warp_ring_state.start_zone = nil
+    warp_ring_state.ready_deadline = 0
+    warp_ring_state.zone_deadline = 0
+end
+
+local function finish_warp_ring()
+    internal_enable_set('WarpRing')
+    reset_warp_ring_state()
+    send_command('gs c update')
+end
+
+local function warp_ring_accessible()
+    return (player.inventory and player.inventory[warp_ring_name])
+        or (player.wardrobe and player.wardrobe[warp_ring_name])
+        or (player.wardrobe2 and player.wardrobe2[warp_ring_name])
+        or (player.wardrobe3 and player.wardrobe3[warp_ring_name])
+        or (player.wardrobe4 and player.wardrobe4[warp_ring_name])
+        or (player.wardrobe5 and player.wardrobe5[warp_ring_name])
+        or (player.wardrobe6 and player.wardrobe6[warp_ring_name])
+        or (player.wardrobe7 and player.wardrobe7[warp_ring_name])
+        or (player.wardrobe8 and player.wardrobe8[warp_ring_name])
+end
+
+local function monitor_warp_ring_zone_change()
+    if not warp_ring_state.active then
+        return
+    end
+
+    if world.area ~= warp_ring_state.start_zone then
+        finish_warp_ring()
+    elseif os.clock() >= warp_ring_state.zone_deadline then
+        add_to_chat(123, 'Warp Ring did not change zones in time. Re-enabling ring1.')
+        finish_warp_ring()
+    else
+        monitor_warp_ring_zone_change:schedule(1)
+    end
+end
+
+local function use_warp_ring_when_ready()
+    if not warp_ring_state.active then
+        return
+    end
+
+    local warp_ring = get_usable_item(warp_ring_name)
+    local ring_equipped = player.equipment and player.equipment.left_ring == warp_ring_name
+    local ring_ready = warp_ring and warp_ring.usable and ring_equipped
+
+    if ring_ready or os.clock() >= warp_ring_state.ready_deadline then
+        warp_ring_state.zone_deadline = os.clock() + warp_ring_zone_timeout
+        windower.chat.input('/item "' .. warp_ring_name .. '" <me>')
+        monitor_warp_ring_zone_change:schedule(1)
+    else
+        use_warp_ring_when_ready:schedule(1)
+    end
+end
+
 function user_state_change(stateField, newValue, oldValue)
     if stateField == 'Hoxne Ampulla Mode' then
         set_hoxne_ampulla_mode(newValue)
+    end
+end
+
+function user_self_command(commandArgs, eventArgs)
+    if commandArgs[1]:lower() ~= 'warp' then
+        return
+    end
+
+    eventArgs.handled = true
+
+    if warp_ring_state.active then
+        add_to_chat(123, 'Warp Ring automation is already in progress.')
+        return
+    end
+
+    if not item_available(warp_ring_name) then
+        add_to_chat(123, 'Warp Ring is not available.')
+        return
+    end
+
+    if not warp_ring_accessible() then
+        add_to_chat(123, 'Warp Ring must be in inventory or wardrobe to equip into ring1.')
+        return
+    end
+
+    warp_ring_state.active = true
+    warp_ring_state.start_zone = world.area
+    warp_ring_state.ready_deadline = os.clock() + warp_ring_wait_seconds
+
+    internal_disable_set({ ring1 = warp_ring_name }, 'WarpRing')
+    equip({ ring1 = warp_ring_name })
+    use_warp_ring_when_ready:schedule(1)
+end
+
+function user_zone_change(new_id, old_id)
+    if warp_ring_state.active then
+        finish_warp_ring()
     end
 end
