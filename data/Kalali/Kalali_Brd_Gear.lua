@@ -65,8 +65,6 @@ function character_user_job_setup()
     --  1  Debilis Medallion             Cursna Set
     gear.prolix_ring = "Stikini Ring +1"
     --  1  Prolix Ring                   FC +2%
-    gear.sanare_earring = "Eabani Earring"
-    --  5  Sanare Earring                MDB+4, MEva+6
     gear.hieros_mittens = "Inyan. Dastanas +2"
     --  1  Hieros Mittens                Cursna Set
     gear.shadow_ring = ""
@@ -523,7 +521,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -541,7 +539,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -561,7 +559,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -579,7 +577,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",

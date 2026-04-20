@@ -33,7 +33,7 @@ function character_user_job_setup()
     gear.af3_head = "Arbatel Bonnet +3"
     gear.af3_body = "Arbatel Gown +2"
     gear.af3_hands = "Arbatel Bracers +2"
-    gear.af3_legs = "Arbatel Pants +3"
+    gear.af3_legs = "Arbatel Pants +2"
     gear.af3_feet = "Arbatel Loafers +3"
 
 
@@ -61,7 +61,6 @@ function character_user_job_setup()
     gear.prolix_ring = ""
     gear.homiliary = ""
     gear.ethereal_earring = ""
-    gear.sanare_earring = ""
     gear.shadow_ring = ""
     gear.shadow_mantle = "Null Shawl"
     gear.plat_mog_belt = "Null Belt"
@@ -90,7 +89,7 @@ function init_gear_sets()
     --------------------------------------
 
     -- Weapons sets
-    sets.weapons.Chatoyant = { main = "Chatoyant", sub = "Khonsu" }
+    sets.weapons.Chatoyant = { main = "Chatoyant Staff", sub = "Khonsu" }
     sets.weapons.Musa = { main = "Musa", sub = "Khonsu" }
     sets.weapons.Mpaca = { main = "Mpaca's Staff", sub = "Khonsu" }
     sets.weapons.Bunzi = { main = "Bunzi's Rod", sub = "Ammurapi Shield" }
@@ -508,7 +507,7 @@ function init_gear_sets()
         sub = "Culminus",
         ammo = "Pemphredo Tathlum",
         head = gear.af3_head,
-        neck = "Saevus Pendant +1",
+        --neck = "Saevus Pendant +1",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_earring,
         body = gear.af3_body,
@@ -681,8 +680,8 @@ function init_gear_sets()
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
     sets.idle = {
-        main = "Mpaca's Staff",
-        sub = "Oneiros Grip",
+        --main = "Mpaca's Staff",
+        --sub = "Oneiros Grip",
         ammo = gear.homiliary,
         head = gear.null_masque,
         neck = gear.sibyl_scarf,
@@ -724,7 +723,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Murky Ring",
@@ -737,13 +736,13 @@ function init_gear_sets()
 
     sets.idle.MEVA = {
         main = "Daybreak",
-        sub = "Genmei Shield",
+        --sub = "Genmei Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Murky Ring",
@@ -782,7 +781,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Murky Ring",
@@ -801,7 +800,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Murky Ring",

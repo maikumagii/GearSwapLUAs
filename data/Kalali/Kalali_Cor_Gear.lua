@@ -76,13 +76,9 @@ function character_user_job_setup()
     gear.cornelias_ring = ""
     gear.crep_earring = ""
     gear.yemaya_belt = ""
-    gear.sanctity_necklace = ""
     gear.regal_ring = ""
-    gear.volte_cap = ""
-    gear.volte_bracers = ""
     gear.null_masque = ""
     gear.genmei_earring = ""
-    gear.sanare_earring = ""
     gear.ethereal_earring = ""
     gear.archon_ring = ""
     gear.fotia_gorget = ""
@@ -463,7 +459,7 @@ function init_gear_sets()
         head = gear.null_masque,
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -480,7 +476,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -513,7 +509,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -529,7 +525,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -545,7 +541,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",

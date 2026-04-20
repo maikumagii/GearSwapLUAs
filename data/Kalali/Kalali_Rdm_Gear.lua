@@ -108,7 +108,7 @@ function character_user_job_setup()
     --  1  Mpaca's Staff                 Idle Set, +2 Refresh
     --	   easy enough to get, 2 MP refresh worth
     gear.umuthi_hat = gear.af3_head
-    --  2  Umuthi Hat                    Reduced Stoneskin Casting Time, +13 Enhancing, +8 Enspell
+    --  2  Umuthi Hat                    +8 Enspell
     gear.incanters_torque = "Null Loop"
     --  4  Incanter's Torque             Magic skills + 10 (Melic Torque Enh + Henic Torque Heal -- Synergy)
     gear.baetyl_pendant = gear.jse_neck
@@ -147,8 +147,6 @@ function character_user_job_setup()
     --  2  Rep. Plat. Medal              STR +10, ATK + 30, Bastok Citizen Regain +2
     gear.prolix_ring = "Stikini Ring +1"
     --  1  Prolix Ring                   FC +2%
-    gear.sanare_earring = "Eabani Earring"
-    --  5  Sanare Earring                MDB+4, MEva+6
     gear.ethereal_earring = "Eabani Earring"
     --  3  Ethereal Earring              Eva+5, Converts 3% Damage Taken to MP
     gear.crep_earring = "Sherida Earring"
@@ -1329,7 +1327,7 @@ function init_gear_sets()
         head = "Bunzi's Hat",
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
@@ -1348,7 +1346,7 @@ function init_gear_sets()
         head = "Bunzi's Hat",
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
@@ -1367,7 +1365,7 @@ function init_gear_sets()
         head = gear.null_masque,
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
@@ -1407,7 +1405,7 @@ function init_gear_sets()
         head = "Bunzi's Hat",
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
@@ -1426,7 +1424,7 @@ function init_gear_sets()
         head = "Bunzi's Hat",
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.sanare_earring,
+        ear2 = "Sanare Earring",
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
