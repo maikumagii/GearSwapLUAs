@@ -4,7 +4,7 @@ function character_user_job_setup()
     state.HybridMode:options('Normal', 'DT')
     state.CastingMode:options('Normal', 'Resistant', 'AoE')
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
-    state.Weapons:options('None', 'Naegling', 'Aeneas', 'DualWeapons', 'DualNaegling', 'DualTauret', 'DualAeolian')
+    state.Weapons:options('None', 'Naegling',--[[ 'Aeneas', 'DualWeapons',]] 'DualNaegling', 'DualCarn'--[[,'DualTauret', 'DualAeolian']])
 
     gear.melee_dw_back = {}
     gear.melee_str_wsd_back = { name = "Intarabus's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', } }
@@ -108,6 +108,7 @@ function init_gear_sets()
     --sets.weapons.Aeneas = { main = "Aeneas", sub = gear.genmei_shield }
     --sets.weapons.DualWeapons = { main = "Aeneas", sub = "Blurred Knife +1" }
     sets.weapons.DualNaegling = { main = "Naegling", sub = "Blurred Knife +1" }
+    sets.weapons.DualCarn = { main = "Carnwenhan", sub = "Blurred Knife +1"}
     sets.weapons.Naegling = { main = "Naegling", sub = gear.genmei_shield }
     --sets.weapons.DualTauret = { main = "Tauret", sub = "Blurred Knife +1" }
     --sets.weapons.DualAeolian = { main = "Tauret", sub = "Malevolence" }
@@ -733,6 +734,7 @@ autows_list = {
     ['Aeneas'] = "Rudra's Storm",
     ['DualWeapons'] = "Rudra's Storm",
     ['DualNaegling'] = 'Savage Blade',
+    ['DualCarn'] = 'Mordant Rime',
     ['DualTauret'] = 'Evisceration',
     ['DualAeolian'] = 'Aeolian Edge'
 }
