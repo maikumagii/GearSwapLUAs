@@ -4,7 +4,8 @@ function character_user_job_setup()
     state.HybridMode:options('Normal', 'DT')
     state.CastingMode:options('Normal', 'Resistant', 'AoE')
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
-    state.Weapons:options('None', 'Naegling',--[[ 'Aeneas', 'DualWeapons',]] 'DualNaegling', 'DualCarn'--[[,'DualTauret', 'DualAeolian']])
+    state.Weapons:options('None', 'Naegling', --[[ 'Aeneas', 'DualWeapons',]] 'DualNaegling',
+        'DualCarn' --[[,'DualTauret', 'DualAeolian']])
 
     gear.melee_dw_back = {}
     gear.melee_str_wsd_back = { name = "Intarabus's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', } }
@@ -16,8 +17,10 @@ function character_user_job_setup()
 
     gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
     gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
-    gear.linos_dex_wsd = gear.linos_chr_wsd                                                                                      -- Rudra's Storm
-    gear.linos_int_wsd = gear.linos_chr_wsd                                                                                      -- Aeolian Edge
+    gear.linos_dex_wsd = gear
+    .linos_chr_wsd                                                                                          -- Rudra's Storm
+    gear.linos_int_wsd = gear
+    .linos_chr_wsd                                                                                          -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
     gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadruple Attack +3%' } }
     -- JSE Weapon/Neck/Earring
@@ -36,7 +39,7 @@ function character_user_job_setup()
     gear.af2_body = "Bihu Jstcorps. +3"
     gear.af2_hands = {}
     gear.af2_legs = {}
-    gear.af2_feet = {} --"Bihu Slippers +3"
+    gear.af2_feet = "Bihu Slippers +1" --"Bihu Slippers +3"
 
     -- Empy Gear
     gear.af3_head = "Fili Calot +2"
@@ -108,7 +111,7 @@ function init_gear_sets()
     --sets.weapons.Aeneas = { main = "Aeneas", sub = gear.genmei_shield }
     --sets.weapons.DualWeapons = { main = "Aeneas", sub = "Blurred Knife +1" }
     sets.weapons.DualNaegling = { main = "Naegling", sub = "Blurred Knife +1" }
-    sets.weapons.DualCarn = { main = "Carnwenhan", sub = "Blurred Knife +1"}
+    sets.weapons.DualCarn = { main = "Carnwenhan", sub = "Blurred Knife +1" }
     sets.weapons.Naegling = { main = "Naegling", sub = gear.genmei_shield }
     --sets.weapons.DualTauret = { main = "Tauret", sub = "Blurred Knife +1" }
     --sets.weapons.DualAeolian = { main = "Tauret", sub = "Malevolence" }
