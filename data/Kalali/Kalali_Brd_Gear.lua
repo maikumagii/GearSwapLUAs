@@ -18,9 +18,9 @@ function character_user_job_setup()
     gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
     gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
     gear.linos_dex_wsd = gear
-    .linos_chr_wsd                                                                                          -- Rudra's Storm
+        .linos_chr_wsd                                                                                      -- Rudra's Storm
     gear.linos_int_wsd = gear
-    .linos_chr_wsd                                                                                          -- Aeolian Edge
+        .linos_chr_wsd                                                                                      -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
     gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadruple Attack +3%' } }
     -- JSE Weapon/Neck/Earring
@@ -368,7 +368,7 @@ function init_gear_sets()
 
     -- For song buffs (duration and AF3 set bonus)
     sets.midcast.SongEffect = {
-        main = "Kali",
+        main = "Carnwenhan",
         sub = gear.genmei_shield,
         range = "Gjallarhorn",
         ammo = empty,
