@@ -26,15 +26,15 @@ function character_user_job_setup()
     gear.jse_neck = "Bard's Charm +2"
 
     -- Artifact Gear
-    gear.af1_head = {}  --"Brioso Roundlet"
-    gear.af1_body = {}  --"Brioso Just. +3"
-    gear.af1_hands = {} --"Brioso Cuffs"
-    gear.af1_legs = {}  --"Brioso Cannions"
-    gear.af1_feet = {}  -- "Brioso Slippers +3"
+    gear.af1_head = {}                   --"Brioso Roundlet"
+    gear.af1_body = {}                   --"Brioso Just. +3"
+    gear.af1_hands = {}                  --"Brioso Cuffs"
+    gear.af1_legs = {}                   --"Brioso Cannions"
+    gear.af1_feet = "Brioso Slippers +2" -- "Brioso Slippers +3"
 
     -- Relic Gear
     gear.af2_head = {}
-    gear.af2_body = "Bihu Jstcrps. +3"
+    gear.af2_body = "Bihu Jstcorps. +3"
     gear.af2_hands = {}
     gear.af2_legs = {}
     gear.af2_feet = {} --"Bihu Slippers +3"
