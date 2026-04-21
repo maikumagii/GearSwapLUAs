@@ -189,10 +189,6 @@ function character_user_job_setup()
     gear.ghostfyre_cape = "Ghostfyre Cape" -- 4
     --  ****"Ghostfyre Cape"            +10 Enhancing, +20% Enhancing Duration
 
-    -- Other placeholders
-    gear.sworn_brais = "Aya. Cosciales +2"
-    --  1  Sworn Brais               	R0 has better Fast Cast
-
 
     -- head body hands legs boots "Taeon " xxx gear for +3 Phalanx increase (+15 total) -- DI Dark Matter gear? +5 a piece (+25 total), and Sworn gear (+24 total, only body is better)
 
@@ -340,7 +336,7 @@ function init_gear_sets()
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
         waist = "Witful Belt",
-        legs = gear.sworn_brais,
+        legs = "Sworn Brais",
         feet = gear.filler_FullFC
     }
 
