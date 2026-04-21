@@ -4,8 +4,9 @@ function character_user_job_setup()
     state.HybridMode:options('Normal', 'DT')
     state.CastingMode:options('Normal', 'Resistant', 'AoE')
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
-    state.Weapons:options('None', 'Naegling', 'Aeneas', 'DualWeapons', 'DualNaegling', 'DualTauret', 'DualAeolian')
+    state.Weapons:options('None', 'Naegling',--[[ 'Aeneas', 'DualWeapons',]] 'DualNaegling', 'DualCarn'--[[,'DualTauret', 'DualAeolian']])
 
+    gear.melee_dw_back = {}
     gear.melee_str_wsd_back = { name = "Intarabus's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', } }
     gear.melee_chr_wsd_back = gear.melee_str_wsd_back
     gear.melee_dex_wsd_back = gear.melee_str_wsd_back
@@ -15,10 +16,8 @@ function character_user_job_setup()
 
     gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
     gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
-    gear.linos_dex_wsd = gear
-        .linos_chr_wsd                                                                                      -- Rudra's Storm
-    gear.linos_int_wsd = gear
-        .linos_chr_wsd                                                                                      -- Aeolian Edge
+    gear.linos_dex_wsd = gear.linos_chr_wsd                                                                                      -- Rudra's Storm
+    gear.linos_int_wsd = gear.linos_chr_wsd                                                                                      -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
     gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadruple Attack +3%' } }
     -- JSE Weapon/Neck/Earring
@@ -109,6 +108,7 @@ function init_gear_sets()
     --sets.weapons.Aeneas = { main = "Aeneas", sub = gear.genmei_shield }
     --sets.weapons.DualWeapons = { main = "Aeneas", sub = "Blurred Knife +1" }
     sets.weapons.DualNaegling = { main = "Naegling", sub = "Blurred Knife +1" }
+    sets.weapons.DualCarn = { main = "Carnwenhan", sub = "Blurred Knife +1"}
     sets.weapons.Naegling = { main = "Naegling", sub = gear.genmei_shield }
     --sets.weapons.DualTauret = { main = "Tauret", sub = "Blurred Knife +1" }
     --sets.weapons.DualAeolian = { main = "Tauret", sub = "Malevolence" }
@@ -657,14 +657,14 @@ function init_gear_sets()
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",
-        ear1 = "Cessance Earring",
+        ear1 = "Eabani Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
         hands = "Bunzi's Gloves",
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Null Belt",
+        waist = "Reiki Yotai",
         legs = "Volte Tights",
         feet = "Nyame Sollerets"
     }
@@ -734,6 +734,7 @@ autows_list = {
     ['Aeneas'] = "Rudra's Storm",
     ['DualWeapons'] = "Rudra's Storm",
     ['DualNaegling'] = 'Savage Blade',
+    ['DualCarn'] = 'Mordant Rime',
     ['DualTauret'] = 'Evisceration',
     ['DualAeolian'] = 'Aeolian Edge'
 }
