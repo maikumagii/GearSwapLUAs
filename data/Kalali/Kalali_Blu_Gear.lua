@@ -231,7 +231,7 @@ function init_gear_sets()
     }
 
 
-    sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical, { ring2 = "Stikini Ring +1" })
+    sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical, { ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" } })
     sets.midcast['Blue Magic'].MagicalChr = set_combine(sets.midcast['Blue Magic'].Magical, {})
     sets.midcast['Blue Magic'].MagicalVit = set_combine(sets.midcast['Blue Magic'].Magical, {})
     sets.midcast['Blue Magic'].MagicalDex = set_combine(sets.midcast['Blue Magic'].Magical, {})
@@ -246,7 +246,7 @@ function init_gear_sets()
         ear2 = gear.jse_earring,
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = "Stikini Ring +1",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         back = "Cornflower Cape",
         waist = gear.acuity_belt,
         legs = gear.af3_legs,
@@ -266,7 +266,7 @@ function init_gear_sets()
         body = gear.af3_body,
         hands = "Regal Cuffs",
         ring1 = "Metamor. Ring +1",
-        ring2 = "Stikini Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.af3_legs,
@@ -336,7 +336,7 @@ function init_gear_sets()
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Metamor. Ring +1",
-        ring2 = "Stikini Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Cornflower Cape",
         waist = "Null Belt",
         legs = "Malignance Tights",
@@ -424,7 +424,7 @@ function init_gear_sets()
         body = gear.af3_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = "Stikini Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
@@ -442,7 +442,7 @@ function init_gear_sets()
         body = gear.af3_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = "Stikini Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -460,7 +460,7 @@ function init_gear_sets()
         body = gear.af3_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = "Stikini Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -491,7 +491,7 @@ function init_gear_sets()
         body = "Adhemar Jacket +1",
         hands = "Adhemar Wrist. +1",
         ring1 = "Epona's Ring",
-        ring2 = "Chirich Ring +1",
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Sailfi Belt +1",
         legs = "Malignance Tights",
@@ -503,7 +503,7 @@ function init_gear_sets()
         ear2 = "Eabani Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = "Chirich Ring +1",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         back = gear.stp_jse_back,
         waist = "Reiki Yotai",
         legs = "Malignance Tights",
@@ -516,7 +516,7 @@ function init_gear_sets()
         ear2 = "Eabani Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = "Chirich Ring +1",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         back = "Null Shawl",
         waist = "Reiki Yotai",
         legs = "Malignance Tights",
@@ -560,7 +560,7 @@ function init_gear_sets()
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Epona's Ring",
-        ring2 = "Chirich Ring +1",
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Reiki Yotai",
         legs = "Malignance Tights",
@@ -568,7 +568,7 @@ function init_gear_sets()
     })
 
     sets.engaged.DT.AM = set_combine(sets.engaged.DT, {
-        ring1 = "Chirich Ring +1",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         back = gear.stp_jse_back,
     })
 
@@ -576,7 +576,7 @@ function init_gear_sets()
         sub = "Flametongue",
         neck = "Mirage Stole +2",
         ear1 = "Telos Earring",
-        ring1 = "Chirich Ring +1",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
     })
 
     sets.engaged.Acc.DT.AM = set_combine(sets.engaged.Acc.DT, {
