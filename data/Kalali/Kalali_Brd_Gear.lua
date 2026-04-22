@@ -387,7 +387,7 @@ function init_gear_sets()
     }
 
     sets.midcast.SongEffect.DW = {
-        main = "Kali",
+        main = "Carnwenhan",
         sub = "Kali",
     } --Only weapons in this set. This set is overlayed onto  SongEffect
 
