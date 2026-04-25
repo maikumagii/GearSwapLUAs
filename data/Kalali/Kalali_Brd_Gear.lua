@@ -45,8 +45,8 @@ function character_user_job_setup()
     gear.af3_head = "Fili Calot +2"
     gear.af3_body = "Fili Hongreline +2"
     gear.af3_hands = "Fili Manchettes +1"
-    gear.af3_legs = "Fili Rhingrave +1"
-    gear.af3_feet = "Fili Cothurnes +1"
+    gear.af3_legs = "Fili Rhingrave +2"
+    gear.af3_feet = "Fili Cothurnes +2"
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
@@ -362,7 +362,7 @@ function init_gear_sets()
     sets.midcast.Minne = {}
     sets.midcast.Threnody = { --[[neck = "Elite Royal Collar"]] }
     sets.midcast.Carol = {}
-    sets.midcast["Sentinel's Scherzo"] = { feet = "Fili Cothurnes +1" }
+    sets.midcast["Sentinel's Scherzo"] = { feet = gear.af3_feet }
     sets.midcast['Magic Finale'] = { range = "Daurdabla" }
     sets.midcast.Mazurka = { range = "Marsyas" }
 
@@ -400,7 +400,7 @@ function init_gear_sets()
         head = "Inyanga Tiara +2",
         neck = "Mnbw. Whistle +1",
         ear1 = gear.regal_earring,
-        ear2 = "Fili Earring +1",
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = "Inyan. Dastanas +2",
         ring1 = "Metamorph Ring +1",
@@ -591,7 +591,7 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.Kiting = { feet = "Fili Cothurnes +1" }
+    sets.Kiting = { feet = gear.af3_feet }
 
     -- Engaged sets
 

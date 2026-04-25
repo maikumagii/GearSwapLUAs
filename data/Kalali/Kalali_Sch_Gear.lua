@@ -13,7 +13,7 @@ function character_user_job_setup()
 
     gear.nuke_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', '"Mag.Atk.Bns."+10', } }
     gear.jse_neck = "Argute Stole +2"
-    gear.jse_earring = "Arbatel Earring"
+    gear.jse_ear2 = "Arbatel Earring"
 
     -- Artifact Gear
     gear.af1_head = "Acad. Mortar. +3"
@@ -60,7 +60,7 @@ function character_user_job_setup()
     gear.crep_earring = ""
     gear.prolix_ring = ""
     gear.homiliary = ""
-    gear.ethereal_earring = ""
+    gear.ethereal_earring = "Ethereal Earring"
     gear.shadow_ring = ""
     gear.shadow_mantle = "Null Shawl"
     gear.plat_mog_belt = "Null Belt"
@@ -332,7 +332,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
@@ -350,7 +350,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -381,7 +381,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -399,7 +399,7 @@ function init_gear_sets()
         head = "Pixie Hairpin +1",
         --neck = "Saevus Pendant +1",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = gear.freke_ring,
@@ -417,7 +417,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -433,7 +433,7 @@ function init_gear_sets()
         head = "Pixie Hairpin +1",
         neck = "Erra Pendant",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Evanescence Ring",
@@ -451,7 +451,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -472,7 +472,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        --ear2 = gear.jse_earring,
+        --ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -490,7 +490,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -509,7 +509,7 @@ function init_gear_sets()
         head = gear.af3_head,
         --neck = "Saevus Pendant +1",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = gear.freke_ring,
@@ -527,7 +527,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -546,7 +546,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = gear.sibyl_scarf,
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = gear.freke_ring,
@@ -564,7 +564,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -582,7 +582,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = gear.sibyl_scarf,
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = gear.freke_ring,
@@ -600,7 +600,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -618,7 +618,7 @@ function init_gear_sets()
         head = empty,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = "Crepuscular Cloak",
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },

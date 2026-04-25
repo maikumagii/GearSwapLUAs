@@ -143,11 +143,11 @@ function character_user_job_setup()
     --  2  Anu Torque                    +7 STP Default Neck, switch immediately
     gear.fotia_gorget = "Null Loop"
     --  4  Fotia Gorget                  fTP replicating WS
-    gear.rep_plat_medal = "Null Loop"
+    gear.rep_plat_medal = "Rep. Plat. Medal"
     --  2  Rep. Plat. Medal              STR +10, ATK + 30, Bastok Citizen Regain +2
     gear.prolix_ring = "Stikini Ring +1"
     --  1  Prolix Ring                   FC +2%
-    gear.ethereal_earring = "Eabani Earring"
+    gear.ethereal_earring = "Ethereal Earring"
     --  3  Ethereal Earring              Eva+5, Converts 3% Damage Taken to MP
     gear.crep_earring = "Sherida Earring"
     --  6  Crep. Earring                 Acc +10, STP +5

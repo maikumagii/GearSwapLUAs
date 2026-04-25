@@ -50,7 +50,7 @@ function character_user_job_setup()
     gear.jse_main_ma = { name = "Rostam", augments = { 'Path:B' } }
     gear.jse_main_stp = { name = "Lanun Knife", augments = { 'Path:A' } }
     gear.jse_neck = "Comm. Charm +2"
-    gear.jse_earring = ""
+    gear.jse_ear2 = ""
 
     -- Artifact Gear
     --gear.af1_head = ""
@@ -79,11 +79,11 @@ function character_user_job_setup()
     gear.regal_ring = ""
     gear.null_masque = ""
     gear.genmei_earring = ""
-    gear.ethereal_earring = ""
+    gear.ethereal_earring = "Ethereal Earring"
     gear.archon_ring = ""
     gear.fotia_gorget = ""
     gear.fotia_belt = ""
-    gear.rep_plat_medal = ""
+    gear.rep_plat_medal = "Rep. Plat. Medal"
 
 
     -- Additional local binds
@@ -175,7 +175,7 @@ function init_gear_sets()
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.crep_earring,
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Metamor. Ring +1",
@@ -193,7 +193,7 @@ function init_gear_sets()
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.crep_earring,
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
@@ -209,7 +209,7 @@ function init_gear_sets()
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.crep_earring,
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Metamor. Ring +1",
@@ -280,7 +280,7 @@ function init_gear_sets()
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.crep_earring,
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },

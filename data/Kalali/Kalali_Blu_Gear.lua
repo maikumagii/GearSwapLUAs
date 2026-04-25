@@ -17,7 +17,7 @@ function character_user_job_setup()
     gear.int_wsd_jse_back = gear.str_wsd_jse_back
 
     gear.jse_neck = "Mirage Stole +2"
-    gear.jse_earring = ""
+    gear.jse_ear2 = ""
 
     -- Artifact Gear
     gear.af1_head = ""
@@ -231,7 +231,8 @@ function init_gear_sets()
     }
 
 
-    sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical, { ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" } })
+    sets.midcast['Blue Magic'].MagicalMnd = set_combine(sets.midcast['Blue Magic'].Magical,
+        { ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" } })
     sets.midcast['Blue Magic'].MagicalChr = set_combine(sets.midcast['Blue Magic'].Magical, {})
     sets.midcast['Blue Magic'].MagicalVit = set_combine(sets.midcast['Blue Magic'].Magical, {})
     sets.midcast['Blue Magic'].MagicalDex = set_combine(sets.midcast['Blue Magic'].Magical, {})
@@ -243,7 +244,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Mirage Stole +2",
         ear1 = gear.regal_earring,
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -262,7 +263,7 @@ function init_gear_sets()
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = gear.regal_earring,
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = "Regal Cuffs",
         ring1 = "Metamor. Ring +1",
@@ -332,7 +333,7 @@ function init_gear_sets()
         head = "Malignance Chapeau",
         neck = "Mirage Stole +2",
         ear1 = gear.regal_earring,
-        ear2 = gear.jse_earring,
+        ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Metamor. Ring +1",
