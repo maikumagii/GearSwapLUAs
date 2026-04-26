@@ -93,20 +93,14 @@ function character_user_job_setup()
     gear.gletis_knife = "Blurred Knife +1"
     gear.sacro_bulwark = "Ammurapi Shield"
     --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
-    gear.regal_gem = "Staunch Tathlum +1"
-    --  14 Regal Gem                     Enfeebling Set (required)
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.telchine_cap = gear.af3_head
     --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
     gear.telchine_braconi = gear.af3_legs
     --  1  Telchine Braconi              + Enhancing Duration
-    gear.crepuscular_earring = "Telos Earring"
-
-    -- Useful but mostly optimization
-    gear.mpacas_staff = "Crocea Mors"
-    --  1  Mpaca's Staff                 Idle Set, +2 Refresh
-    --	   easy enough to get, 2 MP refresh worth
+    --
+    -- Useful but mostly optimizatio
     gear.umuthi_hat = gear.af3_head
     --  2  Umuthi Hat                    +8 Enspell
     gear.incanters_torque = "Null Loop"
@@ -178,8 +172,6 @@ function character_user_job_setup()
     -- Ignored placeholders
     gear.filler_shield = "Ammurapi Shield"
     --   3  Removed grip and replaced with Crocea, didn't research sub (FullFC, Status Removal, Cursna)
-    gear.filler_grip = "Umbra Strap"
-    --   3  Still using staff in some cases, might as well have a grip (Light Weather Cure, Idle, Latent Refresh)
     gear.ghostfyre_cape = "Ghostfyre Cape" -- 4
     --  ****"Ghostfyre Cape"            +10 Enhancing, +20% Enhancing Duration
 
@@ -245,7 +237,7 @@ function init_gear_sets()
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.zennaroi_ear,
-        ear2 = gear.crepuscular_earring,
+        ear2 = "Crep. Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
@@ -258,11 +250,11 @@ function init_gear_sets()
 
     -- Violent Flourish (Macc & Acc)
     sets.precast.JA['Violent Flourish'] = {
-        ammo = gear.regal_gem, --Or range="Ullr" but swapping to this makes you lose TP.
+        ammo = "Regal Gem", --Or range="Ullr" but swapping to this makes you lose TP.
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
-        ear2 = gear.crepuscular_earring,
+        ear2 = "Crep. Earring",
         body = "Malignance Tabard",
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -361,7 +353,7 @@ function init_gear_sets()
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = gear.zennaroi_ear,
-        ear2 = gear.crepuscular_earring,
+        ear2 = "Crep. Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
@@ -375,7 +367,7 @@ function init_gear_sets()
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Requiescat'] = {
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = gear.af2_head,
         neck = gear.fotia_gorget,
         ear1 = "Sherida Earring",
@@ -533,7 +525,7 @@ function init_gear_sets()
         main = "Daybreak",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = "Kaykaus Mitra +1",
         neck = gear.incanters_torque,
         ear1 = gear.meili_earring,
@@ -550,9 +542,9 @@ function init_gear_sets()
 
     sets.midcast.LightWeatherCure = {
         main = "Chatoyant Staff",
-        sub = gear.filler_grip,
+        sub = "Umbra Strap",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = "Kaykaus Mitra +1",
         neck = gear.incanters_torque,
         ear1 = gear.meili_earring,
@@ -572,7 +564,7 @@ function init_gear_sets()
         main = "Daybreak",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = "Kaykaus Mitra +1",
         neck = gear.incanters_torque,
         ear1 = gear.meili_earring,
@@ -709,7 +701,7 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = gear.af2_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
@@ -827,7 +819,7 @@ function init_gear_sets()
         main = "Daybreak",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = gear.af2_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
@@ -873,7 +865,7 @@ function init_gear_sets()
         main = "Daybreak",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = gear.af2_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
@@ -921,7 +913,7 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = gear.af3_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
@@ -940,7 +932,7 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = gear.af3_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
@@ -1065,7 +1057,7 @@ function init_gear_sets()
         main = gear.gletis_knife,
         sub = "Forfend +1",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = "Snotra Earring",
@@ -1135,7 +1127,7 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = empty,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
@@ -1154,7 +1146,7 @@ function init_gear_sets()
         main = "Daybreak",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = gear.af3_head,
         neck = "Null Loop",
         ear1 = "Malignance Earring",
@@ -1173,7 +1165,7 @@ function init_gear_sets()
         main = "Crocea Mors",
         sub = "Ammurapi Shield",
         range = empty,
-        ammo = gear.regal_gem,
+        ammo = "Regal Gem",
         head = "Pixie Hairpin +1",
         neck = "Erra Pendant",
         ear1 = "Malignance Earring",
@@ -1278,8 +1270,8 @@ function init_gear_sets()
 
     -- Idle sets
     sets.idle = {
-        main = gear.mpacas_staff,
-        sub = gear.filler_shield --[[Should Be Grip]],
+        main = "Mpaca's Staff",
+        sub = "Umbra Strap",
         ammo = gear.homillary,
         head = gear.af2_head,
         neck = gear.sibyl_scarf,

@@ -56,11 +56,6 @@ function character_user_job_setup()
     gear.gletis_knife = "Blurred Knife +1"
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
-    gear.mpacas_staff = "Kali" -- "Mpaca's Staff"
-    --  1  Mpaca's Staff                 Idle Set, +2 Refresh
-    --
-    --       easy enough to get, 2 MP refresh worth
-    gear.umbra_strap = "Ammurapi Shield" -- "Umbra Strap"
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
     gear.debilis_medallion = gear.jse_neck
@@ -500,8 +495,8 @@ function init_gear_sets()
     })
 
     sets.idle = {
-        main = gear.mpacas_staff,
-        sub = gear.umbra_strap,
+        main = "Mpaca's Staff",
+        sub = "Umbra Strap",
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
         neck = "Loricate Torque +1",
