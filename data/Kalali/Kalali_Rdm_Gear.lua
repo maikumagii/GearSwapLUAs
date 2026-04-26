@@ -446,17 +446,17 @@ function init_gear_sets()
     sets.precast.WS['Sanguine Blade'] = {
         range = empty,
         ammo = "Sroda Tathlum",
-        head = gear.af3_head,
+        head = "Pixie Hairpin +1",
         neck = gear.baetyl_pendant,
         ear1 = "Malignance Earring",
-        ear2 = "Moonshade Earring",
+        ear2 = "Friomisi Earring",
         body = "Nyame Mail",
-        hands = gear.af3_hands,
+        hands = "Jhakri Cuffs +2",
         ring1 = "Epaminondas's Ring",
         ring2 = gear.cornelias_ring,
         back = gear.magical_mnd_wsd_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = gear.af3_feet
     }
 
@@ -497,7 +497,11 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
-    sets.precast.WS['Red Lotus Blade'] = sets.precast.WS['Aeolian Edge']
+    sets.precast.WS['Red Lotus Blade'] = set_combine(sets.precast.WS['Aeolian Edge'], {
+        neck = gear.sibyl_scarf,
+        hands = "Jhakri Cuffs +2",
+        back = gear.nuke_jse_back
+    })
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear2 = "Brutal Earring" }
