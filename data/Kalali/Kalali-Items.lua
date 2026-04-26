@@ -14,7 +14,11 @@ sets.buff.Doom = {
 sets.TreasureHunter = { head = "Wh. Rarab Cap +1", ring1 = "Hoxne Ring", ammo = "Perfect Lucky Egg" }
 
 sets.midcast.Item['Hallowed Water'] = {}
-sets.midcast.Item['Holy Water'] = {}
+sets.midcast.Item['Holy Water'] = {
+    neck = "Nicander's Necklace",
+    ring1 = "Purity Ring",
+    ring2 = "Blenmot's Ring"
+}
 
 -- TP Bonus Magian Weapons
 gear.tp_bonus_sword = "Machaera +2"

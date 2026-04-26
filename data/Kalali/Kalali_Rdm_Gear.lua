@@ -1643,15 +1643,15 @@ end
 -- Default macro set/book
 function select_default_macro_book()
     if player.sub_job == 'SCH' then
-        set_macro_page(2, 4)
+        set_macro_page(1, 4)
     elseif player.sub_job == 'DNC' then
-        set_macro_page(4, 4)
+        set_macro_page(1, 4)
     elseif player.sub_job == 'NIN' then
-        set_macro_page(5, 4)
+        set_macro_page(1, 4)
     elseif player.sub_job == 'WHM' then
-        set_macro_page(3, 4)
+        set_macro_page(1, 4)
     elseif player.sub_job == 'DRK' then
-        set_macro_page(6, 4)
+        set_macro_page(1, 4)
     else
         set_macro_page(1, 4)
     end
@@ -1666,14 +1666,16 @@ end
 function user_job_lockstyle()
     if player.sub_job == 'SCH' then
         if state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
-            windower.chat.input('/lockstyleset 001')
+            windower.chat.input('/lockstyleset 016')
         elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
-            windower.chat.input('/lockstyleset 002')
+            windower.chat.input('/lockstyleset 016')
         else
-            windower.chat.input('/lockstyleset 004')
+            windower.chat.input('/lockstyleset 016')
         end
     elseif player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-        windower.chat.input('/lockstyleset 020')
+        windower.chat.input('/lockstyleset 016')
+    else
+        windower.chat.input('/lockstyleset 016')
     end
 end
 
