@@ -74,16 +74,13 @@ function character_user_job_setup()
     gear.af3_feet = "" --"Chass. Bottes +1"
 
     gear.cornelias_ring = ""
-    gear.crep_earring = ""
     gear.yemaya_belt = ""
     gear.regal_ring = ""
     gear.null_masque = ""
     gear.genmei_earring = ""
-    gear.ethereal_earring = "Ethereal Earring"
     gear.archon_ring = ""
     gear.fotia_gorget = ""
     gear.fotia_belt = ""
-    gear.rep_plat_medal = "Rep. Plat. Medal"
 
 
     -- Additional local binds
@@ -174,7 +171,7 @@ function init_gear_sets()
         ammo = gear.QDbullet,
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -192,7 +189,7 @@ function init_gear_sets()
         ammo = gear.QDbullet,
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -208,7 +205,7 @@ function init_gear_sets()
         ammo = gear.QDbullet,
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -279,7 +276,7 @@ function init_gear_sets()
     sets.precast.WS.Proc = {
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -293,7 +290,7 @@ function init_gear_sets()
 
     sets.precast.WS['Savage Blade'] = {
         head = "Nyame Helm",
-        neck = gear.rep_plat_medal,
+        neck = "Rep. Plat. Medal",
         ear1 = "Ishvara Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -308,7 +305,7 @@ function init_gear_sets()
 
     sets.precast.WS['Aeolian Edge'] = {
         head = gear.af2_head,
-        neck = gear.rep_plat_medal,
+        neck = "Rep. Plat. Medal",
         ear1 = "Sherida Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -407,7 +404,7 @@ function init_gear_sets()
         ammo = gear.RAbullet,
         head = "Malignance Chapeau",
         neck = "Iskur Gorget",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -423,7 +420,7 @@ function init_gear_sets()
         ammo = gear.RAbullet,
         head = "Malignance Chapeau",
         neck = "Iskur Gorget",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -492,7 +489,7 @@ function init_gear_sets()
         head = gear.null_masque,
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },

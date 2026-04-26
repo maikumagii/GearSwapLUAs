@@ -57,10 +57,8 @@ function character_user_job_setup()
     gear.sacro_cord = "Null Belt"
     gear.fuchonoobi = "Null Belt"
     gear.null_masque = ""
-    gear.crep_earring = ""
     gear.prolix_ring = ""
     gear.homiliary = ""
-    gear.ethereal_earring = "Ethereal Earring"
     gear.shadow_ring = ""
     gear.shadow_mantle = "Null Shawl"
     gear.plat_mog_belt = "Null Belt"
@@ -666,7 +664,7 @@ function init_gear_sets()
         head = gear.null_masque,
         neck = gear.sibyl_scarf,
         ear1 = "Etiolation Earring",
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = gear.af3_body,
         --hands = --[[codex removed]]
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -686,7 +684,7 @@ function init_gear_sets()
         head = gear.null_masque,
         neck = gear.sibyl_scarf,
         ear1 = "Etiolation Earring",
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = gear.af3_body,
         --hands = --[[codex removed]]
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -704,7 +702,7 @@ function init_gear_sets()
         head = "Kaykaus Mitra +1",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -762,7 +760,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -847,7 +845,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",

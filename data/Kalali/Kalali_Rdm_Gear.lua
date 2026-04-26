@@ -143,14 +143,8 @@ function character_user_job_setup()
     --  2  Anu Torque                    +7 STP Default Neck, switch immediately
     gear.fotia_gorget = "Null Loop"
     --  4  Fotia Gorget                  fTP replicating WS
-    gear.rep_plat_medal = "Rep. Plat. Medal"
-    --  2  Rep. Plat. Medal              STR +10, ATK + 30, Bastok Citizen Regain +2
     gear.prolix_ring = "Stikini Ring +1"
     --  1  Prolix Ring                   FC +2%
-    gear.ethereal_earring = "Ethereal Earring"
-    --  3  Ethereal Earring              Eva+5, Converts 3% Damage Taken to MP
-    gear.crep_earring = "Sherida Earring"
-    --  6  Crep. Earring                 Acc +10, STP +5
     gear.meili_earring = "Alabaster Earring"
     --  4  Meili Earring                 Healing skill + 10
     gear.zennaroi_ear = "Alabaster Earring"
@@ -229,8 +223,8 @@ function init_gear_sets()
     --sets.weapons.ProcSword = {main="Demers. Degen +1",sub="Ammurapi Shield",range=empty}
     --sets.weapons.ProcDagger = {main="Blurred Knife +1",sub="Ammurapi Shield",range=empty}
     --sets.weapons.DualProcDagger = {main="Blurred Knife +1",sub="Demers. Degen +1",range=empty}
-    sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = gear.sacro_bulwark }
-    sets.weapons.DualEnspellOnly = { main = "Qutrub Knife", sub = "Ethereal Dagger" }
+    sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = gear.sacro_bulwark, range = "Ullr", ammo = empty }
+    sets.weapons.DualEnspellOnly = { main = "Qutrub Knife", sub = "Ethereal Dagger", range = "Ullr", ammo = empty }
     --sets.weapons.DualBow = {}
     --sets.weapons.BowMacc = {}
     sets.weapons.DualMaxentius = { main = "Maxentius", sub = gear.tp_bonus_sword, range = empty }
@@ -419,7 +413,7 @@ function init_gear_sets()
         range = empty,
         ammo = gear.oshashas_treatise,
         head = gear.af2_head,
-        neck = gear.rep_plat_medal,
+        neck = "Rep. Plat. Medal",
         ear1 = "Sherida Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -436,7 +430,7 @@ function init_gear_sets()
         range = empty,
         ammo = gear.oshashas_treatise,
         head = gear.af2_head,
-        neck = gear.rep_plat_medal,
+        neck = "Rep. Plat. Medal",
         ear1 = "Sherida Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -1286,7 +1280,7 @@ function init_gear_sets()
         head = gear.af2_head,
         neck = gear.sibyl_scarf,
         ear1 = "Etiolation Earring",
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -1304,7 +1298,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -1380,7 +1374,7 @@ function init_gear_sets()
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.ethereal_earring,
+        ear2 = "Ethereal Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
@@ -1468,7 +1462,7 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -1500,7 +1494,7 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -1532,7 +1526,7 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -1564,7 +1558,7 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
@@ -1577,66 +1571,70 @@ function init_gear_sets()
     }
 
     sets.engaged.EnspellOnly = {
-        ammo = "Sroda Tathlum",
-        head = gear.umuthi_hat,
+        range = "Ullr",
+        ammo = empty,
+        head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = "Sherida Earring",
-        ear2 = "Brutal Earring",
-        body = "Malignance Tabard",
+        ear1 = "Suppanomimi",
+        ear2 = gear.jse_ear2,
+        body = "Sworn Platemail",
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.ghostfyre_cape,
+        back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Malignance Tights",
+        legs = "Sworn Brais",
         feet = "Malignance Boots"
     }
 
     sets.engaged.EnspellOnly.Acc = {
-        ammo = "Sroda Tathlum",
+        range = "Ullr",
+        ammo = empty,
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Suppanomimi",
         ear2 = gear.jse_ear2,
-        body = "Malignance Tabard",
+        body = "Sworn Platemail",
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = "Null Shawl",
+        back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Malignance Tights",
+        legs = "Sworn Brais",
         feet = "Malignance Boots"
     }
 
     sets.engaged.DualEnspellOnly = {
-        ammo = "Sroda Tathlum",
-        head = gear.umuthi_hat,
+        range = "Ullr",
+        ammo = empty,
+        head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = "Sherida Earring",
-        ear2 = "Suppanomimi",
-        body = "Malignance Tabard",
+        ear1 = "Suppanomimi",
+        ear2 = gear.jse_ear2,
+        body = "Sworn Platemail",
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.ghostfyre_cape,
+        back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Carmine Cuisses +1",
+        legs = "Sworn Brais",
         feet = "Malignance Boots"
     }
 
     sets.engaged.DualEnspellOnly.Acc = {
-        ammo = "Sroda Tathlum",
+        range = "Ullr",
+        ammo = empty,
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = gear.crep_earring,
+        ear1 = "Suppanomimi",
         ear2 = gear.jse_ear2,
-        body = "Malignance Tabard",
+        body = "Sworn Platemail",
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = "Null Shawl",
+        back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Carmine Cuisses +1",
+        legs = "Sworn Brais",
         feet = "Malignance Boots"
     }
 end
