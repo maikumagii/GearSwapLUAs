@@ -93,24 +93,24 @@ function job_setup()
 	
 	data.skillchains.scholar = {}
 	data.skillchains.scholar['1'] = {
-		['Fire'] = 		{['skillchain'] = 'Liquefaction', 	['first_spell'] = 'Stone',		['second_spell'] = 'Pyrohelix',		['burst_elements'] = '{Fire}'},
-		['Wind'] = 		{['skillchain'] = 'Detonation', 	['first_spell'] = 'Stone',		['second_spell'] = 'Anemohelix',	['burst_elements'] = '{Wind}'},
-		['Lightning'] = {['skillchain'] = 'Impaction', 		['first_spell'] = 'Water',		['second_spell'] = 'Ionohelix',		['burst_elements'] = '{Lightning}'},
+		['Fire'] = 		{['skillchain'] = 'Liquefaction', 	['first_spell'] = 'Stone',		['second_spell'] = 'Fire',			['burst_elements'] = '{Fire}'},
+		['Wind'] = 		{['skillchain'] = 'Detonation', 	['first_spell'] = 'Stone',		['second_spell'] = 'Aero',			['burst_elements'] = '{Wind}'},
+		['Lightning'] = {['skillchain'] = 'Impaction', 		['first_spell'] = 'Water',		['second_spell'] = 'Thunder',		['burst_elements'] = '{Lightning}'},
 		['Light'] = 	{['skillchain'] = 'Transfixion', 	['first_spell'] = 'Noctohelix',	['second_spell'] = 'Luminohelix',	['burst_elements'] = '{Light}'},
-		['Earth'] = 	{['skillchain'] = 'Scission', 		['first_spell'] = 'Fire',		['second_spell'] = 'Geohelix',		['burst_elements'] = '{Earth}'},
-		['Ice'] = 		{['skillchain'] = 'Induration', 	['first_spell'] = 'Water',		['second_spell'] = 'Cryohelix',		['burst_elements'] = '{Ice}'},
-		['Water'] = 	{['skillchain'] = 'Reverberation', 	['first_spell'] = 'Stone',		['second_spell'] = 'Hydrohelix',	['burst_elements'] = '{Water}'},
+		['Earth'] = 	{['skillchain'] = 'Scission', 		['first_spell'] = 'Fire',		['second_spell'] = 'Stone',			['burst_elements'] = '{Earth}'},
+		['Ice'] = 		{['skillchain'] = 'Induration', 	['first_spell'] = 'Water',		['second_spell'] = 'Blizzard',		['burst_elements'] = '{Ice}'},
+		['Water'] = 	{['skillchain'] = 'Reverberation', 	['first_spell'] = 'Stone',		['second_spell'] = 'Water',			['burst_elements'] = '{Water}'},
 		['Dark'] = 		{['skillchain'] = 'Compression', 	['first_spell'] = 'Blizzard',	['second_spell'] = 'Noctohelix',	['burst_elements'] = '{Dark}'},
 	}
 	data.skillchains.scholar['2'] = {
-		['Fire'] = 		{['skillchain'] = 'Fusion', 		['first_spell'] = 'Fire',		['second_spell'] = 'Ionohelix',		['burst_elements'] = '{Fire}, {Light}'},
-		['Light'] = 	{['skillchain'] = 'Fusion', 		['first_spell'] = 'Fire',		['second_spell'] = 'Ionohelix',		['burst_elements'] = '{Fire}, {Light}'},
-		['Wind'] = 		{['skillchain'] = 'Fragmentation', 	['first_spell'] = 'Blizzard',	['second_spell'] = 'Hydrohelix',	['burst_elements'] = '{Wind}, {Lightning}'},
-		['Lightning'] = {['skillchain'] = 'Fragmentation', 	['first_spell'] = 'Blizzard',	['second_spell'] = 'Hydrohelix',	['burst_elements'] = '{Wind}, {Lightning}'},
+		['Fire'] = 		{['skillchain'] = 'Fusion', 		['first_spell'] = 'Fire',		['second_spell'] = 'Thunder',		['burst_elements'] = '{Fire}, {Light}'},
+		['Light'] = 	{['skillchain'] = 'Fusion', 		['first_spell'] = 'Fire',		['second_spell'] = 'Thunder',		['burst_elements'] = '{Fire}, {Light}'},
+		['Wind'] = 		{['skillchain'] = 'Fragmentation', 	['first_spell'] = 'Blizzard',	['second_spell'] = 'Water',			['burst_elements'] = '{Wind}, {Lightning}'},
+		['Lightning'] = {['skillchain'] = 'Fragmentation', 	['first_spell'] = 'Blizzard',	['second_spell'] = 'Water',			['burst_elements'] = '{Wind}, {Lightning}'},
 		['Earth'] = 	{['skillchain'] = 'Gravitation', 	['first_spell'] = 'Aero',		['second_spell'] = 'Noctohelix',	['burst_elements'] = '{Earth}, {Dark}'},
 		['Dark'] = 		{['skillchain'] = 'Gravitation', 	['first_spell'] = 'Aero',		['second_spell'] = 'Noctohelix',	['burst_elements'] = '{Earth}, {Dark}'},
-		['Ice'] = 		{['skillchain'] = 'Distortion', 	['first_spell'] = 'Luminohelix',['second_spell'] = 'Geohelix',		['burst_elements'] = '{Ice}, {Water}'},
-		['Water'] = 	{['skillchain'] = 'Distortion', 	['first_spell'] = 'Luminohelix',['second_spell'] = 'Geohelix',		['burst_elements'] = '{Ice}, {Water}'},
+		['Ice'] = 		{['skillchain'] = 'Distortion', 	['first_spell'] = 'Luminohelix',['second_spell'] = 'Stone',			['burst_elements'] = '{Ice}, {Water}'},
+		['Water'] = 	{['skillchain'] = 'Distortion', 	['first_spell'] = 'Luminohelix',['second_spell'] = 'Stone',			['burst_elements'] = '{Ice}, {Water}'},
 	}
 	data.skillchains.scholar['ws'] = {
 		['Fire'] = 		{['skillchain'] = 'Liquefaction',	['weaponskill'] = 'Rock Crusher',	['second_spell'] = 'Pyrohelix',		['burst_elements'] = '{Fire}'},
@@ -447,23 +447,34 @@ function handle_job_elemental(command, target)
 			return true
 		end
 		local last_character = string.sub(command, -1)
+		if command == 'skillchain' then
+			local skillchain1 = data.skillchains.scholar['1'][state.ElementalMode.value]
+			local skillchain2 = data.skillchains.scholar['2'][state.ElementalMode.value]
+			local skillchain1_uses_helix = skillchain1.first_spell:lower():contains('helix') or skillchain1.second_spell:lower():contains('helix')
+			local skillchain2_uses_helix = skillchain2.first_spell:lower():contains('helix') or skillchain2.second_spell:lower():contains('helix')
+			last_character = (not skillchain2_uses_helix or skillchain1_uses_helix) and '2' or '1'
+		end
 		
 		if last_character == '1' or last_character == '2' then
 			local skillchain = data.skillchains.scholar[last_character][state.ElementalMode.value]
 			local spell_recasts = windower.ffxi.get_spell_recasts()
 			local first_spell_id = get_spell_id_by_name(skillchain.first_spell)
 			local second_spell_id = get_spell_id_by_name(skillchain.second_spell)
-			if spell_recasts[first_spell_id] > (spell_latency + 1.3*60) then
+			local first_spell_is_helix = skillchain.first_spell:lower():contains('helix')
+			local first_spell_delay = 1.3
+			local second_immanence_delay = first_spell_is_helix and 7.4 or 5.6
+			local close_delay = first_spell_is_helix and 10.7 or 6.9
+			if spell_recasts[first_spell_id] > (spell_latency + first_spell_delay*60) then
 				add_to_chat(123,'Abort: ['..skillchain.first_spell..'] waiting on recast. ('..seconds_to_clock(spell_recasts[first_spell_id]/60)..')')
-			elseif spell_recasts[second_spell_id] > (spell_latency + 6.9*60) then
+			elseif spell_recasts[second_spell_id] > (spell_latency + close_delay*60) then
 				add_to_chat(123,'Abort: ['..skillchain.second_spell..'] waiting on recast. ('..seconds_to_clock(spell_recasts[second_spell_id]/60)..')')
 			else
 				if not state.Buff['Immanence'] then windower.chat.input('/ja "Immanence" <me>') end
 				windower.chat.input('/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' OPEN!')
-				windower.chat.input:schedule(1.3,'/ma "'..skillchain.first_spell..'" '..player.target.id)
-				windower.chat.input:schedule(5.6,'/ja "Immanence" <me>')
-				windower.chat.input:schedule(6.9,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' CLOSE!')
-				windower.chat.input:schedule(6.9,'/ma "'..skillchain.second_spell..'" '..player.target.id)
+				windower.chat.input:schedule(first_spell_delay,'/ma "'..skillchain.first_spell..'" '..player.target.id)
+				windower.chat.input:schedule(second_immanence_delay,'/ja "Immanence" <me>')
+				windower.chat.input:schedule(close_delay,'/p {'..skillchain.skillchain..'} -'..player.target.name..'- MB: '..skillchain.burst_elements..' CLOSE!')
+				windower.chat.input:schedule(close_delay,'/ma "'..skillchain.second_spell..'" '..player.target.id)
 			end
 		elseif last_character == '3' then
 			if state.ElementalMode.value ~= 'Fire' then

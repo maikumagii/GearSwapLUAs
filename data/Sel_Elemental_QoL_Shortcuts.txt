@@ -51,10 +51,13 @@ Ninjutsu:
 /con gs c elemental ninjutsu
 
 Scholar Skillchains:
-//gs c elemental skillchain1		Will do a level 1 skill chain matching the element set, closing with a tier I helix if available, else the matching tier I spell
+//gs c elemental skillchain		Will choose the highest matching skillchain that avoids helix spells, preferring level 2 if both use helix
+/con gs c elemental skillchain
+
+//gs c elemental skillchain1		Will do a level 1 skill chain matching the element set, avoiding helix spells where possible
 /con gs c elemental skillchain1
 
-//gs c elemental skillchain2		Will do a level 2 skill chain matching the element set, closing with a tier I helix if available, else the matching tier I spell
+//gs c elemental skillchain2		Will do a level 2 skill chain matching the element set, avoiding helix spells where possible
 /con gs c elemental skillchain2
 
 //gs c elemental skillchain3		Will perform a three step skillchain, level I to level II marching the element set, closing with a helix I if available (only works with Fire)
