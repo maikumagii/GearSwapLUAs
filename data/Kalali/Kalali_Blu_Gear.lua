@@ -8,7 +8,14 @@ function character_user_job_setup()
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('Tizbron', 'Tiztongue', 'None', 'MeleeClubs', 'Naegbron', 'Naegtongue')
+    state.Weapons:options('Tizona', 'Naegling', 'None', 'Tizbron', 'Tiztongue', 'MeleeClubs', 'Naegbron', 'Naegtongue')
+    state.WeaponSets:options('Default', 'Dual')
+    weapon_sets = {
+        ['Default'] = { 'Tizona', 'Naegling', 'None' },
+        ['Dual'] = { 'Tizbron', 'Tiztongue', 'MeleeClubs', 'Naegbron', 'Naegtongue' },
+    }
+    default_weapons = 'Tizona'
+    default_dual_weapons = 'Tizbron'
 
     gear.stp_jse_back = { name = "Rosmerta's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'DEX+10', '"Store TP"+10', 'Phys. dmg. taken-10%', } }
     gear.str_wsd_jse_back = { name = "Rosmerta's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', } }
@@ -473,6 +480,8 @@ function init_gear_sets()
     sets.Kiting = { ring2 = "Shneddick Ring" }
 
     -- Weapons sets
+    sets.weapons.Tizona = { main = "Tizona", sub = empty }
+    sets.weapons.Naegling = { main = "Naegling", sub = empty }
     sets.weapons.Tizbron = { main = "Tizona", sub = gear.tp_bonus_sword }
     sets.weapons.Tiztongue = { main = "Tizona", sub = "Flametongue" }
     sets.weapons.MeleeClubs = { main = "Maxentius", sub = "Bunzi's Rod" }
@@ -482,13 +491,11 @@ function init_gear_sets()
     -- Engaged sets
 
     sets.engaged = {
-        main = "Tizona",
-        sub = gear.tp_bonus_sword,
         ammo = "Aurgelmir Orb +1",
         head = "Adhemar Bonnet +1",
         neck = "Mirage Stole +2",
         ear1 = "Dedition Earring",
-        ear2 = "Suppanomimi",
+        ear2 = "Telos Earring",
         body = "Adhemar Jacket +1",
         hands = "Adhemar Wrist. +1",
         ring1 = "Epona's Ring",
@@ -501,25 +508,24 @@ function init_gear_sets()
 
     sets.engaged.AM = set_combine(sets.engaged, {
         head = "Malignance Chapeau",
-        ear2 = "Eabani Earring",
+        ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         back = gear.stp_jse_back,
-        waist = "Reiki Yotai",
+        waist = "Sailfi Belt +1",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     })
 
     sets.engaged.Acc = set_combine(sets.engaged, {
-        sub = "Flametongue",
         head = "Malignance Chapeau",
-        ear2 = "Eabani Earring",
+        ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         back = "Null Shawl",
-        waist = "Reiki Yotai",
+        waist = "Null Belt",
         legs = "Malignance Tights",
     })
 
@@ -529,19 +535,17 @@ function init_gear_sets()
     })
 
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, {
-        main = "Tizona",
-        sub = gear.tp_bonus_sword,
         ammo = "Aurgelmir Orb +1",
         head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = "Telos Earring",
-        ear2 = "Eabani Earring",
+        ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Reiki Yotai",
+        waist = "Null Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     })
@@ -551,19 +555,17 @@ function init_gear_sets()
     })
 
     sets.engaged.DT = set_combine(sets.engaged, {
-        main = "Tizona",
-        sub = gear.tp_bonus_sword,
         ammo = "Aurgelmir Orb +1",
         head = "Malignance Chapeau",
         neck = "Mirage Stole +2",
         ear1 = "Dedition Earring",
-        ear2 = "Eabani Earring",
+        ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Epona's Ring",
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Reiki Yotai",
+        waist = "Sailfi Belt +1",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     })
@@ -574,7 +576,6 @@ function init_gear_sets()
     })
 
     sets.engaged.Acc.DT = set_combine(sets.engaged.DT, {
-        sub = "Flametongue",
         neck = "Mirage Stole +2",
         ear1 = "Telos Earring",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
@@ -589,6 +590,52 @@ function init_gear_sets()
     })
 
     sets.engaged.FullAcc.DT.AM = sets.engaged.FullAcc.DT
+
+    sets.engaged.DW = set_combine(sets.engaged, {
+        ear2 = "Suppanomimi",
+    })
+
+    sets.engaged.DW.AM = set_combine(sets.engaged.AM, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.Acc = set_combine(sets.engaged.Acc, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.Acc.AM = set_combine(sets.engaged.Acc.AM, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.FullAcc = set_combine(sets.engaged.FullAcc, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.FullAcc.AM = set_combine(sets.engaged.FullAcc.AM, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.DT = set_combine(sets.engaged.DT, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.DT.AM = set_combine(sets.engaged.DT.AM, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.Acc.DT = set_combine(sets.engaged.Acc.DT, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.Acc.DT.AM = set_combine(sets.engaged.Acc.DT.AM, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.FullAcc.DT = set_combine(sets.engaged.FullAcc.DT, {
+        ear2 = "Eabani Earring",
+        waist = "Reiki Yotai",
+    })
+    sets.engaged.DW.FullAcc.DT.AM = sets.engaged.DW.FullAcc.DT
 
     sets.Self_Healing = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { back = "Amalric Coif +1", waist = "Gishdubar Sash" }
@@ -608,6 +655,8 @@ function select_default_macro_book()
 end
 
 autows_list = {
+    ['Tizona'] = 'Expiacion',
+    ['Naegling'] = 'Savage Blade',
     ['Tizbron'] = 'Expiacion',
     ['Tiztongue'] = 'Expiacion',
     ['MeleeClubs'] = 'Black Halo',

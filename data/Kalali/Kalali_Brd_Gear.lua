@@ -6,6 +6,13 @@ function character_user_job_setup()
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
     state.Weapons:options('None', 'Naegling', --[[ 'Aeneas', 'DualWeapons',]] 'DualNaegling',
         'DualCarn' --[[,'DualTauret', 'DualAeolian']])
+    state.WeaponSets:options('Default', 'Dual')
+    weapon_sets = {
+        ['Default'] = { 'None', 'Naegling' },
+        ['Dual'] = { 'DualNaegling', 'DualCarn' },
+    }
+    default_weapons = 'Naegling'
+    default_dual_weapons = 'DualNaegling'
 
     gear.melee_dw_back = {}
     gear.melee_str_wsd_back = { name = "Intarabus's Cape", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', } }
@@ -596,8 +603,6 @@ function init_gear_sets()
     -- EG: sets.engaged.Dagger.Accuracy.Evasion
 
     sets.engaged = {
-        main = "Naegling",
-        sub = gear.genmei_shield,
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",
@@ -614,8 +619,6 @@ function init_gear_sets()
     }
 
     sets.engaged = {
-        main = "Naegling",
-        sub = gear.genmei_shield,
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",
@@ -632,8 +635,6 @@ function init_gear_sets()
     }
 
     sets.engaged.Acc = {
-        main = "Naegling",
-        sub = gear.genmei_shield,
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",
@@ -650,8 +651,6 @@ function init_gear_sets()
     }
 
     sets.engaged.DW = {
-        main = "Naegling",
-        sub = "Blurred Knife +1",
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",
@@ -668,8 +667,6 @@ function init_gear_sets()
     }
 
     sets.engaged.DW.DT = {
-        main = "Naegling",
-        sub = "Blurred Knife +1",
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",
@@ -686,8 +683,6 @@ function init_gear_sets()
     }
 
     sets.engaged.DW.Acc = {
-        main = "Naegling", --Missing
-        sub = "Blurred Knife +1",
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",
@@ -704,8 +699,6 @@ function init_gear_sets()
     }
 
     sets.engaged.DW.Acc.DT = {
-        main = "Naegling",
-        sub = "Blurred Knife +1",
         range = gear.linos_tp,
         head = "Aya. Zucchetto +2",
         neck = "Bard's Charm +2",

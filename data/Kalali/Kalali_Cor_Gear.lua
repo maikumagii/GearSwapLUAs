@@ -8,6 +8,13 @@ function character_user_job_setup()
     state.HybridMode:options('Normal', 'DT')
     state.Weapons:options('Default', 'Ranged', 'Savage', 'DualWeapons',
         'DualSavageWeapons', 'DualLeadenRanged', 'DualLeadenMelee', 'DualAeolian')
+    state.WeaponSets:options('Default', 'Dual')
+    weapon_sets = {
+        ['Default'] = { 'Default', 'Ranged', 'Savage' },
+        ['Dual'] = { 'DualWeapons', 'DualSavageWeapons', 'DualLeadenRanged', 'DualLeadenMelee', 'DualAeolian' },
+    }
+    default_weapons = 'Default'
+    default_dual_weapons = 'DualWeapons'
     autows_list = {
         ['Default'] = 'Savage Blade',
         ['Savage'] = 'Savage Blade',
