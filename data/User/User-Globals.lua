@@ -9,7 +9,7 @@ display.mode_hud.x = display.mode_hud.x or 24
 display.mode_hud.y = display.mode_hud.y or 180
 display.mode_hud.width = display.mode_hud.width or 260
 display.mode_hud.line_height = display.mode_hud.line_height or 16
-display.mode_hud.font = display.mode_hud.font or 'Arial'
+display.mode_hud.font = display.mode_hud.font or 'Consolas'
 display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
 display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
@@ -463,7 +463,7 @@ local function mode_hud_get_text()
     end
 
     local text = texts.new()
-    text:font(mode_hud_setting('font', 'Arial'))
+    text:font(mode_hud_setting('font', 'Consolas'))
     text:size(mode_hud_setting('size', 10))
     text:bold(true)
     text:bg_alpha(mode_hud_setting('bg_alpha', 120))
@@ -483,7 +483,7 @@ local function mode_hud_get_popout_text()
     end
 
     local text = texts.new()
-    text:font(mode_hud_setting('font', 'Arial'))
+    text:font(mode_hud_setting('font', 'Consolas'))
     text:size(mode_hud_setting('size', 10))
     text:bold(true)
     text:bg_alpha(mode_hud_setting('bg_alpha', 120))
@@ -500,6 +500,14 @@ end
 local function mode_hud_append_line(text, line)
     text:append(line)
     text:append('\n')
+end
+
+local function mode_hud_value_color(name, value, fallback_color)
+    if name == 'ElementalMode' and display.colors and display.colors[value] then
+        return display.colors[value]
+    end
+
+    return fallback_color
 end
 
 local function mode_hud_refresh_popout()
@@ -626,6 +634,8 @@ local function mode_hud_refresh()
             if state_var._type == 'boolean' and not state_var.value then
                 value_color = off_color
             end
+
+            value_color = mode_hud_value_color(name, value, value_color)
 
             local label = string.format('%-' .. label_width .. 's', mode_hud_label(name))
 
