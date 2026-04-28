@@ -7,13 +7,17 @@ display.mode_hud = display.mode_hud or {}
 display.mode_hud.enabled = display.mode_hud.enabled ~= false
 display.mode_hud.x = display.mode_hud.x or 24
 display.mode_hud.y = display.mode_hud.y or 180
-display.mode_hud.width = display.mode_hud.width or 210
+display.mode_hud.width = display.mode_hud.width or 260
 display.mode_hud.line_height = display.mode_hud.line_height or 16
 display.mode_hud.font = display.mode_hud.font or 'Arial'
 display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
 display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
+display.mode_hud.label_width = display.mode_hud.label_width or 16
+display.mode_hud.group_label_width = display.mode_hud.group_label_width or 14
+display.mode_hud.value_width = display.mode_hud.value_width or 18
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
+    'WeaponSets',
     'HybridMode',
     'Kiting',
     'MagicBurstMode',
@@ -79,12 +83,47 @@ send_command('bind ^@!backspace gs c buffup')            --Buffup macro because 
 NotifyBuffs = S { 'doom', 'petrification' }
 
 local dual_wield_default_jobs = S { 'BLU', 'COR', 'BRD', 'RDM' }
+local dual_wield_sub_jobs = S { 'NIN', 'DNC' }
 local base_set_dual_wield = set_dual_wield
+local dual_wield_defaults_retry_count = 0
+
+local function has_dual_wield_trait()
+    if windower and windower.ffxi and windower.ffxi.get_abilities and gearswap and gearswap.res and gearswap.res.job_traits then
+        local traits = T(windower.ffxi.get_abilities().job_traits)
+        return traits:any(function(v)
+            return gearswap.res.job_traits[v] and gearswap.res.job_traits[v].english == 'Dual Wield'
+        end)
+    end
+
+    return false
+end
+
+local function player_can_dual_wield()
+    return can_dual_wield or has_dual_wield_trait() or (player and player.sub_job and dual_wield_sub_jobs:contains(player.sub_job))
+end
 
 local function apply_dual_wield_weapon_defaults()
-    if not dual_wield_default_jobs:contains(player.main_job) or not state or not state.Weapons or not sets or not sets.weapons then
+    if not player or not dual_wield_default_jobs:contains(player.main_job) then
         return
     end
+
+    if not state or not state.Weapons or not sets or not sets.weapons then
+        if dual_wield_defaults_retry_count < 5 then
+            dual_wield_defaults_retry_count = dual_wield_defaults_retry_count + 1
+            apply_dual_wield_weapon_defaults:schedule(1)
+        end
+        return
+    end
+
+    if not weapon_sets or not state.WeaponSets then
+        if dual_wield_defaults_retry_count < 5 then
+            dual_wield_defaults_retry_count = dual_wield_defaults_retry_count + 1
+            apply_dual_wield_weapon_defaults:schedule(1)
+        end
+        return
+    end
+
+    can_dual_wield = player_can_dual_wield()
 
     local weapon_set_name = can_dual_wield and 'Dual' or 'Default'
 
@@ -109,15 +148,18 @@ local function apply_dual_wield_weapon_defaults()
             state_change('Weapons', state.Weapons.value, old_weapon)
         end
     end
+
+    dual_wield_defaults_retry_count = 0
 end
 
 function set_dual_wield()
     if base_set_dual_wield then
         base_set_dual_wield()
     else
-        local traits = T(windower.ffxi.get_abilities().job_traits)
-        can_dual_wield = traits:any(function(v) return gearswap.res.job_traits[v].english == 'Dual Wield' end)
+        can_dual_wield = player_can_dual_wield()
     end
+
+    can_dual_wield = player_can_dual_wield()
 
     apply_dual_wield_weapon_defaults:schedule(1)
 end
@@ -525,9 +567,12 @@ local function mode_hud_refresh()
     local rows = mode_hud_grouped_entries()
     local x = mode_hud_setting('x', 24)
     local y = mode_hud_setting('y', 180)
-    local width = mode_hud_setting('width', 210)
+    local width = mode_hud_setting('width', 260)
     local line_height = mode_hud_setting('line_height', 16)
     local header_lines = 1
+    local label_width = mode_hud_setting('label_width', 16)
+    local group_label_width = mode_hud_setting('group_label_width', 14)
+    local value_width = mode_hud_setting('value_width', 18)
     local colors = display.colors or {}
     local label_color = colors.White or '\\cs(255,255,255)'
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
@@ -555,8 +600,9 @@ local function mode_hud_refresh()
             local value = enabled and 'on' or 'off'
             local value_color = enabled and active_color or off_color
             local marker = enabled and '-' or '+'
+            local label = string.format('[%s] %-*s', marker, group_label_width, row.label)
 
-            mode_hud_append_line(text, string.format('%s[%s] %-14s %s%s', label_color, marker, row.label, value_color, value))
+            mode_hud_append_line(text, string.format('%s%s%s%s', label_color, label, value_color, string.format('%' .. value_width .. 's', value)))
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'group',
                 group = row.group,
@@ -575,7 +621,9 @@ local function mode_hud_refresh()
                 value_color = off_color
             end
 
-            mode_hud_append_line(text, string.format('%s  %-16s %s%s', label_color, mode_hud_label(name), value_color, value))
+            local label = string.format('%-' .. label_width .. 's', mode_hud_label(name))
+
+            mode_hud_append_line(text, string.format('%s  %s %s%s', label_color, label, value_color, string.format('%' .. value_width .. 's', value)))
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'state',
                 name = name,
@@ -928,4 +976,5 @@ function extra_user_setup()
     end
 
     mode_hud_setup()
+    apply_dual_wield_weapon_defaults:schedule(1)
 end
