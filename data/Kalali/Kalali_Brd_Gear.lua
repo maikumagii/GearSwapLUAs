@@ -60,13 +60,10 @@ function character_user_job_setup()
     gear.aeneas = "Naegling"
     gear.genmei_shield = "Ammurapi Shield"
     gear.linos_fc = "Daurdabla"
-    gear.gletis_knife = "Blurred Knife +1"
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
-    gear.debilis_medallion = gear.jse_neck
-    --  1  Debilis Medallion             Cursna Set
     gear.prolix_ring = "Stikini Ring +1"
     --  1  Prolix Ring                   FC +2%
     gear.hieros_mittens = "Inyan. Dastanas +2"
@@ -493,7 +490,7 @@ function init_gear_sets()
     }
 
     sets.midcast.Cursna = set_combine(sets.midcast.Cure, {
-        neck = gear.debilis_medallion,
+        neck = "Debilis Medallion",
         hands = gear.hieros_mittens,
         back = "Oretan. Cape +1",
         ring1 = "Haoma's Ring",

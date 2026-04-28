@@ -90,7 +90,6 @@ function character_user_job_setup()
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
-    gear.gletis_knife = "Blurred Knife +1"
     gear.sacro_bulwark = "Ammurapi Shield"
     --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
     gear.kishar_ring = "Stikini Ring +1"
@@ -131,8 +130,6 @@ function character_user_job_setup()
     --  3  Oshasha's Treatise            Wsd 3%
     gear.null_masque = gear.af3_head
     --  1  Null Masque                   Animon Idle
-    gear.debilis_medallion = gear.jse_neck
-    --  1  Debilis Medallion             Cursna Set
     gear.anu_torque = "Null Loop"
     --  2  Anu Torque                    +7 STP Default Neck, switch immediately
     gear.fotia_gorget = "Null Loop"
@@ -206,7 +203,7 @@ function init_gear_sets()
     sets.weapons.Maxentius = { main = "Maxentius", sub = "Ammurapi Shield", range = empty }
     sets.weapons.Tauret = { main = "Tauret", sub = "Ammurapi Shield", range = empty }
     sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword, range = empty }
-    sets.weapons.DualWeaponsAcc = { main = "Naegling", sub = gear.gletis_knife, range = empty }
+    sets.weapons.DualWeaponsAcc = { main = "Naegling", sub = "Gleti's Knife", range = empty }
     --sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
     --sets.weapons.DualEvisceration = {}
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak", range = empty }
@@ -220,7 +217,7 @@ function init_gear_sets()
     --sets.weapons.DualBow = {}
     --sets.weapons.BowMacc = {}
     sets.weapons.DualMaxentius = { main = "Maxentius", sub = gear.tp_bonus_sword, range = empty }
-    sets.weapons.DualMaxentiusAcc = { main = "Maxentius", sub = gear.gletis_knife, range = empty }
+    sets.weapons.DualMaxentiusAcc = { main = "Maxentius", sub = "Gleti's Knife", range = empty }
 
     --Temporary Weapon Sets for Dynamis RP
     --sets.weapons.DualCroceaSavageBlade = {main="Crocea Mors",sub=gear.tp_bonus_sword}
@@ -604,7 +601,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Kaykaus Mitra +1",
-        neck = gear.debilis_medallion,
+        neck = "Debilis Medallion",
         ear1 = gear.meili_earring,
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
@@ -1054,7 +1051,7 @@ function init_gear_sets()
     }
 
     sets.midcast['Elemental Magic'].Proc = {
-        main = gear.gletis_knife,
+        main = "Gleti's Knife",
         sub = "Forfend +1",
         range = empty,
         ammo = "Regal Gem",

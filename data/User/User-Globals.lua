@@ -28,11 +28,11 @@ display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'UnlockWeapons',
 }
 display.mode_hud.group_states = display.mode_hud.group_states or {
-    equipment = true,
-    magic = true,
-    combat = true,
-    job = true,
-    other = true,
+    equipment = false,
+    magic = false,
+    combat = false,
+    job = false,
+    other = false,
 }
 
 repo_update = repo_update or {}

@@ -48,7 +48,6 @@ function character_user_job_setup()
     gear.incanters_torque = "Null Loop"
     gear.meili_earring = ""
     gear.sibyl_scarf = "Null Loop"
-    gear.debilis_medallion = "Null Loop"
     gear.hieros_mittens = ""
     gear.bishops_sash = ""
     gear.andoaa_earring = ""
@@ -267,7 +266,7 @@ function init_gear_sets()
         range = empty,
         --ammo = "Hasty Pinion +1",
         --head = "Vanya Hood",
-        neck = gear.debilis_medallion,
+        neck = "Debilis Medallion",
         ear1 = "Malignance Earring",
         ear2 = gear.meili_earring,
         --body = "Pinga Tunic",

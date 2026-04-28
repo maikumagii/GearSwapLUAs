@@ -136,7 +136,7 @@ function init_gear_sets()
 
     sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
         ammo = "Crepuscular Pebble",
-        --hands = "Gleti's Gauntlets",
+        hands = "Gleti's Gauntlets",
         --waist = "Kentarch Belt +1",
         ring2 = "Sroda Ring"
     })
@@ -165,11 +165,11 @@ function init_gear_sets()
         neck = gear.fotia_gorget,
         ear1 = "Brutal Earring",
         ear2 = gear.regal_earring,
-        --body = "Gleti's Cuirass",
+        body = "Gleti's Cuirass",
         ring1 = "Metamor. Ring +1",
         ring2 = "Sroda Ring",
         waist = gear.fotia_belt,
-        --legs = "Gleti's Breeches"
+        legs = "Gleti's Breeches"
     })
 
     sets.precast.WS['Requiescat'].DT = set_combine(sets.precast.WS.DT, {})
