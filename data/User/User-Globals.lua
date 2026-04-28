@@ -537,6 +537,31 @@ local function mode_hud_append_line(text, line)
     text:append('\n')
 end
 
+local function mode_hud_visible_length(line)
+    local visible = line:gsub('\\cs%(%d+,%d+,%d+%)', '')
+
+    return #visible
+end
+
+local function mode_hud_box_columns()
+    local configured_columns = tonumber(mode_hud_setting('box_columns', nil))
+
+    if configured_columns then
+        return configured_columns
+    end
+
+    local width = mode_hud_number_setting('width', 260)
+    local size = mode_hud_number_setting('size', 10)
+
+    return math.ceil(width / math.max(size * 0.35, 1))
+end
+
+local function mode_hud_append_box_line(text, line)
+    local padding = math.max(mode_hud_box_columns() - mode_hud_visible_length(line), 0)
+
+    mode_hud_append_line(text, line .. string.rep(' ', padding))
+end
+
 local function mode_hud_value_color(name, value, fallback_color)
     if not display.colors then
         return fallback_color
@@ -643,7 +668,7 @@ local function mode_hud_refresh()
     mode_hud.hitboxes = {}
     text:clear()
     text:pos(x, y)
-    mode_hud_append_line(text, string.format('%sModes', label_color))
+    mode_hud_append_box_line(text, string.format('%sModes', label_color))
 
     for _, value_text in ipairs(mode_hud.value_texts) do
         value_text:hide()
@@ -662,17 +687,10 @@ local function mode_hud_refresh()
 
         if row.kind == 'group' then
             local enabled = mode_hud_group_enabled(row.group)
-            local value = enabled and 'on' or 'off'
-            local value_color = enabled and active_color or off_color
             local marker = enabled and '-' or '+'
             local label = string.format('[%s] %-' .. group_label_width .. 's', marker, row.label)
-            local value_text = mode_hud_get_value_text(index)
 
-            mode_hud_append_line(text, string.format('%s%s', label_color, label))
-            value_text:clear()
-            value_text:append(string.format('%s%s', value_color, value))
-            value_text:pos(value_x, row_y)
-            value_text:show()
+            mode_hud_append_box_line(text, string.format('%s%s', label_color, label))
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'group',
                 group = row.group,
@@ -695,7 +713,7 @@ local function mode_hud_refresh()
 
             local value_text = mode_hud_get_value_text(index)
 
-            mode_hud_append_line(text, string.format('%s  %s', label_color, mode_hud_label(name)))
+            mode_hud_append_box_line(text, string.format('%s  %s', label_color, mode_hud_label(name)))
             value_text:clear()
             value_text:append(string.format('%s%s', value_color, value))
             value_text:pos(value_x, row_y)
@@ -904,7 +922,7 @@ local function handle_mode_hud_command(commandArgs, eventArgs)
         message = 'Mode HUD position reset.'
     elseif action == 'group' and display.mode_hud.group_states[group] ~= nil then
         mode_hud_toggle_group(group)
-        message = 'Mode HUD ' .. group .. ' group is now ' .. (display.mode_hud.group_states[group] and 'on' or 'off') .. '.'
+        message = 'Mode HUD ' .. group .. ' group is now ' .. (display.mode_hud.group_states[group] and 'expanded' or 'collapsed') .. '.'
     else
         display.mode_hud.enabled = not display.mode_hud.enabled
         message = 'Mode HUD is now ' .. (display.mode_hud.enabled and 'on' or 'off') .. '.'
