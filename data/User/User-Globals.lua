@@ -12,12 +12,20 @@ display.mode_hud.line_height = display.mode_hud.line_height or 16
 display.mode_hud.font = display.mode_hud.font or 'Arial'
 display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
+display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'HybridMode',
     'Kiting',
     'MagicBurstMode',
     'SkillchainMode',
     'UnlockWeapons',
+}
+display.mode_hud.group_states = display.mode_hud.group_states or {
+    equipment = true,
+    magic = true,
+    combat = true,
+    job = true,
+    other = true,
 }
 
 --Options for automation.
@@ -121,11 +129,21 @@ local mode_hud = {
     popout_hitboxes = {},
     popout_state = nil,
     popout_anchor = nil,
+    drag = nil,
     registered = false,
     wrapped = false,
 }
 
+local mode_hud_groups = {
+    { id = 'equipment', label = 'Equipment' },
+    { id = 'magic', label = 'Magic' },
+    { id = 'combat', label = 'Combat' },
+    { id = 'job', label = 'Job' },
+    { id = 'other', label = 'Other' },
+}
+
 local mode_hud_labels = {
+    AutoMagicBurst = 'Auto Magic Burst',
     AutoBuffMode = 'Auto Buff',
     AutoDefenseMode = 'Auto Defense',
     AutoFoodMode = 'Auto Food',
@@ -148,7 +166,79 @@ local mode_hud_labels = {
     TreasureMode = 'Treasure',
     UnlockWeapons = 'Unlock Weapons',
     Weapons = 'Weapons',
+    WeaponSets = 'Weapon Sets',
     WeaponskillMode = 'Weaponskill',
+}
+
+local mode_hud_categories = {
+    AutoDefenseMode = 'equipment',
+    BuffWeaponsMode = 'equipment',
+    DefenseMode = 'equipment',
+    ExtraDefenseMode = 'equipment',
+    ExtraMeleeMode = 'equipment',
+    HybridMode = 'equipment',
+    IdleMode = 'equipment',
+    MagicalDefenseMode = 'equipment',
+    OffenseMode = 'equipment',
+    Passive = 'equipment',
+    PhysicalDefenseMode = 'equipment',
+    RangedMode = 'equipment',
+    ResistDefenseMode = 'equipment',
+    UnlockWeapons = 'equipment',
+    WakeUpWeapons = 'equipment',
+    Weapons = 'equipment',
+    WeaponskillMode = 'equipment',
+    WeaponSets = 'equipment',
+
+    AutoMagicBurst = 'magic',
+    AutoNukeMode = 'magic',
+    AutoRuneMode = 'magic',
+    AutoStunMode = 'magic',
+    CastingMode = 'magic',
+    DeathMode = 'magic',
+    ElementalMode = 'magic',
+    ElementalWheel = 'magic',
+    MagicBurstMode = 'magic',
+    RecoverMode = 'magic',
+    RuneElement = 'magic',
+
+    AutoEngageMode = 'combat',
+    AutoFightMode = 'combat',
+    AutoJumpMode = 'combat',
+    AutoSambaMode = 'combat',
+    AutoShadowMode = 'combat',
+    AutoSuperJumpMode = 'combat',
+    AutoTankMode = 'combat',
+    AutoWSMode = 'combat',
+    Kiting = 'combat',
+    RngHelper = 'combat',
+    SkillChainMode = 'combat',
+    SkillchainMode = 'combat',
+
+    AutoCallPet = 'job',
+    AutoDummyMode = 'job',
+    AutoPuppetMode = 'job',
+    AutoReadyMode = 'job',
+    AutoRepairMode = 'job',
+    AutoRewardMode = 'job',
+    CarnMode = 'job',
+    CompensatorMode = 'job',
+    ConquerorMode = 'job',
+    DanceStance = 'job',
+    DrainSwapWeaponMode = 'job',
+    ExtraSongsMode = 'job',
+    JugMode = 'job',
+    LearningMode = 'job',
+    LuzafRing = 'job',
+    MainStep = 'job',
+    AltStep = 'job',
+    PactSpamMode = 'job',
+    PetMode = 'job',
+    PetWSGear = 'job',
+    RewardMode = 'job',
+    RngHelperQuickDraw = 'job',
+    RollMode = 'job',
+    Stance = 'job',
 }
 
 local function mode_hud_setting(name, default)
@@ -189,7 +279,20 @@ local function mode_hud_add_entry(entries, seen, name)
     entries[#entries + 1] = name
 end
 
-local function mode_hud_entries()
+local function mode_hud_group_for(name)
+    return mode_hud_categories[name] or 'other'
+end
+
+local function mode_hud_group_enabled(group_id)
+    display.mode_hud.group_states[group_id] = display.mode_hud.group_states[group_id] ~= false
+    return display.mode_hud.group_states[group_id]
+end
+
+local function mode_hud_toggle_group(group_id)
+    display.mode_hud.group_states[group_id] = not mode_hud_group_enabled(group_id)
+end
+
+local function mode_hud_entry_names()
     local entries = {}
     local seen = {}
 
@@ -206,6 +309,42 @@ local function mode_hud_entries()
     end
 
     return entries
+end
+
+local function mode_hud_grouped_entries()
+    local grouped = {}
+    local rows = {}
+
+    for _, group in ipairs(mode_hud_groups) do
+        grouped[group.id] = {}
+    end
+
+    for _, name in ipairs(mode_hud_entry_names()) do
+        local group_id = mode_hud_group_for(name)
+        grouped[group_id][#grouped[group_id] + 1] = name
+    end
+
+    for _, group in ipairs(mode_hud_groups) do
+        if #grouped[group.id] > 0 then
+            rows[#rows + 1] = {
+                kind = 'group',
+                group = group.id,
+                label = group.label,
+            }
+
+            if mode_hud_group_enabled(group.id) then
+                for _, name in ipairs(grouped[group.id]) do
+                    rows[#rows + 1] = {
+                        kind = 'state',
+                        name = name,
+                        group = group.id,
+                    }
+                end
+            end
+        end
+    end
+
+    return rows
 end
 
 local function mode_hud_popout_options(name)
@@ -243,6 +382,7 @@ end
 
 local function mode_hud_hide()
     mode_hud.hitboxes = {}
+    mode_hud.drag = nil
     mode_hud_close_popout()
 
     for _, text in ipairs(mode_hud.texts) do
@@ -255,6 +395,7 @@ local function mode_hud_destroy()
     mode_hud.popout_hitboxes = {}
     mode_hud.popout_state = nil
     mode_hud.popout_anchor = nil
+    mode_hud.drag = nil
 
     for _, text in ipairs(mode_hud.texts) do
         text:destroy()
@@ -371,7 +512,7 @@ local function mode_hud_refresh()
         return
     end
 
-    local entries = mode_hud_entries()
+    local rows = mode_hud_grouped_entries()
     local x = mode_hud_setting('x', 24)
     local y = mode_hud_setting('y', 180)
     local width = mode_hud_setting('width', 210)
@@ -384,31 +525,50 @@ local function mode_hud_refresh()
 
     mode_hud.hitboxes = {}
 
-    for index, name in ipairs(entries) do
-        local state_var = state[name]
+    for index, row in ipairs(rows) do
         local text = mode_hud_get_text(index)
-        local value = tostring(state_var.current or state_var.value)
-        local value_color = mode_hud_is_default(name, state_var) and default_color or active_color
-
-        if state_var._type == 'boolean' and not state_var.value then
-            value_color = off_color
-        end
 
         text:clear()
-        text:append(string.format('%s%-17s %s%s', label_color, mode_hud_label(name) .. ':', value_color, value))
         text:pos(x, y + ((index - 1) * line_height))
         text:show()
 
-        mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
-            name = name,
-            x1 = x,
-            y1 = y + ((index - 1) * line_height),
-            x2 = x + width,
-            y2 = y + line_height + ((index - 1) * line_height),
-        }
+        if row.kind == 'group' then
+            local enabled = mode_hud_group_enabled(row.group)
+            local value = enabled and 'on' or 'off'
+            local value_color = enabled and active_color or off_color
+
+            text:append(string.format('%s%-17s %s%s', label_color, row.label .. ':', value_color, value))
+            mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
+                kind = 'group',
+                group = row.group,
+                x1 = x,
+                y1 = y + ((index - 1) * line_height),
+                x2 = x + width,
+                y2 = y + line_height + ((index - 1) * line_height),
+            }
+        else
+            local name = row.name
+            local state_var = state[name]
+            local value = tostring(state_var.current or state_var.value)
+            local value_color = mode_hud_is_default(name, state_var) and default_color or active_color
+
+            if state_var._type == 'boolean' and not state_var.value then
+                value_color = off_color
+            end
+
+            text:append(string.format('%s  %-15s %s%s', label_color, mode_hud_label(name) .. ':', value_color, value))
+            mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
+                kind = 'state',
+                name = name,
+                x1 = x,
+                y1 = y + ((index - 1) * line_height),
+                x2 = x + width,
+                y2 = y + line_height + ((index - 1) * line_height),
+            }
+        end
     end
 
-    for index = #entries + 1, #mode_hud.texts do
+    for index = #rows + 1, #mode_hud.texts do
         mode_hud.texts[index]:hide()
     end
 
@@ -433,6 +593,27 @@ local function mode_hud_popout_hit(x, y)
     end
 end
 
+local function mode_hud_update_drag(x, y)
+    if not mode_hud.drag then
+        return false
+    end
+
+    local dx = x - mode_hud.drag.start_x
+    local dy = y - mode_hud.drag.start_y
+
+    if math.abs(dx) < mode_hud_setting('drag_threshold', 5) and math.abs(dy) < mode_hud_setting('drag_threshold', 5) then
+        return mode_hud.drag.moved
+    end
+
+    mode_hud.drag.moved = true
+    display.mode_hud.x = mode_hud.drag.hud_x + dx
+    display.mode_hud.y = mode_hud.drag.hud_y + dy
+    mode_hud_close_popout()
+    mode_hud_refresh()
+
+    return true
+end
+
 local function mode_hud_register_mouse()
     if mode_hud.registered then
         return
@@ -443,6 +624,11 @@ local function mode_hud_register_mouse()
     windower.register_event('mouse', function(type, x, y, delta, blocked)
         if blocked or not mode_hud_setting('enabled', true) then
             return
+        end
+
+        if mode_hud.drag and type == 0 then
+            mode_hud_update_drag(x, y)
+            return true
         end
 
         local popout_hitbox = mode_hud_popout_hit(x, y)
@@ -461,7 +647,44 @@ local function mode_hud_register_mouse()
             if type == 2 and mode_hud.popout_state then
                 mode_hud_close_popout()
             end
+            if type == 2 and mode_hud.drag then
+                mode_hud_update_drag(x, y)
+                mode_hud.drag = nil
+                return true
+            end
             return
+        end
+
+        if type == 1 then
+            mode_hud.drag = {
+                start_x = x,
+                start_y = y,
+                hud_x = mode_hud_setting('x', 24),
+                hud_y = mode_hud_setting('y', 180),
+                moved = false,
+            }
+            return true
+        end
+
+        if type == 2 and mode_hud.drag then
+            local was_dragged = mode_hud_update_drag(x, y)
+
+            mode_hud.drag = nil
+
+            if was_dragged then
+                return true
+            end
+        end
+
+        if hitbox.kind == 'group' then
+            if type == 2 or type == 5 then
+                mode_hud_toggle_group(hitbox.group)
+                mode_hud_close_popout()
+                mode_hud_refresh()
+                return true
+            elseif type == 1 or type == 4 then
+                return true
+            end
         end
 
         local name = hitbox.name
@@ -519,22 +742,31 @@ end
 
 local function handle_mode_hud_command(commandArgs, eventArgs)
     local action = commandArgs[2] and commandArgs[2]:lower() or 'toggle'
+    local group = commandArgs[3] and commandArgs[3]:lower()
+    local message
 
     eventArgs.handled = true
 
     if action == 'on' then
         display.mode_hud.enabled = true
+        message = 'Mode HUD is now on.'
     elseif action == 'off' then
         display.mode_hud.enabled = false
+        message = 'Mode HUD is now off.'
     elseif action == 'reset' then
         display.mode_hud.x = 24
         display.mode_hud.y = 180
+        message = 'Mode HUD position reset.'
+    elseif action == 'group' and display.mode_hud.group_states[group] ~= nil then
+        mode_hud_toggle_group(group)
+        message = 'Mode HUD ' .. group .. ' group is now ' .. (display.mode_hud.group_states[group] and 'on' or 'off') .. '.'
     else
         display.mode_hud.enabled = not display.mode_hud.enabled
+        message = 'Mode HUD is now ' .. (display.mode_hud.enabled and 'on' or 'off') .. '.'
     end
 
     mode_hud_refresh()
-    add_to_chat(122, 'Mode HUD is now ' .. (display.mode_hud.enabled and 'on' or 'off') .. '.')
+    add_to_chat(122, message)
 end
 
 local hoxne_ampulla_name = 'Hoxne Ampulla'
