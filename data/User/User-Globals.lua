@@ -123,8 +123,8 @@ function set_dual_wield()
 end
 
 local mode_hud = {
-    texts = {},
-    popout_texts = {},
+    text = nil,
+    popout_text = nil,
     hitboxes = {},
     popout_hitboxes = {},
     popout_state = nil,
@@ -375,8 +375,8 @@ local function mode_hud_close_popout()
     mode_hud.popout_anchor = nil
     mode_hud.popout_hitboxes = {}
 
-    for _, text in ipairs(mode_hud.popout_texts) do
-        text:hide()
+    if mode_hud.popout_text then
+        mode_hud.popout_text:hide()
     end
 end
 
@@ -385,8 +385,8 @@ local function mode_hud_hide()
     mode_hud.drag = nil
     mode_hud_close_popout()
 
-    for _, text in ipairs(mode_hud.texts) do
-        text:hide()
+    if mode_hud.text then
+        mode_hud.text:hide()
     end
 end
 
@@ -397,21 +397,21 @@ local function mode_hud_destroy()
     mode_hud.popout_anchor = nil
     mode_hud.drag = nil
 
-    for _, text in ipairs(mode_hud.texts) do
-        text:destroy()
+    if mode_hud.text then
+        mode_hud.text:destroy()
     end
 
-    for _, text in ipairs(mode_hud.popout_texts) do
-        text:destroy()
+    if mode_hud.popout_text then
+        mode_hud.popout_text:destroy()
     end
 
-    mode_hud.texts = {}
-    mode_hud.popout_texts = {}
+    mode_hud.text = nil
+    mode_hud.popout_text = nil
 end
 
-local function mode_hud_get_text(index)
-    if mode_hud.texts[index] then
-        return mode_hud.texts[index]
+local function mode_hud_get_text()
+    if mode_hud.text then
+        return mode_hud.text
     end
 
     local text = texts.new()
@@ -421,14 +421,17 @@ local function mode_hud_get_text(index)
     text:bg_alpha(mode_hud_setting('bg_alpha', 120))
     text:stroke_width(2)
     text:stroke_transparency(180)
-    mode_hud.texts[index] = text
+    if text.draggable then
+        text:draggable(false)
+    end
+    mode_hud.text = text
 
     return text
 end
 
-local function mode_hud_get_popout_text(index)
-    if mode_hud.popout_texts[index] then
-        return mode_hud.popout_texts[index]
+local function mode_hud_get_popout_text()
+    if mode_hud.popout_text then
+        return mode_hud.popout_text
     end
 
     local text = texts.new()
@@ -438,9 +441,17 @@ local function mode_hud_get_popout_text(index)
     text:bg_alpha(mode_hud_setting('bg_alpha', 120))
     text:stroke_width(2)
     text:stroke_transparency(180)
-    mode_hud.popout_texts[index] = text
+    if text.draggable then
+        text:draggable(false)
+    end
+    mode_hud.popout_text = text
 
     return text
+end
+
+local function mode_hud_append_line(text, line)
+    text:append(line)
+    text:append('\n')
 end
 
 local function mode_hud_refresh_popout()
@@ -460,6 +471,7 @@ local function mode_hud_refresh_popout()
         return
     end
 
+    local text = mode_hud_get_popout_text()
     local line_height = mode_hud_setting('line_height', 16)
     local width = mode_hud_setting('popout_width', 190)
     local x = mode_hud.popout_anchor.x2 + mode_hud_setting('popout_gap', 8)
@@ -470,29 +482,27 @@ local function mode_hud_refresh_popout()
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
 
     mode_hud.popout_hitboxes = {}
+    text:clear()
+    text:pos(x, y)
+    mode_hud_append_line(text, string.format('%s%s', label_color, mode_hud_label(mode_hud.popout_state)))
 
     for index, option in ipairs(options) do
-        local text = mode_hud_get_popout_text(index)
         local value_color = option == state_var.value and active_color or default_color
+        local marker = option == state_var.value and '> ' or '  '
 
-        text:clear()
-        text:append(string.format('%s%s%s', value_color, option, label_color))
-        text:pos(x, y + ((index - 1) * line_height))
-        text:show()
+        mode_hud_append_line(text, string.format('%s%s%s%s', value_color, marker, option, label_color))
 
         mode_hud.popout_hitboxes[#mode_hud.popout_hitboxes + 1] = {
             state = mode_hud.popout_state,
             value = option,
             x1 = x,
-            y1 = y + ((index - 1) * line_height),
+            y1 = y + (index * line_height),
             x2 = x + width,
-            y2 = y + line_height + ((index - 1) * line_height),
+            y2 = y + ((index + 1) * line_height),
         }
     end
 
-    for index = #options + 1, #mode_hud.popout_texts do
-        mode_hud.popout_texts[index]:hide()
-    end
+    text:show()
 end
 
 local function mode_hud_open_popout(name, anchor)
@@ -517,34 +527,43 @@ local function mode_hud_refresh()
     local y = mode_hud_setting('y', 180)
     local width = mode_hud_setting('width', 210)
     local line_height = mode_hud_setting('line_height', 16)
+    local header_lines = 1
     local colors = display.colors or {}
     local label_color = colors.White or '\\cs(255,255,255)'
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
     local active_color = colors.Yellow or '\\cs(255,192,0)'
     local off_color = colors.Gray or '\\cs(96,96,96)'
+    local text = mode_hud_get_text()
 
     mode_hud.hitboxes = {}
+    text:clear()
+    text:pos(x, y)
+    mode_hud_append_line(text, string.format('%sModes', label_color))
+    mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
+        kind = 'drag',
+        x1 = x,
+        y1 = y,
+        x2 = x + width,
+        y2 = y + line_height,
+    }
 
     for index, row in ipairs(rows) do
-        local text = mode_hud_get_text(index)
-
-        text:clear()
-        text:pos(x, y + ((index - 1) * line_height))
-        text:show()
+        local row_y = y + ((index + header_lines - 1) * line_height)
 
         if row.kind == 'group' then
             local enabled = mode_hud_group_enabled(row.group)
             local value = enabled and 'on' or 'off'
             local value_color = enabled and active_color or off_color
+            local marker = enabled and '-' or '+'
 
-            text:append(string.format('%s%-17s %s%s', label_color, row.label .. ':', value_color, value))
+            mode_hud_append_line(text, string.format('%s[%s] %-14s %s%s', label_color, marker, row.label, value_color, value))
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'group',
                 group = row.group,
                 x1 = x,
-                y1 = y + ((index - 1) * line_height),
+                y1 = row_y,
                 x2 = x + width,
-                y2 = y + line_height + ((index - 1) * line_height),
+                y2 = row_y + line_height,
             }
         else
             local name = row.name
@@ -556,21 +575,19 @@ local function mode_hud_refresh()
                 value_color = off_color
             end
 
-            text:append(string.format('%s  %-15s %s%s', label_color, mode_hud_label(name) .. ':', value_color, value))
+            mode_hud_append_line(text, string.format('%s  %-16s %s%s', label_color, mode_hud_label(name), value_color, value))
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'state',
                 name = name,
                 x1 = x,
-                y1 = y + ((index - 1) * line_height),
+                y1 = row_y,
                 x2 = x + width,
-                y2 = y + line_height + ((index - 1) * line_height),
+                y2 = row_y + line_height,
             }
         end
     end
 
-    for index = #rows + 1, #mode_hud.texts do
-        mode_hud.texts[index]:hide()
-    end
+    text:show()
 
     if mode_hud.popout_state then
         mode_hud_refresh_popout()
@@ -674,6 +691,10 @@ local function mode_hud_register_mouse()
             if was_dragged then
                 return true
             end
+        end
+
+        if hitbox.kind == 'drag' then
+            return true
         end
 
         if hitbox.kind == 'group' then
