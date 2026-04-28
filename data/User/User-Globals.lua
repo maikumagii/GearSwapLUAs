@@ -9,7 +9,7 @@ display.mode_hud.x = display.mode_hud.x or 24
 display.mode_hud.y = display.mode_hud.y or 180
 display.mode_hud.width = display.mode_hud.width or 260
 display.mode_hud.line_height = display.mode_hud.line_height or 16
-display.mode_hud.font = display.mode_hud.font or 'Arial'
+display.mode_hud.font = display.mode_hud.font or 'Courier New'
 display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
 display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
@@ -544,7 +544,7 @@ local function mode_hud_visible_length(line)
 end
 
 local function mode_hud_char_width()
-    return mode_hud_number_setting('character_width', mode_hud_number_setting('size', 10) * 0.6)
+    return mode_hud_number_setting('character_width', mode_hud_number_setting('size', 10) * 0.65)
 end
 
 local function mode_hud_columns_for_pixels(pixels)
@@ -727,6 +727,8 @@ local function mode_hud_refresh()
             box_columns = math.max(box_columns, mode_hud_visible_length(rendered_row.label))
         end
     end
+
+    box_columns = box_columns + mode_hud_number_setting('right_padding', 6)
 
     if mode_hud_setting('dynamic_width', true) ~= false then
         width = math.max(mode_hud_number_setting('min_width', 0), math.ceil(box_columns * mode_hud_char_width()))
