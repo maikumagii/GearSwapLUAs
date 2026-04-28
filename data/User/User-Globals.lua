@@ -440,7 +440,7 @@ local function mode_hud_hide()
         mode_hud.text:hide()
     end
 
-    for _, text in ipairs(mode_hud.value_texts) do
+    for _, text in pairs(mode_hud.value_texts) do
         text:hide()
     end
 end
@@ -456,7 +456,7 @@ local function mode_hud_destroy()
         mode_hud.text:destroy()
     end
 
-    for _, text in ipairs(mode_hud.value_texts) do
+    for _, text in pairs(mode_hud.value_texts) do
         text:destroy()
     end
 
@@ -543,21 +543,26 @@ local function mode_hud_visible_length(line)
     return #visible
 end
 
-local function mode_hud_box_columns()
+local function mode_hud_char_width()
+    return mode_hud_number_setting('character_width', mode_hud_number_setting('size', 10) * 0.6)
+end
+
+local function mode_hud_columns_for_pixels(pixels)
+    return math.ceil(pixels / math.max(mode_hud_char_width(), 1))
+end
+
+local function mode_hud_box_columns(columns)
     local configured_columns = tonumber(mode_hud_setting('box_columns', nil))
 
     if configured_columns then
         return configured_columns
     end
 
-    local width = mode_hud_number_setting('width', 260)
-    local size = mode_hud_number_setting('size', 10)
-
-    return math.ceil(width / math.max(size * 0.35, 1))
+    return columns or mode_hud_columns_for_pixels(mode_hud_number_setting('width', 260))
 end
 
-local function mode_hud_append_box_line(text, line)
-    local padding = math.max(mode_hud_box_columns() - mode_hud_visible_length(line), 0)
+local function mode_hud_append_box_line(text, line, columns)
+    local padding = math.max(mode_hud_box_columns(columns) - mode_hud_visible_length(line), 0)
 
     mode_hud_append_line(text, line .. string.rep(' ', padding))
 end
@@ -657,48 +662,29 @@ local function mode_hud_refresh()
     local line_height = mode_hud_number_setting('line_height', 16)
     local header_lines = 1
     local group_label_width = mode_hud_number_setting('group_label_width', 14)
-    local value_x = x + mode_hud_number_setting('value_x_offset', 150)
     local colors = display.colors or {}
     local label_color = colors.White or '\\cs(255,255,255)'
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
     local active_color = colors.Yellow or '\\cs(255,192,0)'
     local off_color = colors.Gray or '\\cs(96,96,96)'
     local text = mode_hud_get_text()
-
-    mode_hud.hitboxes = {}
-    text:clear()
-    text:pos(x, y)
-    mode_hud_append_box_line(text, string.format('%sModes', label_color))
-
-    for _, value_text in ipairs(mode_hud.value_texts) do
-        value_text:hide()
-    end
-
-    mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
-        kind = 'drag',
-        x1 = x,
-        y1 = y,
-        x2 = x + width,
-        y2 = y + line_height,
-    }
+    local rendered_rows = {}
+    local header = 'Modes'
+    local max_label_columns = mode_hud_visible_length(header)
+    local box_columns = max_label_columns
 
     for index, row in ipairs(rows) do
-        local row_y = y + ((index + header_lines - 1) * line_height)
-
         if row.kind == 'group' then
             local enabled = mode_hud_group_enabled(row.group)
             local marker = enabled and '-' or '+'
             local label = string.format('[%s] %-' .. group_label_width .. 's', marker, row.label)
 
-            mode_hud_append_box_line(text, string.format('%s%s', label_color, label))
-            mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
+            rendered_rows[index] = {
                 kind = 'group',
-                group = row.group,
-                x1 = x,
-                y1 = row_y,
-                x2 = x + width,
-                y2 = row_y + line_height,
+                row = row,
+                label = label,
             }
+            max_label_columns = math.max(max_label_columns, mode_hud_visible_length(label))
         else
             local name = row.name
             local state_var = state[name]
@@ -711,16 +697,86 @@ local function mode_hud_refresh()
 
             value_color = mode_hud_value_color(name, value, value_color)
 
+            local label = '  ' .. mode_hud_label(name)
+
+            rendered_rows[index] = {
+                kind = 'state',
+                row = row,
+                name = name,
+                label = label,
+                value = value,
+                value_color = value_color,
+            }
+            max_label_columns = math.max(max_label_columns, mode_hud_visible_length(label))
+        end
+    end
+
+    local value_offset = mode_hud_number_setting('value_x_offset', 150)
+
+    if mode_hud_setting('dynamic_value_x', true) ~= false then
+        value_offset = math.ceil((max_label_columns + mode_hud_number_setting('value_padding', 2)) * mode_hud_char_width())
+    end
+
+    local value_x = x + value_offset
+    local value_column = mode_hud_columns_for_pixels(value_offset)
+
+    for _, rendered_row in ipairs(rendered_rows) do
+        if rendered_row.kind == 'state' then
+            box_columns = math.max(box_columns, value_column + mode_hud_visible_length(rendered_row.value))
+        else
+            box_columns = math.max(box_columns, mode_hud_visible_length(rendered_row.label))
+        end
+    end
+
+    if mode_hud_setting('dynamic_width', true) ~= false then
+        width = math.max(mode_hud_number_setting('min_width', 0), math.ceil(box_columns * mode_hud_char_width()))
+    else
+        box_columns = mode_hud_box_columns()
+    end
+
+    mode_hud.hitboxes = {}
+    text:hide()
+    text:clear()
+    text:pos(x, y)
+    mode_hud_append_box_line(text, string.format('%s%s', label_color, header), box_columns)
+
+    for _, value_text in pairs(mode_hud.value_texts) do
+        value_text:hide()
+    end
+
+    mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
+        kind = 'drag',
+        x1 = x,
+        y1 = y,
+        x2 = x + width,
+        y2 = y + line_height,
+    }
+
+    for index, rendered_row in ipairs(rendered_rows) do
+        local row = rendered_row.row
+        local row_y = y + ((index + header_lines - 1) * line_height)
+
+        if rendered_row.kind == 'group' then
+            mode_hud_append_box_line(text, string.format('%s%s', label_color, rendered_row.label), box_columns)
+            mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
+                kind = 'group',
+                group = row.group,
+                x1 = x,
+                y1 = row_y,
+                x2 = x + width,
+                y2 = row_y + line_height,
+            }
+        else
             local value_text = mode_hud_get_value_text(index)
 
-            mode_hud_append_box_line(text, string.format('%s  %s', label_color, mode_hud_label(name)))
+            mode_hud_append_box_line(text, string.format('%s%s', label_color, rendered_row.label), box_columns)
             value_text:clear()
-            value_text:append(string.format('%s%s', value_color, value))
+            value_text:append(string.format('%s%s', rendered_row.value_color, rendered_row.value))
             value_text:pos(value_x, row_y)
             value_text:show()
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'state',
-                name = name,
+                name = rendered_row.name,
                 x1 = x,
                 y1 = row_y,
                 x2 = x + width,
