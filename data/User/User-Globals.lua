@@ -16,6 +16,7 @@ display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
 display.mode_hud.label_width = display.mode_hud.label_width or 16
 display.mode_hud.group_label_width = display.mode_hud.group_label_width or 14
 display.mode_hud.value_width = display.mode_hud.value_width or 18
+display.mode_hud.value_x_offset = display.mode_hud.value_x_offset or 150
 display.mode_hud.value_padding = display.mode_hud.value_padding or 8
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'WeaponSets',
@@ -501,7 +502,7 @@ local function mode_hud_get_value_text(index)
     text:stroke_width(2)
     text:stroke_transparency(180)
     if text.right_justified then
-        text:right_justified(true)
+        text:right_justified(false)
     end
     if text.draggable then
         text:draggable(false)
@@ -631,7 +632,7 @@ local function mode_hud_refresh()
     local line_height = mode_hud_number_setting('line_height', 16)
     local header_lines = 1
     local group_label_width = mode_hud_number_setting('group_label_width', 14)
-    local value_x = x + width - mode_hud_number_setting('value_padding', 8)
+    local value_x = x + mode_hud_number_setting('value_x_offset', 150)
     local colors = display.colors or {}
     local label_color = colors.White or '\\cs(255,255,255)'
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
