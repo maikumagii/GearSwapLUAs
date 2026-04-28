@@ -35,6 +35,12 @@ display.mode_hud.group_states = display.mode_hud.group_states or {
     other = true,
 }
 
+repo_update = repo_update or {}
+repo_update.enabled = repo_update.enabled ~= false
+repo_update.git_command = repo_update.git_command or 'git'
+repo_update.max_output_lines = repo_update.max_output_lines or 8
+repo_update.debug = repo_update.debug ~= false
+
 --Options for automation.
 state.ReEquip          = M(true, 'ReEquip Mode')        --Set this to false if you don't want to equip your current Weapon set when you aren't wearing any weapons.
 state.AutoArts         = M(true, 'AutoArts')            --Set this to false if you don't want to automatically try to keep up Solace/Arts.
@@ -991,6 +997,189 @@ local function handle_mode_hud_command(commandArgs, eventArgs)
     add_to_chat(122, message)
 end
 
+local function shell_quote(value)
+    return '"' .. tostring(value):gsub('"', '\\"') .. '"'
+end
+
+local function command_quote(value)
+    value = tostring(value)
+
+    if value:find('%s') or value:find('"') then
+        return shell_quote(value)
+    end
+
+    return value
+end
+
+local function repo_update_root()
+    if repo_update.path and repo_update.path ~= '' then
+        return repo_update.path
+    end
+
+    if windower and windower.addon_path then
+        return windower.addon_path:gsub('[\\/]$', '')
+    end
+
+    return '.'
+end
+
+local add_repo_output
+
+local function run_repo_git(args)
+    if not io or not io.popen then
+        return nil, 'io.popen is not available in this Lua environment.'
+    end
+
+    local command = command_quote(repo_update.git_command) .. ' -C ' .. shell_quote(repo_update_root()) .. ' ' .. args .. ' 2>&1'
+    local handle = io.popen(command)
+
+    if not handle then
+        return nil, 'Unable to start git command.'
+    end
+
+    local output = handle:read('*a') or ''
+    local ok, reason, code = handle:close()
+
+    return {
+        ok = ok,
+        reason = reason,
+        code = code,
+        output = output,
+    }
+end
+
+local function repo_failure_details(action, result, start_error)
+    local output = result and result.output or start_error or ''
+    local lower_output = output:lower()
+
+    if start_error then
+        return start_error, 'This may mean Windower cannot spawn shell commands. Use git outside the game.'
+    elseif lower_output:find('not recognized') or lower_output:find('command not found') or lower_output:find('not found') then
+        return 'Git executable was not found from Wine/Windower.', 'Install Git for Windows in this Wine prefix, or set repo_update.git_command to the full git.exe path.'
+    elseif lower_output:find('not a git repository') then
+        return 'The configured folder is not a Git repository.', 'Set repo_update.path to the repository root that contains the .git folder.'
+    elseif lower_output:find('cannot change to') or lower_output:find('no such file or directory') or lower_output:find('the system cannot find') then
+        return 'The configured repository path could not be opened.', 'Check repo_update.path. Under Wine, Linux paths usually need a Z:/home/deck/... style path.'
+    elseif lower_output:find('dubious ownership') then
+        return 'Git rejected the folder because of dubious ownership.', 'Run git config --global --add safe.directory for this repository outside the game.'
+    elseif lower_output:find('permission denied') or lower_output:find('publickey') or lower_output:find('authentication failed') or lower_output:find('could not read username') then
+        return 'GitHub authentication failed.', 'Configure SSH keys/credential manager inside the Wine prefix, or switch the remote to HTTPS with working credentials.'
+    elseif lower_output:find('could not resolve host') or lower_output:find('failed to connect') or lower_output:find('unable to access') or lower_output:find('network is unreachable') then
+        return 'Git could not reach GitHub.', 'Check Steam Deck networking, DNS, proxy/VPN, and whether Wine can reach the internet.'
+    elseif lower_output:find('local changes') or lower_output:find('would be overwritten') or lower_output:find('commit your changes') or lower_output:find('stash') then
+        return 'Local changes would be overwritten by the update.', 'Commit, stash, or manually back up your local edits before pulling.'
+    elseif lower_output:find('not possible to fast%-forward') or lower_output:find('divergent') or lower_output:find('non%-fast%-forward') or lower_output:find('reconcile divergent') then
+        return 'The branch cannot be fast-forwarded cleanly.', 'Open a terminal and choose whether to merge, rebase, or reset; this command intentionally will not do that in GearSwap.'
+    elseif action == 'pull' then
+        return 'Git pull failed for an unclassified reason.', 'Run git status and git pull --ff-only in a terminal for the full interactive error.'
+    else
+        return 'Git fetch/status failed for an unclassified reason.', 'Run git fetch --prune in a terminal to see the full error.'
+    end
+end
+
+local function add_repo_failure(action, result, start_error)
+    local cause, next_step = repo_failure_details(action, result, start_error)
+
+    add_to_chat(123, 'Git ' .. action .. ' failed.')
+
+    if repo_update.debug then
+        add_to_chat(123, 'Likely cause: ' .. cause)
+        add_to_chat(123, 'Next step: ' .. next_step)
+        add_to_chat(123, 'Git command: ' .. repo_update.git_command)
+        add_to_chat(123, 'Repository path: ' .. repo_update_root())
+    end
+
+    if result and result.output and result.output ~= '' then
+        add_repo_output(result.output)
+    elseif start_error then
+        add_to_chat(123, start_error)
+    end
+end
+
+function add_repo_output(output)
+    local line_count = 0
+
+    for line in output:gmatch('[^\r\n]+') do
+        line_count = line_count + 1
+
+        if line_count <= repo_update.max_output_lines then
+            add_to_chat(122, line)
+        end
+    end
+
+    if line_count > repo_update.max_output_lines then
+        add_to_chat(122, '...truncated ' .. (line_count - repo_update.max_output_lines) .. ' more line(s).')
+    elseif line_count == 0 then
+        add_to_chat(122, '(no output)')
+    end
+end
+
+local function repo_git_status()
+    local status, start_error = run_repo_git('status -sb')
+
+    if not status then
+        add_repo_failure('status', nil, start_error)
+        return
+    end
+
+    if not status.ok then
+        add_repo_failure('status', status)
+        return
+    end
+
+    add_repo_output(status.output)
+end
+
+local function handle_repo_update_command(commandArgs, eventArgs)
+    local action = commandArgs[2] and commandArgs[2]:lower() or 'check'
+
+    eventArgs.handled = true
+
+    if not repo_update.enabled then
+        add_to_chat(123, 'Repository update commands are disabled.')
+        return
+    end
+
+    if action == 'check' or action == 'fetch' then
+        add_to_chat(122, 'Fetching repository updates...')
+
+        local fetch, start_error = run_repo_git('fetch --prune')
+
+        if not fetch then
+            add_repo_failure('fetch', nil, start_error)
+            return
+        end
+
+        if not fetch.ok then
+            add_repo_failure('fetch', fetch)
+            return
+        end
+
+        add_to_chat(122, 'Fetch complete. Current status:')
+        repo_git_status()
+    elseif action == 'pull' then
+        add_to_chat(122, 'Pulling repository updates with --ff-only...')
+
+        local pull, start_error = run_repo_git('pull --ff-only')
+
+        if not pull then
+            add_repo_failure('pull', nil, start_error)
+            return
+        end
+
+        if pull.ok then
+            add_repo_output(pull.output)
+            add_to_chat(122, 'Pull complete. Run //gs reload when you are ready to load changed files.')
+        else
+            add_repo_failure('pull', pull)
+        end
+    elseif action == 'status' then
+        repo_git_status()
+    else
+        add_to_chat(123, 'Usage: //gs c repo check | status | pull')
+    end
+end
+
 local hoxne_ampulla_name = 'Hoxne Ampulla'
 local warp_ring_name = 'Warp Ring'
 local warp_ring_wait_seconds = 9
@@ -1083,6 +1272,11 @@ function user_self_command(commandArgs, eventArgs)
 
     if command == 'hud' or command == 'modehud' then
         handle_mode_hud_command(commandArgs, eventArgs)
+        return
+    end
+
+    if command == 'repo' or command == 'gitupdate' then
+        handle_repo_update_command(commandArgs, eventArgs)
         return
     end
 
