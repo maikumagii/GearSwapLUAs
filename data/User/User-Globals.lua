@@ -9,13 +9,14 @@ display.mode_hud.x = display.mode_hud.x or 24
 display.mode_hud.y = display.mode_hud.y or 180
 display.mode_hud.width = display.mode_hud.width or 260
 display.mode_hud.line_height = display.mode_hud.line_height or 16
-display.mode_hud.font = display.mode_hud.font or 'Consolas'
+display.mode_hud.font = display.mode_hud.font or 'Arial'
 display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
 display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
 display.mode_hud.label_width = display.mode_hud.label_width or 16
 display.mode_hud.group_label_width = display.mode_hud.group_label_width or 14
 display.mode_hud.value_width = display.mode_hud.value_width or 18
+display.mode_hud.value_padding = display.mode_hud.value_padding or 8
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'WeaponSets',
     'HybridMode',
@@ -166,6 +167,7 @@ end
 
 local mode_hud = {
     text = nil,
+    value_texts = {},
     popout_text = nil,
     hitboxes = {},
     popout_hitboxes = {},
@@ -436,6 +438,10 @@ local function mode_hud_hide()
     if mode_hud.text then
         mode_hud.text:hide()
     end
+
+    for _, text in ipairs(mode_hud.value_texts) do
+        text:hide()
+    end
 end
 
 local function mode_hud_destroy()
@@ -449,11 +455,16 @@ local function mode_hud_destroy()
         mode_hud.text:destroy()
     end
 
+    for _, text in ipairs(mode_hud.value_texts) do
+        text:destroy()
+    end
+
     if mode_hud.popout_text then
         mode_hud.popout_text:destroy()
     end
 
     mode_hud.text = nil
+    mode_hud.value_texts = {}
     mode_hud.popout_text = nil
 end
 
@@ -463,7 +474,7 @@ local function mode_hud_get_text()
     end
 
     local text = texts.new()
-    text:font(mode_hud_setting('font', 'Consolas'))
+    text:font(mode_hud_setting('font', 'Arial'))
     text:size(mode_hud_setting('size', 10))
     text:bold(true)
     text:bg_alpha(mode_hud_setting('bg_alpha', 120))
@@ -477,13 +488,36 @@ local function mode_hud_get_text()
     return text
 end
 
+local function mode_hud_get_value_text(index)
+    if mode_hud.value_texts[index] then
+        return mode_hud.value_texts[index]
+    end
+
+    local text = texts.new()
+    text:font(mode_hud_setting('font', 'Arial'))
+    text:size(mode_hud_setting('size', 10))
+    text:bold(true)
+    text:bg_alpha(0)
+    text:stroke_width(2)
+    text:stroke_transparency(180)
+    if text.right_justified then
+        text:right_justified(true)
+    end
+    if text.draggable then
+        text:draggable(false)
+    end
+    mode_hud.value_texts[index] = text
+
+    return text
+end
+
 local function mode_hud_get_popout_text()
     if mode_hud.popout_text then
         return mode_hud.popout_text
     end
 
     local text = texts.new()
-    text:font(mode_hud_setting('font', 'Consolas'))
+    text:font(mode_hud_setting('font', 'Arial'))
     text:size(mode_hud_setting('size', 10))
     text:bold(true)
     text:bg_alpha(mode_hud_setting('bg_alpha', 120))
@@ -503,8 +537,20 @@ local function mode_hud_append_line(text, line)
 end
 
 local function mode_hud_value_color(name, value, fallback_color)
-    if name == 'ElementalMode' and display.colors and display.colors[value] then
+    if not display.colors then
+        return fallback_color
+    end
+
+    if name == 'ElementalMode' and display.colors[value] then
         return display.colors[value]
+    end
+
+    if name == 'RuneElement' and data and data.elements and data.elements.runes_lookup then
+        local element = data.elements.runes_lookup[value]
+
+        if element and display.colors[element] then
+            return display.colors[element]
+        end
     end
 
     return fallback_color
@@ -584,9 +630,8 @@ local function mode_hud_refresh()
     local width = mode_hud_number_setting('width', 260)
     local line_height = mode_hud_number_setting('line_height', 16)
     local header_lines = 1
-    local label_width = mode_hud_number_setting('label_width', 16)
     local group_label_width = mode_hud_number_setting('group_label_width', 14)
-    local value_width = mode_hud_number_setting('value_width', 18)
+    local value_x = x + width - mode_hud_number_setting('value_padding', 8)
     local colors = display.colors or {}
     local label_color = colors.White or '\\cs(255,255,255)'
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
@@ -598,6 +643,11 @@ local function mode_hud_refresh()
     text:clear()
     text:pos(x, y)
     mode_hud_append_line(text, string.format('%sModes', label_color))
+
+    for _, value_text in ipairs(mode_hud.value_texts) do
+        value_text:hide()
+    end
+
     mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
         kind = 'drag',
         x1 = x,
@@ -615,8 +665,13 @@ local function mode_hud_refresh()
             local value_color = enabled and active_color or off_color
             local marker = enabled and '-' or '+'
             local label = string.format('[%s] %-' .. group_label_width .. 's', marker, row.label)
+            local value_text = mode_hud_get_value_text(index)
 
-            mode_hud_append_line(text, string.format('%s%s%s%s', label_color, label, value_color, string.format('%' .. value_width .. 's', value)))
+            mode_hud_append_line(text, string.format('%s%s', label_color, label))
+            value_text:clear()
+            value_text:append(string.format('%s%s', value_color, value))
+            value_text:pos(value_x, row_y)
+            value_text:show()
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'group',
                 group = row.group,
@@ -637,9 +692,13 @@ local function mode_hud_refresh()
 
             value_color = mode_hud_value_color(name, value, value_color)
 
-            local label = string.format('%-' .. label_width .. 's', mode_hud_label(name))
+            local value_text = mode_hud_get_value_text(index)
 
-            mode_hud_append_line(text, string.format('%s  %s %s%s', label_color, label, value_color, string.format('%' .. value_width .. 's', value)))
+            mode_hud_append_line(text, string.format('%s  %s', label_color, mode_hud_label(name)))
+            value_text:clear()
+            value_text:append(string.format('%s%s', value_color, value))
+            value_text:pos(value_x, row_y)
+            value_text:show()
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'state',
                 name = name,
