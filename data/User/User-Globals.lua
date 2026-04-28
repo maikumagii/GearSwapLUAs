@@ -18,7 +18,7 @@ display.mode_hud.group_label_width = display.mode_hud.group_label_width or 14
 display.mode_hud.value_width = display.mode_hud.value_width or 18
 display.mode_hud.value_x_offset = display.mode_hud.value_x_offset or 150
 display.mode_hud.value_padding = display.mode_hud.value_padding or 8
-display.mode_hud.right_padding = display.mode_hud.right_padding or 2
+display.mode_hud.right_padding = display.mode_hud.right_padding or 0
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'WeaponSets',
     'HybridMode',
@@ -735,7 +735,7 @@ local function mode_hud_refresh()
         end
     end
 
-    box_columns = box_columns + mode_hud_number_setting('right_padding', 2)
+    box_columns = box_columns + mode_hud_number_setting('right_padding', 0)
 
     if mode_hud_setting('dynamic_width', true) ~= false then
         width = math.max(mode_hud_number_setting('min_width', 0), math.ceil(box_columns * mode_hud_char_width()))
