@@ -291,6 +291,12 @@ local function mode_hud_setting(name, default)
     return default
 end
 
+local function mode_hud_number_setting(name, default)
+    local value = tonumber(mode_hud_setting(name, default))
+
+    return value or default
+end
+
 local function mode_hud_label(name)
     if mode_hud_labels[name] then
         return mode_hud_labels[name]
@@ -514,9 +520,9 @@ local function mode_hud_refresh_popout()
     end
 
     local text = mode_hud_get_popout_text()
-    local line_height = mode_hud_setting('line_height', 16)
-    local width = mode_hud_setting('popout_width', 190)
-    local x = mode_hud.popout_anchor.x2 + mode_hud_setting('popout_gap', 8)
+    local line_height = mode_hud_number_setting('line_height', 16)
+    local width = mode_hud_number_setting('popout_width', 190)
+    local x = mode_hud.popout_anchor.x2 + mode_hud_number_setting('popout_gap', 8)
     local y = mode_hud.popout_anchor.y1
     local colors = display.colors or {}
     local label_color = colors.White or '\\cs(255,255,255)'
@@ -565,14 +571,14 @@ local function mode_hud_refresh()
     end
 
     local rows = mode_hud_grouped_entries()
-    local x = mode_hud_setting('x', 24)
-    local y = mode_hud_setting('y', 180)
-    local width = mode_hud_setting('width', 260)
-    local line_height = mode_hud_setting('line_height', 16)
+    local x = mode_hud_number_setting('x', 24)
+    local y = mode_hud_number_setting('y', 180)
+    local width = mode_hud_number_setting('width', 260)
+    local line_height = mode_hud_number_setting('line_height', 16)
     local header_lines = 1
-    local label_width = mode_hud_setting('label_width', 16)
-    local group_label_width = mode_hud_setting('group_label_width', 14)
-    local value_width = mode_hud_setting('value_width', 18)
+    local label_width = mode_hud_number_setting('label_width', 16)
+    local group_label_width = mode_hud_number_setting('group_label_width', 14)
+    local value_width = mode_hud_number_setting('value_width', 18)
     local colors = display.colors or {}
     local label_color = colors.White or '\\cs(255,255,255)'
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
@@ -600,7 +606,7 @@ local function mode_hud_refresh()
             local value = enabled and 'on' or 'off'
             local value_color = enabled and active_color or off_color
             local marker = enabled and '-' or '+'
-            local label = string.format('[%s] %-*s', marker, group_label_width, row.label)
+            local label = string.format('[%s] %-' .. group_label_width .. 's', marker, row.label)
 
             mode_hud_append_line(text, string.format('%s%s%s%s', label_color, label, value_color, string.format('%' .. value_width .. 's', value)))
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
@@ -666,7 +672,7 @@ local function mode_hud_update_drag(x, y)
     local dx = x - mode_hud.drag.start_x
     local dy = y - mode_hud.drag.start_y
 
-    if math.abs(dx) < mode_hud_setting('drag_threshold', 5) and math.abs(dy) < mode_hud_setting('drag_threshold', 5) then
+    if math.abs(dx) < mode_hud_number_setting('drag_threshold', 5) and math.abs(dy) < mode_hud_number_setting('drag_threshold', 5) then
         return mode_hud.drag.moved
     end
 
@@ -724,8 +730,8 @@ local function mode_hud_register_mouse()
             mode_hud.drag = {
                 start_x = x,
                 start_y = y,
-                hud_x = mode_hud_setting('x', 24),
-                hud_y = mode_hud_setting('y', 180),
+                hud_x = mode_hud_number_setting('x', 24),
+                hud_y = mode_hud_number_setting('y', 180),
                 moved = false,
             }
             return true
