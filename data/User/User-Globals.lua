@@ -12,14 +12,14 @@ display.mode_hud.line_height = display.mode_hud.line_height or 16
 display.mode_hud.font = display.mode_hud.font or 'Courier New'
 display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
-display.mode_hud.drag_enabled = display.mode_hud.drag_enabled == true
+display.mode_hud.drag_enabled = display.mode_hud.drag_enabled ~= false
 display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
 display.mode_hud.label_width = display.mode_hud.label_width or 16
 display.mode_hud.group_label_width = display.mode_hud.group_label_width or 14
 display.mode_hud.value_width = display.mode_hud.value_width or 18
 display.mode_hud.value_x_offset = display.mode_hud.value_x_offset or 150
 display.mode_hud.value_padding = display.mode_hud.value_padding or 8
-display.mode_hud.right_padding = display.mode_hud.right_padding or 0
+display.mode_hud.right_padding = display.mode_hud.right_padding or 1
 display.mode_hud.utility_refresh_interval = display.mode_hud.utility_refresh_interval or 5
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'WeaponSets',
