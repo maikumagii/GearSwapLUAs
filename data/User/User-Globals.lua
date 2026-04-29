@@ -177,7 +177,6 @@ end
 
 local mode_hud = {
     text = nil,
-    value_texts = {},
     popout_text = nil,
     hitboxes = {},
     popout_hitboxes = {},
@@ -619,9 +618,6 @@ local function mode_hud_hide()
         mode_hud.text:hide()
     end
 
-    for _, text in pairs(mode_hud.value_texts) do
-        text:hide()
-    end
 end
 
 local function mode_hud_destroy()
@@ -635,16 +631,11 @@ local function mode_hud_destroy()
         mode_hud.text:destroy()
     end
 
-    for _, text in pairs(mode_hud.value_texts) do
-        text:destroy()
-    end
-
     if mode_hud.popout_text then
         mode_hud.popout_text:destroy()
     end
 
     mode_hud.text = nil
-    mode_hud.value_texts = {}
     mode_hud.popout_text = nil
 end
 
@@ -664,29 +655,6 @@ local function mode_hud_get_text()
         text:draggable(false)
     end
     mode_hud.text = text
-
-    return text
-end
-
-local function mode_hud_get_value_text(index)
-    if mode_hud.value_texts[index] then
-        return mode_hud.value_texts[index]
-    end
-
-    local text = texts.new()
-    text:font(mode_hud_setting('font', 'Arial'))
-    text:size(mode_hud_setting('size', 10))
-    text:bold(true)
-    text:bg_alpha(0)
-    text:stroke_width(2)
-    text:stroke_transparency(180)
-    if text.right_justified then
-        text:right_justified(false)
-    end
-    if text.draggable then
-        text:draggable(false)
-    end
-    mode_hud.value_texts[index] = text
 
     return text
 end
@@ -744,6 +712,14 @@ local function mode_hud_append_box_line(text, line, columns)
     local padding = math.max(mode_hud_box_columns(columns) - mode_hud_visible_length(line), 0)
 
     mode_hud_append_line(text, line .. string.rep(' ', padding))
+end
+
+local function mode_hud_append_value_box_line(text, label, value, value_color, label_color, value_column, columns)
+    local line = string.format('%s%s', label_color, label)
+    local gap = math.max(value_column - mode_hud_visible_length(line), 1)
+
+    line = line .. string.rep(' ', gap) .. string.format('%s%s%s', value_color, value, label_color)
+    mode_hud_append_box_line(text, line, columns)
 end
 
 local function mode_hud_value_color(name, value, fallback_color)
@@ -841,13 +817,25 @@ local function utility_item_status(item_names)
 end
 
 local function utility_spell_ready(spell_id)
-    return windower and windower.ffxi and windower.ffxi.get_spell_recasts
-        and windower.ffxi.get_spell_recasts()[spell_id] < spell_latency
+    if not (windower and windower.ffxi and windower.ffxi.get_spell_recasts) then
+        return false
+    end
+
+    local recasts = windower.ffxi.get_spell_recasts()
+    local recast = recasts and recasts[spell_id]
+
+    return recast ~= nil and recast < (spell_latency or 48)
 end
 
 local function utility_ability_ready(ability_id)
-    return windower and windower.ffxi and windower.ffxi.get_ability_recasts
-        and windower.ffxi.get_ability_recasts()[ability_id] < latency
+    if not (windower and windower.ffxi and windower.ffxi.get_ability_recasts) then
+        return false
+    end
+
+    local recasts = windower.ffxi.get_ability_recasts()
+    local recast = recasts and recasts[ability_id]
+
+    return recast ~= nil and recast < (latency or 0.5)
 end
 
 local function utility_magic_status(kind)
@@ -1036,7 +1024,6 @@ local function mode_hud_refresh()
         value_offset = math.ceil((max_label_columns + mode_hud_number_setting('value_padding', 2)) * mode_hud_char_width())
     end
 
-    local value_x = x + value_offset
     local value_column = mode_hud_columns_for_pixels(value_offset)
 
     for _, rendered_row in ipairs(rendered_rows) do
@@ -1061,10 +1048,6 @@ local function mode_hud_refresh()
     text:pos(x, y)
     mode_hud_append_box_line(text, string.format('%s%s', label_color, header), box_columns)
 
-    for _, value_text in pairs(mode_hud.value_texts) do
-        value_text:hide()
-    end
-
     mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
         kind = 'drag',
         x1 = x,
@@ -1088,13 +1071,14 @@ local function mode_hud_refresh()
                 y2 = row_y + line_height,
             }
         else
-            local value_text = mode_hud_get_value_text(index)
-
-            mode_hud_append_box_line(text, string.format('%s%s', label_color, rendered_row.label), box_columns)
-            value_text:clear()
-            value_text:append(string.format('%s%s', rendered_row.value_color, rendered_row.value))
-            value_text:pos(value_x, row_y)
-            value_text:show()
+            mode_hud_append_value_box_line(
+                text,
+                rendered_row.label,
+                rendered_row.value,
+                rendered_row.value_color,
+                label_color,
+                value_column,
+                box_columns)
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = rendered_row.kind,
                 name = rendered_row.name,
@@ -1172,6 +1156,10 @@ local function mode_hud_register_mouse()
     mode_hud.registered = true
 
     windower.register_event('mouse', function(type, x, y, delta, blocked)
+        if type == 0 and not mode_hud.drag then
+            return
+        end
+
         if blocked or not mode_hud_setting('enabled', true) then
             return
         end
