@@ -12,6 +12,7 @@ display.mode_hud.line_height = display.mode_hud.line_height or 16
 display.mode_hud.font = display.mode_hud.font or 'Courier New'
 display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
+display.mode_hud.drag_enabled = display.mode_hud.drag_enabled == true
 display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
 display.mode_hud.label_width = display.mode_hud.label_width or 16
 display.mode_hud.group_label_width = display.mode_hud.group_label_width or 14
@@ -19,6 +20,7 @@ display.mode_hud.value_width = display.mode_hud.value_width or 18
 display.mode_hud.value_x_offset = display.mode_hud.value_x_offset or 150
 display.mode_hud.value_padding = display.mode_hud.value_padding or 8
 display.mode_hud.right_padding = display.mode_hud.right_padding or 0
+display.mode_hud.utility_refresh_interval = display.mode_hud.utility_refresh_interval or 5
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'WeaponSets',
     'HybridMode',
@@ -193,6 +195,11 @@ local teleport_ring_names = {
     'Dim. Ring (Dem)',
     'Dim. Ring (Mea)',
     'Dim. Ring (Holla)',
+}
+local teleport_ring_spell_map = {
+    ['Dim. Ring (Dem)'] = 'Teleport-Dem',
+    ['Dim. Ring (Mea)'] = 'Teleport-Mea',
+    ['Dim. Ring (Holla)'] = 'Teleport-Holla',
 }
 local invisible_item_names = {
     'Prism Powder',
@@ -679,9 +686,8 @@ local function mode_hud_get_popout_text()
     return text
 end
 
-local function mode_hud_append_line(text, line)
-    text:append(line)
-    text:append('\n')
+local function mode_hud_append_line(lines, line)
+    lines[#lines + 1] = line
 end
 
 local function mode_hud_visible_length(line)
@@ -708,18 +714,22 @@ local function mode_hud_box_columns(columns)
     return columns or mode_hud_columns_for_pixels(mode_hud_number_setting('width', 260))
 end
 
-local function mode_hud_append_box_line(text, line, columns)
+local function mode_hud_append_box_line(lines, line, columns)
     local padding = math.max(mode_hud_box_columns(columns) - mode_hud_visible_length(line), 0)
 
-    mode_hud_append_line(text, line .. string.rep(' ', padding))
+    mode_hud_append_line(lines, line .. string.rep(' ', padding))
 end
 
-local function mode_hud_append_value_box_line(text, label, value, value_color, label_color, value_column, columns)
+local function mode_hud_append_value_box_line(lines, label, value, value_color, label_color, value_column, columns)
     local line = string.format('%s%s', label_color, label)
     local gap = math.max(value_column - mode_hud_visible_length(line), 1)
 
     line = line .. string.rep(' ', gap) .. string.format('%s%s%s', value_color, value, label_color)
-    mode_hud_append_box_line(text, line, columns)
+    mode_hud_append_box_line(lines, line, columns)
+end
+
+local function mode_hud_set_text(text, lines)
+    text:text(table.concat(lines, '\n') .. '\n')
 end
 
 local function mode_hud_value_color(name, value, fallback_color)
@@ -906,17 +916,17 @@ local function mode_hud_refresh_popout()
     local label_color = colors.White or '\\cs(255,255,255)'
     local active_color = colors.Yellow or '\\cs(255,192,0)'
     local default_color = colors.OffWhite or '\\cs(192,192,192)'
+    local lines = {}
 
     mode_hud.popout_hitboxes = {}
-    text:clear()
     text:pos(x, y)
-    mode_hud_append_line(text, string.format('%s%s', label_color, mode_hud_label(mode_hud.popout_state)))
+    mode_hud_append_line(lines, string.format('%s%s', label_color, mode_hud_label(mode_hud.popout_state)))
 
     for index, option in ipairs(options) do
         local value_color = option == state_var.value and active_color or default_color
         local marker = option == state_var.value and '> ' or '  '
 
-        mode_hud_append_line(text, string.format('%s%s%s%s', value_color, marker, option, label_color))
+        mode_hud_append_line(lines, string.format('%s%s%s%s', value_color, marker, option, label_color))
 
         mode_hud.popout_hitboxes[#mode_hud.popout_hitboxes + 1] = {
             state = mode_hud.popout_state,
@@ -928,6 +938,7 @@ local function mode_hud_refresh_popout()
         }
     end
 
+    mode_hud_set_text(text, lines)
     text:show()
 end
 
@@ -1043,10 +1054,9 @@ local function mode_hud_refresh()
     end
 
     mode_hud.hitboxes = {}
-    text:hide()
-    text:clear()
     text:pos(x, y)
-    mode_hud_append_box_line(text, string.format('%s%s', label_color, header), box_columns)
+    local lines = {}
+    mode_hud_append_box_line(lines, string.format('%s%s', label_color, header), box_columns)
 
     mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
         kind = 'drag',
@@ -1061,7 +1071,7 @@ local function mode_hud_refresh()
         local row_y = y + ((index + header_lines - 1) * line_height)
 
         if rendered_row.kind == 'group' then
-            mode_hud_append_box_line(text, string.format('%s%s', label_color, rendered_row.label), box_columns)
+            mode_hud_append_box_line(lines, string.format('%s%s', label_color, rendered_row.label), box_columns)
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
                 kind = 'group',
                 group = row.group,
@@ -1072,7 +1082,7 @@ local function mode_hud_refresh()
             }
         else
             mode_hud_append_value_box_line(
-                text,
+                lines,
                 rendered_row.label,
                 rendered_row.value,
                 rendered_row.value_color,
@@ -1090,7 +1100,17 @@ local function mode_hud_refresh()
         end
     end
 
+    mode_hud_set_text(text, lines)
     text:show()
+
+    if text.extents then
+        local rendered_width = text:extents()
+        local hitbox_width = math.max(width, rendered_width or 0)
+
+        for _, hitbox in ipairs(mode_hud.hitboxes) do
+            hitbox.x2 = hitbox.x1 + hitbox_width
+        end
+    end
 
     if mode_hud.popout_state then
         mode_hud_refresh_popout()
@@ -1107,7 +1127,7 @@ local function mode_hud_refresh()
             end
         end
 
-        refresh_utility_status:schedule(1)
+        refresh_utility_status:schedule(math.max(mode_hud_number_setting('utility_refresh_interval', 5), 1))
     end
 end
 
@@ -1156,20 +1176,16 @@ local function mode_hud_register_mouse()
     mode_hud.registered = true
 
     windower.register_event('mouse', function(type, x, y, delta, blocked)
-        if type == 0 and not mode_hud.drag then
+        if type == 0 then
+            if mode_hud.drag and mode_hud_setting('drag_enabled', false) then
+                mode_hud_update_drag(x, y)
+                return true
+            end
+
             return
         end
 
         if blocked or not mode_hud_setting('enabled', true) then
-            return
-        end
-
-        if mode_hud.drag and type == 0 then
-            mode_hud_update_drag(x, y)
-            return true
-        end
-
-        if type == 0 then
             return
         end
 
@@ -1189,7 +1205,7 @@ local function mode_hud_register_mouse()
             if type == 2 and mode_hud.popout_state then
                 mode_hud_close_popout()
             end
-            if type == 2 and mode_hud.drag then
+            if type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
                 mode_hud_update_drag(x, y)
                 mode_hud.drag = nil
                 return true
@@ -1197,7 +1213,7 @@ local function mode_hud_register_mouse()
             return
         end
 
-        if type == 1 then
+        if type == 1 and mode_hud_setting('drag_enabled', false) and hitbox.kind == 'drag' then
             mode_hud.drag = {
                 start_x = x,
                 start_y = y,
@@ -1208,7 +1224,7 @@ local function mode_hud_register_mouse()
             return true
         end
 
-        if type == 2 and mode_hud.drag then
+        if type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
             local was_dragged = mode_hud_update_drag(x, y)
 
             mode_hud.drag = nil
@@ -1513,16 +1529,6 @@ local function handle_repo_update_command(commandArgs, eventArgs)
     end
 end
 
-local utility_ring_wait_seconds = 9
-local utility_ring_zone_timeout = 60
-local utility_ring_state = {
-    active = false,
-    item_name = nil,
-    start_zone = nil,
-    ready_deadline = 0,
-    zone_deadline = 0,
-}
-
 local function set_hoxne_ampulla_mode(enabled)
     enable('range', 'ammo')
 
@@ -1535,87 +1541,26 @@ local function set_hoxne_ampulla_mode(enabled)
     end
 end
 
-local function reset_utility_ring_state()
-    utility_ring_state.active = false
-    utility_ring_state.item_name = nil
-    utility_ring_state.start_zone = nil
-    utility_ring_state.ready_deadline = 0
-    utility_ring_state.zone_deadline = 0
+local function start_utility_magic_fallback(spell_name)
+    windower.chat.input('/ma "' .. spell_name .. '" <me>')
 end
 
-local function finish_utility_ring()
-    internal_enable_set('UtilityRing')
-    reset_utility_ring_state()
-    send_command('gs c update')
-end
-
-local function monitor_utility_ring_zone_change()
-    if not utility_ring_state.active then
-        return
-    end
-
-    if world.area ~= utility_ring_state.start_zone then
-        finish_utility_ring()
-    elseif os.clock() >= utility_ring_state.zone_deadline then
-        add_to_chat(123, utility_ring_state.item_name .. ' did not change zones in time. Re-enabling ring1.')
-        finish_utility_ring()
-    else
-        monitor_utility_ring_zone_change:schedule(1)
-    end
-end
-
-local function use_utility_ring_when_ready()
-    if not utility_ring_state.active then
-        return
-    end
-
-    local item = get_usable_item(utility_ring_state.item_name)
-    local ring_equipped = player.equipment and player.equipment.left_ring == utility_ring_state.item_name
-    local ring_ready = item and item.usable and ring_equipped
-
-    if ring_ready or os.clock() >= utility_ring_state.ready_deadline then
-        utility_ring_state.zone_deadline = os.clock() + utility_ring_zone_timeout
-        windower.chat.input('/item "' .. utility_ring_state.item_name .. '" <me>')
-        monitor_utility_ring_zone_change:schedule(1)
-    else
-        use_utility_ring_when_ready:schedule(1)
-    end
-end
-
-local function start_utility_ring_action(label, item_names)
-    if utility_ring_state.active then
-        add_to_chat(123, utility_ring_state.item_name .. ' automation is already in progress.')
-        return
-    end
-
-    local item_name = utility_best_accessible_item(item_names)
+local function start_teleport_magic_fallback()
+    local item_name = utility_best_accessible_item(teleport_ring_names)
 
     if not item_name then
-        add_to_chat(123, label .. ' item is unavailable.')
+        add_to_chat(123, 'Teleport item is unavailable.')
         return
     end
 
-    local item = get_usable_item(item_name)
-    local remaining = utility_item_remaining(item)
+    local spell_name = teleport_ring_spell_map[item_name]
 
-    if not item or (item.charges_remaining and item.charges_remaining <= 0) then
-        add_to_chat(123, item_name .. ' has no remaining charges.')
+    if not spell_name then
+        add_to_chat(123, 'No Teleport spell mapping found for ' .. item_name .. '.')
         return
     end
 
-    if remaining and remaining > utility_ring_wait_seconds and not item.usable then
-        add_to_chat(123, item_name .. ' is not ready. (' .. seconds_to_clock(remaining) .. ')')
-        return
-    end
-
-    utility_ring_state.active = true
-    utility_ring_state.item_name = item_name
-    utility_ring_state.start_zone = world.area
-    utility_ring_state.ready_deadline = os.clock() + utility_ring_wait_seconds
-
-    internal_disable_set({ ring1 = item_name }, 'UtilityRing')
-    equip({ ring1 = item_name })
-    use_utility_ring_when_ready:schedule(1)
+    start_utility_magic_fallback(spell_name)
 end
 
 function user_state_change(stateField, newValue, oldValue)
@@ -1639,13 +1584,13 @@ function user_self_command(commandArgs, eventArgs)
 
     if command == 'warp' then
         eventArgs.handled = true
-        start_utility_ring_action('Warp', { warp_ring_name })
+        start_utility_magic_fallback('Warp')
         return
     end
 
     if command == 'teleport' or command == 'tele' then
         eventArgs.handled = true
-        start_utility_ring_action('Teleport', teleport_ring_names)
+        start_teleport_magic_fallback()
         return
     end
 
@@ -1659,12 +1604,6 @@ function user_self_command(commandArgs, eventArgs)
         eventArgs.handled = true
         windower.chat.input('/ma "Invisible" <me>')
         return
-    end
-end
-
-function user_zone_change(new_id, old_id)
-    if utility_ring_state.active then
-        finish_utility_ring()
     end
 end
 
