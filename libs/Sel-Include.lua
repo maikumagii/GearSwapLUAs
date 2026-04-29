@@ -470,7 +470,7 @@ function init_include()
 			if check_cleanup() then return true end
 		end
 		
-		tickdelay = os.clock() + .5
+		tickdelay = os.clock() + 1
 		if in_combat and (not ((last_in_combat + 6) > os.clock())) then
 			local bt = windower.ffxi.get_mob_by_target('bt') or nil
 			if not bt or bt.hpp == 0 then

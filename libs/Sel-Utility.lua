@@ -2161,6 +2161,7 @@ end
 
 function check_shadows()
 	if not state.AutoShadowMode.value or moving or data.areas.cities:contains(world.area) then return false end
+	if player.main_job ~= 'NIN' and player.sub_job ~= 'NIN' then return false end
 	local spell_recasts = windower.ffxi.get_spell_recasts()
 	local currentshadows = has_shadows()
 	if player.main_job == 'NIN' then
@@ -2196,30 +2197,6 @@ function check_shadows()
 			else
 				return false
 			end
-		else
-			return false
-		end
-	elseif currentshadows == 0 then
-		if player.main_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
-			windower.chat.input('/ja "Third Eye" <me>')
-			add_tick_delay()
-			return true
-		elseif silent_can_cast("Occultation") and spell_recasts[679] < spell_latency then
-			windower.chat.input('/ma "Occultation" <me>')
-			add_tick_delay()
-			return true
-		elseif silent_can_cast("Blink") and spell_recasts[53] < spell_latency then
-			windower.chat.input('/ma "Blink" <me>')
-			add_tick_delay()
-			return true
-		elseif silent_can_cast("Zephyr Mantle") and spell_recasts[647] < spell_latency then
-			windower.chat.input('/ma "Zephyr Mantle" <me>')
-			add_tick_delay()
-			return true
-		elseif player.sub_job == 'SAM' and windower.ffxi.get_ability_recasts()[133] < latency then
-			windower.chat.input('/ja "Third Eye" <me>')
-			add_tick_delay()
-			return true
 		else
 			return false
 		end
@@ -2513,7 +2490,7 @@ function check_rune()
 
 		elseif state.AutoRuneMode.value ~= 'Full' then
 			return false
-		elseif player.main_job == 'RUN' and abil_recasts[242] < latency and (player.hpp < 50 or (state.RuneElement.Value == 'Tenebrae' and player.mpp < 75)) then
+		elseif player.main_job == 'RUN' and abil_recasts[242] < latency and (player.hpp < 50 or (state.RuneElement.value == 'Tenebrae' and player.mpp < 75)) then
 			windower.chat.input('/ja "Vivacious Pulse" <me>')
 			add_tick_delay()
 			return true

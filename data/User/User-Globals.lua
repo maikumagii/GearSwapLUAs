@@ -20,7 +20,7 @@ display.mode_hud.value_width = display.mode_hud.value_width or 18
 display.mode_hud.value_x_offset = display.mode_hud.value_x_offset or 150
 display.mode_hud.value_padding = display.mode_hud.value_padding or 8
 display.mode_hud.right_padding = display.mode_hud.right_padding or 1
-display.mode_hud.utility_refresh_interval = display.mode_hud.utility_refresh_interval or 5
+display.mode_hud.utility_refresh_interval = display.mode_hud.utility_refresh_interval or 1
 display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'WeaponSets',
     'HybridMode',
@@ -492,8 +492,30 @@ local function mode_hud_is_default(name, state_var)
     return value == state_var.default or value == 'Off' or value == 'None' or value == 'Normal' or value == 'Match'
 end
 
+local function mode_hud_has_job(job)
+    return player and (player.main_job == job or player.sub_job == job)
+end
+
+local function mode_hud_state_available(name)
+    if name == 'AutoRuneMode' or name == 'RuneElement' then
+        return mode_hud_has_job('RUN')
+    elseif name == 'AutoShadowMode' then
+        return mode_hud_has_job('NIN')
+    elseif name == 'AutoSambaMode' then
+        return mode_hud_has_job('DNC')
+    elseif name == 'AutoJumpMode' then
+        return mode_hud_has_job('DRG')
+    elseif name == 'Stance' then
+        return mode_hud_has_job('SAM') or (player and player.main_job == 'NIN')
+    elseif name == 'RngHelper' or name == 'AutoAmmoMode' then
+        return mode_hud_has_job('RNG') or mode_hud_has_job('COR')
+    end
+
+    return true
+end
+
 local function mode_hud_add_entry(entries, seen, name)
-    if seen[name] or not state[name] or state[name]._class ~= 'mode' then
+    if seen[name] or not state[name] or state[name]._class ~= 'mode' or not mode_hud_state_available(name) then
         return
     end
 
@@ -623,7 +645,7 @@ local function mode_hud_popout_options(name)
     local state_var = state[name]
     local options = {}
 
-    if not state_var then
+    if not state_var or not mode_hud_state_available(name) then
         return options
     end
 
@@ -827,6 +849,14 @@ local function mode_hud_value_color(name, value, fallback_color)
     end
 
     return fallback_color
+end
+
+local function mode_hud_popout_option_color(name, option, selected, active_color, default_color)
+    if not selected then
+        return default_color
+    end
+
+    return mode_hud_value_color(name, option, active_color)
 end
 
 local function utility_accessible_bags()
@@ -1172,8 +1202,9 @@ local function mode_hud_refresh_popout()
     mode_hud_append_line(lines, string.format('%s%s', label_color, mode_hud_label(mode_hud.popout_state)))
 
     for index, option in ipairs(options) do
-        local value_color = option == state_var.value and active_color or default_color
-        local marker = option == state_var.value and '> ' or '  '
+        local selected = option == state_var.value
+        local value_color = mode_hud_popout_option_color(mode_hud.popout_state, option, selected, active_color, default_color)
+        local marker = selected and '> ' or '  '
 
         mode_hud_append_line(lines, string.format('%s%s%s%s', value_color, marker, option, label_color))
 
@@ -1285,6 +1316,7 @@ local function mode_hud_refresh()
     end
 
     local value_column = mode_hud_columns_for_pixels(value_offset)
+    local value_hitbox_width = value_offset + (mode_hud_number_setting('value_width', 18) * mode_hud_number_setting('size', 10))
 
     for _, rendered_row in ipairs(rendered_rows) do
         if rendered_row.kind == 'state' or rendered_row.kind == 'utility' then
@@ -1352,13 +1384,15 @@ local function mode_hud_refresh()
     mode_hud_set_text(text, lines)
     text:show()
 
+    local hitbox_width = math.max(width, value_hitbox_width)
+
     if text.extents then
         local rendered_width = text:extents()
-        local hitbox_width = math.max(width, rendered_width or 0)
+        hitbox_width = math.max(hitbox_width, rendered_width or 0)
+    end
 
-        for _, hitbox in ipairs(mode_hud.hitboxes) do
-            hitbox.x2 = hitbox.x1 + hitbox_width
-        end
+    for _, hitbox in ipairs(mode_hud.hitboxes) do
+        hitbox.x2 = hitbox.x1 + hitbox_width
     end
 
     if mode_hud.popout_state then
@@ -1376,7 +1410,7 @@ local function mode_hud_refresh()
             end
         end
 
-        refresh_utility_status:schedule(math.max(mode_hud_number_setting('utility_refresh_interval', 5), 1))
+        refresh_utility_status:schedule(math.max(mode_hud_number_setting('utility_refresh_interval', 1), 1))
     end
 end
 
@@ -1516,7 +1550,7 @@ local function mode_hud_register_mouse()
         local name = hitbox.name
 
         if type == 2 then
-            if name == 'Weapons' or name == 'ElementalMode' then
+            if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
                 mode_hud_open_popout(name, hitbox)
             else
                 mode_hud_close_popout()
@@ -1524,7 +1558,7 @@ local function mode_hud_register_mouse()
             end
             return true
         elseif type == 5 then
-            if name == 'Weapons' or name == 'ElementalMode' then
+            if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
                 mode_hud_open_popout(name, hitbox)
             else
                 mode_hud_close_popout()
