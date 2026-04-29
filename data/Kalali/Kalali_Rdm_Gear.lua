@@ -670,6 +670,7 @@ function init_gear_sets()
         legs = "Shedir Seraweels"
     } --hands="Regal Cuffs"
     sets.midcast.BarElement = { legs = "Shedir Seraweels" }
+    sets.midcast.BarStatus = { neck = "Sroda Necklace" }
     sets.midcast.Temper = sets.EnhancingSkill
     sets.midcast.Enspell = sets.EnhancingSkill
     sets.midcast.BoostStat = { hands = gear.af2_hands }

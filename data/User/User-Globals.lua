@@ -26,12 +26,14 @@ display.mode_hud.extra_states = display.mode_hud.extra_states or {
     'MagicBurstMode',
     'SkillchainMode',
     'UnlockWeapons',
+    'HoxneAmpullaMode',
 }
 display.mode_hud.group_states = display.mode_hud.group_states or {
     equipment = false,
     magic = false,
     combat = false,
     job = false,
+    utility = false,
     other = false,
 }
 
@@ -186,11 +188,27 @@ local mode_hud = {
     wrapped = false,
 }
 
+local hoxne_ampulla_name = 'Hoxne Ampulla'
+local warp_ring_name = 'Warp Ring'
+local teleport_ring_names = {
+    'Dim. Ring (Dem)',
+    'Dim. Ring (Mea)',
+    'Dim. Ring (Holla)',
+}
+local invisible_item_names = {
+    'Prism Powder',
+    'Rainbow Powder',
+}
+local sneak_item_names = {
+    'Silent Oil',
+}
+
 local mode_hud_groups = {
     { id = 'equipment', label = 'Equipment' },
     { id = 'magic', label = 'Magic' },
     { id = 'combat', label = 'Combat' },
     { id = 'job', label = 'Job' },
+    { id = 'utility', label = 'Utility' },
     { id = 'other', label = 'Other' },
 }
 
@@ -210,6 +228,7 @@ local mode_hud_labels = {
     DefenseMode = 'Defense',
     ElementalMode = 'Element',
     HybridMode = 'Hybrid',
+    HoxneAmpullaMode = 'Hoxne',
     IdleMode = 'Idle',
     MagicBurstMode = 'Magic Burst',
     OffenseMode = 'Offense',
@@ -217,8 +236,8 @@ local mode_hud_labels = {
     SkillchainMode = 'Skillchain',
     TreasureMode = 'Treasure',
     UnlockWeapons = 'Unlock Weapons',
-    Weapons = 'Weapons',
-    WeaponSets = 'Weapon Sets',
+    Weapons = 'Weapon Set',
+    WeaponSets = 'Weapon Mode',
     WeaponskillMode = 'Weaponskill',
 }
 
@@ -291,6 +310,114 @@ local mode_hud_categories = {
     RngHelperQuickDraw = 'job',
     RollMode = 'job',
     Stance = 'job',
+
+    HoxneAmpullaMode = 'utility',
+}
+
+local mode_hud_utility_actions = {
+    WarpUtility = {
+        label = 'Warp',
+        command = 'warp',
+        status = 'warp',
+    },
+    TeleportUtility = {
+        label = 'Teleport',
+        command = 'teleport',
+        status = 'teleport',
+    },
+    SneakUtility = {
+        label = 'Sneak',
+        command = 'sneak',
+        status = 'sneak',
+    },
+    InvisibleUtility = {
+        label = 'Invisible',
+        command = 'invisible',
+        status = 'invisible',
+    },
+}
+
+local mode_hud_group_orders = {
+    equipment = {
+        'WeaponSets',
+        'Weapons',
+        'OffenseMode',
+        'HybridMode',
+        'ExtraMeleeMode',
+        'RangedMode',
+        'WeaponskillMode',
+        'DefenseMode',
+        'PhysicalDefenseMode',
+        'MagicalDefenseMode',
+        'ResistDefenseMode',
+        'ExtraDefenseMode',
+        'AutoDefenseMode',
+        'IdleMode',
+        'Passive',
+        'UnlockWeapons',
+        'WakeUpWeapons',
+        'BuffWeaponsMode',
+    },
+    magic = {
+        'CastingMode',
+        'MagicBurstMode',
+        'DeathMode',
+        'ElementalMode',
+        'ElementalWheel',
+        'AutoRuneMode',
+        'RuneElement',
+        'AutoNukeMode',
+        'AutoMagicBurst',
+        'AutoStunMode',
+        'RecoverMode',
+    },
+    combat = {
+        'AutoWSMode',
+        'SkillchainMode',
+        'SkillChainMode',
+        'AutoSambaMode',
+        'AutoShadowMode',
+        'Kiting',
+        'RngHelper',
+        'AutoEngageMode',
+        'AutoFightMode',
+        'AutoTankMode',
+        'AutoJumpMode',
+        'AutoSuperJumpMode',
+    },
+    job = {
+        'RollMode',
+        'CompensatorMode',
+        'LuzafRing',
+        'ExtraSongsMode',
+        'CarnMode',
+        'DanceStance',
+        'Stance',
+        'MainStep',
+        'AltStep',
+        'PetMode',
+        'JugMode',
+        'AutoCallPet',
+        'AutoPuppetMode',
+        'AutoReadyMode',
+        'AutoRepairMode',
+        'AutoRewardMode',
+        'RewardMode',
+        'PetWSGear',
+        'PactSpamMode',
+        'LearningMode',
+        'DrainSwapWeaponMode',
+        'ConquerorMode',
+        'RngHelperQuickDraw',
+        'AutoDummyMode',
+    },
+    utility = {
+        'WarpUtility',
+        'TeleportUtility',
+        'SneakUtility',
+        'InvisibleUtility',
+        'HoxneAmpullaMode',
+    },
 }
 
 local function mode_hud_setting(name, default)
@@ -369,6 +496,46 @@ local function mode_hud_entry_names()
     return entries
 end
 
+local function mode_hud_ordered_group_entries(entries, group_id)
+    local ordered_names = mode_hud_group_orders[group_id]
+
+    if not ordered_names then
+        return entries
+    end
+
+    local priorities = {}
+
+    for index, name in ipairs(ordered_names) do
+        priorities[name] = index
+    end
+
+    local indexed_entries = {}
+
+    for index, name in ipairs(entries) do
+        indexed_entries[#indexed_entries + 1] = {
+            name = name,
+            index = index,
+            priority = priorities[name] or (1000 + index),
+        }
+    end
+
+    table.sort(indexed_entries, function(a, b)
+        if a.priority == b.priority then
+            return a.index < b.index
+        end
+
+        return a.priority < b.priority
+    end)
+
+    local ordered_entries = {}
+
+    for _, entry in ipairs(indexed_entries) do
+        ordered_entries[#ordered_entries + 1] = entry.name
+    end
+
+    return ordered_entries
+end
+
 local function mode_hud_grouped_entries()
     local grouped = {}
     local rows = {}
@@ -382,6 +549,11 @@ local function mode_hud_grouped_entries()
         grouped[group_id][#grouped[group_id] + 1] = name
     end
 
+    grouped.utility[#grouped.utility + 1] = 'WarpUtility'
+    grouped.utility[#grouped.utility + 1] = 'TeleportUtility'
+    grouped.utility[#grouped.utility + 1] = 'SneakUtility'
+    grouped.utility[#grouped.utility + 1] = 'InvisibleUtility'
+
     for _, group in ipairs(mode_hud_groups) do
         if #grouped[group.id] > 0 then
             rows[#rows + 1] = {
@@ -391,9 +563,9 @@ local function mode_hud_grouped_entries()
             }
 
             if mode_hud_group_enabled(group.id) then
-                for _, name in ipairs(grouped[group.id]) do
+                for _, name in ipairs(mode_hud_ordered_group_entries(grouped[group.id], group.id)) do
                     rows[#rows + 1] = {
-                        kind = 'state',
+                        kind = mode_hud_utility_actions[name] and 'utility' or 'state',
                         name = name,
                         group = group.id,
                     }
@@ -594,6 +766,132 @@ local function mode_hud_value_color(name, value, fallback_color)
     return fallback_color
 end
 
+local function utility_item_accessible(item_name)
+    return (player.inventory and player.inventory[item_name])
+        or (player.wardrobe and player.wardrobe[item_name])
+        or (player.wardrobe2 and player.wardrobe2[item_name])
+        or (player.wardrobe3 and player.wardrobe3[item_name])
+        or (player.wardrobe4 and player.wardrobe4[item_name])
+        or (player.wardrobe5 and player.wardrobe5[item_name])
+        or (player.wardrobe6 and player.wardrobe6[item_name])
+        or (player.wardrobe7 and player.wardrobe7[item_name])
+        or (player.wardrobe8 and player.wardrobe8[item_name])
+end
+
+local function utility_item_remaining(item)
+    if not item or not item.next_use_time then
+        return nil
+    end
+
+    return math.max(math.ceil(item.next_use_time + (local_offset or 18000) - os.time()), 0)
+end
+
+local function utility_best_accessible_item(item_names)
+    local fallback_item_name
+    local fallback_remaining
+
+    for _, item_name in ipairs(item_names) do
+        if utility_item_accessible(item_name) then
+            local item = get_usable_item and get_usable_item(item_name)
+
+            if item and item.usable then
+                return item_name
+            end
+
+            local remaining = utility_item_remaining(item) or 0
+
+            if not fallback_item_name or remaining < fallback_remaining then
+                fallback_item_name = item_name
+                fallback_remaining = remaining
+            end
+        end
+    end
+
+    return fallback_item_name
+end
+
+local function utility_item_status(item_names)
+    local colors = display.colors or {}
+    local ready_color = colors.Green or '\\cs(80,255,120)'
+    local timer_color = colors.Yellow or '\\cs(255,192,0)'
+    local unavailable_color = colors.Red or colors.Fire or '\\cs(255,80,80)'
+    local item_name = utility_best_accessible_item(item_names)
+
+    if not item_name or not get_usable_item then
+        return 'Unavailable', unavailable_color
+    end
+
+    local item = get_usable_item(item_name)
+
+    if not item or (item.charges_remaining and item.charges_remaining <= 0) then
+        return 'Unavailable', unavailable_color
+    end
+
+    if item.usable then
+        return 'Ready', ready_color
+    end
+
+    local remaining = utility_item_remaining(item)
+
+    if remaining and remaining > 0 then
+        return seconds_to_clock(remaining), timer_color
+    end
+
+    return 'Ready', ready_color
+end
+
+local function utility_spell_ready(spell_id)
+    return windower and windower.ffxi and windower.ffxi.get_spell_recasts
+        and windower.ffxi.get_spell_recasts()[spell_id] < spell_latency
+end
+
+local function utility_ability_ready(ability_id)
+    return windower and windower.ffxi and windower.ffxi.get_ability_recasts
+        and windower.ffxi.get_ability_recasts()[ability_id] < latency
+end
+
+local function utility_magic_status(kind)
+    local colors = display.colors or {}
+    local ready_color = colors.Green or '\\cs(80,255,120)'
+    local unavailable_color = colors.Red or colors.Fire or '\\cs(255,80,80)'
+
+    if kind == 'Sneak' then
+        if utility_ability_ready(218) and (player.main_job == 'DNC' or player.sub_job == 'DNC') then
+            return 'Ready', ready_color
+        elseif utility_spell_ready(318) and (player.main_job == 'NIN' or player.sub_job == 'NIN') then
+            return 'Ready', ready_color
+        elseif item_available and utility_best_accessible_item(sneak_item_names) then
+            return 'Ready', ready_color
+        elseif utility_spell_ready(136) and silent_can_cast and silent_can_cast('Sneak') then
+            return 'Ready', ready_color
+        end
+    elseif kind == 'Invisible' then
+        if utility_ability_ready(218) and (player.main_job == 'DNC' or player.sub_job == 'DNC') then
+            return 'Ready', ready_color
+        elseif utility_spell_ready(354) and (player.main_job == 'NIN' or player.sub_job == 'NIN') then
+            return 'Ready', ready_color
+        elseif item_available and utility_best_accessible_item(invisible_item_names) then
+            return 'Ready', ready_color
+        elseif utility_spell_ready(135) and silent_can_cast and silent_can_cast('Invisible') then
+            return 'Ready', ready_color
+        end
+    end
+
+    return 'Unavailable', unavailable_color
+end
+
+local function mode_hud_utility_status(name)
+    if name == 'WarpUtility' then
+        return utility_item_status({ warp_ring_name })
+    elseif name == 'TeleportUtility' then
+        return utility_item_status(teleport_ring_names)
+    elseif name == 'SneakUtility' then
+        return utility_magic_status('Sneak')
+    elseif name == 'InvisibleUtility' then
+        return utility_magic_status('Invisible')
+    end
+end
+
 local function mode_hud_refresh_popout()
     if not mode_hud.popout_state or not mode_hud.popout_anchor then
         return
@@ -692,6 +990,20 @@ local function mode_hud_refresh()
                 label = label,
             }
             max_label_columns = math.max(max_label_columns, mode_hud_visible_length(label))
+        elseif row.kind == 'utility' then
+            local action = mode_hud_utility_actions[row.name]
+            local value, value_color = mode_hud_utility_status(row.name)
+            local label = '  ' .. action.label
+
+            rendered_rows[index] = {
+                kind = 'utility',
+                row = row,
+                name = row.name,
+                label = label,
+                value = value,
+                value_color = value_color,
+            }
+            max_label_columns = math.max(max_label_columns, mode_hud_visible_length(label))
         else
             local name = row.name
             local state_var = state[name]
@@ -728,7 +1040,7 @@ local function mode_hud_refresh()
     local value_column = mode_hud_columns_for_pixels(value_offset)
 
     for _, rendered_row in ipairs(rendered_rows) do
-        if rendered_row.kind == 'state' then
+        if rendered_row.kind == 'state' or rendered_row.kind == 'utility' then
             box_columns = math.max(box_columns, value_column + mode_hud_visible_length(rendered_row.value))
         else
             box_columns = math.max(box_columns, mode_hud_visible_length(rendered_row.label))
@@ -784,7 +1096,7 @@ local function mode_hud_refresh()
             value_text:pos(value_x, row_y)
             value_text:show()
             mode_hud.hitboxes[#mode_hud.hitboxes + 1] = {
-                kind = 'state',
+                kind = rendered_row.kind,
                 name = rendered_row.name,
                 x1 = x,
                 y1 = row_y,
@@ -798,6 +1110,20 @@ local function mode_hud_refresh()
 
     if mode_hud.popout_state then
         mode_hud_refresh_popout()
+    end
+
+    if mode_hud_group_enabled('utility') and not mode_hud.utility_refresh_scheduled then
+        mode_hud.utility_refresh_scheduled = true
+
+        local function refresh_utility_status()
+            mode_hud.utility_refresh_scheduled = false
+
+            if mode_hud_setting('enabled', true) and mode_hud_group_enabled('utility') then
+                mode_hud_refresh()
+            end
+        end
+
+        refresh_utility_status:schedule(1)
     end
 end
 
@@ -853,6 +1179,10 @@ local function mode_hud_register_mouse()
         if mode_hud.drag and type == 0 then
             mode_hud_update_drag(x, y)
             return true
+        end
+
+        if type == 0 then
+            return
         end
 
         local popout_hitbox = mode_hud_popout_hit(x, y)
@@ -911,6 +1241,21 @@ local function mode_hud_register_mouse()
                 mode_hud_refresh()
                 return true
             elseif type == 1 or type == 4 then
+                return true
+            end
+        end
+
+        if hitbox.kind == 'utility' then
+            if type == 2 then
+                local action = mode_hud_utility_actions[hitbox.name]
+
+                if action then
+                    mode_hud_close_popout()
+                    send_command('gs c ' .. action.command)
+                end
+
+                return true
+            elseif type == 1 or type == 4 or type == 5 then
                 return true
             end
         end
@@ -1180,12 +1525,11 @@ local function handle_repo_update_command(commandArgs, eventArgs)
     end
 end
 
-local hoxne_ampulla_name = 'Hoxne Ampulla'
-local warp_ring_name = 'Warp Ring'
-local warp_ring_wait_seconds = 9
-local warp_ring_zone_timeout = 60
-local warp_ring_state = {
+local utility_ring_wait_seconds = 9
+local utility_ring_zone_timeout = 60
+local utility_ring_state = {
     active = false,
+    item_name = nil,
     start_zone = nil,
     ready_deadline = 0,
     zone_deadline = 0,
@@ -1203,62 +1547,87 @@ local function set_hoxne_ampulla_mode(enabled)
     end
 end
 
-local function reset_warp_ring_state()
-    warp_ring_state.active = false
-    warp_ring_state.start_zone = nil
-    warp_ring_state.ready_deadline = 0
-    warp_ring_state.zone_deadline = 0
+local function reset_utility_ring_state()
+    utility_ring_state.active = false
+    utility_ring_state.item_name = nil
+    utility_ring_state.start_zone = nil
+    utility_ring_state.ready_deadline = 0
+    utility_ring_state.zone_deadline = 0
 end
 
-local function finish_warp_ring()
-    internal_enable_set('WarpRing')
-    reset_warp_ring_state()
+local function finish_utility_ring()
+    internal_enable_set('UtilityRing')
+    reset_utility_ring_state()
     send_command('gs c update')
 end
 
-local function warp_ring_accessible()
-    return (player.inventory and player.inventory[warp_ring_name])
-        or (player.wardrobe and player.wardrobe[warp_ring_name])
-        or (player.wardrobe2 and player.wardrobe2[warp_ring_name])
-        or (player.wardrobe3 and player.wardrobe3[warp_ring_name])
-        or (player.wardrobe4 and player.wardrobe4[warp_ring_name])
-        or (player.wardrobe5 and player.wardrobe5[warp_ring_name])
-        or (player.wardrobe6 and player.wardrobe6[warp_ring_name])
-        or (player.wardrobe7 and player.wardrobe7[warp_ring_name])
-        or (player.wardrobe8 and player.wardrobe8[warp_ring_name])
-end
-
-local function monitor_warp_ring_zone_change()
-    if not warp_ring_state.active then
+local function monitor_utility_ring_zone_change()
+    if not utility_ring_state.active then
         return
     end
 
-    if world.area ~= warp_ring_state.start_zone then
-        finish_warp_ring()
-    elseif os.clock() >= warp_ring_state.zone_deadline then
-        add_to_chat(123, 'Warp Ring did not change zones in time. Re-enabling ring1.')
-        finish_warp_ring()
+    if world.area ~= utility_ring_state.start_zone then
+        finish_utility_ring()
+    elseif os.clock() >= utility_ring_state.zone_deadline then
+        add_to_chat(123, utility_ring_state.item_name .. ' did not change zones in time. Re-enabling ring1.')
+        finish_utility_ring()
     else
-        monitor_warp_ring_zone_change:schedule(1)
+        monitor_utility_ring_zone_change:schedule(1)
     end
 end
 
-local function use_warp_ring_when_ready()
-    if not warp_ring_state.active then
+local function use_utility_ring_when_ready()
+    if not utility_ring_state.active then
         return
     end
 
-    local warp_ring = get_usable_item(warp_ring_name)
-    local ring_equipped = player.equipment and player.equipment.left_ring == warp_ring_name
-    local ring_ready = warp_ring and warp_ring.usable and ring_equipped
+    local item = get_usable_item(utility_ring_state.item_name)
+    local ring_equipped = player.equipment and player.equipment.left_ring == utility_ring_state.item_name
+    local ring_ready = item and item.usable and ring_equipped
 
-    if ring_ready or os.clock() >= warp_ring_state.ready_deadline then
-        warp_ring_state.zone_deadline = os.clock() + warp_ring_zone_timeout
-        windower.chat.input('/item "' .. warp_ring_name .. '" <me>')
-        monitor_warp_ring_zone_change:schedule(1)
+    if ring_ready or os.clock() >= utility_ring_state.ready_deadline then
+        utility_ring_state.zone_deadline = os.clock() + utility_ring_zone_timeout
+        windower.chat.input('/item "' .. utility_ring_state.item_name .. '" <me>')
+        monitor_utility_ring_zone_change:schedule(1)
     else
-        use_warp_ring_when_ready:schedule(1)
+        use_utility_ring_when_ready:schedule(1)
     end
+end
+
+local function start_utility_ring_action(label, item_names)
+    if utility_ring_state.active then
+        add_to_chat(123, utility_ring_state.item_name .. ' automation is already in progress.')
+        return
+    end
+
+    local item_name = utility_best_accessible_item(item_names)
+
+    if not item_name then
+        add_to_chat(123, label .. ' item is unavailable.')
+        return
+    end
+
+    local item = get_usable_item(item_name)
+    local remaining = utility_item_remaining(item)
+
+    if not item or (item.charges_remaining and item.charges_remaining <= 0) then
+        add_to_chat(123, item_name .. ' has no remaining charges.')
+        return
+    end
+
+    if remaining and remaining > utility_ring_wait_seconds and not item.usable then
+        add_to_chat(123, item_name .. ' is not ready. (' .. seconds_to_clock(remaining) .. ')')
+        return
+    end
+
+    utility_ring_state.active = true
+    utility_ring_state.item_name = item_name
+    utility_ring_state.start_zone = world.area
+    utility_ring_state.ready_deadline = os.clock() + utility_ring_wait_seconds
+
+    internal_disable_set({ ring1 = item_name }, 'UtilityRing')
+    equip({ ring1 = item_name })
+    use_utility_ring_when_ready:schedule(1)
 end
 
 function user_state_change(stateField, newValue, oldValue)
@@ -1280,39 +1649,34 @@ function user_self_command(commandArgs, eventArgs)
         return
     end
 
-    if command ~= 'warp' then
+    if command == 'warp' then
+        eventArgs.handled = true
+        start_utility_ring_action('Warp', { warp_ring_name })
         return
     end
 
-    eventArgs.handled = true
-
-    if warp_ring_state.active then
-        add_to_chat(123, 'Warp Ring automation is already in progress.')
+    if command == 'teleport' or command == 'tele' then
+        eventArgs.handled = true
+        start_utility_ring_action('Teleport', teleport_ring_names)
         return
     end
 
-    if not item_available(warp_ring_name) then
-        add_to_chat(123, 'Warp Ring is not available.')
+    if command == 'sneak' then
+        eventArgs.handled = true
+        windower.chat.input('/ma "Sneak" <me>')
         return
     end
 
-    if not warp_ring_accessible() then
-        add_to_chat(123, 'Warp Ring must be in inventory or wardrobe to equip into ring1.')
+    if command == 'invisible' or command == 'invis' then
+        eventArgs.handled = true
+        windower.chat.input('/ma "Invisible" <me>')
         return
     end
-
-    warp_ring_state.active = true
-    warp_ring_state.start_zone = world.area
-    warp_ring_state.ready_deadline = os.clock() + warp_ring_wait_seconds
-
-    internal_disable_set({ ring1 = warp_ring_name }, 'WarpRing')
-    equip({ ring1 = warp_ring_name })
-    use_warp_ring_when_ready:schedule(1)
 end
 
 function user_zone_change(new_id, old_id)
-    if warp_ring_state.active then
-        finish_warp_ring()
+    if utility_ring_state.active then
+        finish_utility_ring()
     end
 end
 
