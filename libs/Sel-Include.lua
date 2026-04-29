@@ -890,6 +890,43 @@ end
 -- Default code for each action.
 --------------------------------------
 
+local function ninja_item_available(item_name)
+	if not item_name then
+		return false
+	end
+
+	return (item_available and item_available(item_name))
+		or (consumable_bag and player[consumable_bag] and player[consumable_bag][item_name])
+end
+
+local function ninja_tool_name(spell_name, map_name)
+	if not data or not data.tools or not data.tools[map_name] or not data.tools[map_name][spell_name] then
+		return nil
+	end
+
+	return data.tools[map_name][spell_name][language]
+end
+
+local function ninja_tools_available(spell_name)
+	if ninja_item_available(ninja_tool_name(spell_name, 'tool_map'))
+		or ninja_item_available(ninja_tool_name(spell_name, 'toolbag_map')) then
+		return true
+	end
+
+	if player.main_job == 'NIN' then
+		return ninja_item_available(ninja_tool_name(spell_name, 'universal_tool_map'))
+			or ninja_item_available(ninja_tool_name(spell_name, 'universal_toolbag_map'))
+	end
+
+	return false
+end
+
+local function ninjutsu_spell_ready(spell_id)
+	local recasts = windower.ffxi.get_spell_recasts()
+
+	return recasts[spell_id] and recasts[spell_id] < spell_latency
+end
+
 function default_filtered_action(spell, eventArgs)
 	if spell.type == 'WeaponSkill' then
 	elseif spell.type == 'JobAbility' then
@@ -937,9 +974,12 @@ function default_filtered_action(spell, eventArgs)
 		if (player.main_job == 'DNC' or player.sub_job == 'DNC') and windower.ffxi.get_ability_recasts()[218] < 3 then
 			windower.chat.input('/ja "Spectral Jig" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Spectral Jig instead.")
-		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and (windower.ffxi.get_spell_recasts()[354] < spell_latency or windower.ffxi.get_spell_recasts()[353] < spell_latency) then
+		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and ninjutsu_spell_ready(354) and ninja_tools_available('Tonko: Ni') then
 			windower.chat.input('/ma "Tonko: Ni" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Tonko: Ni instead.")
+		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and ninjutsu_spell_ready(353) and ninja_tools_available('Tonko: Ichi') then
+			windower.chat.input('/ma "Tonko: Ichi" <me>')
+			add_to_chat(217,"You can't cast Invisible, attempting to use Tonko: Ichi instead.")
 		elseif item_available('Prism Powder') then
 			windower.chat.input('/item "Prism Powder" <me>')
 			add_to_chat(217,"You can't cast Invisible, attempting to use Prism Powder instead.")
@@ -954,7 +994,7 @@ function default_filtered_action(spell, eventArgs)
 		if (player.main_job == 'DNC' or player.sub_job == 'DNC') and windower.ffxi.get_ability_recasts()[218] < 3 then
 			windower.chat.input('/ja "Spectral Jig" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Spectral Jig instead.")
-		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and windower.ffxi.get_spell_recasts()[318] < spell_latency then
+		elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and ninjutsu_spell_ready(318) and ninja_tools_available('Monomi: Ichi') then
 			windower.chat.input('/ma "Monomi: Ichi" <me>')
 			add_to_chat(217,"You can't cast Sneak, attempting to use Monomi: Ichi instead.")
 		elseif item_available('Silent Oil') then
