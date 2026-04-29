@@ -187,7 +187,10 @@ local mode_hud = {
     drag = nil,
     registered = false,
     wrapped = false,
+    active_token = nil,
 }
+mode_hud_text_registry = mode_hud_text_registry or {}
+mode_hud_active_token = mode_hud_active_token or {}
 
 local hoxne_ampulla_name = 'Hoxne Ampulla'
 local warp_ring_name = 'Warp Ring'
@@ -208,6 +211,28 @@ local invisible_item_names = {
 local sneak_item_names = {
     'Silent Oil',
 }
+local reraise_item_names = {
+    'Dusty Reraise',
+    'Instant Reraise',
+    'Reraiser',
+    'Hi-Reraiser',
+    'Scapegoat',
+    'Super Reraiser',
+    'Revive Feather',
+    'Rebirth Feather',
+    "Airmid's Gorget",
+    'Reraise Ring',
+    'Reraise Earring',
+    'Reraise Hairpin',
+    'Wh. Rarab Cap +1',
+}
+local invisible_ninja_tool_names = {
+    'Shinobi-Tabi',
+}
+local sneak_ninja_tool_names = {
+    'Sanjaku-Tenugui',
+}
+local universal_ninja_tool_name = 'Shikanofuda'
 
 local mode_hud_groups = {
     { id = 'equipment', label = 'Equipment' },
@@ -317,7 +342,7 @@ local mode_hud_categories = {
     RollMode = 'job',
     Stance = 'job',
 
-    HoxneAmpullaMode = 'utility',
+    HoxneAmpullaMode = 'combat',
 }
 
 local mode_hud_utility_actions = {
@@ -330,6 +355,11 @@ local mode_hud_utility_actions = {
         label = 'Teleport',
         command = 'teleport',
         status = 'teleport',
+    },
+    ReraiseUtility = {
+        label = 'Reraise',
+        command = 'reraise',
+        status = 'reraise',
     },
     SneakUtility = {
         label = 'Sneak',
@@ -390,6 +420,7 @@ local mode_hud_group_orders = {
         'AutoTankMode',
         'AutoJumpMode',
         'AutoSuperJumpMode',
+        'HoxneAmpullaMode',
     },
     job = {
         'RollMode',
@@ -420,9 +451,9 @@ local mode_hud_group_orders = {
     utility = {
         'WarpUtility',
         'TeleportUtility',
+        'ReraiseUtility',
         'SneakUtility',
         'InvisibleUtility',
-        'HoxneAmpullaMode',
     },
 }
 
@@ -463,6 +494,10 @@ end
 
 local function mode_hud_add_entry(entries, seen, name)
     if seen[name] or not state[name] or state[name]._class ~= 'mode' then
+        return
+    end
+
+    if name == 'HoxneAmpullaMode' and (not item_available or not item_available(hoxne_ampulla_name)) then
         return
     end
 
@@ -557,6 +592,7 @@ local function mode_hud_grouped_entries()
 
     grouped.utility[#grouped.utility + 1] = 'WarpUtility'
     grouped.utility[#grouped.utility + 1] = 'TeleportUtility'
+    grouped.utility[#grouped.utility + 1] = 'ReraiseUtility'
     grouped.utility[#grouped.utility + 1] = 'SneakUtility'
     grouped.utility[#grouped.utility + 1] = 'InvisibleUtility'
 
@@ -616,6 +652,43 @@ local function mode_hud_close_popout()
     end
 end
 
+local function mode_hud_unregister_text(text)
+    if not text then
+        return
+    end
+
+    for index, registered_text in ipairs(mode_hud_text_registry) do
+        if registered_text == text then
+            table.remove(mode_hud_text_registry, index)
+            return
+        end
+    end
+end
+
+local function mode_hud_destroy_text(text)
+    if text and text.destroy then
+        pcall(function()
+            text:destroy()
+        end)
+    end
+end
+
+local function mode_hud_register_text(text)
+    if not text then
+        return
+    end
+
+    mode_hud_text_registry[#mode_hud_text_registry + 1] = text
+end
+
+local function mode_hud_destroy_registered_texts()
+    for _, text in ipairs(mode_hud_text_registry) do
+        mode_hud_destroy_text(text)
+    end
+
+    mode_hud_text_registry = {}
+end
+
 local function mode_hud_hide()
     mode_hud.hitboxes = {}
     mode_hud.drag = nil
@@ -635,11 +708,13 @@ local function mode_hud_destroy()
     mode_hud.drag = nil
 
     if mode_hud.text then
-        mode_hud.text:destroy()
+        mode_hud_unregister_text(mode_hud.text)
+        mode_hud_destroy_text(mode_hud.text)
     end
 
     if mode_hud.popout_text then
-        mode_hud.popout_text:destroy()
+        mode_hud_unregister_text(mode_hud.popout_text)
+        mode_hud_destroy_text(mode_hud.popout_text)
     end
 
     mode_hud.text = nil
@@ -662,6 +737,7 @@ local function mode_hud_get_text()
         text:draggable(false)
     end
     mode_hud.text = text
+    mode_hud_register_text(text)
 
     return text
 end
@@ -682,6 +758,7 @@ local function mode_hud_get_popout_text()
         text:draggable(false)
     end
     mode_hud.popout_text = text
+    mode_hud_register_text(text)
 
     return text
 end
@@ -752,16 +829,61 @@ local function mode_hud_value_color(name, value, fallback_color)
     return fallback_color
 end
 
+local function utility_accessible_bags()
+    local bags = {}
+
+    if res and res.bags then
+        for bag in res.bags:it() do
+            if bag.api and (bag.access == 'Everywhere' or bag.api == 'temporary' or bag.api == 'Temporary') then
+                bags[#bags + 1] = bag.api
+            end
+        end
+    end
+
+    if #bags == 0 then
+        bags = {
+            'inventory',
+            'wardrobe',
+            'wardrobe2',
+            'wardrobe3',
+            'wardrobe4',
+            'wardrobe5',
+            'wardrobe6',
+            'wardrobe7',
+            'wardrobe8',
+            'temporary',
+        }
+    end
+
+    return bags
+end
+
+local function utility_item_count(item_name)
+    local count = 0
+
+    for _, bag in ipairs(utility_accessible_bags()) do
+        local item = player[bag] and player[bag][item_name]
+
+        if item then
+            count = count + (item.count or 1)
+        end
+    end
+
+    return count
+end
+
+local function utility_item_count_any(item_names)
+    local count = 0
+
+    for _, item_name in ipairs(item_names) do
+        count = count + utility_item_count(item_name)
+    end
+
+    return count
+end
+
 local function utility_item_accessible(item_name)
-    return (player.inventory and player.inventory[item_name])
-        or (player.wardrobe and player.wardrobe[item_name])
-        or (player.wardrobe2 and player.wardrobe2[item_name])
-        or (player.wardrobe3 and player.wardrobe3[item_name])
-        or (player.wardrobe4 and player.wardrobe4[item_name])
-        or (player.wardrobe5 and player.wardrobe5[item_name])
-        or (player.wardrobe6 and player.wardrobe6[item_name])
-        or (player.wardrobe7 and player.wardrobe7[item_name])
-        or (player.wardrobe8 and player.wardrobe8[item_name])
+    return utility_item_count(item_name) > 0
 end
 
 local function utility_item_remaining(item)
@@ -826,6 +948,53 @@ local function utility_item_status(item_names)
     return 'Ready', ready_color
 end
 
+local function utility_item_source_status(item_names)
+    local colors = display.colors or {}
+    local ready_color = colors.Green or '\\cs(80,255,120)'
+    local timer_color = colors.Yellow or '\\cs(255,192,0)'
+    local unavailable_color = colors.Red or colors.Fire or '\\cs(255,80,80)'
+    local ready_count = 0
+    local shortest_remaining
+    local found_source = false
+
+    if not get_usable_item then
+        return 'Unavailable', unavailable_color
+    end
+
+    for _, item_name in ipairs(item_names) do
+        local count = utility_item_count(item_name)
+
+        if count > 0 then
+            found_source = true
+
+            local item = get_usable_item(item_name)
+            local has_charges = item and not (item.charges_remaining and item.charges_remaining <= 0)
+
+            if not item then
+                ready_count = ready_count + count
+            elseif item.usable and has_charges then
+                ready_count = ready_count + count
+            elseif has_charges then
+                local remaining = utility_item_remaining(item)
+
+                if remaining and remaining > 0 and (not shortest_remaining or remaining < shortest_remaining) then
+                    shortest_remaining = remaining
+                end
+            end
+        end
+    end
+
+    if ready_count > 0 then
+        return string.format('Ready(%d)', ready_count), ready_color
+    elseif shortest_remaining then
+        return seconds_to_clock(shortest_remaining), timer_color
+    elseif found_source then
+        return 'Unavailable', unavailable_color
+    end
+
+    return 'Unavailable', unavailable_color
+end
+
 local function utility_spell_ready(spell_id)
     if not (windower and windower.ffxi and windower.ffxi.get_spell_recasts) then
         return false
@@ -835,6 +1004,30 @@ local function utility_spell_ready(spell_id)
     local recast = recasts and recasts[spell_id]
 
     return recast ~= nil and recast < (spell_latency or 48)
+end
+
+local function utility_spell_remaining(spell_ids)
+    if not (windower and windower.ffxi and windower.ffxi.get_spell_recasts) then
+        return nil
+    end
+
+    local recasts = windower.ffxi.get_spell_recasts()
+    local best_remaining
+    local threshold = spell_latency or 48
+
+    for _, spell_id in ipairs(spell_ids) do
+        local recast = recasts and recasts[spell_id]
+
+        if recast ~= nil then
+            local remaining = math.max(math.ceil((recast - threshold) / 60), 0)
+
+            if not best_remaining or remaining < best_remaining then
+                best_remaining = remaining
+            end
+        end
+    end
+
+    return best_remaining
 end
 
 local function utility_ability_ready(ability_id)
@@ -848,31 +1041,85 @@ local function utility_ability_ready(ability_id)
     return recast ~= nil and recast < (latency or 0.5)
 end
 
+local function utility_ability_remaining(ability_id)
+    if not (windower and windower.ffxi and windower.ffxi.get_ability_recasts) then
+        return nil
+    end
+
+    local recasts = windower.ffxi.get_ability_recasts()
+    local recast = recasts and recasts[ability_id]
+
+    if recast == nil then
+        return nil
+    end
+
+    return math.max(math.ceil(recast - (latency or 0.5)), 0)
+end
+
+local function utility_ready_count(count)
+    return string.format('Ready(%d)', count)
+end
+
+local function utility_ninja_tool_count(tool_names)
+    local count = utility_item_count_any(tool_names)
+
+    if player.main_job == 'NIN' then
+        count = count + utility_item_count(universal_ninja_tool_name)
+    end
+
+    return count
+end
+
 local function utility_magic_status(kind)
     local colors = display.colors or {}
     local ready_color = colors.Green or '\\cs(80,255,120)'
+    local timer_color = colors.Yellow or '\\cs(255,192,0)'
     local unavailable_color = colors.Red or colors.Fire or '\\cs(255,80,80)'
+    local ability_remaining
+    local spell_remaining
 
     if kind == 'Sneak' then
-        if utility_ability_ready(218) and (player.main_job == 'DNC' or player.sub_job == 'DNC') then
+        local ninja_tool_count = utility_ninja_tool_count(sneak_ninja_tool_names)
+        local item_count = utility_item_count_any(sneak_item_names)
+
+        if (player.main_job == 'DNC' or player.sub_job == 'DNC') and utility_ability_ready(218) then
             return 'Ready', ready_color
-        elseif utility_spell_ready(318) and (player.main_job == 'NIN' or player.sub_job == 'NIN') then
-            return 'Ready', ready_color
-        elseif item_available and utility_best_accessible_item(sneak_item_names) then
-            return 'Ready', ready_color
+        elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and ninja_tool_count > 0 and utility_spell_ready(318) then
+            return utility_ready_count(ninja_tool_count), ready_color
+        elseif item_count > 0 then
+            return utility_ready_count(item_count), ready_color
         elseif utility_spell_ready(136) and silent_can_cast and silent_can_cast('Sneak') then
             return 'Ready', ready_color
         end
+
+        ability_remaining = (player.main_job == 'DNC' or player.sub_job == 'DNC') and utility_ability_remaining(218) or nil
+        spell_remaining = ((player.main_job == 'NIN' or player.sub_job == 'NIN') and ninja_tool_count > 0)
+            and utility_spell_remaining({ 318 })
+            or nil
     elseif kind == 'Invisible' then
-        if utility_ability_ready(218) and (player.main_job == 'DNC' or player.sub_job == 'DNC') then
+        local ninja_tool_count = utility_ninja_tool_count(invisible_ninja_tool_names)
+        local item_count = utility_item_count_any(invisible_item_names)
+
+        if (player.main_job == 'DNC' or player.sub_job == 'DNC') and utility_ability_ready(218) then
             return 'Ready', ready_color
-        elseif utility_spell_ready(354) and (player.main_job == 'NIN' or player.sub_job == 'NIN') then
-            return 'Ready', ready_color
-        elseif item_available and utility_best_accessible_item(invisible_item_names) then
-            return 'Ready', ready_color
+        elseif (player.main_job == 'NIN' or player.sub_job == 'NIN') and ninja_tool_count > 0 and (utility_spell_ready(354) or utility_spell_ready(353)) then
+            return utility_ready_count(ninja_tool_count), ready_color
+        elseif item_count > 0 then
+            return utility_ready_count(item_count), ready_color
         elseif utility_spell_ready(135) and silent_can_cast and silent_can_cast('Invisible') then
             return 'Ready', ready_color
         end
+
+        ability_remaining = (player.main_job == 'DNC' or player.sub_job == 'DNC') and utility_ability_remaining(218) or nil
+        spell_remaining = ((player.main_job == 'NIN' or player.sub_job == 'NIN') and ninja_tool_count > 0)
+            and utility_spell_remaining({ 354, 353 })
+            or nil
+    end
+
+    if ability_remaining and ability_remaining > 0 then
+        return seconds_to_clock(ability_remaining), timer_color
+    elseif spell_remaining and spell_remaining > 0 then
+        return seconds_to_clock(spell_remaining), timer_color
     end
 
     return 'Unavailable', unavailable_color
@@ -883,6 +1130,8 @@ local function mode_hud_utility_status(name)
         return utility_item_status({ warp_ring_name })
     elseif name == 'TeleportUtility' then
         return utility_item_status(teleport_ring_names)
+    elseif name == 'ReraiseUtility' then
+        return utility_item_source_status(reraise_item_names)
     elseif name == 'SneakUtility' then
         return utility_magic_status('Sneak')
     elseif name == 'InvisibleUtility' then
@@ -1176,6 +1425,10 @@ local function mode_hud_register_mouse()
     mode_hud.registered = true
 
     windower.register_event('mouse', function(type, x, y, delta, blocked)
+        if mode_hud.active_token ~= mode_hud_active_token then
+            return
+        end
+
         if type == 0 then
             if mode_hud.drag and mode_hud_setting('drag_enabled', false) then
                 mode_hud_update_drag(x, y)
@@ -1187,6 +1440,14 @@ local function mode_hud_register_mouse()
 
         if blocked or not mode_hud_setting('enabled', true) then
             return
+        end
+
+        local finished_drag = false
+
+        if type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
+            mode_hud_update_drag(x, y)
+            mode_hud.drag = nil
+            finished_drag = true
         end
 
         local popout_hitbox = mode_hud_popout_hit(x, y)
@@ -1205,15 +1466,13 @@ local function mode_hud_register_mouse()
             if type == 2 and mode_hud.popout_state then
                 mode_hud_close_popout()
             end
-            if type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
-                mode_hud_update_drag(x, y)
-                mode_hud.drag = nil
+            if finished_drag then
                 return true
             end
             return
         end
 
-        if type == 1 and mode_hud_setting('drag_enabled', false) and hitbox.kind == 'drag' then
+        if type == 1 and mode_hud_setting('drag_enabled', false) then
             mode_hud.drag = {
                 start_x = x,
                 start_y = y,
@@ -1222,16 +1481,6 @@ local function mode_hud_register_mouse()
                 moved = false,
             }
             return true
-        end
-
-        if type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
-            local was_dragged = mode_hud_update_drag(x, y)
-
-            mode_hud.drag = nil
-
-            if was_dragged then
-                return true
-            end
         end
 
         if hitbox.kind == 'drag' then
@@ -1293,6 +1542,10 @@ local function mode_hud_setup()
         mode_hud_refresh()
         return
     end
+
+    mode_hud_destroy_registered_texts()
+    mode_hud_active_token = {}
+    mode_hud.active_token = mode_hud_active_token
 
     local base_update_job_states = update_job_states
     update_job_states = function(...)
@@ -1591,6 +1844,12 @@ function user_self_command(commandArgs, eventArgs)
     if command == 'teleport' or command == 'tele' then
         eventArgs.handled = true
         start_teleport_magic_fallback()
+        return
+    end
+
+    if command == 'reraise' or command == 'rr' then
+        eventArgs.handled = true
+        start_utility_magic_fallback('Reraise')
         return
     end
 
