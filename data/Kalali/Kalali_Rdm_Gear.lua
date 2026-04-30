@@ -77,7 +77,7 @@ function character_user_job_setup()
     -- Relic Gear
     gear.af2_head = "Viti. Chapeau +3"
     gear.af2_body = "Viti. Tabard +3"
-    gear.af2_hands = "Viti. Gloves +3"
+    gear.af2_hands = "Viti. Gloves +4"
     gear.af2_legs = {}
     gear.af2_feet = "Vitiation Boots +3" -- Need for Immunobreak macroing
 

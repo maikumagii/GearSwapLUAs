@@ -182,15 +182,19 @@ local mode_hud = {
     popout_text = nil,
     hitboxes = {},
     popout_hitboxes = {},
+    bounds = nil,
+    popout_bounds = nil,
     popout_state = nil,
     popout_anchor = nil,
     drag = nil,
+    mouse_event = nil,
     registered = false,
     wrapped = false,
     active_token = nil,
 }
 mode_hud_text_registry = mode_hud_text_registry or {}
 mode_hud_active_token = mode_hud_active_token or {}
+local mode_hud_unregister_mouse
 
 local hoxne_ampulla_name = 'Hoxne Ampulla'
 local warp_ring_name = 'Warp Ring'
@@ -668,6 +672,7 @@ local function mode_hud_close_popout()
     mode_hud.popout_state = nil
     mode_hud.popout_anchor = nil
     mode_hud.popout_hitboxes = {}
+    mode_hud.popout_bounds = nil
 
     if mode_hud.popout_text then
         mode_hud.popout_text:hide()
@@ -713,6 +718,7 @@ end
 
 local function mode_hud_hide()
     mode_hud.hitboxes = {}
+    mode_hud.bounds = nil
     mode_hud.drag = nil
     mode_hud_close_popout()
 
@@ -725,9 +731,15 @@ end
 local function mode_hud_destroy()
     mode_hud.hitboxes = {}
     mode_hud.popout_hitboxes = {}
+    mode_hud.bounds = nil
+    mode_hud.popout_bounds = nil
     mode_hud.popout_state = nil
     mode_hud.popout_anchor = nil
     mode_hud.drag = nil
+
+    if mode_hud_unregister_mouse then
+        mode_hud_unregister_mouse()
+    end
 
     if mode_hud.text then
         mode_hud_unregister_text(mode_hud.text)
@@ -993,17 +1005,18 @@ local function utility_item_source_status(item_names)
 
     for _, item_name in ipairs(item_names) do
         local count = utility_item_count(item_name)
+        local item = get_usable_item and get_usable_item(item_name)
+        local source_count = math.max(count, item and 1 or 0)
 
-        if count > 0 then
+        if source_count > 0 then
             found_source = true
 
-            local item = get_usable_item(item_name)
             local has_charges = item and not (item.charges_remaining and item.charges_remaining <= 0)
 
             if not item then
-                ready_count = ready_count + count
+                ready_count = ready_count + source_count
             elseif item.usable and has_charges then
-                ready_count = ready_count + count
+                ready_count = ready_count + source_count
             elseif has_charges then
                 local remaining = utility_item_remaining(item)
 
@@ -1198,6 +1211,12 @@ local function mode_hud_refresh_popout()
     local lines = {}
 
     mode_hud.popout_hitboxes = {}
+    mode_hud.popout_bounds = {
+        x1 = x,
+        y1 = y,
+        x2 = x + width,
+        y2 = y + ((#options + 1) * line_height),
+    }
     text:pos(x, y)
     mode_hud_append_line(lines, string.format('%s%s', label_color, mode_hud_label(mode_hud.popout_state)))
 
@@ -1335,6 +1354,7 @@ local function mode_hud_refresh()
     end
 
     mode_hud.hitboxes = {}
+    mode_hud.bounds = nil
     text:pos(x, y)
     local lines = {}
     mode_hud_append_box_line(lines, string.format('%s%s', label_color, header), box_columns)
@@ -1395,6 +1415,13 @@ local function mode_hud_refresh()
         hitbox.x2 = hitbox.x1 + hitbox_width
     end
 
+    mode_hud.bounds = {
+        x1 = x,
+        y1 = y,
+        x2 = x + hitbox_width,
+        y2 = y + ((#rendered_rows + header_lines) * line_height),
+    }
+
     if mode_hud.popout_state then
         mode_hud_refresh_popout()
     end
@@ -1414,7 +1441,15 @@ local function mode_hud_refresh()
     end
 end
 
+local function mode_hud_in_bounds(bounds, x, y)
+    return bounds and x >= bounds.x1 and x <= bounds.x2 and y >= bounds.y1 and y <= bounds.y2
+end
+
 local function mode_hud_hit(x, y)
+    if not mode_hud_in_bounds(mode_hud.bounds, x, y) then
+        return
+    end
+
     for _, hitbox in ipairs(mode_hud.hitboxes) do
         if x >= hitbox.x1 and x <= hitbox.x2 and y >= hitbox.y1 and y <= hitbox.y2 then
             return hitbox
@@ -1423,6 +1458,10 @@ local function mode_hud_hit(x, y)
 end
 
 local function mode_hud_popout_hit(x, y)
+    if not mode_hud_in_bounds(mode_hud.popout_bounds, x, y) then
+        return
+    end
+
     for _, hitbox in ipairs(mode_hud.popout_hitboxes) do
         if x >= hitbox.x1 and x <= hitbox.x2 and y >= hitbox.y1 and y <= hitbox.y2 then
             return hitbox
@@ -1451,14 +1490,39 @@ local function mode_hud_update_drag(x, y)
     return true
 end
 
+mode_hud_unregister_mouse = function()
+    if not mode_hud.registered then
+        return
+    end
+
+    mode_hud.drag = nil
+    mode_hud.active_token = nil
+    mode_hud_active_token = {}
+
+    if mode_hud.mouse_event and windower.unregister_event then
+        pcall(function()
+            windower.unregister_event(mode_hud.mouse_event)
+        end)
+    end
+
+    mode_hud.mouse_event = nil
+    mode_hud.registered = false
+end
+
+local function mode_hud_mouse_button_event(event_type)
+    return event_type == 1 or event_type == 2 or event_type == 4 or event_type == 5
+end
+
 local function mode_hud_register_mouse()
     if mode_hud.registered then
         return
     end
 
+    mode_hud_active_token = {}
+    mode_hud.active_token = mode_hud_active_token
     mode_hud.registered = true
 
-    windower.register_event('mouse', function(type, x, y, delta, blocked)
+    mode_hud.mouse_event = windower.register_event('mouse', function(type, x, y, delta, blocked)
         if mode_hud.active_token ~= mode_hud_active_token then
             return
         end
@@ -1472,6 +1536,10 @@ local function mode_hud_register_mouse()
             return
         end
 
+        if not mode_hud_mouse_button_event(type) then
+            return
+        end
+
         if blocked or not mode_hud_setting('enabled', true) then
             return
         end
@@ -1479,9 +1547,12 @@ local function mode_hud_register_mouse()
         local finished_drag = false
 
         if type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
-            mode_hud_update_drag(x, y)
+            finished_drag = mode_hud_update_drag(x, y)
             mode_hud.drag = nil
-            finished_drag = true
+
+            if finished_drag then
+                return true
+            end
         end
 
         local popout_hitbox = mode_hud_popout_hit(x, y)
@@ -1499,9 +1570,6 @@ local function mode_hud_register_mouse()
         if not hitbox then
             if type == 2 and mode_hud.popout_state then
                 mode_hud_close_popout()
-            end
-            if finished_drag then
-                return true
             end
             return
         end
@@ -1599,7 +1667,9 @@ local function mode_hud_setup()
         end
     end
 
-    mode_hud_register_mouse()
+    if mode_hud_setting('enabled', true) then
+        mode_hud_register_mouse()
+    end
     mode_hud.wrapped = true
     mode_hud_refresh()
 end
@@ -1613,9 +1683,11 @@ local function handle_mode_hud_command(commandArgs, eventArgs)
 
     if action == 'on' then
         display.mode_hud.enabled = true
+        mode_hud_register_mouse()
         message = 'Mode HUD is now on.'
     elseif action == 'off' then
         display.mode_hud.enabled = false
+        mode_hud_unregister_mouse()
         message = 'Mode HUD is now off.'
     elseif action == 'reset' then
         display.mode_hud.x = 24
@@ -1626,6 +1698,11 @@ local function handle_mode_hud_command(commandArgs, eventArgs)
         message = 'Mode HUD ' .. group .. ' group is now ' .. (display.mode_hud.group_states[group] and 'expanded' or 'collapsed') .. '.'
     else
         display.mode_hud.enabled = not display.mode_hud.enabled
+        if display.mode_hud.enabled then
+            mode_hud_register_mouse()
+        else
+            mode_hud_unregister_mouse()
+        end
         message = 'Mode HUD is now ' .. (display.mode_hud.enabled and 'on' or 'off') .. '.'
     end
 

@@ -927,6 +927,61 @@ local function ninjutsu_spell_ready(spell_id)
 	return recasts[spell_id] and recasts[spell_id] < spell_latency
 end
 
+local function use_item_remaining(item)
+	if not item or not item.next_use_time then
+		return nil
+	end
+
+	return math.max(math.ceil(item.next_use_time + (local_offset or 18000) - os.time()), 0)
+end
+
+local function use_item_source(item_name, item_slot)
+	if item_slot == 'item' then
+		if player.inventory[item_name] or player.temporary[item_name] then
+			return true, true
+		end
+
+		return false, false
+	end
+
+	local item = get_usable_item and get_usable_item(item_name)
+	local source = item or item_equipped(item_name) or (item_available and item_available(item_name)) or (player.satchel and player.satchel[item_name])
+	local ready = item and item.usable
+
+	return source, ready, use_item_remaining(item)
+end
+
+local function best_use_item_stepdown(start_name, start_slot)
+	local item_name = start_name
+	local item_slot = start_slot
+	local fallback_name
+	local fallback_slot
+	local fallback_remaining
+
+	while item_name do
+		local source, ready, remaining = use_item_source(item_name, item_slot)
+
+		if source and ready then
+			return item_name, item_slot, 0
+		elseif source and remaining and remaining > 0 and (not fallback_remaining or remaining < fallback_remaining) then
+			fallback_name = item_name
+			fallback_slot = item_slot
+			fallback_remaining = remaining
+		end
+
+		local next_item = item_stepdown and item_stepdown[item_name]
+
+		if not next_item then
+			break
+		end
+
+		item_name = next_item[1]
+		item_slot = next_item[2]
+	end
+
+	return fallback_name, fallback_slot, fallback_remaining
+end
+
 function default_filtered_action(spell, eventArgs)
 	if spell.type == 'WeaponSkill' then
 	elseif spell.type == 'JobAbility' then
@@ -953,10 +1008,20 @@ function default_filtered_action(spell, eventArgs)
 		add_to_chat(217,"You can't cast Teleport-Holla, attempting to use Dimensional Ring instead, /heal to cancel.")
 		eventArgs.cancel = true
 	elseif spell.english == 'Reraise' then
-		useItem = true
-		useItemName = 'Dusty Reraise'
-		useItemSlot = 'item'
-		add_to_chat(217,"You can't cast Reraise, attempting to use Instant Reraise instead, /heal to cancel.")
+		local item_name, item_slot, remaining = best_use_item_stepdown('Dusty Reraise', 'item')
+
+		if item_name and (not remaining or remaining <= 0) then
+			useItem = true
+			useItemName = item_name
+			useItemSlot = item_slot
+
+			add_to_chat(217,"You can't cast Reraise, attempting to use "..item_name.." instead, /heal to cancel.")
+		elseif item_name then
+			add_to_chat(123,"You can't cast Reraise, and "..item_name.." is not ready for "..seconds_to_clock(remaining)..".")
+		else
+			add_to_chat(123,"You can't cast Reraise, and no Reraise item is available.")
+		end
+
 		eventArgs.cancel = true
 	elseif spell.english == 'Teleport-Dem' then
 		useItem = true
