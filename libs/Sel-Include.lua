@@ -946,9 +946,11 @@ local function use_item_source(item_name, item_slot)
 
 	local item = get_usable_item and get_usable_item(item_name)
 	local source = item or item_equipped(item_name) or (item_available and item_available(item_name)) or (player.satchel and player.satchel[item_name])
-	local ready = item and item.usable
+	local remaining = use_item_remaining(item)
+	local has_charges = item and not (item.charges_remaining and item.charges_remaining <= 0)
+	local ready = has_charges and (item.usable or (remaining and remaining <= 0))
 
-	return source, ready, use_item_remaining(item)
+	return source, ready, remaining
 end
 
 local function best_use_item_stepdown(start_name, start_slot)

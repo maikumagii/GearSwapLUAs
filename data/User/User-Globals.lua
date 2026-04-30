@@ -188,6 +188,7 @@ local mode_hud = {
     popout_anchor = nil,
     drag = nil,
     mouse_event = nil,
+    mouse_handlers = nil,
     registered = false,
     wrapped = false,
     active_token = nil,
@@ -936,6 +937,24 @@ local function utility_item_remaining(item)
     return math.max(math.ceil(item.next_use_time + (local_offset or 18000) - os.time()), 0)
 end
 
+local function utility_item_ready(item)
+    if not item then
+        return true
+    end
+
+    if item.charges_remaining and item.charges_remaining <= 0 then
+        return false
+    end
+
+    if item.usable then
+        return true
+    end
+
+    local remaining = utility_item_remaining(item)
+
+    return remaining ~= nil and remaining <= 0
+end
+
 local function utility_best_accessible_item(item_names)
     local fallback_item_name
     local fallback_remaining
@@ -944,7 +963,7 @@ local function utility_best_accessible_item(item_names)
         if utility_item_accessible(item_name) then
             local item = get_usable_item and get_usable_item(item_name)
 
-            if item and item.usable then
+            if utility_item_ready(item) then
                 return item_name
             end
 
@@ -1011,13 +1030,9 @@ local function utility_item_source_status(item_names)
         if source_count > 0 then
             found_source = true
 
-            local has_charges = item and not (item.charges_remaining and item.charges_remaining <= 0)
-
-            if not item then
+            if utility_item_ready(item) then
                 ready_count = ready_count + source_count
-            elseif item.usable and has_charges then
-                ready_count = ready_count + source_count
-            elseif has_charges then
+            elseif item and not (item.charges_remaining and item.charges_remaining <= 0) then
                 local remaining = utility_item_remaining(item)
 
                 if remaining and remaining > 0 and (not shortest_remaining or remaining < shortest_remaining) then
@@ -1497,6 +1512,7 @@ mode_hud_unregister_mouse = function()
 
     mode_hud.drag = nil
     mode_hud.active_token = nil
+    mode_hud.mouse_handlers = nil
     mode_hud_active_token = {}
 
     if mode_hud.mouse_event and windower.unregister_event then
@@ -1513,6 +1529,140 @@ local function mode_hud_mouse_button_event(event_type)
     return event_type == 1 or event_type == 2 or event_type == 4 or event_type == 5
 end
 
+local function mode_hud_disable_drag_mouse()
+    if mode_hud.mouse_handlers then
+        mode_hud.mouse_handlers.drag = nil
+    end
+end
+
+local function mode_hud_handle_drag_mouse(event_type, x, y)
+    if event_type ~= 0 then
+        return
+    end
+
+    if not mode_hud.drag or not mode_hud_setting('enabled', true) or not mode_hud_setting('drag_enabled', false) then
+        mode_hud_disable_drag_mouse()
+        return
+    end
+
+    mode_hud_update_drag(x, y)
+    return true
+end
+
+local function mode_hud_enable_drag_mouse()
+    if mode_hud.mouse_handlers then
+        mode_hud.mouse_handlers.drag = mode_hud_handle_drag_mouse
+    end
+end
+
+local function mode_hud_handle_click_mouse(event_type, x, y, delta, blocked)
+    if not mode_hud_mouse_button_event(event_type) then
+        return
+    end
+
+    local finished_drag = false
+
+    if event_type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
+        if not blocked and mode_hud_setting('enabled', true) then
+            finished_drag = mode_hud_update_drag(x, y)
+        end
+
+        mode_hud.drag = nil
+        mode_hud_disable_drag_mouse()
+
+        if finished_drag then
+            return true
+        end
+    end
+
+    if blocked or not mode_hud_setting('enabled', true) then
+        return
+    end
+
+    local popout_hitbox = mode_hud_popout_hit(x, y)
+    if popout_hitbox then
+        if event_type == 2 then
+            send_command('gs c set ' .. popout_hitbox.state .. ' ' .. popout_hitbox.value)
+            mode_hud_close_popout()
+            return true
+        elseif event_type == 1 or event_type == 4 or event_type == 5 then
+            return true
+        end
+    end
+
+    local hitbox = mode_hud_hit(x, y)
+    if not hitbox then
+        if event_type == 2 and mode_hud.popout_state then
+            mode_hud_close_popout()
+        end
+        return
+    end
+
+    if event_type == 1 and mode_hud_setting('drag_enabled', false) then
+        mode_hud.drag = {
+            start_x = x,
+            start_y = y,
+            hud_x = mode_hud_number_setting('x', 24),
+            hud_y = mode_hud_number_setting('y', 180),
+            moved = false,
+        }
+        mode_hud_enable_drag_mouse()
+        return true
+    end
+
+    if hitbox.kind == 'drag' then
+        return true
+    end
+
+    if hitbox.kind == 'group' then
+        if event_type == 2 or event_type == 5 then
+            mode_hud_toggle_group(hitbox.group)
+            mode_hud_close_popout()
+            mode_hud_refresh()
+            return true
+        elseif event_type == 1 or event_type == 4 then
+            return true
+        end
+    end
+
+    if hitbox.kind == 'utility' then
+        if event_type == 2 then
+            local action = mode_hud_utility_actions[hitbox.name]
+
+            if action then
+                mode_hud_close_popout()
+                send_command('gs c ' .. action.command)
+            end
+
+            return true
+        elseif event_type == 1 or event_type == 4 or event_type == 5 then
+            return true
+        end
+    end
+
+    local name = hitbox.name
+
+    if event_type == 2 then
+        if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
+            mode_hud_open_popout(name, hitbox)
+        else
+            mode_hud_close_popout()
+            send_command('gs c cycle ' .. name)
+        end
+        return true
+    elseif event_type == 5 then
+        if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
+            mode_hud_open_popout(name, hitbox)
+        else
+            mode_hud_close_popout()
+            send_command('gs c cycleback ' .. name)
+        end
+        return true
+    elseif event_type == 1 or event_type == 4 then
+        return true
+    end
+end
+
 local function mode_hud_register_mouse()
     if mode_hud.registered then
         return
@@ -1520,122 +1670,32 @@ local function mode_hud_register_mouse()
 
     mode_hud_active_token = {}
     mode_hud.active_token = mode_hud_active_token
+    mode_hud.mouse_handlers = {
+        click = mode_hud_handle_click_mouse,
+    }
     mode_hud.registered = true
 
-    mode_hud.mouse_event = windower.register_event('mouse', function(type, x, y, delta, blocked)
+    mode_hud.mouse_event = windower.register_event('mouse', function(event_type, x, y, delta, blocked)
         if mode_hud.active_token ~= mode_hud_active_token then
             return
         end
 
-        if type == 0 then
-            if mode_hud.drag and mode_hud_setting('drag_enabled', false) then
-                mode_hud_update_drag(x, y)
-                return true
+        local handlers = mode_hud.mouse_handlers
+        if not handlers then
+            return
+        end
+
+        if event_type == 0 then
+            local drag_handler = handlers.drag
+
+            if drag_handler then
+                return drag_handler(event_type, x, y, delta, blocked)
             end
 
             return
         end
 
-        if not mode_hud_mouse_button_event(type) then
-            return
-        end
-
-        if blocked or not mode_hud_setting('enabled', true) then
-            return
-        end
-
-        local finished_drag = false
-
-        if type == 2 and mode_hud.drag and mode_hud_setting('drag_enabled', false) then
-            finished_drag = mode_hud_update_drag(x, y)
-            mode_hud.drag = nil
-
-            if finished_drag then
-                return true
-            end
-        end
-
-        local popout_hitbox = mode_hud_popout_hit(x, y)
-        if popout_hitbox then
-            if type == 2 then
-                send_command('gs c set ' .. popout_hitbox.state .. ' ' .. popout_hitbox.value)
-                mode_hud_close_popout()
-                return true
-            elseif type == 1 or type == 4 or type == 5 then
-                return true
-            end
-        end
-
-        local hitbox = mode_hud_hit(x, y)
-        if not hitbox then
-            if type == 2 and mode_hud.popout_state then
-                mode_hud_close_popout()
-            end
-            return
-        end
-
-        if type == 1 and mode_hud_setting('drag_enabled', false) then
-            mode_hud.drag = {
-                start_x = x,
-                start_y = y,
-                hud_x = mode_hud_number_setting('x', 24),
-                hud_y = mode_hud_number_setting('y', 180),
-                moved = false,
-            }
-            return true
-        end
-
-        if hitbox.kind == 'drag' then
-            return true
-        end
-
-        if hitbox.kind == 'group' then
-            if type == 2 or type == 5 then
-                mode_hud_toggle_group(hitbox.group)
-                mode_hud_close_popout()
-                mode_hud_refresh()
-                return true
-            elseif type == 1 or type == 4 then
-                return true
-            end
-        end
-
-        if hitbox.kind == 'utility' then
-            if type == 2 then
-                local action = mode_hud_utility_actions[hitbox.name]
-
-                if action then
-                    mode_hud_close_popout()
-                    send_command('gs c ' .. action.command)
-                end
-
-                return true
-            elseif type == 1 or type == 4 or type == 5 then
-                return true
-            end
-        end
-
-        local name = hitbox.name
-
-        if type == 2 then
-            if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
-                mode_hud_open_popout(name, hitbox)
-            else
-                mode_hud_close_popout()
-                send_command('gs c cycle ' .. name)
-            end
-            return true
-        elseif type == 5 then
-            if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
-                mode_hud_open_popout(name, hitbox)
-            else
-                mode_hud_close_popout()
-                send_command('gs c cycleback ' .. name)
-            end
-            return true
-        elseif type == 1 or type == 4 then
-            return true
-        end
+        return handlers.click(event_type, x, y, delta, blocked)
     end)
 end
 
