@@ -1738,6 +1738,10 @@ local function mode_hud_register_mouse()
                 return drag_handler(event_type, x, y, delta, blocked)
             end
 
+            if mode_hud_in_bounds(mode_hud.bounds, x, y) or mode_hud_in_bounds(mode_hud.popout_bounds, x, y) then
+                return true
+            end
+
             return
         end
 
