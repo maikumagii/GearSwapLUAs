@@ -501,8 +501,52 @@ local function mode_hud_has_job(job)
     return player and (player.main_job == job or player.sub_job == job)
 end
 
+local function mode_hud_is_dual_weapon_mode(option)
+    return type(option) == 'string' and (option:contains('Dual') or option:contains('DW'))
+end
+
+local function mode_hud_weapon_set_options()
+    local options = {}
+
+    if not state or not state.WeaponSets then
+        return options
+    end
+
+    local can_use_dual_weapons = player_can_dual_wield()
+
+    for _, option in ipairs(state.WeaponSets) do
+        if can_use_dual_weapons or not mode_hud_is_dual_weapon_mode(option) then
+            options[#options + 1] = option
+        end
+    end
+
+    return options
+end
+
+local function mode_hud_weapon_sets_available()
+    local options = mode_hud_weapon_set_options()
+
+    if #options == 0 then
+        return false
+    end
+
+    if player_can_dual_wield() then
+        return true
+    end
+
+    for _, option in ipairs(options) do
+        if option ~= 'Default' and option ~= 'None' then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function mode_hud_state_available(name)
-    if name == 'AutoRuneMode' or name == 'RuneElement' then
+    if name == 'WeaponSets' then
+        return mode_hud_weapon_sets_available()
+    elseif name == 'AutoRuneMode' or name == 'RuneElement' then
         return mode_hud_has_job('RUN')
     elseif name == 'AutoShadowMode' then
         return mode_hud_has_job('NIN')
@@ -654,7 +698,9 @@ local function mode_hud_popout_options(name)
         return options
     end
 
-    if name == 'Weapons' and state.WeaponSets and weapon_sets and weapon_sets[state.WeaponSets.value] then
+    if name == 'WeaponSets' then
+        options = mode_hud_weapon_set_options()
+    elseif name == 'Weapons' and state.WeaponSets and weapon_sets and weapon_sets[state.WeaponSets.value] then
         for _, option in ipairs(weapon_sets[state.WeaponSets.value]) do
             if option == 'None' or (state_var.contains and state_var:contains(option)) then
                 options[#options + 1] = option
@@ -1643,7 +1689,7 @@ local function mode_hud_handle_click_mouse(event_type, x, y, delta, blocked)
     local name = hitbox.name
 
     if event_type == 2 then
-        if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
+        if name == 'Weapons' or name == 'WeaponSets' or name == 'ElementalMode' or name == 'RuneElement' then
             mode_hud_open_popout(name, hitbox)
         else
             mode_hud_close_popout()
@@ -1651,7 +1697,7 @@ local function mode_hud_handle_click_mouse(event_type, x, y, delta, blocked)
         end
         return true
     elseif event_type == 5 then
-        if name == 'Weapons' or name == 'ElementalMode' or name == 'RuneElement' then
+        if name == 'Weapons' or name == 'WeaponSets' or name == 'ElementalMode' or name == 'RuneElement' then
             mode_hud_open_popout(name, hitbox)
         else
             mode_hud_close_popout()
