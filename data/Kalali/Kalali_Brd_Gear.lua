@@ -64,8 +64,6 @@ function character_user_job_setup()
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
-    gear.prolix_ring = "Stikini Ring +1"
-    --  1  Prolix Ring                   FC +2%
     gear.hieros_mittens = "Inyan. Dastanas +2"
     --  1  Hieros Mittens                Cursna Set
     gear.shadow_ring = ""
@@ -448,7 +446,7 @@ function init_gear_sets()
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
         ring1 = gear.kishar_ring,
-        ring2 = gear.prolix_ring,
+        ring2 = "Prolix Ring",
         back = gear.magic_jse_back,
         waist = "Witful Belt",
         legs = gear.af3_legs,

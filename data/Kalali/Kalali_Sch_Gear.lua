@@ -56,7 +56,6 @@ function character_user_job_setup()
     gear.sacro_cord = "Null Belt"
     gear.fuchonoobi = "Null Belt"
     gear.null_masque = ""
-    gear.prolix_ring = ""
     gear.homiliary = ""
     gear.shadow_ring = ""
     gear.shadow_mantle = "Null Shawl"
@@ -877,11 +876,5 @@ end
 -- Select default macro book on initial load or subjob change.
 -- Default macro set/book
 function select_default_macro_book()
-    if player.sub_job == 'RDM' then
-        set_macro_page(2, 5)
-    elseif player.sub_job == 'WHM' then
-        set_macro_page(3, 5)
-    else
-        set_macro_page(1, 5)
-    end
+    set_macro_page(1, 5)
 end

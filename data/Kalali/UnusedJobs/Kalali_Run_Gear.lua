@@ -399,8 +399,8 @@ end
 
 function user_job_lockstyle()
 	if state.Weapons.value == 'Lionheart' then
-		windower.chat.input('/lockstyleset 034')
+		windower.chat.input('/lockstyleset 017')
 	else
-		windower.chat.input('/lockstyleset 033')
+		windower.chat.input('/lockstyleset 017')
 	end
 end

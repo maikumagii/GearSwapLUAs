@@ -432,13 +432,13 @@ end
 function user_job_lockstyle()
 	if player.sub_job == 'SCH' then
 		if state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
-			windower.chat.input('/lockstyleset 001')
+			windower.chat.input('/lockstyleset 017')
 		elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
-			windower.chat.input('/lockstyleset 002')
+			windower.chat.input('/lockstyleset 017')
 		else
-			windower.chat.input('/lockstyleset 003')
+			windower.chat.input('/lockstyleset 017')
 		end
 	else
-		windower.chat.input('/lockstyleset 003')
+		windower.chat.input('/lockstyleset 017')
 	end
 end

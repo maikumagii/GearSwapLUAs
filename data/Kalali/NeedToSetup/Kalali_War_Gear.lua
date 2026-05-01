@@ -1243,5 +1243,5 @@ function select_default_macro_book()
 end
 
 function user_job_lockstyle()
-	windower.chat.input('/lockstyleset 020')
+	windower.chat.input('/lockstyleset 017')
 end

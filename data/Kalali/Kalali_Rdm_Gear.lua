@@ -134,8 +134,6 @@ function character_user_job_setup()
     --  2  Anu Torque                    +7 STP Default Neck, switch immediately
     gear.fotia_gorget = "Null Loop"
     --  4  Fotia Gorget                  fTP replicating WS
-    gear.prolix_ring = "Stikini Ring +1"
-    --  1  Prolix Ring                   FC +2%
     gear.meili_earring = "Alabaster Earring"
     --  4  Meili Earring                 Healing skill + 10
     gear.zennaroi_ear = "Alabaster Earring"
@@ -533,7 +531,7 @@ function init_gear_sets()
         ring2 = "Menelaus's Ring",
         back = gear.mnd_enfeebling_jse_back,
         waist = gear.luminary_sash,
-        legs = "Kaykaus tights +1",
+        legs = "Kaykaus Tights +1",
         feet = "Kaykaus Boots +1"
     }
 
@@ -552,7 +550,7 @@ function init_gear_sets()
         ring2 = "Menelaus's Ring",
         back = "Twilight Cape",
         waist = "Hachirin-no-Obi",
-        legs = "Kaykaus tights +1",
+        legs = "Kaykaus Tights +1",
         feet = "Kaykaus Boots +1"
     }
 
@@ -572,7 +570,7 @@ function init_gear_sets()
         ring2 = "Menelaus's Ring",
         back = "Twilight Cape",
         waist = "Hachirin-no-Obi",
-        legs = "Kaykaus tights +1",
+        legs = "Kaykaus Tights +1",
         feet = "Kaykaus Boots +1"
     }
 
@@ -1063,7 +1061,7 @@ function init_gear_sets()
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = gear.kishar_ring,
-        ring2 = gear.prolix_ring,
+        ring2 = "Prolix Ring",
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Malignance Tights",
@@ -1577,7 +1575,8 @@ function init_gear_sets()
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
+        legs = "Malignance Tights",
+        -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
         feet = "Malignance Boots"
     }
 
@@ -1637,15 +1636,7 @@ end
 -- Default macro set/book
 function select_default_macro_book()
     if player.sub_job == 'SCH' then
-        set_macro_page(1, 4)
-    elseif player.sub_job == 'DNC' then
-        set_macro_page(1, 4)
-    elseif player.sub_job == 'NIN' then
-        set_macro_page(1, 4)
-    elseif player.sub_job == 'WHM' then
-        set_macro_page(1, 4)
-    elseif player.sub_job == 'DRK' then
-        set_macro_page(1, 4)
+        set_macro_page(2, 4)
     else
         set_macro_page(1, 4)
     end
@@ -1660,16 +1651,16 @@ end
 function user_job_lockstyle()
     if player.sub_job == 'SCH' then
         if state.Buff['Light Arts'] or state.Buff['Addendum: White'] then
-            windower.chat.input('/lockstyleset 016')
+            windower.chat.input('/lockstyleset 017')
         elseif state.Buff['Dark Arts'] or state.Buff['Addendum: Black'] then
-            windower.chat.input('/lockstyleset 016')
+            windower.chat.input('/lockstyleset 017')
         else
-            windower.chat.input('/lockstyleset 016')
+            windower.chat.input('/lockstyleset 017')
         end
     elseif player.sub_job == 'NIN' or player.sub_job == 'DNC' then
-        windower.chat.input('/lockstyleset 016')
+        windower.chat.input('/lockstyleset 017')
     else
-        windower.chat.input('/lockstyleset 016')
+        windower.chat.input('/lockstyleset 017')
     end
 end
 

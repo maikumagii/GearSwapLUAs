@@ -106,6 +106,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         --body = gear.af2_body,
         --ring1 = "Kishar Ring",
+        ring = "Prolix Ring",
         ring2 = "Lebeche Ring",
         --back = "Perimede Cape", OR BLU Fast Cast cape?
         waist = "Witful Belt",
@@ -644,14 +645,7 @@ end
 
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
-    -- Default macro set/book
-    if player.sub_job == 'WAR' then
-        set_macro_page(2, 1)
-    elseif player.sub_job == 'RDM' then
-        set_macro_page(3, 1)
-    else
-        set_macro_page(1, 1)
-    end
+    set_macro_page(1, 1)
 end
 
 autows_list = {

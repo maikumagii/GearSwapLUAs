@@ -14,6 +14,9 @@ display.mode_hud.size = display.mode_hud.size or 10
 display.mode_hud.bg_alpha = display.mode_hud.bg_alpha or 120
 display.mode_hud.drag_enabled = display.mode_hud.drag_enabled ~= false
 display.mode_hud.drag_threshold = display.mode_hud.drag_threshold or 5
+display.mode_hud.mouse_probe_interval = display.mode_hud.mouse_probe_interval or 1
+display.mode_hud.mouse_probe_window = display.mode_hud.mouse_probe_window or 0.15
+display.mode_hud.mouse_leave_grace = display.mode_hud.mouse_leave_grace or 1
 display.mode_hud.label_width = display.mode_hud.label_width or 16
 display.mode_hud.group_label_width = display.mode_hud.group_label_width or 14
 display.mode_hud.value_width = display.mode_hud.value_width or 18
@@ -189,6 +192,10 @@ local mode_hud = {
     drag = nil,
     mouse_event = nil,
     mouse_handlers = nil,
+    mouse_mode = nil,
+    mouse_probe_scheduled = false,
+    mouse_probe_token = nil,
+    mouse_leave_token = nil,
     registered = false,
     wrapped = false,
     active_token = nil,
@@ -196,6 +203,8 @@ local mode_hud = {
 mode_hud_text_registry = mode_hud_text_registry or {}
 mode_hud_active_token = mode_hud_active_token or {}
 local mode_hud_unregister_mouse
+local mode_hud_schedule_mouse_probe
+local mode_hud_register_mouse
 
 local hoxne_ampulla_name = 'Hoxne Ampulla'
 local warp_ring_name = 'Warp Ring'
@@ -768,6 +777,10 @@ local function mode_hud_hide()
     mode_hud.bounds = nil
     mode_hud.drag = nil
     mode_hud_close_popout()
+
+    if mode_hud_unregister_mouse then
+        mode_hud_unregister_mouse()
+    end
 
     if mode_hud.text then
         mode_hud.text:hide()
@@ -1500,10 +1513,22 @@ local function mode_hud_refresh()
 
         refresh_utility_status:schedule(math.max(mode_hud_number_setting('utility_refresh_interval', 1), 1))
     end
+
+    if mode_hud_schedule_mouse_probe and not mode_hud.registered and not mode_hud.mouse_probe_scheduled then
+        mode_hud_schedule_mouse_probe(0)
+    end
 end
 
 local function mode_hud_in_bounds(bounds, x, y)
     return bounds and x >= bounds.x1 and x <= bounds.x2 and y >= bounds.y1 and y <= bounds.y2
+end
+
+local function mode_hud_in_interaction_bounds(x, y)
+    return mode_hud_in_bounds(mode_hud.bounds, x, y) or mode_hud_in_bounds(mode_hud.popout_bounds, x, y)
+end
+
+local function mode_hud_mouse_enabled()
+    return mode_hud_setting('enabled', true) and not (state.DisplayMode and not state.DisplayMode.value)
 end
 
 local function mode_hud_hit(x, y)
@@ -1552,14 +1577,18 @@ local function mode_hud_update_drag(x, y)
 end
 
 mode_hud_unregister_mouse = function()
-    if not mode_hud.registered then
-        return
-    end
-
     mode_hud.drag = nil
     mode_hud.active_token = nil
     mode_hud.mouse_handlers = nil
+    mode_hud.mouse_mode = nil
+    mode_hud.mouse_probe_scheduled = false
+    mode_hud.mouse_probe_token = nil
+    mode_hud.mouse_leave_token = nil
     mode_hud_active_token = {}
+
+    if not mode_hud.registered then
+        return
+    end
 
     if mode_hud.mouse_event and windower.unregister_event then
         pcall(function()
@@ -1601,6 +1630,46 @@ local function mode_hud_enable_drag_mouse()
     end
 end
 
+local function mode_hud_cancel_mouse_leave()
+    mode_hud.mouse_leave_token = nil
+end
+
+local function mode_hud_activate_mouse()
+    mode_hud.mouse_mode = 'active'
+    mode_hud.mouse_probe_token = nil
+    mode_hud.mouse_probe_scheduled = false
+    mode_hud_cancel_mouse_leave()
+end
+
+local function mode_hud_schedule_mouse_leave()
+    if mode_hud.mouse_leave_token or mode_hud.mouse_mode ~= 'active' then
+        return
+    end
+
+    local token = {}
+    mode_hud.mouse_leave_token = token
+
+    local function leave_hud_mouse()
+        if mode_hud.mouse_leave_token ~= token then
+            return
+        end
+
+        mode_hud.mouse_leave_token = nil
+
+        if mode_hud.drag or not mode_hud.registered then
+            return
+        end
+
+        mode_hud_unregister_mouse()
+
+        if mode_hud_mouse_enabled() then
+            mode_hud_schedule_mouse_probe(mode_hud_number_setting('mouse_probe_interval', 1))
+        end
+    end
+
+    leave_hud_mouse:schedule(math.max(mode_hud_number_setting('mouse_leave_grace', 1), 0.1))
+end
+
 local function mode_hud_handle_click_mouse(event_type, x, y, delta, blocked)
     if not mode_hud_mouse_button_event(event_type) then
         return
@@ -1623,6 +1692,16 @@ local function mode_hud_handle_click_mouse(event_type, x, y, delta, blocked)
 
     if blocked or not mode_hud_setting('enabled', true) then
         return
+    end
+
+    local inside_hud = mode_hud_in_interaction_bounds(x, y)
+
+    if mode_hud.mouse_mode == 'probe' and not inside_hud then
+        return
+    elseif inside_hud then
+        mode_hud_activate_mouse()
+    elseif mode_hud.mouse_mode == 'active' then
+        mode_hud_schedule_mouse_leave()
     end
 
     local popout_hitbox = mode_hud_popout_hit(x, y)
@@ -1709,13 +1788,42 @@ local function mode_hud_handle_click_mouse(event_type, x, y, delta, blocked)
     end
 end
 
-local function mode_hud_register_mouse()
+mode_hud_schedule_mouse_probe = function(delay)
+    if not mode_hud_mouse_enabled() or mode_hud.registered or mode_hud.mouse_probe_scheduled then
+        return
+    end
+
+    local token = {}
+    mode_hud.mouse_probe_token = token
+    mode_hud.mouse_probe_scheduled = true
+
+    local function start_hud_mouse_probe()
+        if mode_hud.mouse_probe_token ~= token then
+            return
+        end
+
+        mode_hud.mouse_probe_token = nil
+        mode_hud.mouse_probe_scheduled = false
+
+        if mode_hud_mouse_enabled() and mode_hud.bounds and not mode_hud.registered then
+            mode_hud_register_mouse('probe')
+        end
+    end
+
+    start_hud_mouse_probe:schedule(math.max(tonumber(delay) or mode_hud_number_setting('mouse_probe_interval', 1), 0))
+end
+
+mode_hud_register_mouse = function(mode)
     if mode_hud.registered then
         return
     end
 
     mode_hud_active_token = {}
     mode_hud.active_token = mode_hud_active_token
+    mode_hud.mouse_mode = mode or 'active'
+    mode_hud.mouse_probe_scheduled = false
+    mode_hud.mouse_probe_token = nil
+    mode_hud.mouse_leave_token = nil
     mode_hud.mouse_handlers = {
         click = mode_hud_handle_click_mouse,
     }
@@ -1738,8 +1846,13 @@ local function mode_hud_register_mouse()
                 return drag_handler(event_type, x, y, delta, blocked)
             end
 
-            if mode_hud_in_bounds(mode_hud.bounds, x, y) or mode_hud_in_bounds(mode_hud.popout_bounds, x, y) then
+            if mode_hud_in_interaction_bounds(x, y) then
+                mode_hud_activate_mouse()
                 return true
+            end
+
+            if mode_hud.mouse_mode == 'active' then
+                mode_hud_schedule_mouse_leave()
             end
 
             return
@@ -1747,6 +1860,25 @@ local function mode_hud_register_mouse()
 
         return handlers.click(event_type, x, y, delta, blocked)
     end)
+
+    if mode_hud.mouse_mode == 'probe' then
+        local token = {}
+        mode_hud.mouse_probe_token = token
+
+        local function stop_hud_mouse_probe()
+            if mode_hud.mouse_probe_token ~= token or mode_hud.mouse_mode ~= 'probe' then
+                return
+            end
+
+            mode_hud_unregister_mouse()
+
+            if mode_hud_mouse_enabled() then
+                mode_hud_schedule_mouse_probe(mode_hud_number_setting('mouse_probe_interval', 1))
+            end
+        end
+
+        stop_hud_mouse_probe:schedule(math.max(mode_hud_number_setting('mouse_probe_window', 0.15), 0.05))
+    end
 end
 
 local function mode_hud_setup()
@@ -1777,9 +1909,6 @@ local function mode_hud_setup()
         end
     end
 
-    if mode_hud_setting('enabled', true) then
-        mode_hud_register_mouse()
-    end
     mode_hud.wrapped = true
     mode_hud_refresh()
 end
@@ -1793,7 +1922,7 @@ local function handle_mode_hud_command(commandArgs, eventArgs)
 
     if action == 'on' then
         display.mode_hud.enabled = true
-        mode_hud_register_mouse()
+        mode_hud_schedule_mouse_probe(0)
         message = 'Mode HUD is now on.'
     elseif action == 'off' then
         display.mode_hud.enabled = false
@@ -1809,7 +1938,7 @@ local function handle_mode_hud_command(commandArgs, eventArgs)
     else
         display.mode_hud.enabled = not display.mode_hud.enabled
         if display.mode_hud.enabled then
-            mode_hud_register_mouse()
+            mode_hud_schedule_mouse_probe(0)
         else
             mode_hud_unregister_mouse()
         end
