@@ -39,7 +39,6 @@ function character_user_job_setup()
 
     gear.kishar_ring = ""
     gear.perimede_cape = "Null Belt"
-    gear.oshashas_treatise = ""
     gear.fotia_gorget = "Null Loop"
     gear.fotia_belt = "Null Belt"
     gear.cornelias_ring = ""
@@ -47,7 +46,6 @@ function character_user_job_setup()
     gear.orunmilas_torque = "Null Loop"
     gear.incanters_torque = "Null Loop"
     gear.meili_earring = ""
-    gear.sibyl_scarf = "Null Loop"
     gear.hieros_mittens = ""
     gear.bishops_sash = ""
     gear.andoaa_earring = ""
@@ -145,7 +143,7 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
 
     sets.precast.WS = {
-        ammo = gear.oshashas_treatise,
+        ammo = "Oshasha's Treatise",
         head = "Nyame Helm",
         neck = gear.fotia_gorget,
         ear1 = "Brutal Earring",
@@ -540,7 +538,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
         head = gear.af3_head,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
@@ -576,7 +574,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
         head = gear.af3_head,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
@@ -660,7 +658,7 @@ function init_gear_sets()
         --sub = "Oneiros Grip",
         ammo = gear.homiliary,
         head = gear.null_masque,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
         body = gear.af3_body,
@@ -680,7 +678,7 @@ function init_gear_sets()
         --sub = "Oneiros Grip",
         ammo = gear.homiliary,
         head = gear.null_masque,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
         body = gear.af3_body,

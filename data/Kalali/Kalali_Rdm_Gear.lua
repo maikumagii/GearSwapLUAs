@@ -106,8 +106,6 @@ function character_user_job_setup()
     --  4  Incanter's Torque             Magic skills + 10 (Melic Torque Enh + Henic Torque Heal -- Synergy)
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
-    gear.sibyl_scarf = gear.jse_neck
-    --  4  Sibyl Scarf                   INT +10, MAB +10
     gear.ournmilas_torque = gear.jse_neck
     --  1  Orunmila's Torque             FC +5%
     gear.andoaa_earring = "Alabaster Earring"
@@ -126,8 +124,6 @@ function character_user_job_setup()
     --  0  Diamond Aspis                 Swap piece
     gear.homillary = "Staunch Tathlum +1"
     --  1  Homiliary                     Idle Refresh +1
-    gear.oshashas_treatise = "Coiste Bodhar"
-    --  3  Oshasha's Treatise            Wsd 3%
     gear.null_masque = gear.af3_head
     --  1  Null Masque                   Animon Idle
     gear.anu_torque = "Null Loop"
@@ -328,7 +324,7 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
         range = empty,
-        ammo = gear.oshashas_treatise,
+        ammo = "Oshasha's Treatise",
         head = gear.af2_head,
         neck = gear.fotia_gorget,
         ear1 = "Sherida Earring",
@@ -398,7 +394,7 @@ function init_gear_sets()
 
     sets.precast.WS['Savage Blade'] = {
         range = empty,
-        ammo = gear.oshashas_treatise,
+        ammo = "Oshasha's Treatise",
         head = gear.af2_head,
         neck = "Rep. Plat. Medal",
         ear1 = "Sherida Earring",
@@ -415,7 +411,7 @@ function init_gear_sets()
 
     sets.precast.WS['Black Halo'] = {
         range = empty,
-        ammo = gear.oshashas_treatise,
+        ammo = "Oshasha's Treatise",
         head = gear.af2_head,
         neck = "Rep. Plat. Medal",
         ear1 = "Sherida Earring",
@@ -485,7 +481,7 @@ function init_gear_sets()
     }
 
     sets.precast.WS['Red Lotus Blade'] = set_combine(sets.precast.WS['Aeolian Edge'], {
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         hands = "Jhakri Cuffs +2",
         back = gear.nuke_jse_back
     })
@@ -1036,7 +1032,7 @@ function init_gear_sets()
         range = "Ullr",
         ammo = empty,
         head = gear.af3_head,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
@@ -1073,7 +1069,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Ghastly Tathlum +1",
         head = gear.af3_head,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
@@ -1092,7 +1088,7 @@ function init_gear_sets()
         range = "Ullr",
         ammo = empty,
         head = gear.af3_head,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
@@ -1270,7 +1266,7 @@ function init_gear_sets()
         sub = "Umbra Strap",
         ammo = gear.homillary,
         head = gear.af2_head,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
         body = gear.af3_body,

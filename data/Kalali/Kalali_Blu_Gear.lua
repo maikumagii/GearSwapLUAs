@@ -47,7 +47,6 @@ function character_user_job_setup()
     gear.af3_legs = "Hashishin Tayt +2"
     gear.af3_feet = "Hashi. Basmak +2"
 
-    gear.sibyl_scarf = ""
     gear.baetyl_pendant = ""
     gear.incaters_torque = ""
     gear.regal_earring = ""
@@ -188,7 +187,7 @@ function init_gear_sets()
     sets.precast.WS['Sanguine Blade'] = {
         ammo = "Ghastly Tathlum +1",
         head = "Pixie Hairpin +1",
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = gear.regal_earring,
         ear2 = "Friomisi Earring",
         body = "Amalric Doublet +1",
@@ -225,7 +224,7 @@ function init_gear_sets()
         sub = "Maxentius",
         ammo = "Ghastly Tathlum +1",
         head = gear.af3_head,
-        neck = gear.sibyl_scarf,
+        neck = "Sibyl Scarf",
         ear1 = gear.regal_earring,
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
