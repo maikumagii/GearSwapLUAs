@@ -112,8 +112,6 @@ function character_user_job_setup()
     --  2  Andoaa Earring                Enhancing +5
     gear.freke_ring = "Shiva Ring +1"
     --  8  Freke Ring                    10 INT, 8 MAB, 10 SIRD
-    gear.cornelias_ring = "Shiva Ring +1"
-    --  6  Cornelia's Ring               +10% WSD
     gear.perimede_cape = gear.cure_jse_back
     --  3  Perimede Cape                 QC+4%
     gear.obstinate_sash = "Embla Sash"
@@ -155,8 +153,6 @@ function character_user_job_setup()
     --  1  Olympus Sash                  +5 Enhancing=
     gear.fuchonoobi = "Eschan Stone"
     --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
-    gear.plat_mog_belt = "Null Belt"
-    --  2  Plat. Mog. Belt               +10% HP, 15 Eva, -3 DT
     gear.fotia_belt = "Sailfi Belt +1"
     --  3  Fotia Belt                    fTP Belt
 
@@ -383,7 +379,7 @@ function init_gear_sets()
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
         waist = gear.fotia_belt,
         legs = "Nyame Flanchard",
@@ -402,7 +398,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = gear.af1_hands,
         ring1 = "Sroda Ring",
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
@@ -419,7 +415,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = gear.af1_hands,
         ring1 = "Sroda Ring",
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.physical_mnd_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
@@ -436,7 +432,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Jhakri Cuffs +2",
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.magical_mnd_wsd_jse_back,
         waist = "Orpheus's Sash",
         legs = gear.af3_legs,
@@ -453,7 +449,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = gear.af3_hands,
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.magical_mnd_wsd_jse_back,
         waist = "Orpheus's Sash",
         legs = "Nyame Flanchard",
@@ -473,7 +469,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = gear.af1_hands,
         ring1 = gear.freke_ring,
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.int_wsd_jse_back,
         waist = "Orpheus's Sash",
         legs = "Nyame Flanchard",
@@ -1292,7 +1288,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = gear.shadow_ring,
         back = gear.shadow_mantle,
-        waist = gear.plat_mog_belt,
+        waist = "Plat. Mog. Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -1368,7 +1364,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = gear.shadow_ring,
         back = gear.shadow_mantle,
-        waist = gear.plat_mog_belt,
+        waist = "Plat. Mog. Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }

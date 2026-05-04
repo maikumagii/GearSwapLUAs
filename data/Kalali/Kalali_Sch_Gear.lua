@@ -41,7 +41,6 @@ function character_user_job_setup()
     gear.perimede_cape = "Null Belt"
     gear.fotia_gorget = "Null Loop"
     gear.fotia_belt = "Null Belt"
-    gear.cornelias_ring = ""
     gear.luminary_sash = "Null Belt"
     gear.orunmilas_torque = "Null Loop"
     gear.incanters_torque = "Null Loop"
@@ -57,7 +56,6 @@ function character_user_job_setup()
     gear.homiliary = ""
     gear.shadow_ring = ""
     gear.shadow_mantle = "Null Shawl"
-    gear.plat_mog_belt = "Null Belt"
 
     -- Additional local binds
     send_command('bind @` gs c cycle ElementalMode')
@@ -151,7 +149,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = "Null Shawl",
         waist = gear.fotia_belt,
         legs = "Nyame Flanchard",
@@ -704,7 +702,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = gear.shadow_ring,
         back = gear.shadow_mantle,
-        waist = gear.plat_mog_belt,
+        waist = "Plat. Mog. Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -762,7 +760,7 @@ function init_gear_sets()
         ring1 = "Murky Ring",
         ring2 = gear.shadow_ring,
         back = gear.shadow_mantle,
-        waist = gear.plat_mog_belt,
+        waist = "Plat. Mog. Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }

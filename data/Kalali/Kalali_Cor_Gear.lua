@@ -80,7 +80,6 @@ function character_user_job_setup()
     gear.af3_legs = "" --"Chas. Culottes +1"
     gear.af3_feet = "" --"Chass. Bottes +1"
 
-    gear.cornelias_ring = ""
     gear.yemaya_belt = ""
     gear.regal_ring = ""
     gear.null_masque = ""
@@ -257,7 +256,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = gear.regal_ring,
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
         waist = gear.fotia_belt,
         legs = "Nyame Flanchard",
@@ -273,7 +272,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = gear.regal_ring,
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -318,7 +317,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Sroda Ring",
-        ring2 = gear.cornelias_ring,
+        ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
