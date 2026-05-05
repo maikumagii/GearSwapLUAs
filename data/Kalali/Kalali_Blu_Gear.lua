@@ -117,7 +117,7 @@ function init_gear_sets()
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
-        ammo = "Coiste Bodhar",
+        ammo = "Oshasha's Treatise",
         head = gear.af3_head,
         neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
@@ -125,7 +125,7 @@ function init_gear_sets()
         body = gear.af1_body,
         hands = "Jhakri Cuffs +2",
         ring1 = "Epaminondas's Ring",
-        ring2 = "Sroda Ring",
+        ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = gear.af2_legs,
