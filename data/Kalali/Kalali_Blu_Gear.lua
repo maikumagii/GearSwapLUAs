@@ -230,7 +230,7 @@ function init_gear_sets()
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Metamor. Ring +1",
-        ring2 = "Shiva Ring +1",
+        ring2 = "Freke Ring",
         back = gear.nuke_jse_back,
         waist = "Orpheus's Sash",
         legs = gear.af2_legs,

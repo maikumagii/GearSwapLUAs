@@ -49,7 +49,6 @@ function character_user_job_setup()
     gear.bishops_sash = ""
     gear.andoaa_earring = ""
     gear.obstinate_sash = "Null Belt"
-    gear.freke_ring = ""
     gear.sacro_cord = "Null Belt"
     gear.fuchonoobi = "Null Belt"
     gear.null_masque = ""
@@ -394,7 +393,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
@@ -504,7 +503,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = gear.sacro_cord,
@@ -541,7 +540,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
@@ -577,7 +576,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = "Bookworm's Cape",
         waist = "Acuity Belt +1",

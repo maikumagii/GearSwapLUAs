@@ -110,8 +110,6 @@ function character_user_job_setup()
     --  1  Orunmila's Torque             FC +5%
     gear.andoaa_earring = "Alabaster Earring"
     --  2  Andoaa Earring                Enhancing +5
-    gear.freke_ring = "Shiva Ring +1"
-    --  8  Freke Ring                    10 INT, 8 MAB, 10 SIRD
     gear.perimede_cape = gear.cure_jse_back
     --  3  Perimede Cape                 QC+4%
     gear.obstinate_sash = "Embla Sash"
@@ -468,7 +466,7 @@ function init_gear_sets()
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = gear.af1_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Cornelia's Ring",
         back = gear.int_wsd_jse_back,
         waist = "Orpheus's Sash",
@@ -501,7 +499,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
-        ring2 = gear.freke_ring,
+        ring2 = "Freke Ring",
         back = gear.mnd_enfeebling_jse_back,
         waist = "Emphatikos Rope",
         legs = "Bunzi's Pants",
@@ -578,7 +576,7 @@ function init_gear_sets()
         body = "Bunzi's Robe",
         hands = "Kaykaus Cuffs +1",
         ring1 = "Murky Ring",
-        ring2 = gear.freke_ring,
+        ring2 = "Freke Ring",
         back = gear.mnd_enfeebling_jse_back,
         waist = "Emphatikos Rope",
         legs = "Bunzi's Pants",
@@ -996,7 +994,7 @@ function init_gear_sets()
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
         waist = gear.sacro_cord,
@@ -1014,7 +1012,7 @@ function init_gear_sets()
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
         waist = "Emphatikos Rope",
@@ -1033,7 +1031,7 @@ function init_gear_sets()
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
@@ -1070,7 +1068,7 @@ function init_gear_sets()
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
@@ -1089,7 +1087,7 @@ function init_gear_sets()
         ear2 = "Friomisi Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.freke_ring,
+        ring1 = "Freke Ring",
         ring2 = "Metamorph Ring +1",
         gear.nuke_jse_back,
         waist = "Acuity Belt +1",
