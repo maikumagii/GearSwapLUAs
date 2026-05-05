@@ -1589,7 +1589,8 @@ function init_gear_sets()
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
+        legs = "Malignance Tights",
+        -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
         feet = "Malignance Boots"
     }
 
@@ -1606,7 +1607,8 @@ function init_gear_sets()
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
+        legs = "Malignance Tights",
+        -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
         feet = "Malignance Boots"
     }
 
@@ -1623,7 +1625,8 @@ function init_gear_sets()
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.dw_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
+        legs = "Malignance Tights",
+        -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
         feet = "Malignance Boots"
     }
 end
