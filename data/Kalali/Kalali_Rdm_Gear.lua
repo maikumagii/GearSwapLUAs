@@ -69,7 +69,7 @@ function character_user_job_setup()
 
     -- Artifact Gear
     gear.af1_head = "Atro. Chapeau +4"
-    gear.af1_body = "Atrophy Tabard +3"
+    gear.af1_body = "Atrophy Tabard +4"
     gear.af1_hands = "Atro. Gloves +4"
     gear.af1_legs = "Atro. Tights +4"
     gear.af1_feet = "Atro. Boots +4"
