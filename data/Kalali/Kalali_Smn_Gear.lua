@@ -1,9 +1,24 @@
 -- Setup vars that are user-dependent.  Can override this function in a sidecar.
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'Acc')
+    state.WeaponskillMode:options('Match', 'Normal', 'Acc')
     state.CastingMode:options('Normal', 'Resistant', 'OccultAcumen')
     state.IdleMode:options('Normal', 'PDT')
-    state.Weapons:options('None', 'Gridarvor', 'Espiritus', 'Grioavolr')
+    state.Weapons:options('None', 'Maxentius', 'Gridarvor', 'Espiritus', 'Grioavolr')
+
+    default_weapons = 'Maxentius'
+
+    autows_list = {
+        Maxentius = 'Black Halo',
+        Gridarvor = 'Shattersoul',
+        Espiritus = 'Shattersoul',
+        Grioavolr = 'Shattersoul',
+    }
+
+    -- Solo CP skillchain notes:
+    --   Black Halo (Fragmentation) <-> Flaming Crush (Fusion) = Light.
+    --   Volt Strike and Predator Claws are strong raw damage pacts, but both are Fragmentation/Scission.
+    --   Staff WS options are mostly fallback; Maxentius Black Halo should be the master WS damage set.
 
     gear.jse_neck = "Summoner's Collar +1"
     gear.jse_ear2 = "Beck. Earring +1"
@@ -50,8 +65,17 @@ function character_user_job_setup()
         augments = { 'Pet: Damage taken -5%', 'Pet: Mag. Acc.+10/Pet: Mag. Dmg.+10', }
     }
 
+    gear.maxentius = "Maxentius"
+    gear.black_halo_jse_back = "Null Shawl"      -- "Campestres's Cape" with STR/MND, Acc/Atk, WSD.
+    gear.skillchain_jse_back = gear.campestres_magic
+    gear.fotia_gorget = "Null Loop"              -- "Fotia Gorget"
+    gear.fotia_belt = "Regal Belt"               -- "Fotia Belt"
+    gear.crepuscular_pebble = "Crepuscular Pebble"
+    gear.crepuscular_earring = "Crep. Earring"
     gear.stikini_ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" }
     gear.stikini_ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" }
+    gear.chirich_ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" }
+    gear.chirich_ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" }
     gear.varar_ring1 = { name = "Varar Ring +1", bag = "Wardrobe" }
     gear.varar_ring2 = { name = "Varar Ring +1", bag = "Wardrobe 2" }
 
@@ -169,7 +193,60 @@ function init_gear_sets()
     sets.precast.FC.Impact = set_combine(sets.precast.FC, { head = empty })
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { main = gear.espiritus, sub = "Elan Strap +1" })
 
-    sets.precast.WS = {}
+    sets.precast.WS = {
+        ammo = "Oshasha's Treatise",
+        head = "Nyame Helm",
+        neck = gear.fotia_gorget,
+        ear1 = "Ishvara Earring",
+        ear2 = "Moonshade Earring",
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Cornelia's Ring",
+        back = "Null Shawl",
+        waist = gear.fotia_belt,
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+
+    sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {
+        main = gear.maxentius,
+        sub = "Ammurapi Shield",
+        back = gear.black_halo_jse_back,
+    })
+    sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS['Black Halo'], {
+        ammo = gear.crepuscular_pebble,
+        ear1 = gear.crepuscular_earring,
+        ring1 = gear.chirich_ring1,
+        ring2 = gear.chirich_ring2,
+        waist = "Null Belt",
+    })
+
+    sets.precast.WS['Shattersoul'] = set_combine(sets.precast.WS, {
+        main = gear.gridarvor,
+        sub = "Elan Strap +1",
+        ear1 = "Lugalbanda Earring",
+        ring2 = "Metamor. Ring +1",
+        waist = "Regal Belt",
+    })
+
+    sets.precast.WS['Retribution'] = set_combine(sets.precast.WS, {
+        main = gear.gridarvor,
+        sub = "Elan Strap +1",
+        back = gear.black_halo_jse_back,
+        waist = "Regal Belt",
+    })
+
+    sets.precast.WS['Garland of Bliss'] = set_combine(sets.precast.WS, {
+        main = gear.gridarvor,
+        sub = "Elan Strap +1",
+        ear1 = "Lugalbanda Earring",
+        ring2 = "Metamor. Ring +1",
+        waist = "Regal Belt",
+    })
+
+    sets.MaxTP = { ear2 = "Ishvara Earring" }
+    sets.MaxTP['Black Halo'] = { ear2 = "Telos Earring" }
 
     sets.precast.WS['Myrkr'] = {
         main = gear.gridarvor,
@@ -550,6 +627,7 @@ function init_gear_sets()
 
     -- Weapons sets
     sets.weapons.None = { main = empty, sub = empty }
+    sets.weapons.Maxentius = { main = gear.maxentius, sub = "Ammurapi Shield" }
     sets.weapons.Gridarvor = { main = gear.gridarvor, sub = "Elan Strap +1" }
     sets.weapons.Espiritus = { main = gear.espiritus, sub = "Elan Strap +1" }
     sets.weapons.Grioavolr = { main = gear.grioavolr_bp, sub = "Elan Strap +1" }
@@ -578,6 +656,26 @@ function init_gear_sets()
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
+
+    sets.engaged.Acc = set_combine(sets.engaged, {
+        ring1 = gear.chirich_ring1,
+        ring2 = gear.chirich_ring2,
+    })
+
+    sets.engaged.Maxentius = set_combine(sets.engaged, sets.weapons.Maxentius, {
+        ammo = "Oshasha's Treatise",
+        head = "Nyame Helm",
+        neck = "Null Loop",
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = gear.chirich_ring1,
+        ring2 = gear.chirich_ring2,
+        waist = "Null Belt",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets",
+    })
+
+    sets.engaged.Maxentius.Acc = set_combine(sets.engaged.Maxentius, {})
 end
 
 -- Select default macro book on initial load or subjob change.
@@ -587,6 +685,20 @@ function select_default_macro_book(reset)
     end
 
     set_macro_page(1, 8)
+end
+
+function user_job_customize_melee_set(meleeSet)
+    if state.Weapons and sets.engaged[state.Weapons.value] then
+        local weaponSet = sets.engaged[state.Weapons.value]
+
+        if weaponSet[state.OffenseMode.current] then
+            return weaponSet[state.OffenseMode.current]
+        end
+
+        return weaponSet
+    end
+
+    return meleeSet
 end
 
 function user_job_lockstyle()
