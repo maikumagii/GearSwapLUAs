@@ -32,7 +32,7 @@ function character_user_job_setup()
     gear.af2_legs = ""  -- "Pitre Churidars +3"
     gear.af2_feet = ""  -- "Pitre Babouches +3"
 
-    gear.af3_head = "Karagoz Capello +2"
+    gear.af3_head = "Karagoz Cappello +2"
     gear.af3_body = "Karagoz Farsetto +2"
     gear.af3_hands = "Karagoz Guanti +2"
     gear.af3_legs = "Karagoz Pantaloni +2"
@@ -42,7 +42,7 @@ function character_user_job_setup()
     gear.varar_ring2 = { name = "Varar Ring +1", bag = "Wardrobe 2" }
     gear.pet_tp_bonus_back = {
         name = "Dispersal Mantle",
-        augments = { 'STR+3', 'DEX+1', 'Pet: TP Bonus+480', }
+        augments = { 'STR+3', 'DEX+1', 'Pet: TP Bonus +480', }
     }
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here.

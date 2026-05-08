@@ -18,15 +18,15 @@ function character_user_job_setup()
 
     gear.str_wsd_jse_back = {
         name = "Cichol's Mantle",
-        augments = { 'STR+30', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', 'Phys. dmg. taken-10%', }
+        augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', 'Phys. dmg. taken-10%', }
     }
     gear.vit_wsd_jse_back = {
         name = "Cichol's Mantle",
-        augments = { 'VIT+30', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', }
+        augments = { 'VIT+20', 'Accuracy+20 Attack+20', 'VIT+10', 'Weapon skill damage +10%', }
     }
     gear.da_jse_back = {
         name = "Cichol's Mantle",
-        augments = { 'DEX+20', 'Accuracy+30 Attack+20', '"Double Attack"+10%', 'Damage taken-5%', }
+        augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'Accuracy+10', '"Dbl.Atk."+10', 'Damage taken-5%', }
     }
 
     gear.jse_neck = "War. Beads +1"

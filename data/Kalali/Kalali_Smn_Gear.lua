@@ -46,7 +46,7 @@ function character_user_job_setup()
 
     gear.grioavolr_bp = {
         name = "Grioavolr",
-        augments = { 'DMG:+7', '"Blood Pact" damage +7', 'Pet: Mag. Acc.+23', 'Pet: "Mag.Atk.Bns."+23', }
+        augments = { 'DMG:+7', 'Blood Pact Dmg.+7', 'Pet: Mag. Acc.+23', 'Pet: "Mag.Atk.Bns."+23', }
     }
     gear.gridarvor = { name = "Gridarvor", augments = { 'Path: A' } }
     gear.espiritus = { name = "Espiritus", augments = { 'Path: C' } }
@@ -58,11 +58,11 @@ function character_user_job_setup()
     gear.apogee_feet_b = { name = "Apogee Pumps +1", augments = { 'Path: B' } }
     gear.merlinic_bp_hands = {
         name = "Merlinic Dastanas",
-        augments = { '"Blood Pact" damage +10', 'Pet: STR+2', 'Pet: "Mag.Atk.Bns."+3', }
+        augments = { 'Blood Pact Dmg.+10', 'Pet: STR+2', 'Pet: "Mag.Atk.Bns."+3', }
     }
     gear.campestres_magic = {
         name = "Campestres's Cape",
-        augments = { 'Pet: Damage taken -5%', 'Pet: Mag. Acc.+10/Pet: Mag. Dmg.+10', }
+        augments = { 'Pet: Damage taken -5%', 'Pet: M.Acc.+10 Pet: M.Dmg.+10', }
     }
 
     gear.maxentius = "Maxentius"
