@@ -68,7 +68,7 @@ function character_user_job_setup()
     gear.sakpatas_feet = "Nyame Sollerets"          -- "Sakpata's Leggings"
     gear.null_masque = gear.hjarrandi_head          -- "Null Masque"
     gear.rep_plat_medal = gear.jse_neck             -- "Republican Platinum Medal"
-    gear.vim_torque = "Vim Torque"
+    gear.vim_torque = "Vim Torque +1"
     gear.niqmaddu_ring = "Petrov Ring"              -- "Niqmaddu Ring"
     gear.regal_ring = "Sroda Ring"                  -- "Regal Ring"
     gear.sroda_ring = "Sroda Ring"
@@ -250,7 +250,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -266,7 +266,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.str_wsd_jse_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -321,6 +321,28 @@ function init_gear_sets()
         body = gear.af2_body,
         back = gear.str_wsd_jse_back,
     })
+
+    local base_engaged = set_combine(sets.engaged, {})
+    local base_engaged_acc = sets.engaged.Acc
+    local base_engaged_dt = sets.engaged.DT
+    local base_engaged_acc_dt = sets.engaged.Acc.DT
+
+    local function make_weapon_engaged_set(overrides)
+        overrides = overrides or {}
+        local weapon_set = set_combine(base_engaged, overrides)
+        weapon_set.Acc = set_combine(base_engaged_acc, overrides)
+        weapon_set.DT = set_combine(base_engaged_dt, overrides)
+        weapon_set.Acc.DT = set_combine(base_engaged_acc_dt, overrides)
+        return weapon_set
+    end
+
+    sets.engaged.Chango = make_weapon_engaged_set({
+        body = gear.af3_body,
+    })
+    sets.engaged.ShiningOne = make_weapon_engaged_set()
+    sets.engaged.Loxotic = make_weapon_engaged_set()
+    sets.engaged.Naegling = make_weapon_engaged_set()
+    sets.engaged.Proc = make_weapon_engaged_set()
 end
 
 -- Select default macro book on initial load or subjob change.

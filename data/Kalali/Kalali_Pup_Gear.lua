@@ -4,7 +4,7 @@ function character_user_job_setup()
     state.HybridMode:options('Pet', 'DT', 'Normal')
     state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc', 'Fodder')
     state.PhysicalDefenseMode:options('PDT')
-    state.IdleMode:options('Normal', 'PDT', 'Refresh')
+    state.IdleMode:options('Normal', 'PDT')
     state.Weapons:options('None', 'Kaja', 'Denouements', 'Midnights', 'Pitre', 'PetWeapons')
     state.PetMode        = M { ['description'] = 'Pet Mode', 'None', 'Melee', 'Ranged', 'HybridRanged', 'Bruiser', 'Tank', 'LightTank', 'Magic', 'Heal', 'Nuke' }
     state.AutoRepairMode = M(false, 'Auto Repair Mode')
@@ -366,16 +366,12 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
-
-    sets.idle.Refresh = set_combine(sets.idle, {
-        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-    })
 
     -- Set for idle while pet is out (eg: pet regen gear)
     sets.idle.Pet = {
@@ -417,7 +413,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -433,7 +429,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -449,7 +445,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
