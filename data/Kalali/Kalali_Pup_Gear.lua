@@ -532,7 +532,11 @@ function init_gear_sets()
 end
 
 -- Select default macro book on initial load or subjob change.
---[[ function select_default_macro_book()
+function select_default_macro_book()
+    set_macro_page(1, 9)
+end
+
+--[[
     -- Default macro set/book
     if player.sub_job == 'DNC' then
         set_macro_page(2, 20)
@@ -543,7 +547,7 @@ end
     else
         set_macro_page(2, 20)
     end
-end ]]
+]]
 
 function user_job_lockstyle()
     windower.chat.input('/lockstyleset 017')
