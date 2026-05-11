@@ -48,14 +48,14 @@ function character_user_job_setup()
         name = "Grioavolr",
         augments = { 'DMG:+7', 'Blood Pact Dmg.+7', 'Pet: Mag. Acc.+23', 'Pet: "Mag.Atk.Bns."+23', }
     }
-    gear.gridarvor = { name = "Gridarvor", augments = { 'Path: A' } }
-    gear.espiritus = { name = "Espiritus", augments = { 'Path: C' } }
-    gear.apogee_head_a = { name = "Apogee Crown +1", augments = { 'Path: A' } }
-    gear.apogee_head_b = { name = "Apogee Crown +1", augments = { 'Path: B' } }
-    gear.apogee_legs_a = { name = "Apogee Slacks +1", augments = { 'Path: A' } }
-    gear.apogee_legs_d = { name = "Apogee Slacks +1", augments = { 'Path: D' } }
-    gear.apogee_feet_a = { name = "Apogee Pumps +1", augments = { 'Path: A' } }
-    gear.apogee_feet_b = { name = "Apogee Pumps +1", augments = { 'Path: B' } }
+    gear.gridarvor = { name = "Gridarvor", augments = { 'Path:A' } }
+    gear.espiritus = { name = "Espiritus", augments = { 'Path:C' } }
+    gear.apogee_head_a = { name = "Apogee Crown +1", augments = { 'Path:A' } }
+    gear.apogee_head_b = { name = "Apogee Crown +1", augments = { 'Path:B' } }
+    gear.apogee_legs_a = { name = "Apogee Slacks +1", augments = { 'Path:A' } }
+    gear.apogee_legs_d = { name = "Apogee Slacks +1", augments = { 'Path:D' } }
+    gear.apogee_feet_a = { name = "Apogee Pumps +1", augments = { 'Path:A' } }
+    gear.apogee_feet_b = { name = "Apogee Pumps +1", augments = { 'Path:B' } }
     gear.merlinic_bp_hands = {
         name = "Merlinic Dastanas",
         augments = { 'Blood Pact Dmg.+10', 'Pet: STR+2', 'Pet: "Mag.Atk.Bns."+3', }

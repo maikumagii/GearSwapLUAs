@@ -90,8 +90,6 @@ function character_user_job_setup()
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
-    gear.sacro_bulwark = "Ammurapi Shield"
-    --  12 Sacro Bulwark                 DT -10%, Cure Potency +5%, SIRD 7%
     gear.kishar_ring = "Stikini Ring +1"
     --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.telchine_cap = gear.af3_head
@@ -200,7 +198,7 @@ function init_gear_sets()
     --sets.weapons.ProcSword = {main="Demers. Degen +1",sub="Ammurapi Shield",range=empty}
     --sets.weapons.ProcDagger = {main="Blurred Knife +1",sub="Ammurapi Shield",range=empty}
     --sets.weapons.DualProcDagger = {main="Blurred Knife +1",sub="Demers. Degen +1",range=empty}
-    sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = gear.sacro_bulwark, range = "Ullr", ammo = empty }
+    sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = "Sacro Bulwark", range = "Ullr", ammo = empty }
     sets.weapons.DualEnspellOnly = { main = "Qutrub Knife", sub = "Ethereal Dagger", range = "Ullr", ammo = empty }
     --sets.weapons.DualBow = {}
     --sets.weapons.BowMacc = {}
@@ -259,7 +257,7 @@ function init_gear_sets()
     -- Fast cast sets for spells
     sets.precast.FC = {
         main = "Sakpata's Sword",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         ammo = "Impatiens",
         head = gear.af1_head,
         neck = "Loricate Torque +1",
@@ -277,7 +275,7 @@ function init_gear_sets()
 
     sets.precast.FC.DT = {
         main = "Sakpata's Sword",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         ammo = "Impatiens",
         head = gear.af1_head,
         neck = "Loricate Torque +1",
@@ -312,7 +310,7 @@ function init_gear_sets()
     }
 
     sets.precast.FC.Impact = set_combine(sets.precast.FullFC, { head = empty, body = gear.crepuscular_cloak })
-    sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { main = "Daybreak", sub = gear.sacro_bulwark })
+    sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { main = "Daybreak", sub = "Sacro Bulwark" })
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
@@ -490,7 +488,7 @@ function init_gear_sets()
     -- Gear that converts elemental damage done to recover MP.
     sets.midcast.FastRecast = {
         main = "Sakpata's Sword",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         ammo = "Staunch Tathlum +1",
         head = gear.af1_head,
         neck = "Loricate Torque +1",
@@ -1275,7 +1273,7 @@ function init_gear_sets()
 
     sets.idle.PDT = {
         main = "Daybreak",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
@@ -1293,7 +1291,7 @@ function init_gear_sets()
 
     sets.idle.MDT = {
         main = "Daybreak",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
@@ -1312,7 +1310,7 @@ function init_gear_sets()
 
     sets.idle.MEVA = {
         main = "Daybreak",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
@@ -1331,7 +1329,7 @@ function init_gear_sets()
 
     sets.idle.Aminon = {
         main = "Daybreak",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.null_masque,
@@ -1351,7 +1349,7 @@ function init_gear_sets()
     -- Defense sets
     sets.defense.PDT = {
         main = "Daybreak",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
@@ -1371,7 +1369,7 @@ function init_gear_sets()
 
     sets.defense.MDT = {
         main = "Daybreak",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
@@ -1390,7 +1388,7 @@ function init_gear_sets()
 
     sets.defense.MEVA = {
         main = "Daybreak",
-        sub = gear.sacro_bulwark,
+        sub = "Sacro Bulwark",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
