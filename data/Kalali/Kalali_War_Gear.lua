@@ -76,6 +76,8 @@ function character_user_job_setup()
     gear.windbuffet_belt = "Sailfi Belt +1"         -- "Windbuffet Belt +1"
     gear.fotia_gorget = gear.jse_neck               -- "Fotia Gorget"
     gear.fotia_belt = "Sailfi Belt +1"              -- "Fotia Belt"
+    gear.tp_ammo = "Coiste Bodhar"                  -- "Aurgelmir Orb +1"
+    gear.ws_ammo = "Knobkierrie"
 
     send_command('bind ^` input /ja "Hasso" <me>')
     send_command('bind !` input /ja "Seigan" <me>')
@@ -155,6 +157,7 @@ function init_gear_sets()
     --------------------------------------
 
     sets.precast.WS = {
+        ammo = gear.ws_ammo,
         head = "Nyame Helm",
         neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
@@ -168,15 +171,16 @@ function init_gear_sets()
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
-    sets.precast.WS.Acc = set_combine(sets.precast.WS, {
+    local ws_acc_overrides = {
         neck = "Null Loop",
         ear2 = gear.jse_ear2,
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         waist = "Null Belt",
-    })
+    }
+    sets.precast.WS.Acc = set_combine(sets.precast.WS, ws_acc_overrides)
     sets.precast.WS.Proc = {
-        ammo = "Staunch Tathlum +1",
+        ammo = gear.ws_ammo,
         head = gear.flamma_head,
         neck = "Null Loop",
         ear1 = "Telos Earring",
@@ -199,28 +203,24 @@ function init_gear_sets()
         legs = gear.af3_legs,
         feet = gear.af1_feet,
     })
-    sets.precast.WS['Upheaval'].Acc = set_combine(sets.precast.WS.Acc, {
-        back = gear.vit_wsd_jse_back,
-    })
+    sets.precast.WS['Upheaval'].Acc = set_combine(sets.precast.WS['Upheaval'], ws_acc_overrides)
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
-    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], ws_acc_overrides)
     sets.precast.WS['Impulse Drive'] = set_combine(sets.precast.WS, {
         head = gear.af3_head,
         hands = gear.af3_hands,
     })
-    sets.precast.WS['Impulse Drive'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Impulse Drive'].Acc = set_combine(sets.precast.WS['Impulse Drive'], ws_acc_overrides)
     sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {})
-    sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS['Black Halo'], ws_acc_overrides)
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {})
-    sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS.Acc, {})
+    sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'], ws_acc_overrides)
     sets.precast.WS["Ukko's Fury"] = set_combine(sets.precast.WS, {
         back = gear.da_jse_back,
         ear2 = gear.jse_ear2,
         ring1 = "Petrov Ring",
     })
-    sets.precast.WS["Ukko's Fury"].Acc = set_combine(sets.precast.WS.Acc, {
-        back = gear.da_jse_back,
-    })
+    sets.precast.WS["Ukko's Fury"].Acc = set_combine(sets.precast.WS["Ukko's Fury"], ws_acc_overrides)
 
     sets.MaxTP = { ear1 = "Brutal Earring", ear2 = gear.jse_ear2 }
     sets.AccMaxTP = { ear1 = "Telos Earring", ear2 = gear.jse_ear2 }
@@ -269,13 +269,15 @@ function init_gear_sets()
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.str_wsd_jse_back,
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        legs = gear.af1_legs,
+        feet = gear.af1_feet
     }
 
     sets.defense.MDT = set_combine(sets.defense.PDT, {
         neck = "Warder's Charm +1",
         back = "Null Shawl",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets",
     })
 
     sets.defense.MEVA = set_combine(sets.defense.MDT, {
@@ -293,6 +295,7 @@ function init_gear_sets()
     --------------------------------------
 
     sets.engaged = {
+        ammo = gear.tp_ammo,
         head = gear.hjarrandi_head,
         neck = gear.vim_torque,
         ear1 = gear.dedition_earring,
@@ -303,8 +306,8 @@ function init_gear_sets()
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.da_jse_back,
         waist = "Sailfi Belt +1",
-        legs = gear.af3_legs,
-        feet = gear.flamma_feet
+        legs = gear.af1_legs,
+        feet = gear.af1_feet
     }
 
     sets.engaged.Acc = set_combine(sets.engaged, {
