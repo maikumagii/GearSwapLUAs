@@ -48,14 +48,38 @@ function character_user_job_setup()
         name = "Grioavolr",
         augments = { 'DMG:+7', 'Blood Pact Dmg.+7', 'Pet: Mag. Acc.+23', 'Pet: "Mag.Atk.Bns."+23', }
     }
-    gear.gridarvor = { name = "Gridarvor", augments = { 'Path:A' } }
-    gear.espiritus = { name = "Espiritus", augments = { 'Path:C' } }
-    gear.apogee_head_a = { name = "Apogee Crown +1", augments = { 'Path:A' } }
-    gear.apogee_head_b = { name = "Apogee Crown +1", augments = { 'Path:B' } }
-    gear.apogee_legs_a = { name = "Apogee Slacks +1", augments = { 'Path:A' } }
-    gear.apogee_legs_d = { name = "Apogee Slacks +1", augments = { 'Path:D' } }
-    gear.apogee_feet_a = { name = "Apogee Pumps +1", augments = { 'Path:A' } }
-    gear.apogee_feet_b = { name = "Apogee Pumps +1", augments = { 'Path:B' } }
+    gear.gridarvor = {
+        name = "Gridarvor",
+        augments = { 'Pet: Accuracy+70', 'Pet: Attack+70', 'Pet: "Dbl. Atk."+15', }
+    }
+    gear.espiritus = {
+        name = "Espiritus",
+        augments = { 'MP+50', 'Pet: "Mag.Atk.Bns."+20', 'Pet: Mag. Acc.+20', }
+    }
+    gear.apogee_head_a = {
+        name = "Apogee Crown +1",
+        augments = { 'MP+80', 'Pet: "Mag.Atk.Bns."+35', 'Blood Pact Dmg.+8', }
+    }
+    gear.apogee_head_b = {
+        name = "Apogee Crown +1",
+        augments = { 'MP+80', 'Pet: Attack+35', 'Blood Pact Dmg.+8', }
+    }
+    gear.apogee_legs_a = {
+        name = "Apogee Slacks +1",
+        augments = { 'MP+80', 'Pet: "Mag.Atk.Bns."+35', 'Blood Pact Dmg.+8', }
+    }
+    gear.apogee_legs_d = {
+        name = "Apogee Slacks +1",
+        augments = { 'Pet: STR+20', 'Blood Pact Dmg.+14', 'Pet: "Dbl. Atk."+4', }
+    }
+    gear.apogee_feet_a = {
+        name = "Apogee Pumps +1",
+        augments = { 'MP+80', 'Pet: "Mag.Atk.Bns."+35', 'Blood Pact Dmg.+8', }
+    }
+    gear.apogee_feet_b = {
+        name = "Apogee Pumps +1",
+        augments = { 'MP+80', 'Pet: Attack+35', 'Blood Pact Dmg.+8', }
+    }
     gear.merlinic_bp_hands = {
         name = "Merlinic Dastanas",
         augments = { 'Blood Pact Dmg.+10', 'Pet: STR+2', 'Pet: "Mag.Atk.Bns."+3', }
@@ -416,7 +440,7 @@ function init_gear_sets()
         main = gear.gridarvor,
         sub = "Elan Strap +1",
         ammo = "Sancus Sachet +1",
-        head = gear.apogee_head_a,
+        head = gear.apogee_head_b,
         neck = gear.jse_neck,
         ear1 = "Lugalbanda Earring",
         ear2 = gear.jse_ear2,
@@ -426,8 +450,8 @@ function init_gear_sets()
         ring2 = gear.c_palug_ring,
         back = gear.phys_jse_back,
         waist = "Regal Belt",
-        legs = gear.apogee_legs_a,
-        feet = gear.apogee_feet_a
+        legs = gear.apogee_legs_d,
+        feet = gear.apogee_feet_b
     }
     sets.midcast.Pet.PhysicalBloodPactRage.Acc = set_combine(sets.midcast.Pet.PhysicalBloodPactRage, {
         ring2 = gear.varar_ring2,
@@ -437,7 +461,7 @@ function init_gear_sets()
         main = gear.grioavolr_bp,
         sub = "Elan Strap +1",
         ammo = "Sancus Sachet +1",
-        head = gear.apogee_head_b,
+        head = gear.apogee_head_a,
         neck = "Adad Amulet",
         ear1 = "Lugalbanda Earring",
         ear2 = gear.jse_ear2,
@@ -447,8 +471,8 @@ function init_gear_sets()
         ring2 = gear.varar_ring2,
         back = gear.magic_jse_back,
         waist = "Regal Belt",
-        legs = gear.apogee_legs_d,
-        feet = gear.apogee_feet_b
+        legs = gear.apogee_legs_a,
+        feet = gear.apogee_feet_a
     }
     sets.midcast.Pet.MagicalBloodPactRage.Acc = set_combine(sets.midcast.Pet.MagicalBloodPactRage, {
         ring1 = gear.stikini_ring1,
