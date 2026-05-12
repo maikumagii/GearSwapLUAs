@@ -51,7 +51,7 @@ function character_user_job_setup()
     -- Empy Gear
     gear.af3_head = "Fili Calot +2"
     gear.af3_body = "Fili Hongreline +2"
-    gear.af3_hands = "Fili Manchettes +1"
+    gear.af3_hands = "Fili Manchettes +2"
     gear.af3_legs = "Fili Rhingrave +2"
     gear.af3_feet = "Fili Cothurnes +2"
 
