@@ -37,7 +37,6 @@ function character_user_job_setup()
     gear.af3_feet = "Arbatel Loafers +3"
 
 
-    gear.kishar_ring = ""
     gear.perimede_cape = "Null Belt"
     gear.fotia_gorget = "Null Loop"
     gear.fotia_belt = "Null Belt"
@@ -104,7 +103,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         --body = "Pinga Tunic",
         hands = gear.af1_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
         waist = "Witful Belt",
@@ -122,7 +121,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         --body = "Pinga Tunic",
         hands = gear.af1_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
         waist = "Witful Belt",
@@ -183,7 +182,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         --body = "Pinga Tunic",
         hands = gear.af1_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         --back = "Solemnity Cape",
         --waist = "Cornelia's Belt",
@@ -326,7 +325,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = gear.obstinate_sash,

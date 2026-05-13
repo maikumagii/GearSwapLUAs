@@ -60,8 +60,6 @@ function character_user_job_setup()
     gear.aeneas = "Naegling"
     gear.genmei_shield = "Ammurapi Shield"
     gear.linos_fc = "Daurdabla"
-    gear.kishar_ring = "Stikini Ring +1"
-    --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
     gear.hieros_mittens = "Inyan. Dastanas +2"
@@ -106,11 +104,11 @@ function init_gear_sets()
 
     -- Weapons sets
     --sets.weapons.Aeneas = { main = "Aeneas", sub = gear.genmei_shield }
-    --sets.weapons.DualWeapons = { main = "Aeneas", sub = "Blurred Knife +1" }
-    sets.weapons.DualNaegling = { main = "Naegling", sub = "Blurred Knife +1" }
-    sets.weapons.DualCarn = { main = "Carnwenhan", sub = "Blurred Knife +1" }
+    --sets.weapons.DualWeapons = { main = "Aeneas", sub = gear.tp_bonus_dagger }
+    sets.weapons.DualNaegling = { main = "Naegling", sub = gear.tp_bonus_dagger }
+    sets.weapons.DualCarn = { main = "Carnwenhan", sub = "Gleti's Knife" }
     sets.weapons.Naegling = { main = "Naegling", sub = gear.genmei_shield }
-    --sets.weapons.DualTauret = { main = "Tauret", sub = "Blurred Knife +1" }
+    --sets.weapons.DualTauret = { main = "Tauret", sub = "Gleti's Knife" }
     --sets.weapons.DualAeolian = { main = "Tauret", sub = "Malevolence" }
 
     sets.buff.Sublimation = { waist = "Embla Sash" }
@@ -128,7 +126,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = "Witful Belt",
@@ -146,7 +144,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = "Witful Belt",
@@ -174,7 +172,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = "Witful Belt",
@@ -333,7 +331,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.magic_jse_back,
         waist = "Witful Belt",
@@ -445,7 +443,7 @@ function init_gear_sets()
         ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Prolix Ring",
         back = gear.magic_jse_back,
         waist = "Witful Belt",

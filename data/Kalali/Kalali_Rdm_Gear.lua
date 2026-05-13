@@ -90,8 +90,6 @@ function character_user_job_setup()
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
-    gear.kishar_ring = "Stikini Ring +1"
-    --  6  Kishar Ring                   FC +4% Enfeebling Duration +10%
     gear.telchine_cap = gear.af3_head
     --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
     gear.telchine_braconi = gear.af3_legs
@@ -194,10 +192,10 @@ function init_gear_sets()
     --sets.weapons.DualEvisceration = {}
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak", range = empty }
     sets.weapons.DualAeolian = { main = "Tauret", sub = "Maxentius", range = empty }
-    --sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Blurred Knife +1",range=empty}
+    --sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Gleti's Knife",range=empty}
     --sets.weapons.ProcSword = {main="Demers. Degen +1",sub="Ammurapi Shield",range=empty}
-    --sets.weapons.ProcDagger = {main="Blurred Knife +1",sub="Ammurapi Shield",range=empty}
-    --sets.weapons.DualProcDagger = {main="Blurred Knife +1",sub="Demers. Degen +1",range=empty}
+    --sets.weapons.ProcDagger = {main="Gleti's Knife",sub="Ammurapi Shield",range=empty}
+    --sets.weapons.DualProcDagger = {main="Gleti's Knife",sub="Demers. Degen +1",range=empty}
     sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = "Sacro Bulwark", range = "Ullr", ammo = empty }
     sets.weapons.DualEnspellOnly = { main = "Qutrub Knife", sub = "Ethereal Dagger", range = "Ullr", ammo = empty }
     --sets.weapons.DualBow = {}
@@ -301,7 +299,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
         hands = gear.gende_gages,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.perimede_cape,
         waist = "Witful Belt",
@@ -612,7 +610,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
         hands = gear.af1_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         back = gear.ghostfyre_cape,
         waist = "Embla Sash",
@@ -732,7 +730,7 @@ function init_gear_sets()
         ear2 = "Snotra Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = "Null Shawl",
         waist = gear.obstinate_sash,
@@ -904,7 +902,7 @@ function init_gear_sets()
         ear2 = "Snotra Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.int_enfeebling_jse_back,
         waist = gear.obstinate_sash,
@@ -952,7 +950,7 @@ function init_gear_sets()
         ear2 = "Snotra Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = "Null Shawl",
         waist = gear.obstinate_sash,
@@ -1048,7 +1046,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = gear.kishar_ring,
+        ring1 = "Kishar Ring",
         ring2 = "Prolix Ring",
         back = "Null Shawl",
         waist = "Null Belt",

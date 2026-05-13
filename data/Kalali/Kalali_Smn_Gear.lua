@@ -90,10 +90,10 @@ function character_user_job_setup()
     }
 
     gear.maxentius = "Maxentius"
-    gear.black_halo_jse_back = "Null Shawl"      -- "Campestres's Cape" with STR/MND, Acc/Atk, WSD.
+    gear.black_halo_jse_back = "Null Shawl" -- "Campestres's Cape" with STR/MND, Acc/Atk, WSD.
     gear.skillchain_jse_back = gear.campestres_magic
-    gear.fotia_gorget = "Null Loop"              -- "Fotia Gorget"
-    gear.fotia_belt = "Regal Belt"               -- "Fotia Belt"
+    gear.fotia_gorget = "Null Loop"         -- "Fotia Gorget"
+    gear.fotia_belt = "Regal Belt"          -- "Fotia Belt"
     gear.crepuscular_pebble = "Crepuscular Pebble"
     gear.crepuscular_earring = "Crep. Earring"
     gear.stikini_ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" }
@@ -206,7 +206,7 @@ function init_gear_sets()
         neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
-        ring1 = "Prolix Ring",
+        ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
         waist = "Witful Belt",
     }

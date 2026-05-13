@@ -50,13 +50,13 @@ function init_gear_sets()
 	sets.Ambush = {}
 	
 	-- Weapons sets
-	sets.weapons.Aeneas = {main="Aeneas",sub="Gleti's Knife"}
+	sets.weapons.Aeneas = {main="Aeneas",sub=gear.tp_bonus_dagger}
 	sets.weapons.Aeolian = {main="Malevolence",sub="Malevolence"}
-	sets.weapons.Savage = {main="Naegling",sub="Gleti's Knife"}
+	sets.weapons.Savage = {main="Naegling",sub=gear.tp_bonus_dagger}
 	sets.weapons.ProcWeapons = {main="Pukulatmuj +1",sub="Pukulatmuj"}
 	sets.weapons.Evisceration = {main="Tauret",sub="Gleti's Knife"}
-	sets.weapons.Throwing = {main="Aeneas",sub="Gleti's Knife",range="Raider's Bmrng.",ammo=empty}
-	sets.weapons.SwordThrowing = {main="Naegling",sub="Gleti's Knife",range="Raider's Bmrng.",ammo=empty}
+	sets.weapons.Throwing = {main="Aeneas",sub=gear.tp_bonus_dagger,range="Raider's Bmrng.",ammo=empty}
+	sets.weapons.SwordThrowing = {main="Naegling",sub=gear.tp_bonus_dagger,range="Raider's Bmrng.",ammo=empty}
 	sets.weapons.Bow = {main="Aeneas",sub="Kustawi +1",range="Kaja Bow",ammo="Chapuli Arrow"}
 	
 	sets.precast.Step = {ammo="Yamarang",

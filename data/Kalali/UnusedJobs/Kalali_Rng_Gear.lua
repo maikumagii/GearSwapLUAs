@@ -217,8 +217,8 @@ function init_gear_sets()
 	sets.weapons.Default = {main="Kustawi +1",sub="Nusku Shield",range="Fomalhaut"}
 	sets.weapons.Armageddon = {main="Kustawi +1",sub="Nusku Shield",range="Armageddon"}
 	sets.weapons.DualWeapons = {main="Kustawi +1",sub="Kustawi",range="Fomalhaut"}
-	sets.weapons.DualSavageWeapons = {main="Naegling",sub="Blurred Knife +1",range="Fomalhaut"}
-	sets.weapons.DualEviscerationWeapons = {main="Tauret",sub="Blurred Knife +1",range="Fomalhaut"}
+	sets.weapons.DualSavageWeapons = {main="Naegling",sub="Gleti's Knife",range="Fomalhaut"}
+	sets.weapons.DualEviscerationWeapons = {main="Tauret",sub="Gleti's Knife",range="Fomalhaut"}
 	sets.weapons.DualMalevolence = {main="Malevolence",sub="Malevolence",range="Fomalhaut"}
 	sets.weapons.DualMagicWeapons = {main="Tauret",sub="Naegling",range="Fomalhaut"}
 

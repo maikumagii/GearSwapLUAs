@@ -104,7 +104,7 @@ function init_gear_sets()
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
         --body = gear.af2_body,
-        --ring1 = "Kishar Ring",
+        ring1 = "Kishar Ring",
         ring = "Prolix Ring",
         ring2 = "Lebeche Ring",
         --back = "Perimede Cape", OR BLU Fast Cast cape?

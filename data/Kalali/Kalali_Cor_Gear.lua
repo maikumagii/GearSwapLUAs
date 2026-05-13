@@ -560,10 +560,10 @@ function init_gear_sets()
 
     -- Weapons sets
     sets.weapons.Default = { main = "Naegling", sub = "Nusku Shield", range = "Fomalhaut" }
-    sets.weapons.DualWeapons = { main = "Naegling", sub = "Blurred Knife +1", range = "Fomalhaut" }
+    sets.weapons.DualWeapons = { main = "Naegling", sub = "Gleti's Knife", range = "Fomalhaut" }
     sets.weapons.Ranged = { main = gear.jse_main_stp, sub = "Nusku Shield", range = "Fomalhaut" }
     sets.weapons.Savage = { main = "Naegling", sub = "Nusku Shield", range = gear.tp_bonus_gun }
-    sets.weapons.DualSavageWeapons = { main = "Naegling", sub = "Blurred Knife +1", range = gear.tp_bonus_gun }
+    sets.weapons.DualSavageWeapons = { main = "Naegling", sub = "Gleti's Knife", range = gear.tp_bonus_gun }
     sets.weapons.DualLeadenRanged = { main = gear.jse_main_stp, sub = "Tauret", range = "Death Penalty" }
     sets.weapons.DualLeadenMelee = { main = gear.jse_main_ma, sub = "Tauret", range = "Death Penalty" }
     sets.weapons.DualAeolian = { main = gear.jse_main_ma, sub = "Tauret", range = gear.tp_bonus_gun }

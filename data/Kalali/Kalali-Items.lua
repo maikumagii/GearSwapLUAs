@@ -22,7 +22,7 @@ sets.midcast.Item['Holy Water'] = {
 
 -- TP Bonus Magian Weapons
 gear.tp_bonus_sword = "Machaera +2"
-gear.tp_bonus_dagger = "Fusetto"
+gear.tp_bonus_dagger = "Fusetto +2"
 gear.tp_bonus_gun = "Anarchy +2"
 
 -- Geas Fete Augmented Gear

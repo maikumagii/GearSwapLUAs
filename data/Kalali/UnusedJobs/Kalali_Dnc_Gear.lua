@@ -46,7 +46,7 @@ function init_gear_sets()
 	
 	-- Weapons sets
 	sets.weapons.Aeneas = {main="Aeneas",sub="Taming Sari"}
-	sets.weapons.LowBuff = {main="Aeneas",sub="Blurred Knife +1"}
+	sets.weapons.LowBuff = {main="Aeneas",sub=gear.tp_bonus_dagger}
 	
     -- Precast Sets
     
