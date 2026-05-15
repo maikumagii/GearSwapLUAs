@@ -48,7 +48,6 @@ function character_user_job_setup()
     gear.af3_feet = "Hashi. Basmak +2"
 
     gear.baetyl_pendant = ""
-    gear.incaters_torque = ""
     gear.regal_earring = ""
     gear.archon_ring = "Metamor. Ring +1"
     gear.fotia_gorget = ""
@@ -284,7 +283,7 @@ function init_gear_sets()
     sets.midcast['Enhancing Magic'] = {
         main = "Pukulatmuj +1",
         sub = "Sakpata's Sword",
-        --neck = "Incanter's Torque",
+        neck = "Hoxne Torque",
         --ear1 = "Andoaa Earring",
         ear2 = "Mimir Earring",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -363,7 +362,7 @@ function init_gear_sets()
 
     sets.midcast['Blue Magic'].SkillBasedBuff = {
         --head = gear.af2_head,
-        neck = gear.incaters_torque,
+        neck = "Hoxne Torque",
         --body = gear.af1_body,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },

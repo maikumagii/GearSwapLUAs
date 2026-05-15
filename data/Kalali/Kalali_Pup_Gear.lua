@@ -264,6 +264,9 @@ function init_gear_sets()
     sets.precast.WS['Shoulder Tackle'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Shoulder Tackle'].Fodder = set_combine(sets.precast.WS.Fodder, {})
 
+    sets.MaxTP = { ear1 = "Schere Earring" }
+    sets.AccMaxTP = { ear1 = "Telos Earring", ear2 = gear.jse_ear2 }
+
     sets.midcast.FastRecast = {
         ammo = "Impatiens",
         neck = "Voltsurge Torque",
@@ -466,7 +469,7 @@ function init_gear_sets()
     sets.engaged = {
         head = gear.af3_head,
         neck = gear.jse_neck,
-        ear1 = "Cessance Earring",
+        ear1 = "Schere Earring",
         ear2 = "Telos Earring",
         body = gear.af3_body,
         hands = gear.af3_hands,
@@ -491,7 +494,7 @@ function init_gear_sets()
         ear2 = "Brutal Earring",
     })
     sets.engaged.DT = set_combine(sets.defense.PDT, {
-        ear1 = "Cessance Earring",
+        ear1 = "Schere Earring",
         ear2 = "Telos Earring",
     })
     sets.engaged.Acc.DT = set_combine(sets.engaged.DT, {

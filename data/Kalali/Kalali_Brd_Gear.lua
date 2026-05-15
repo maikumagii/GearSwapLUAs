@@ -463,7 +463,7 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         ammo = "Pemphredo Tathlum",
         head = "Kaykaus Mitra +1",
-        neck = gear.incaters_torque,
+        neck = "Hoxne Torque",
         ear1 = "Mendi. Earring",
         ear2 = "Fili Earring +1",
         body = "Kaykaus Bliaut +1",

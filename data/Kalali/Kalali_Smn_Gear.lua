@@ -89,14 +89,10 @@ function character_user_job_setup()
         augments = { 'Pet: Damage taken -5%', 'Pet: M.Acc.+10 Pet: M.Dmg.+10', }
     }
 
-    gear.maxentius = "Maxentius"
     gear.black_halo_jse_back = "Null Shawl" -- "Campestres's Cape" with STR/MND, Acc/Atk, WSD.
     gear.skillchain_jse_back = gear.campestres_magic
     gear.fotia_gorget = "Null Loop"         -- "Fotia Gorget"
     gear.fotia_belt = "Regal Belt"          -- "Fotia Belt"
-    gear.crepuscular_pebble = "Crepuscular Pebble"
-    gear.crepuscular_earring = "Crep. Earring"
-    gear.sancus_sachet = "Sancus Sachet +1"
     gear.stikini_ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" }
     gear.stikini_ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" }
     gear.chirich_ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" }
@@ -110,9 +106,8 @@ function character_user_job_setup()
     gear.umbra_strap = "Elan Strap +1"           -- "Umbra Strap"
     gear.vox_grip = "Elan Strap +1"              -- "Vox Grip"
     gear.bloodrain_strap = "Elan Strap +1"       -- "Bloodrain Strap"
-    gear.epitaph = gear.sancus_sachet            -- "Epitaph"
-    gear.esper_stone = gear.sancus_sachet        -- "Esper Stone +1"
-    gear.incanters_torque = "Caller's Pendant"   -- "Incanter's Torque"
+    gear.epitaph = "Sancus Sachet +1"            -- "Epitaph"
+    gear.esper_stone = "Sancus Sachet +1"        -- "Esper Stone +1"
     gear.andoaa_earring = "Evans Earring"        -- "Andoaa Earring"
     gear.lodurr_earring = "Evans Earring"        -- "Lodurr Earring"
     gear.evokers_ring = gear.stikini_ring1       -- "Evoker's Ring"
@@ -235,13 +230,13 @@ function init_gear_sets()
     }
 
     sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {
-        main = gear.maxentius,
+        main = "Maxentius",
         sub = "Ammurapi Shield",
         back = gear.black_halo_jse_back,
     })
     sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS['Black Halo'], {
-        ammo = gear.crepuscular_pebble,
-        ear1 = gear.crepuscular_earring,
+        ammo = "Crepuscular Pebble",
+        ear1 = "Crep. Earring",
         ring1 = gear.chirich_ring1,
         ring2 = gear.chirich_ring2,
         waist = "Null Belt",
@@ -320,7 +315,7 @@ function init_gear_sets()
         sub = "Elan Strap +1",
         ammo = "Sancus Sachet +1",
         head = gear.af3_head,
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = "Evans Earring",
         ear2 = gear.jse_ear2,
         body = gear.af1_body,
@@ -380,7 +375,7 @@ function init_gear_sets()
         main = gear.espiritus,
         sub = "Elan Strap +1",
         ammo = "Sancus Sachet +1",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = "Evans Earring",
         ear2 = gear.jse_ear2,
         hands = "Lamassu Mitts +1",
@@ -651,11 +646,11 @@ function init_gear_sets()
     sets.buff.Sleep = {}
 
     -- Weapons sets
-    sets.weapons.None = { main = empty, sub = empty, range = empty, ammo = gear.sancus_sachet }
-    sets.weapons.Maxentius = { main = gear.maxentius, sub = "Ammurapi Shield", range = empty, ammo = gear.sancus_sachet }
-    sets.weapons.Gridarvor = { main = gear.gridarvor, sub = "Elan Strap +1", range = empty, ammo = gear.sancus_sachet }
-    sets.weapons.Espiritus = { main = gear.espiritus, sub = "Elan Strap +1", range = empty, ammo = gear.sancus_sachet }
-    sets.weapons.Grioavolr = { main = gear.grioavolr_bp, sub = "Elan Strap +1", range = empty, ammo = gear.sancus_sachet }
+    sets.weapons.None = { main = empty, sub = empty, range = empty, ammo = "Sancus Sachet +1" }
+    sets.weapons.Maxentius = { main = "Maxentius", sub = "Ammurapi Shield", range = empty, ammo = "Sancus Sachet +1" }
+    sets.weapons.Gridarvor = { main = gear.gridarvor, sub = "Elan Strap +1", range = empty, ammo = "Sancus Sachet +1" }
+    sets.weapons.Espiritus = { main = gear.espiritus, sub = "Elan Strap +1", range = empty, ammo = "Sancus Sachet +1" }
+    sets.weapons.Grioavolr = { main = gear.grioavolr_bp, sub = "Elan Strap +1", range = empty, ammo = "Sancus Sachet +1" }
 
     sets.buff.Sublimation = { waist = "Embla Sash" }
     sets.buff.DTSublimation = { waist = "Embla Sash" }
@@ -688,7 +683,7 @@ function init_gear_sets()
     })
 
     sets.engaged.Maxentius = set_combine(sets.engaged, sets.weapons.Maxentius, {
-        ammo = gear.sancus_sachet,
+        ammo = "Sancus Sachet +1",
         head = "Nyame Helm",
         neck = "Null Loop",
         body = "Nyame Mail",

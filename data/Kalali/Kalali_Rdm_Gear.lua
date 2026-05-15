@@ -98,8 +98,6 @@ function character_user_job_setup()
     -- Useful but mostly optimizatio
     gear.umuthi_hat = gear.af3_head
     --  2  Umuthi Hat                    +8 Enspell
-    gear.incanters_torque = "Null Loop"
-    --  4  Incanter's Torque             Magic skills + 10 (Melic Torque Enh + Henic Torque Heal -- Synergy)
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
     gear.ournmilas_torque = gear.jse_neck
@@ -508,7 +506,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Regal Gem",
         head = "Kaykaus Mitra +1",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
@@ -527,7 +525,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Regal Gem",
         head = "Kaykaus Mitra +1",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
@@ -547,7 +545,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Regal Gem",
         head = "Kaykaus Mitra +1",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
@@ -633,7 +631,7 @@ function init_gear_sets()
         sub = "Forfend +1",
         ammo = "Staunch Tathlum +1",
         head = "Befouled Crown",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.andoaa_earring,
         ear2 = "Mimir Earring",
         body = gear.af2_body,

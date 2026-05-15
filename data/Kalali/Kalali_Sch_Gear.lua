@@ -42,7 +42,6 @@ function character_user_job_setup()
     gear.fotia_belt = "Null Belt"
     gear.luminary_sash = "Null Belt"
     gear.orunmilas_torque = "Null Loop"
-    gear.incanters_torque = "Null Loop"
     gear.meili_earring = ""
     gear.hieros_mittens = ""
     gear.bishops_sash = ""
@@ -196,7 +195,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Pemphredo Tathlum",
         head = "Kaykaus Mitra +1",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
@@ -215,7 +214,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Pemphredo Tathlum",
         head = "Kaykaus Mitra +1",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
@@ -234,7 +233,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Pemphredo Tathlum",
         head = "Kaykaus Mitra +1",
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.meili_earring,
         ear2 = "Mendi. Earring",
         body = "Kaykaus Bliaut +1",
@@ -280,7 +279,7 @@ function init_gear_sets()
     sets.midcast['Enhancing Magic'] = {
         --ammo = "Savant's Treatise",
         head = gear.af3_head,
-        neck = gear.incanters_torque,
+        neck = "Hoxne Torque",
         ear1 = gear.andoaa_earring,
         --ear2 = "Gifted Earring",
         body = gear.af2_body,

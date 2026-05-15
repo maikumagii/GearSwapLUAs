@@ -68,11 +68,8 @@ function character_user_job_setup()
     gear.sakpatas_feet = "Nyame Sollerets"          -- "Sakpata's Leggings"
     gear.null_masque = gear.hjarrandi_head          -- "Null Masque"
     gear.rep_plat_medal = gear.jse_neck             -- "Republican Platinum Medal"
-    gear.vim_torque = "Vim Torque +1"
     gear.niqmaddu_ring = "Petrov Ring"              -- "Niqmaddu Ring"
     gear.regal_ring = "Sroda Ring"                  -- "Regal Ring"
-    gear.sroda_ring = "Sroda Ring"
-    gear.dedition_earring = "Dedition Earring"
     gear.windbuffet_belt = "Sailfi Belt +1"         -- "Windbuffet Belt +1"
     gear.fotia_gorget = gear.jse_neck               -- "Fotia Gorget"
     gear.fotia_belt = "Sailfi Belt +1"              -- "Fotia Belt"
@@ -222,7 +219,7 @@ function init_gear_sets()
     })
     sets.precast.WS["Ukko's Fury"].Acc = set_combine(sets.precast.WS["Ukko's Fury"], ws_acc_overrides)
 
-    sets.MaxTP = { ear1 = "Brutal Earring", ear2 = gear.jse_ear2 }
+    sets.MaxTP = { ear1 = "Schere Earring", ear2 = gear.jse_ear2 }
     sets.AccMaxTP = { ear1 = "Telos Earring", ear2 = gear.jse_ear2 }
     sets.AccDayMaxTPWSEars = sets.AccMaxTP
     sets.DayMaxTPWSEars = sets.MaxTP
@@ -297,8 +294,8 @@ function init_gear_sets()
     sets.engaged = {
         ammo = gear.tp_ammo,
         head = gear.hjarrandi_head,
-        neck = gear.vim_torque,
-        ear1 = gear.dedition_earring,
+        neck = "Vim Torque +1",
+        ear1 = "Schere Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
         hands = gear.af3_hands,
