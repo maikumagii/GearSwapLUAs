@@ -177,22 +177,29 @@ function init_gear_sets()
         hands = gear.beckoner_bracers,
     }
 
+    local bp_precast_ear2 = gear.andoaa_earring
+    if gear.andoaa_earring == gear.lodurr_earring then
+        bp_precast_ear2 = gear.jse_ear2
+    end
+
+    -- BP precast: Favor head first, then enough BP-/BPII- to reach the useful delay threshold,
+    -- then summoning magic skill for Avatar's Favor potency and its separate delay reduction.
     sets.precast.BloodPactWard = {
         main = gear.espiritus,
-        sub = "Elan Strap +1",
+        sub = gear.vox_grip,
         ammo = "Sancus Sachet +1",
         head = gear.af3_head,
-        neck = gear.jse_neck,
-        ear1 = "Evans Earring",
-        ear2 = gear.jse_ear2,
-        body = gear.af3_body,
-        hands = "Lamassu Mitts +1",
+        neck = "Hoxne Torque",
+        ear1 = gear.lodurr_earring,
+        ear2 = bp_precast_ear2,
+        body = gear.af1_body,
+        hands = gear.baayami_hands,
         ring1 = gear.stikini_ring1,
         ring2 = gear.stikini_ring2,
-        back = gear.magic_jse_back,
-        waist = "Regal Belt",
-        legs = gear.apogee_legs_d,
-        feet = gear.apogee_feet_b
+        back = gear.conveyance_cape,
+        waist = gear.kobo_obi,
+        legs = gear.baayami_legs,
+        feet = gear.baayami_feet
     }
 
     sets.precast.BloodPactRage = sets.precast.BloodPactWard
