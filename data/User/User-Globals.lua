@@ -385,6 +385,11 @@ local mode_hud_utility_actions = {
         command = 'invisible',
         status = 'invisible',
     },
+    HideHudUtility = {
+        label = 'Hide HUD',
+        command = 'hud off',
+        status = 'hud',
+    },
 }
 
 local mode_hud_group_orders = {
@@ -675,6 +680,7 @@ local function mode_hud_grouped_entries()
     grouped.utility[#grouped.utility + 1] = 'ReraiseUtility'
     grouped.utility[#grouped.utility + 1] = 'SneakUtility'
     grouped.utility[#grouped.utility + 1] = 'InvisibleUtility'
+    grouped.utility[#grouped.utility + 1] = 'HideHudUtility'
 
     for _, group in ipairs(mode_hud_groups) do
         if #grouped[group.id] > 0 then
@@ -1253,6 +1259,9 @@ local function mode_hud_utility_status(name)
         return utility_magic_status('Sneak')
     elseif name == 'InvisibleUtility' then
         return utility_magic_status('Invisible')
+    elseif name == 'HideHudUtility' then
+        local colors = display.colors or {}
+        return 'On', colors.Yellow or '\\cs(255,192,0)'
     end
 end
 

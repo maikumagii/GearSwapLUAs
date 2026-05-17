@@ -431,6 +431,27 @@ function init_gear_sets()
         feet = gear.af1_legs
     }
 
+    sets.midcast['Dark Magic'] = {
+        main = "Daybreak",
+        sub = "Ammurapi Shield",
+        range = empty,
+        ammo = "Pemphredo Tathlum",
+        head = "Inyanga Tiara +2",
+        neck = "Null Loop",
+        ear1 = gear.regal_earring,
+        ear2 = gear.jse_ear2,
+        body = "Inyanga Jubbah +2",
+        hands = "Inyan. Dastanas +2",
+        ring1 = "Metamorph Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        back = gear.magic_jse_back,
+        waist = "Acuity Belt +1",
+        legs = "Inyanga Shalwar +2",
+        feet = gear.af1_feet
+    }
+    sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
+
     -- Song-specific recast reduction
     sets.midcast.SongRecast = {
         main = "Kali",

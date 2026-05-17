@@ -63,7 +63,7 @@ function character_user_job_setup()
     -- List of gear I want, could be BiS. When I get the item, can replace it here.
     gear.sakpatas_head = gear.hjarrandi_head        -- "Sakpata's Helm"
     gear.sakpatas_body = gear.af2_body              -- "Sakpata's Plate"
-    gear.sakpatas_hands = "Nyame Gauntlets"         -- "Sakpata's Gauntlets"
+    gear.sakpatas_hands = "Sakpata's Gauntlets"
     gear.sakpatas_legs = "Nyame Flanchard"          -- "Sakpata's Cuisses"
     gear.sakpatas_feet = "Nyame Sollerets"          -- "Sakpata's Leggings"
     gear.null_masque = gear.hjarrandi_head          -- "Null Masque"
@@ -146,6 +146,21 @@ function init_gear_sets()
     sets.midcast.FastRecast = {}
     sets.midcast.Utsusemi = set_combine(sets.midcast.FastRecast, {})
     sets.midcast.Cure = {}
+    sets.midcast['Dark Magic'] = {
+        ammo = "Pemphredo Tathlum",
+        head = "Nyame Helm",
+        neck = "Null Loop",
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = "Metamorph Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+    sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
     sets.Self_Healing = {}
     sets.Cure_Received = { waist = "Gishdubar Sash" }
 
@@ -298,11 +313,11 @@ function init_gear_sets()
         ear1 = "Schere Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
-        hands = gear.af3_hands,
-        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        hands = gear.sakpatas_hands,
+        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
+        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = gear.da_jse_back,
-        waist = "Sailfi Belt +1",
+        waist = "Ioskeha Belt +1",
         legs = gear.af1_legs,
         feet = gear.af1_feet
     }

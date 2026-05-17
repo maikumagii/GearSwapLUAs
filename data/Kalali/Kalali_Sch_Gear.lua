@@ -32,7 +32,7 @@ function character_user_job_setup()
     -- Empy Gear
     gear.af3_head = "Arbatel Bonnet +3"
     gear.af3_body = "Arbatel Gown +2"
-    gear.af3_hands = "Arbatel Bracers +2"
+    gear.af3_hands = "Arbatel Bracers +3"
     gear.af3_legs = "Arbatel Pants +2"
     gear.af3_feet = "Arbatel Loafers +3"
 
@@ -489,6 +489,9 @@ function init_gear_sets()
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
+
+    sets.midcast['Absorb-TP'] = set_combine(sets.midcast.Stun.Resistant, {})
+    sets.midcast['Absorb-TP'].Resistant = set_combine(sets.midcast.Stun.Resistant, {})
 
     -- Elemental Magic sets are default for handling low-tier nukes.
     sets.midcast['Elemental Magic'] = {

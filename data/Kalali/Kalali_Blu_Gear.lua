@@ -280,6 +280,10 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
+    sets.midcast['Dark Magic'] = set_combine(sets.midcast['Enfeebling Magic'], {})
+    sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
+
     sets.midcast['Enhancing Magic'] = {
         main = "Pukulatmuj +1",
         sub = "Sakpata's Sword",

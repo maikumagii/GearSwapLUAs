@@ -57,8 +57,8 @@ function character_user_job_setup()
     gear.handlers_earring = "Pratik Earring"       -- "Handler's Earring +1"
     gear.crepuscular_earring = gear.jse_ear2       -- "Crepuscular Earring"
     gear.c_palug_ring = gear.varar_ring2           -- "C. Palug Ring"
-    gear.incarnation_sash = "Null Belt"            -- "Incarnation Sash"
-    gear.klouskap_sash = "Null Belt"               -- "Klouskap Sash +1"
+    gear.incarnation_sash = "Incarnation Sash"
+    gear.klouskap_sash = gear.incarnation_sash     -- "Klouskap Sash +1"
     gear.regimen_mittens = gear.af3_hands          -- "Regimen Mittens"
     gear.taeon_pet_body = gear.af3_body            -- Pet Taeon body
     gear.taeon_pet_hands = gear.af3_hands          -- Pet Taeon hands
@@ -282,6 +282,22 @@ function init_gear_sets()
     sets.midcast['Dia II'] = set_combine(sets.midcast.FastRecast, sets.TreasureHunter)
     sets.midcast.Bio = set_combine(sets.midcast.FastRecast, sets.TreasureHunter)
     sets.midcast['Bio II'] = set_combine(sets.midcast.FastRecast, sets.TreasureHunter)
+
+    sets.midcast['Dark Magic'] = {
+        ammo = "Pemphredo Tathlum",
+        head = "Nyame Helm",
+        neck = "Null Loop",
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = "Metamorph Ring +1",
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        back = "Null Shawl",
+        waist = "Null Belt",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+    sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
 
     -- Midcast sets for pet actions
     sets.midcast.Pet.Cure = {

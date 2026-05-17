@@ -122,6 +122,7 @@ function character_user_job_setup()
     gear.idle_jse_back = gear.campestres_magic
     gear.kobo_obi = "Regal Belt"                -- "Kobo Obi"
     gear.lucidity_sash = "Regal Belt"           -- "Lucidity Sash"
+    gear.incarnation_sash = "Incarnation Sash"
     gear.baayami_body = gear.af3_body           -- "Baayami Robe"
     gear.baayami_hands = "Lamassu Mitts +1"     -- "Baayami Cuffs"
     gear.baayami_legs = gear.apogee_legs_d      -- "Baayami Slops"
@@ -367,8 +368,10 @@ function init_gear_sets()
     sets.midcast['Dark Magic'] = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
     sets.midcast.Drain = set_combine(sets.midcast['Dark Magic'], {})
     sets.midcast.Aspir = sets.midcast.Drain
-    sets.midcast.Stun = set_combine(sets.midcast.FastRecast, {})
-    sets.midcast.Stun.Resistant = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
+    sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast['Absorb-TP'].Resistant = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast.Stun.Resistant = set_combine(sets.midcast['Dark Magic'], {})
     sets.midcast['Enfeebling Magic'] = set_combine(sets.midcast['Elemental Magic'].Resistant, {})
     sets.midcast['Enfeebling Magic'].Resistant = set_combine(sets.midcast['Enfeebling Magic'], {})
 
@@ -452,7 +455,7 @@ function init_gear_sets()
         ring1 = gear.varar_ring1,
         ring2 = gear.c_palug_ring,
         back = gear.phys_jse_back,
-        waist = "Regal Belt",
+        waist = gear.incarnation_sash,
         legs = gear.apogee_legs_d,
         feet = gear.apogee_feet_b
     }
