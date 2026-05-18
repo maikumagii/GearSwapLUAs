@@ -69,7 +69,7 @@ function character_user_job_setup()
     -- Relic Gear
     gear.af2_head = "Lanun Tricorne +3"
     gear.af2_body = "Lanun Frac +3"
-    gear.af2_hands = "Lanun Gants +1"
+    gear.af2_hands = "Lanun Gants +3"
     gear.af2_legs = "" -- "Lanun Trews +1"
     gear.af2_feet = "Lanun Bottes +4"
 
