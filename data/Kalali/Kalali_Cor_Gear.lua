@@ -57,7 +57,7 @@ function character_user_job_setup()
     gear.jse_main_ma = { name = "Rostam", augments = { 'Path:B' } }
     gear.jse_main_stp = { name = "Lanun Knife", augments = { 'Path:A' } }
     gear.jse_neck = "Comm. Charm +2"
-    gear.jse_ear2 = ""
+    gear.jse_ear2 = "Regal Earring"
 
     -- Artifact Gear
     --gear.af1_head = ""
@@ -125,7 +125,7 @@ function init_gear_sets()
     sets.precast.JA['Double Up'] = {}
     sets.precast.FoldDoubleBust = { hands = gear.af3_hands }                                               --hands="Lanun Gants +3"
 
-    sets.precast.CorsairRoll = { main = "Rostam", range = "Compensator", back = gear.ranger_wsd_jse_back } --main="Rostam",legs="Desultor Tassets"
+    sets.precast.CorsairRoll = { main = gear.jse_main_roll, range = "Compensator", back = gear.ranger_wsd_jse_back } --legs="Desultor Tassets"
 
     sets.precast.LuzafRing = { ring2 = "Luzaf's Ring" }
 

@@ -75,7 +75,6 @@ function character_user_job_setup()
     gear.fuchonoobi = "Eschan Stone"
     --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
     gear.kentarch_belt = "Sailfi Belt +1" -- DEX
-    gear.regal_earring = "Telos Earring"  -- Macc, Acc, CHR
 
 
 
@@ -276,7 +275,7 @@ function init_gear_sets()
         range = gear.linos_chr_wsd,
         head = "Nyame Helm",
         neck = gear.jse_neck,
-        ear1 = gear.regal_earring,
+        ear1 = "Regal Earring",
         ear2 = "Ishvara Earring",
         body = gear.af2_body,
         hands = "Nyame Gauntlets",
@@ -394,7 +393,7 @@ function init_gear_sets()
         ammo = empty,
         head = "Inyanga Tiara +2",
         neck = "Mnbw. Whistle +1",
-        ear1 = gear.regal_earring,
+        ear1 = "Regal Earring",
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = "Inyan. Dastanas +2",
@@ -419,7 +418,7 @@ function init_gear_sets()
         ammo = empty,
         head = gear.af1_head,
         neck = "Mnbw. Whistle +1",
-        ear1 = gear.regal_earring,
+        ear1 = "Regal Earring",
         ear2 = "Fili Earring +1",
         body = gear.af1_body,
         hands = gear.af1_hands,
@@ -438,7 +437,7 @@ function init_gear_sets()
         ammo = "Pemphredo Tathlum",
         head = "Inyanga Tiara +2",
         neck = "Null Loop",
-        ear1 = gear.regal_earring,
+        ear1 = "Regal Earring",
         ear2 = gear.jse_ear2,
         body = "Inyanga Jubbah +2",
         hands = "Inyan. Dastanas +2",

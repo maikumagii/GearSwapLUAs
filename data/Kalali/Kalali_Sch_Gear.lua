@@ -31,7 +31,7 @@ function character_user_job_setup()
 
     -- Empy Gear
     gear.af3_head = "Arbatel Bonnet +3"
-    gear.af3_body = "Arbatel Gown +2"
+    gear.af3_body = "Arbatel Gown +3"
     gear.af3_hands = "Arbatel Bracers +3"
     gear.af3_legs = "Arbatel Pants +2"
     gear.af3_feet = "Arbatel Loafers +3"

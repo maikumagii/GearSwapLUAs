@@ -48,7 +48,6 @@ function character_user_job_setup()
     gear.af3_feet = "Hashi. Basmak +2"
 
     gear.baetyl_pendant = ""
-    gear.regal_earring = ""
     gear.archon_ring = "Metamor. Ring +1"
     gear.fotia_gorget = ""
     gear.fotia_belt = ""
