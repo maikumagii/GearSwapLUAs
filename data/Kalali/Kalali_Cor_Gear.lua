@@ -80,13 +80,14 @@ function character_user_job_setup()
     gear.af3_legs = "" --"Chas. Culottes +1"
     gear.af3_feet = "" --"Chass. Bottes +1"
 
-    gear.yemaya_belt = ""
+    gear.yemaya_belt = "Null Belt"
     gear.regal_ring = ""
     gear.null_masque = ""
     gear.genmei_earring = ""
     gear.archon_ring = ""
-    gear.fotia_gorget = ""
-    gear.fotia_belt = ""
+    gear.fotia_gorget = "Null Loop"
+    gear.fotia_belt = "Null Belt"
+    gear.iskur_gorget = "Null Loop"
 
 
     -- Additional local binds
@@ -123,7 +124,7 @@ function init_gear_sets()
     sets.precast.JA['Wild Card'] = { feet = gear.af2_feet }
     sets.precast.JA['Random Deal'] = { body = gear.af2_body }
     sets.precast.JA['Double Up'] = {}
-    sets.precast.FoldDoubleBust = { hands = gear.af3_hands }                                               --hands="Lanun Gants +3"
+    sets.precast.FoldDoubleBust = { hands = gear.af3_hands }                                                         --hands="Lanun Gants +3"
 
     sets.precast.CorsairRoll = { main = gear.jse_main_roll, range = "Compensator", back = gear.ranger_wsd_jse_back } --legs="Desultor Tassets"
 
@@ -309,6 +310,14 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
+    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = gear.regal_ring,
+        ring2 = "Ilabrat Ring",
+        waist = "Null Belt"
+    })
+
     sets.precast.WS['Aeolian Edge'] = {
         head = gear.af2_head,
         neck = "Rep. Plat. Medal",
@@ -340,13 +349,21 @@ function init_gear_sets()
         feet = gear.af2_feet
     }
 
+    sets.precast.WS['Leaden Salute'].Acc = set_combine(sets.precast.WS['Leaden Salute'], {
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ear2 = gear.jse_ear2,
+        ring1 = "Metamor. Ring +1",
+        waist = "Null Belt"
+    })
+
     sets.precast.WS['Last Stand'] = {
         ammo = gear.RAbullet,
         head = gear.af2_head,
         neck = gear.fotia_gorget,
         ear1 = "Ishvara Earring",
         ear2 = "Moonshade Earring",
-        body = gear.af1_body, --body = "Ikegana's Vest",
+        body = "Ikenga's Vest",
         hands = gear.af3_hands,
         ring1 = "Dingir Ring",
         ring2 = "Epaminondas's Ring",
@@ -355,6 +372,14 @@ function init_gear_sets()
         legs = "Nyame Flanchard",
         feet = gear.af2_feet
     }
+
+    sets.precast.WS['Last Stand'].Acc = set_combine(sets.precast.WS['Last Stand'], {
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ring1 = gear.regal_ring,
+        ring2 = "Ilabrat Ring",
+        waist = "Null Belt"
+    })
 
     sets.precast.WS['Wildfire'] = {
         ammo = gear.MAbullet,
@@ -372,6 +397,14 @@ function init_gear_sets()
         feet = gear.af2_feet
     }
 
+    sets.precast.WS['Wildfire'].Acc = set_combine(sets.precast.WS['Wildfire'], {
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ear2 = gear.jse_ear2,
+        ring1 = "Metamor. Ring +1",
+        waist = "Null Belt"
+    })
+
     sets.precast.WS['Hot Shot'] = {
         ammo = gear.MAbullet,
         head = "Nyame Helm",
@@ -387,6 +420,14 @@ function init_gear_sets()
         legs = "Nyame Flanchard",
         feet = gear.af2_feet
     }
+
+    sets.precast.WS['Hot Shot'].Acc = set_combine(sets.precast.WS['Hot Shot'], {
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ring1 = gear.regal_ring,
+        ring2 = "Ilabrat Ring",
+        waist = "Null Belt"
+    })
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = {}
@@ -414,14 +455,14 @@ function init_gear_sets()
     sets.midcast.RA = { --ADD
         ammo = gear.RAbullet,
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Crepuscular Ring",
         ring2 = "Ilabrat Ring",
-        back = gear.ranger_wsd_jse_back,
+        back = gear.tp_ranger_jse_back,
         waist = gear.yemaya_belt,
         legs = "Malignance Tights",
         feet = "Malignance Boots"
@@ -430,14 +471,14 @@ function init_gear_sets()
     sets.midcast.RA.Acc = {
         ammo = gear.RAbullet,
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = "Crepuscular Ring",
+        ring1 = gear.regal_ring,
         ring2 = "Ilabrat Ring",
-        back = gear.ranger_wsd_jse_back,
+        back = gear.tp_ranger_jse_back,
         waist = gear.yemaya_belt,
         legs = "Malignance Tights",
         feet = "Malignance Boots"
@@ -449,6 +490,10 @@ function init_gear_sets()
         hands = gear.af2_hands,
         --legs = "Osh. Trousers +1",
         --feet = "Osh. Leggings +1"
+    }
+
+    sets.buff['Triple Shot'].Acc = {
+        body = gear.af3_body
     }
 
     -- Sets to return to when not performing an action.
@@ -583,7 +628,7 @@ function init_gear_sets()
     -- Normal melee group
     sets.engaged = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -598,7 +643,7 @@ function init_gear_sets()
 
     sets.engaged.Acc = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -613,7 +658,7 @@ function init_gear_sets()
 
     sets.engaged.DT = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -628,7 +673,7 @@ function init_gear_sets()
 
     sets.engaged.Acc.DT = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -643,7 +688,7 @@ function init_gear_sets()
 
     sets.engaged.DW = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -658,7 +703,7 @@ function init_gear_sets()
 
     sets.engaged.DW.Acc = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -673,7 +718,7 @@ function init_gear_sets()
 
     sets.engaged.DW.DT = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -688,7 +733,7 @@ function init_gear_sets()
 
     sets.engaged.DW.Acc.DT = {
         head = "Malignance Chapeau",
-        neck = "Iskur Gorget",
+        neck = gear.iskur_gorget,
         ear1 = "Dedition Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
