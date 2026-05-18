@@ -1,6 +1,7 @@
 -- Setup vars that are user-dependent.  Can override this function in a sidecar file.
 function character_user_job_setup()
-    state.OffenseMode:options('Normal')
+    state.OffenseMode:options('Normal', 'Acc')
+    state.WeaponskillMode:options('Normal', 'Acc')
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT')
     state.HybridMode:options('Normal', 'PDT')
@@ -9,9 +10,14 @@ function character_user_job_setup()
 
     default_weapons = 'Maxentius'
 
-    autows_list = { ['Maxentius'] = 'Black Halo' }
+    autows_list = {
+        ['Maxentius'] = 'Black Halo',
+        ['Mpaca'] = 'Omniscience',
+    }
 
     gear.nuke_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', '"Mag.Atk.Bns."+10', } }
+    gear.black_halo_jse_back = { name = "Lugh's Cape", augments = { 'MND+20', 'Accuracy+20 Attack+20', 'MND+10', 'Weapon skill damage +10%', } }
+    gear.magic_wsd_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', 'Weapon skill damage +10%', } }
     gear.jse_neck = "Argute Stole +2"
     gear.jse_ear2 = "Arbatel Earring"
 
@@ -140,7 +146,7 @@ function init_gear_sets()
     sets.precast.WS = {
         ammo = "Oshasha's Treatise",
         head = "Nyame Helm",
-        neck = gear.fotia_gorget,
+        neck = "Rep. Plat. Medal",
         ear1 = "Brutal Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -148,10 +154,77 @@ function init_gear_sets()
         ring1 = "Epaminondas's Ring",
         ring2 = "Cornelia's Ring",
         back = "Null Shawl",
-        waist = gear.fotia_belt,
+        waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
+
+    sets.precast.WS.Acc = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ear2 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        waist = "Null Belt",
+    })
+
+    sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {
+        main = "Maxentius",
+        sub = "Ammurapi Shield",
+        back = gear.black_halo_jse_back,
+    })
+    sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS.Acc, {
+        main = "Maxentius",
+        sub = "Ammurapi Shield",
+        back = gear.black_halo_jse_back,
+    })
+
+    sets.precast.WS.Magical = {
+        ammo = "Ghastly Tathlum +1",
+        head = "Nyame Helm",
+        neck = "Sibyl Scarf",
+        ear1 = "Malignance Earring",
+        ear2 = "Moonshade Earring",
+        body = "Nyame Mail",
+        hands = "Jhakri Cuffs +2",
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Metamor. Ring +1",
+        back = gear.magic_wsd_jse_back,
+        waist = "Orpheus's Sash",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+    sets.precast.WS.Magical.Acc = set_combine(sets.precast.WS.Magical, {
+        ammo = "Pemphredo Tathlum",
+        head = gear.af3_head,
+        neck = "Null Loop",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+    })
+    sets.precast.WS.DarkMagical = set_combine(sets.precast.WS.Magical, {
+        head = "Pixie Hairpin +1",
+    })
+    sets.precast.WS.DarkMagical.Acc = set_combine(sets.precast.WS.Magical.Acc, {
+        head = "Pixie Hairpin +1",
+    })
+
+    sets.precast.WS['Cataclysm'] = sets.precast.WS.DarkMagical
+    sets.precast.WS['Cataclysm'].Acc = sets.precast.WS.DarkMagical.Acc
+    sets.precast.WS['Omniscience'] = sets.precast.WS.DarkMagical
+    sets.precast.WS['Omniscience'].Acc = sets.precast.WS.DarkMagical.Acc
+    sets.precast.WS['Vidohunir'] = sets.precast.WS.DarkMagical
+    sets.precast.WS['Vidohunir'].Acc = sets.precast.WS.DarkMagical.Acc
+
+    sets.precast.WS['Earth Crusher'] = sets.precast.WS.Magical
+    sets.precast.WS['Earth Crusher'].Acc = sets.precast.WS.Magical.Acc
+    sets.precast.WS['Rock Crusher'] = sets.precast.WS.Magical
+    sets.precast.WS['Rock Crusher'].Acc = sets.precast.WS.Magical.Acc
+    sets.precast.WS['Shell Crusher'] = sets.precast.WS.Magical
+    sets.precast.WS['Shell Crusher'].Acc = sets.precast.WS.Magical.Acc
+    sets.precast.WS['Starburst'] = sets.precast.WS.Magical
+    sets.precast.WS['Starburst'].Acc = sets.precast.WS.Magical.Acc
+    sets.precast.WS['Sunburst'] = sets.precast.WS.Magical
+    sets.precast.WS['Sunburst'].Acc = sets.precast.WS.Magical.Acc
 
     sets.precast.WS['Myrkr'] = {
         ammo = "Ghastly Tathlum +1",
@@ -168,6 +241,12 @@ function init_gear_sets()
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
+
+    sets.MaxTP = { ear2 = "Ishvara Earring" }
+    sets.MaxTP['Black Halo'] = { ear2 = "Ishvara Earring" }
+    sets.MaxTP['Cataclysm'] = { ear2 = "Friomisi Earring" }
+    sets.MaxTP['Omniscience'] = { ear2 = "Friomisi Earring" }
+    sets.MaxTP['Vidohunir'] = { ear2 = "Friomisi Earring" }
 
     -- Midcast Sets
 
@@ -818,7 +897,7 @@ function init_gear_sets()
     sets.engaged = {
         main = "Maxentius",
         --sub = "Genmei Shield",
-        ammo = "Staunch Tathlum +1",
+        ammo = "Crepuscular Pebble",
         head = "Nyame Helm",
         neck = "Null Loop",
         ear1 = "Brutal Earring",
@@ -836,7 +915,7 @@ function init_gear_sets()
     sets.engaged.Acc = {
         main = "Maxentius",
         --sub = "Genmei Shield",
-        ammo = "Staunch Tathlum +1",
+        ammo = "Crepuscular Pebble",
         head = "Nyame Helm",
         neck = "Null Loop",
         ear1 = "Crep. Earring",
@@ -850,6 +929,24 @@ function init_gear_sets()
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
+
+    sets.engaged.Maxentius = set_combine(sets.engaged, sets.weapons.Maxentius)
+    sets.engaged.Maxentius.Acc = set_combine(sets.engaged.Acc, sets.weapons.Maxentius)
+
+    sets.engaged.Bunzi = set_combine(sets.engaged, sets.weapons.Bunzi)
+    sets.engaged.Bunzi.Acc = set_combine(sets.engaged.Acc, sets.weapons.Bunzi)
+
+    sets.engaged.Mpaca = set_combine(sets.engaged, sets.weapons.Mpaca, {
+        ear1 = "Crep. Earring",
+        ear2 = "Telos Earring",
+    })
+    sets.engaged.Mpaca.Acc = set_combine(sets.engaged.Acc, sets.weapons.Mpaca)
+
+    sets.engaged.Musa = set_combine(sets.engaged.Mpaca, sets.weapons.Musa)
+    sets.engaged.Musa.Acc = set_combine(sets.engaged.Mpaca.Acc, sets.weapons.Musa)
+
+    sets.engaged.Chatoyant = set_combine(sets.engaged.Mpaca, sets.weapons.Chatoyant)
+    sets.engaged.Chatoyant.Acc = set_combine(sets.engaged.Mpaca.Acc, sets.weapons.Chatoyant)
 
     -- Buff sets: Gear that needs to be worn to actively enhance a current player buff.
     sets.buff['Ebullience'] = { head = gear.af3_head }
