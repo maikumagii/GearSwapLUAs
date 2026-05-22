@@ -86,7 +86,7 @@ function character_user_job_setup()
     gear.af3_body = "Lethargy Sayon +2"
     gear.af3_hands = "Leth. Ganth. +2"
     gear.af3_legs = "Leth. Fuseau +2"
-    gear.af3_feet = "Leth. Houseaux +2"
+    gear.af3_feet = "Leth. Houseaux +3"
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important

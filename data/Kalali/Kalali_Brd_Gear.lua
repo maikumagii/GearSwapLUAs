@@ -35,11 +35,11 @@ function character_user_job_setup()
     gear.jse_neck = "Bard's Charm +2"
 
     -- Artifact Gear
-    gear.af1_head = {}                   --"Brioso Roundlet"
-    gear.af1_body = {}                   --"Brioso Just. +3"
-    gear.af1_hands = {}                  --"Brioso Cuffs"
-    gear.af1_legs = {}                   --"Brioso Cannions"
-    gear.af1_feet = "Brioso Slippers +2" -- "Brioso Slippers +3"
+    gear.af1_head = "Brioso Roundlet +3"
+    gear.af1_body = {}  --"Brioso Just. +3"
+    gear.af1_hands = {} --"Brioso Cuffs"
+    gear.af1_legs = {}  --"Brioso Cannions"
+    gear.af1_feet = "Brioso Slippers +3"
 
     -- Relic Gear
     gear.af2_head = {}
@@ -426,8 +426,8 @@ function init_gear_sets()
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = gear.magic_jse_back,
         waist = "Acuity Belt +1",
-        legs = gear.af1_feet,
-        feet = gear.af1_legs
+        legs = gear.af1_legs,
+        feet = gear.af1_feet
     }
 
     sets.midcast['Dark Magic'] = {
