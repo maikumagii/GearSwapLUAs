@@ -364,7 +364,7 @@ function init_gear_sets()
         ring2 = "Prolix Ring",
         back = "Null Shawl",
         waist = "Witful Belt",
-        legs = "Assid. Pants +1",
+        legs = "Nyame Flanchard",
         feet = "Kaykaus Boots +1"
     }
 
@@ -655,7 +655,7 @@ function init_gear_sets()
         ring1 = gear.stikini_ring1,
         ring2 = gear.stikini_ring2,
         back = gear.idle_jse_back,
-        legs = "Assid. Pants +1",
+        legs = "Nyame Flanchard",
         feet = gear.merlinic_refresh_feet
     }
 

@@ -248,7 +248,7 @@ function init_gear_sets()
 	sets.resting = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum +1",
 		head="Befouled Crown",neck="Loricate Torque +1",ear1="Ethereal Earring",ear2="Etiolation Earring",
 		body="Jhakri Robe +2",hands=gear.merlinic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
-		back="Umbra Cape",waist="Carrier's Sash",legs="Assid. Pants +1",feet=gear.merlinic_refresh_feet}
+		back="Umbra Cape",waist="Carrier's Sash",legs="Nyame Flanchard",feet=gear.merlinic_refresh_feet}
 
 	-- Idle sets
 	
@@ -256,7 +256,7 @@ function init_gear_sets()
 	sets.idle = {main="Mpaca's Staff",sub="Oneiros Grip",ammo="Staunch Tathlum +1",
 		head="Null Masque",neck="Sibyl Scarf",ear1="Etiolation Earring",ear2="Ethereal Earring",
 		body="Wicce Coat +3",hands=gear.merlinic_refresh_hands,ring1="Stikini Ring +1",ring2="Stikini Ring +1",
-		back="Null Shawl",waist="Null Belt",legs="Assid. Pants +1",feet=gear.merlinic_refresh_feet}
+		back="Null Shawl",waist="Null Belt",legs="Nyame Flanchard",feet=gear.merlinic_refresh_feet}
 
 	-- Idle mode that keeps PDT gear on, but doesn't prevent normal gear swaps for precast/etc.
 	sets.idle.PDT = {main="Daybreak",sub="Genmei Shield",ammo="Staunch Tathlum +1",

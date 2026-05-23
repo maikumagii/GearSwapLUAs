@@ -61,7 +61,7 @@ function character_user_job_setup()
 
     -- Artifact Gear
     --gear.af1_head = ""
-    gear.af1_body = "Laksa. Frac +3"
+    gear.af1_body = "Laksa. Frac +4"
     --gear.af1_hands = ""
     --gear.af1_legs = ""
     --gear.af1_feet = ""

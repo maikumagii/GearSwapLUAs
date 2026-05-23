@@ -747,7 +747,7 @@ function init_gear_sets()
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Assid. Pants +1",
+        legs = gear.af3_legs,
         feet = "Nyame Sollerets"
     }
 
@@ -767,7 +767,7 @@ function init_gear_sets()
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Assid. Pants +1",
+        legs = gear.af3_legs,
         feet = "Nyame Sollerets"
     }
 
