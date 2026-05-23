@@ -75,11 +75,11 @@ function character_user_job_setup()
     gear.af1_feet = "Atro. Boots +4"
 
     -- Relic Gear
-    gear.af2_head = "Viti. Chapeau +3"
+    gear.af2_head = "Viti. Chapeau +4"
     gear.af2_body = "Viti. Tabard +3"
     gear.af2_hands = "Viti. Gloves +4"
     gear.af2_legs = {}
-    gear.af2_feet = "Vitiation Boots +3" -- Need for Immunobreak macroing
+    gear.af2_feet = "Vitiation Boots +4" -- Need for Immunobreak macroing
 
     -- Empy Gear
     gear.af3_head = "Leth. Chappel +2"
@@ -1420,18 +1420,18 @@ function init_gear_sets()
 
     sets.engaged = {
         ammo = "Coiste Bodhar",
-        head = "Malignance Chapeau",
+        head = "Sworn Crown",
         neck = gear.anu_torque,
         ear1 = "Sherida Earring",
         ear2 = "Dedition Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
+        body = "Sworn Platemail",
+        hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = "Null Shawl",
-        waist = "Windbuffet Belt +1",
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
+        back = gear.dw_jse_back,
+        waist = "Orpheus's Sash",
+        legs = "Sworn Brais",
+        feet = "Sworn Sabotons"
     }
 
     sets.engaged.Acc = {

@@ -16,10 +16,12 @@ function character_user_job_setup()
     }
 
     gear.nuke_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', '"Mag.Atk.Bns."+10', } }
-    gear.black_halo_jse_back = { name = "Lugh's Cape", augments = { 'MND+20', 'Accuracy+20 Attack+20', 'MND+10', 'Weapon skill damage +10%', } }
+    --gear.black_halo_jse_back = { name = "Lugh's Cape", augments = { 'MND+20', 'Accuracy+20 Attack+20', 'MND+10', 'Weapon skill damage +10%', } }
     gear.magic_wsd_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', 'Weapon skill damage +10%', } }
+    gear.black_halo_jse_back = gear.magic_wsd_jse_back
     gear.jse_neck = "Argute Stole +2"
-    gear.jse_ear2 = "Arbatel Earring"
+    --gear.jse_ear2 = "Arbatel Earring"
+    gear.jse_ear2 = "Crep. Earring"
 
     -- Artifact Gear
     gear.af1_head = "Acad. Mortar. +3"

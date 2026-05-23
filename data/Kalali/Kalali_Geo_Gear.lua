@@ -20,11 +20,11 @@ function character_user_job_setup()
     gear.geo_range = "Dunna"
     gear.geo_neck = "Bagua Charm +2"
     gear.geo_back = "Lifestream Cape"
-    gear.af1_head = "Geomancy Galero"
-    gear.af1_body = "Geomancy Tunic"
-    gear.af1_hands = "Geomancy Mitaines"
-    gear.af1_legs = "Geomancy Pants"
-    gear.af1_feet = "Geomancy Sandals"
+    gear.af1_head = ""
+    gear.af1_body = "Geomancy Tunic +2"
+    gear.af1_hands = "Geo. Mitaines +2"
+    gear.af1_legs = ""
+    gear.af1_feet = ""
 
     gear.nuke_jse_back = "Null Shawl"
     gear.idle_jse_back = gear.geo_back
@@ -311,8 +311,11 @@ function init_gear_sets()
         feet = "Kaykaus Boots +1"
     })
 
-    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, { main = gear.grioavolr_fc_staff, sub =
-    "Khonsu" })
+    sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
+        main = gear.grioavolr_fc_staff,
+        sub =
+        "Khonsu"
+    })
 
     sets.midcast['Elemental Magic'] = {
         main = gear.grioavolr_nuke_staff,
@@ -893,10 +896,20 @@ function init_gear_sets()
     sets.RecoverMP = {}
 
     -- Gear for Magic Burst mode.
-    sets.MagicBurst = { main = gear.grioavolr_nuke_staff, sub = "Ammurapi Shield", neck =
-    "Mizu. Kubikazari", ring1 = "Mujin Band" }
-    sets.ResistantMagicBurst = { main = gear.grioavolr_nuke_staff, sub = "Ammurapi Shield", neck =
-    "Mizu. Kubikazari", ring1 = "Mujin Band" }
+    sets.MagicBurst = {
+        main = gear.grioavolr_nuke_staff,
+        sub = "Ammurapi Shield",
+        neck =
+        "Mizu. Kubikazari",
+        ring1 = "Mujin Band"
+    }
+    sets.ResistantMagicBurst = {
+        main = gear.grioavolr_nuke_staff,
+        sub = "Ammurapi Shield",
+        neck =
+        "Mizu. Kubikazari",
+        ring1 = "Mujin Band"
+    }
 
     sets.buff.Sublimation = { waist = "Embla Sash" }
     sets.buff.DTSublimation = { waist = "Embla Sash" }
