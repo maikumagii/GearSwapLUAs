@@ -510,7 +510,7 @@ function init_gear_sets()
         body = gear.af3_body,
         hands = gear.af3_hands,
         ring1 = "Evanescence Ring",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        ring2 = "Archon Ring",
         back = "Null Shawl",
         waist = gear.fuchonoobi,
         legs = gear.af2_legs,

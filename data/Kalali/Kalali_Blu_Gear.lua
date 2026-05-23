@@ -48,7 +48,6 @@ function character_user_job_setup()
     gear.af3_feet = "Hashi. Basmak +2"
 
     gear.baetyl_pendant = ""
-    gear.archon_ring = "Metamor. Ring +1"
     gear.fotia_gorget = ""
     gear.fotia_belt = ""
     gear.acuity_belt = ""
@@ -191,7 +190,7 @@ function init_gear_sets()
         body = "Amalric Doublet +1",
         hands = "Jhakri Cuffs +2",
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.archon_ring,
+        ring2 = "Archon Ring",
         back = gear.int_wsd_jse_back,
         waist = "Orpheus's Sash",
         legs = gear.af2_legs,

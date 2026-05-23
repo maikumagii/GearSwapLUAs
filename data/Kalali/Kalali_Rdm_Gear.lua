@@ -421,7 +421,7 @@ function init_gear_sets()
         ear2 = "Friomisi Earring",
         body = "Nyame Mail",
         hands = "Jhakri Cuffs +2",
-        ring1 = "Epaminondas's Ring",
+        ring1 = "Archon Ring",
         ring2 = "Cornelia's Ring",
         back = gear.magical_mnd_wsd_jse_back,
         waist = "Orpheus's Sash",

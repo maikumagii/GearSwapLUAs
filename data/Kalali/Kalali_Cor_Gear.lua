@@ -84,7 +84,6 @@ function character_user_job_setup()
     gear.regal_ring = ""
     gear.null_masque = ""
     gear.genmei_earring = ""
-    gear.archon_ring = ""
     gear.fotia_gorget = "Null Loop"
     gear.fotia_belt = "Null Belt"
     gear.iskur_gorget = "Null Loop"
@@ -341,7 +340,7 @@ function init_gear_sets()
         ear2 = "Moonshade Earring",
         body = gear.af2_body,
         hands = "Nyame Gauntlets",
-        ring1 = gear.archon_ring,
+        ring1 = "Archon Ring",
         ring2 = "Dingir Ring",
         back = gear.magic_wsd_jse_back,
         waist = "Eschan Stone",
