@@ -1,6 +1,6 @@
 function character_user_job_setup()
     -- Options: Override default values
-    state.OffenseMode:options('Normal', 'Acc')
+    state.OffenseMode:options('Normal', 'Acc', 'Enspell')
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Match', 'Proc')
     state.CastingMode:options('Normal', 'Resistant', 'Proc', 'SIRD')
@@ -1418,18 +1418,18 @@ function init_gear_sets()
 
     sets.engaged = {
         ammo = "Coiste Bodhar",
-        head = "Sworn Crown",
-        neck = "Anu Torque",
-        ear1 = "Sherida Earring",
-        ear2 = "Dedition Earring",
-        body = "Sworn Platemail",
-        hands = "Aya. Manopolas +2",
+        head = "Malignance Chapeau",
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ear2 = "Telos Earring",
+        body = "Malignance Tabard",
+        hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
-        feet = "Sworn Sabotons"
+        waist = "Windbuffet Belt +1",
+        legs = "Malignance Tights",
+        feet = "Malignance Boots"
     }
 
     sets.engaged.Acc = {
@@ -1446,6 +1446,22 @@ function init_gear_sets()
         waist = "Null Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
+    }
+
+    sets.engaged.Enspell = {
+        ammo = "Coiste Bodhar",
+        head = "Sworn Crown",
+        neck = "Anu Torque",
+        ear1 = "Sherida Earring",
+        ear2 = "Dedition Earring",
+        body = "Sworn Platemail",
+        hands = "Aya. Manopolas +2",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = "Null Shawl",
+        waist = "Orpheus's Sash",
+        legs = "Sworn Brais",
+        feet = "Sworn Sabatons"
     }
 
     sets.engaged.DT = {
@@ -1480,20 +1496,36 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.DW = {
+    sets.engaged.Enspell.DT = {
         ammo = "Coiste Bodhar",
         head = "Sworn Crown",
         neck = "Anu Torque",
         ear1 = "Sherida Earring",
         ear2 = "Dedition Earring",
         body = "Sworn Platemail",
-        hands = "Aya. Manopolas +2",
+        hands = "Sworn Gauntlets",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = "Null Shawl",
+        waist = "Orpheus's Sash",
+        legs = "Sworn Brais",
+        feet = "Sworn Sabatons"
+    }
+
+    sets.engaged.DW = {
+        ammo = "Coiste Bodhar",
+        head = "Malignance Chapeau",
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ear2 = "Telos Earring",
+        body = "Malignance Tabard",
+        hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.dw_jse_back,
-        waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
-        feet = "Sworn Sabotons"
+        waist = "Windbuffet Belt +1",
+        legs = "Malignance Tights",
+        feet = "Malignance Boots"
     }
 
     sets.engaged.DW.Acc = {
@@ -1510,6 +1542,22 @@ function init_gear_sets()
         waist = "Null Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
+    }
+
+    sets.engaged.DW.Enspell = {
+        ammo = "Coiste Bodhar",
+        head = "Sworn Crown",
+        neck = "Anu Torque",
+        ear1 = "Sherida Earring",
+        ear2 = "Dedition Earring",
+        body = "Sworn Platemail",
+        hands = "Aya. Manopolas +2",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = gear.dw_jse_back,
+        waist = "Orpheus's Sash",
+        legs = "Sworn Brais",
+        feet = "Sworn Sabatons"
     }
 
     sets.engaged.DW.DT = {
@@ -1542,6 +1590,22 @@ function init_gear_sets()
         waist = "Null Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
+    }
+
+    sets.engaged.DW.Enspell.DT = {
+        ammo = "Coiste Bodhar",
+        head = "Sworn Crown",
+        neck = "Anu Torque",
+        ear1 = "Sherida Earring",
+        ear2 = "Dedition Earring",
+        body = "Sworn Platemail",
+        hands = "Sworn Gauntlets",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = gear.dw_jse_back,
+        waist = "Orpheus's Sash",
+        legs = "Sworn Brais",
+        feet = "Sworn Sabatons"
     }
 
     sets.engaged.EnspellOnly = {
