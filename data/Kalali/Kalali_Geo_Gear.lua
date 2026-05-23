@@ -115,6 +115,7 @@ function init_gear_sets()
     }
 
     sets.precast.FC.Geomancy = set_combine(sets.precast.FC, { range = gear.geo_range, ammo = empty })
+    sets.precast.FC.Indi = sets.precast.FC.Geomancy
 
     sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC,
         { ear2 = "Malignance Earring" })
@@ -915,8 +916,17 @@ function init_gear_sets()
     sets.buff.DTSublimation = { waist = "Embla Sash" }
 
     -- Weapons sets
-    sets.weapons.Maxentius = { main = 'Maxentius', sub = 'Ammurapi Shield' }
-    sets.weapons.DualWeapons = { main = 'Maxentius', sub = 'Daybreak' }
+    sets.weapons.None = { range = gear.geo_range, ammo = empty }
+    sets.weapons.Maxentius = { main = 'Maxentius', sub = 'Ammurapi Shield', range = gear.geo_range, ammo = empty }
+    sets.weapons.DualWeapons = { main = 'Maxentius', sub = 'Daybreak', range = gear.geo_range, ammo = empty }
+end
+
+function extra_user_customize_idle_set(idleSet)
+    if pet.isvalid then
+        idleSet = set_combine(idleSet, { range = gear.geo_range, ammo = empty })
+    end
+
+    return idleSet
 end
 
 -- Select default macro book on initial load or subjob change.

@@ -116,8 +116,6 @@ function character_user_job_setup()
     --  1  Homiliary                     Idle Refresh +1
     gear.null_masque = gear.af3_head
     --  1  Null Masque                   Animon Idle
-    gear.anu_torque = "Null Loop"
-    --  2  Anu Torque                    +7 STP Default Neck, switch immediately
     gear.fotia_gorget = "Null Loop"
     --  4  Fotia Gorget                  fTP replicating WS
     gear.meili_earring = "Alabaster Earring"
@@ -1421,14 +1419,14 @@ function init_gear_sets()
     sets.engaged = {
         ammo = "Coiste Bodhar",
         head = "Sworn Crown",
-        neck = gear.anu_torque,
+        neck = "Anu Torque",
         ear1 = "Sherida Earring",
         ear2 = "Dedition Earring",
         body = "Sworn Platemail",
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
+        back = "Null Shawl",
         waist = "Orpheus's Sash",
         legs = "Sworn Brais",
         feet = "Sworn Sabotons"
@@ -1484,18 +1482,18 @@ function init_gear_sets()
 
     sets.engaged.DW = {
         ammo = "Coiste Bodhar",
-        head = "Malignance Chapeau",
-        neck = gear.anu_torque,
+        head = "Sworn Crown",
+        neck = "Anu Torque",
         ear1 = "Sherida Earring",
         ear2 = "Dedition Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
+        body = "Sworn Platemail",
+        hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.dw_jse_back,
-        waist = "Windbuffet Belt +1",
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
+        waist = "Orpheus's Sash",
+        legs = "Sworn Brais",
+        feet = "Sworn Sabotons"
     }
 
     sets.engaged.DW.Acc = {
