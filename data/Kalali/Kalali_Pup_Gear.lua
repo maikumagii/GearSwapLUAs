@@ -6,70 +6,70 @@ function character_user_job_setup()
     state.PhysicalDefenseMode:options('PDT')
     state.IdleMode:options('Normal', 'PDT')
     state.Weapons:options('None', 'Kaja', 'Denouements', 'Midnights', 'Pitre', 'PetWeapons')
-    state.PetMode        = M { ['description'] = 'Pet Mode', 'None', 'Melee', 'Ranged', 'HybridRanged', 'Bruiser', 'Tank', 'LightTank', 'Magic', 'Heal', 'Nuke' }
-    state.AutoRepairMode = M(false, 'Auto Repair Mode')
-    state.AutoDeployMode = M(true, 'Auto Deploy Mode')
-    state.AutoPetMode    = M(true, 'Auto Pet Mode')
-    state.PetWSGear      = M(true, 'Pet WS Gear')
-    state.PetEnmityGear  = M(false, 'Pet Enmity Gear')
+    state.PetMode                = M { ['description'] = 'Pet Mode', 'None', 'Melee', 'Ranged', 'HybridRanged', 'Bruiser', 'Tank', 'LightTank', 'Magic', 'Heal', 'Nuke' }
+    state.AutoRepairMode         = M(false, 'Auto Repair Mode')
+    state.AutoDeployMode         = M(true, 'Auto Deploy Mode')
+    state.AutoPetMode            = M(true, 'Auto Pet Mode')
+    state.PetWSGear              = M(true, 'Pet WS Gear')
+    state.PetEnmityGear          = M(false, 'Pet Enmity Gear')
 
-    gear.jse_neck = "Puppetmaster's Collar +1"
-    gear.jse_ear2 = "Karagoz Earring"
+    gear.jse_neck                = "Puppetmaster's Collar +1"
+    gear.jse_ear2                = "Karagoz Earring"
 
-    gear.dyna_weapon = "Pitre Fists"
+    gear.dyna_weapon             = "Pitre Fists"
 
     -- Artifact gear placeholders.
-    gear.af1_head = ""  -- "Foire Taj +3"
-    gear.af1_body = ""  -- "Foire Tobe +3"
-    gear.af1_hands = "" -- "Foire Dastanas +3"
-    gear.af1_legs = ""  -- "Foire Churidars +3"
-    gear.af1_feet = ""  -- "Foire Babouches +3"
+    gear.af1_head                = "" -- "Foire Taj +3"
+    gear.af1_body                = "" -- "Foire Tobe +3"
+    gear.af1_hands               = "" -- "Foire Dastanas +3"
+    gear.af1_legs                = "" -- "Foire Churidars +3"
+    gear.af1_feet                = "" -- "Foire Babouches +3"
 
     -- Relic gear placeholders.
-    gear.af2_head = ""  -- "Pitre Taj +3"
-    gear.af2_body = ""  -- "Pitre Tobe +3"
-    gear.af2_hands = "" -- "Pitre Dastanas +3"
-    gear.af2_legs = ""  -- "Pitre Churidars +3"
-    gear.af2_feet = ""  -- "Pitre Babouches +3"
+    gear.af2_head                = "" -- "Pitre Taj +3"
+    gear.af2_body                = "" -- "Pitre Tobe +3"
+    gear.af2_hands               = "" -- "Pitre Dastanas +3"
+    gear.af2_legs                = "" -- "Pitre Churidars +3"
+    gear.af2_feet                = "" -- "Pitre Babouches +3"
 
-    gear.af3_head = "Karagoz Cappello +2"
-    gear.af3_body = "Karagoz Farsetto +2"
-    gear.af3_hands = "Karagoz Guanti +2"
-    gear.af3_legs = "Karagoz Pantaloni +2"
-    gear.af3_feet = "Karagoz Scarpe +2"
+    gear.af3_head                = "Karagoz Cappello +2"
+    gear.af3_body                = "Karagoz Farsetto +2"
+    gear.af3_hands               = "Karagoz Guanti +2"
+    gear.af3_legs                = "Karagoz Pantaloni +2"
+    gear.af3_feet                = "Karagoz Scarpe +2"
 
-    gear.varar_ring1 = { name = "Varar Ring +1", bag = "Wardrobe" }
-    gear.varar_ring2 = { name = "Varar Ring +1", bag = "Wardrobe 2" }
-    gear.pet_tp_bonus_back = {
+    gear.varar_ring1             = { name = "Varar Ring +1", bag = "Wardrobe" }
+    gear.varar_ring2             = { name = "Varar Ring +1", bag = "Wardrobe 2" }
+    gear.pet_tp_bonus_back       = {
         name = "Dispersal Mantle",
         augments = { 'STR+3', 'DEX+1', 'Pet: TP Bonus +480', }
     }
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here.
-    gear.godhands = "Kaja Knuckles"                -- "Godhands"
-    gear.ohtas = "Midnights"                       -- "Ohtas"
-    gear.buffoons_collar = gear.jse_neck           -- "Buffoon's Collar +1"
-    gear.visucius_pet_ws_back = gear.pet_tp_bonus_back
-    gear.visucius_pet_tank_back = "Null Shawl"     -- "Visucius's Mantle"
-    gear.visucius_master_tp_back = "Null Shawl"    -- "Visucius's Mantle"
-    gear.shulmanu_collar = gear.jse_neck           -- "Shulmanu Collar"
-    gear.enmerkar_earring = "Pratik Earring"       -- "Enmerkar Earring"
-    gear.handlers_earring = "Pratik Earring"       -- "Handler's Earring +1"
-    gear.crepuscular_earring = gear.jse_ear2       -- "Crepuscular Earring"
-    gear.c_palug_ring = gear.varar_ring2           -- "C. Palug Ring"
-    gear.incarnation_sash = "Incarnation Sash"
-    gear.klouskap_sash = gear.incarnation_sash     -- "Klouskap Sash +1"
-    gear.regimen_mittens = gear.af3_hands          -- "Regimen Mittens"
-    gear.taeon_pet_body = gear.af3_body            -- Pet Taeon body
-    gear.taeon_pet_hands = gear.af3_hands          -- Pet Taeon hands
-    gear.taeon_pet_feet = gear.af3_feet            -- Pet Taeon feet
-    gear.taliah_pet_legs = gear.af3_legs           -- "Tali'ah Seraweels +2"
-    gear.mpaca_head = gear.af3_head                -- "Mpaca's Cap"
-    gear.mpaca_hands = gear.af3_hands              -- "Mpaca's Gloves"
-    gear.mpaca_feet = gear.af3_feet                -- "Mpaca's Boots"
+    gear.godhands                = "Kaja Knuckles"       -- "Godhands"
+    gear.ohtas                   = "Midnights"           -- "Ohtas"
+    gear.buffoons_collar         = gear.jse_neck         -- "Buffoon's Collar +1"
+    gear.visucius_pet_ws_back    = gear.pet_tp_bonus_back
+    gear.visucius_pet_tank_back  = "Null Shawl"          -- "Visucius's Mantle"
+    gear.visucius_master_tp_back = "Null Shawl"          -- "Visucius's Mantle"
+    gear.shulmanu_collar         = gear.jse_neck         -- "Shulmanu Collar"
+    gear.enmerkar_earring        = "Pratik Earring"      -- "Enmerkar Earring"
+    gear.handlers_earring        = "Pratik Earring"      -- "Handler's Earring +1"
+    gear.crepuscular_earring     = gear.jse_ear2         -- "Crepuscular Earring"
+    gear.c_palug_ring            = gear.varar_ring2      -- "C. Palug Ring"
+    gear.incarnation_sash        = "Incarnation Sash"
+    gear.klouskap_sash           = gear.incarnation_sash -- "Klouskap Sash +1"
+    gear.regimen_mittens         = gear.af3_hands        -- "Regimen Mittens"
+    gear.taeon_pet_body          = gear.af3_body         -- Pet Taeon body
+    gear.taeon_pet_hands         = gear.af3_hands        -- Pet Taeon hands
+    gear.taeon_pet_feet          = gear.af3_feet         -- Pet Taeon feet
+    gear.taliah_pet_legs         = gear.af3_legs         -- "Tali'ah Seraweels +2"
+    gear.mpaca_head              = gear.af3_head         -- "Mpaca's Cap"
+    gear.mpaca_hands             = gear.af3_hands        -- "Mpaca's Gloves"
+    gear.mpaca_feet              = gear.af3_feet         -- "Mpaca's Boots"
 
     -- Default/Automatic maneuvers for each pet mode.  Define at least 3.
-    defaultManeuvers     = {
+    defaultManeuvers             = {
         Melee = {
             { Name = 'Fire Maneuver',    Amount = 1 },
             { Name = 'Thunder Maneuver', Amount = 1 },
@@ -126,7 +126,7 @@ function character_user_job_setup()
         },
     }
 
-    deactivatehpp        = 85
+    deactivatehpp                = 85
 
     select_default_macro_book()
     update_pet_mode()
@@ -219,10 +219,14 @@ function init_gear_sets()
     sets.precast.WS['Shijin Spiral'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Shijin Spiral'].Fodder = set_combine(sets.precast.WS.Fodder, {})
 
-    sets.precast.WS['Asuran Fists'] = set_combine(sets.precast.WS, {})
-    sets.precast.WS['Asuran Fists'].Acc = set_combine(sets.precast.WS.Acc, {})
-    sets.precast.WS['Asuran Fists'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
-    sets.precast.WS['Asuran Fists'].Fodder = set_combine(sets.precast.WS.Fodder, {})
+    sets.precast.WS['Asuran Fists'] = set_combine(sets.precast.WS,
+        { neck = "Fotia Gorget", waist = "Fotia Belt" })
+    sets.precast.WS['Asuran Fists'].Acc = set_combine(sets.precast.WS.Acc,
+        { neck = "Fotia Gorget", waist = "Fotia Belt" })
+    sets.precast.WS['Asuran Fists'].FullAcc = set_combine(sets.precast.WS.FullAcc,
+        { neck = "Fotia Gorget", waist = "Fotia Belt" })
+    sets.precast.WS['Asuran Fists'].Fodder = set_combine(sets.precast.WS.Fodder,
+        { neck = "Fotia Gorget", waist = "Fotia Belt" })
 
     sets.precast.WS['Dragon Kick'] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Dragon Kick'].Acc = set_combine(sets.precast.WS.Acc, {})

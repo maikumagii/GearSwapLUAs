@@ -33,7 +33,7 @@ function character_user_job_setup()
     gear.jse_ear2 = "Boii Earring +1"
 
     -- Artifact gear.
-    gear.af1_head = "" -- "Pumm. Mask +4"
+    gear.af1_head = ""  -- "Pumm. Mask +4"
     gear.af1_body = "Pumm. Lorica +2"
     gear.af1_hands = "" -- "Pumm. Mufflers +4"
     gear.af1_legs = "Pumm. Cuisses +4"
@@ -61,19 +61,16 @@ function character_user_job_setup()
     gear.hjarrandi_head = "Hjarrandi Helm"
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here.
-    gear.sakpatas_head = gear.hjarrandi_head        -- "Sakpata's Helm"
-    gear.sakpatas_body = gear.af2_body              -- "Sakpata's Plate"
+    gear.sakpatas_head = gear.hjarrandi_head -- "Sakpata's Helm"
+    gear.sakpatas_body = gear.af2_body       -- "Sakpata's Plate"
     gear.sakpatas_hands = "Sakpata's Gauntlets"
-    gear.sakpatas_legs = "Nyame Flanchard"          -- "Sakpata's Cuisses"
-    gear.sakpatas_feet = "Nyame Sollerets"          -- "Sakpata's Leggings"
-    gear.null_masque = gear.hjarrandi_head          -- "Null Masque"
-    gear.rep_plat_medal = gear.jse_neck             -- "Republican Platinum Medal"
-    gear.niqmaddu_ring = "Petrov Ring"              -- "Niqmaddu Ring"
-    gear.regal_ring = "Sroda Ring"                  -- "Regal Ring"
-    gear.windbuffet_belt = "Sailfi Belt +1"         -- "Windbuffet Belt +1"
-    gear.fotia_gorget = gear.jse_neck               -- "Fotia Gorget"
-    gear.fotia_belt = "Sailfi Belt +1"              -- "Fotia Belt"
-    gear.tp_ammo = "Coiste Bodhar"                  -- "Aurgelmir Orb +1"
+    gear.sakpatas_legs = "Nyame Flanchard"   -- "Sakpata's Cuisses"
+    gear.sakpatas_feet = "Nyame Sollerets"   -- "Sakpata's Leggings"
+    gear.null_masque = gear.hjarrandi_head   -- "Null Masque"
+    gear.rep_plat_medal = gear.jse_neck      -- "Republican Platinum Medal"
+    gear.niqmaddu_ring = "Petrov Ring"       -- "Niqmaddu Ring"
+    gear.regal_ring = "Sroda Ring"           -- "Regal Ring"
+    gear.tp_ammo = "Coiste Bodhar"           -- "Aurgelmir Orb +1"
     gear.ws_ammo = "Knobkierrie"
 
     send_command('bind ^` input /ja "Hasso" <me>')

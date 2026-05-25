@@ -46,8 +46,6 @@ function character_user_job_setup()
 
 
     gear.perimede_cape = "Null Shawl"
-    gear.fotia_gorget = "Null Loop"
-    gear.fotia_belt = "Null Belt"
     gear.luminary_sash = "Embla Sash"
     gear.orunmilas_torque = "Voltsurge Torque"
     gear.meili_earring = "Alabaster Earring"

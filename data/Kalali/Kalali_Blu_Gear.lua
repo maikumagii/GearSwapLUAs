@@ -48,8 +48,6 @@ function character_user_job_setup()
     gear.af3_feet = "Hashi. Basmak +2"
 
     gear.baetyl_pendant = ""
-    gear.fotia_gorget = ""
-    gear.fotia_belt = ""
     gear.acuity_belt = ""
     gear.null_masque = ""
     gear.luminary_sash = "Null Belt"
@@ -142,30 +140,30 @@ function init_gear_sets()
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS, {
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear2 = gear.regal_earring,
         ring1 = "Metamor. Ring +1",
         ring2 = "Epona's Ring",
-        waist = gear.fotia_belt
+        waist = "Fotia Belt"
     })
 
     sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS.Acc, {
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear2 = gear.regal_earring,
         ring1 = "Metamor. Ring +1",
         ring2 = "Epona's Ring",
-        waist = gear.fotia_belt
+        waist = "Fotia Belt"
     })
 
     sets.precast.WS['Requiescat'].HighBuff = set_combine(sets.precast.WS.HighBuff, {
         head = gear.null_masque,
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Brutal Earring",
         ear2 = gear.regal_earring,
         body = "Gleti's Cuirass",
         ring1 = "Metamor. Ring +1",
         ring2 = "Sroda Ring",
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = "Gleti's Breeches"
     })
 

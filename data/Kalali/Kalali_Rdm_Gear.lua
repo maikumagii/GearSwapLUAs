@@ -84,7 +84,7 @@ function character_user_job_setup()
     -- Empy Gear
     gear.af3_head = "Leth. Chappel +2"
     gear.af3_body = "Lethargy Sayon +2"
-    gear.af3_hands = "Leth. Ganth. +2"
+    gear.af3_hands = "Leth. Ganth. +3"
     gear.af3_legs = "Leth. Fuseau +2"
     gear.af3_feet = "Leth. Houseaux +3"
 
@@ -116,8 +116,6 @@ function character_user_job_setup()
     --  1  Homiliary                     Idle Refresh +1
     gear.null_masque = gear.af3_head
     --  1  Null Masque                   Animon Idle
-    gear.fotia_gorget = "Null Loop"
-    --  4  Fotia Gorget                  fTP replicating WS
     gear.meili_earring = "Alabaster Earring"
     --  4  Meili Earring                 Healing skill + 10
     gear.zennaroi_ear = "Alabaster Earring"
@@ -143,8 +141,6 @@ function character_user_job_setup()
     --  1  Olympus Sash                  +5 Enhancing=
     gear.fuchonoobi = "Eschan Stone"
     --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
-    gear.fotia_belt = "Sailfi Belt +1"
-    --  3  Fotia Belt                    fTP Belt
 
     -- Ignored placeholders
     gear.filler_shield = "Ammurapi Shield"
@@ -312,7 +308,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Oshasha's Treatise",
         head = gear.af2_head,
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Sherida Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -320,7 +316,7 @@ function init_gear_sets()
         ring1 = "Sroda Ring",
         ring2 = gear.cornealias_ring,
         back = gear.str_wsd_jse_back,
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
@@ -346,7 +342,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Regal Gem",
         head = gear.af2_head,
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Sherida Earring",
         ear2 = "Moonshade Earring",
         body = gear.af3_body,
@@ -354,7 +350,7 @@ function init_gear_sets()
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Metamorph Ring +1",
         back = gear.physical_mnd_wsd_jse_back,
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -363,7 +359,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Coiste Bodhar",
         head = "Nyame Helm",
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Sherida Earring",
         ear2 = "Brutal Earring",
         body = "Malignance Tabard",
@@ -371,7 +367,7 @@ function init_gear_sets()
         ring1 = "Epaminondas's Ring",
         ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
@@ -453,7 +449,7 @@ function init_gear_sets()
         range = empty,
         ammo = "Sroda Tathlum",
         head = gear.af3_head,
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Malignance Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",

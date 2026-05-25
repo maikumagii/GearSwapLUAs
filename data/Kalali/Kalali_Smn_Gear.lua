@@ -91,8 +91,6 @@ function character_user_job_setup()
 
     gear.black_halo_jse_back = "Null Shawl" -- "Campestres's Cape" with STR/MND, Acc/Atk, WSD.
     gear.skillchain_jse_back = gear.campestres_magic
-    gear.fotia_gorget = "Null Loop"         -- "Fotia Gorget"
-    gear.fotia_belt = "Regal Belt"          -- "Fotia Belt"
     gear.stikini_ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" }
     gear.stikini_ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" }
     gear.chirich_ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" }
@@ -224,7 +222,7 @@ function init_gear_sets()
     sets.precast.WS = {
         ammo = "Oshasha's Treatise",
         head = "Nyame Helm",
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Ishvara Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -232,7 +230,7 @@ function init_gear_sets()
         ring1 = "Epaminondas's Ring",
         ring2 = "Cornelia's Ring",
         back = "Null Shawl",
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }

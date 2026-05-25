@@ -84,8 +84,6 @@ function character_user_job_setup()
     gear.regal_ring = ""
     gear.null_masque = ""
     gear.genmei_earring = ""
-    gear.fotia_gorget = "Null Loop"
-    gear.fotia_belt = "Null Belt"
     gear.iskur_gorget = "Null Loop"
 
 
@@ -250,7 +248,7 @@ function init_gear_sets()
     -- Default set for any weaponskill that isn't any more specifically defined
     sets.precast.WS = {
         head = "Nyame Helm",
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Moonshade Earring",
         ear2 = "Telos Earring",
         body = "Nyame Mail",
@@ -258,7 +256,7 @@ function init_gear_sets()
         ring1 = gear.regal_ring,
         ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -359,7 +357,7 @@ function init_gear_sets()
     sets.precast.WS['Last Stand'] = {
         ammo = gear.RAbullet,
         head = gear.af2_head,
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Ishvara Earring",
         ear2 = "Moonshade Earring",
         body = "Ikenga's Vest",
@@ -367,7 +365,7 @@ function init_gear_sets()
         ring1 = "Dingir Ring",
         ring2 = "Epaminondas's Ring",
         back = gear.ranger_wsd_jse_back,
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = gear.af2_feet
     }
@@ -407,7 +405,7 @@ function init_gear_sets()
     sets.precast.WS['Hot Shot'] = {
         ammo = gear.MAbullet,
         head = "Nyame Helm",
-        neck = gear.fotia_gorget,
+        neck = "Fotia Gorget",
         ear1 = "Friomisi Earring",
         ear2 = "Moonshade Earring",
         body = gear.af1_body,
@@ -415,7 +413,7 @@ function init_gear_sets()
         ring1 = "Dingir Ring",
         ring2 = "Epaminondas's Ring",
         back = gear.ranger_wsd_jse_back,
-        waist = gear.fotia_belt,
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = gear.af2_feet
     }
