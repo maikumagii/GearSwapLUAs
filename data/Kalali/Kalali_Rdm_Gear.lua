@@ -784,16 +784,16 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = empty,
         ammo = "Regal Gem",
-        head = gear.af2_head,
+        head = gear.af3_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
         ear2 = "Snotra Earring",
         body = gear.af3_body,
-        hands = gear.af3_hands,
-        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        hands = "Regal Cuffs",
+        ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.mnd_enfeebling_jse_back,
-        waist = gear.obstinate_sash,
+        waist = "Null Sash",
         legs = gear.af3_legs,
         feet = gear.af2_feet
     }
@@ -803,20 +803,20 @@ function init_gear_sets()
     sets.midcast.Frazzle.Resistant = {
         main = "Daybreak",
         sub = "Ammurapi Shield",
-        range = "Ullr",
-        ammo = empty,
+        range = empty,
+        ammo = "Regal Gem",
         head = gear.af1_head,
-        neck = "Null Loop",
+        neck = gear.jse_neck,
         ear1 = "Regal Earring",
         ear2 = "Snotra Earring",
-        body = gear.af1_body,
-        hands = gear.af3_hands,
+        body = gear.af3_body,
+        hands = "Regal Cuffs",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Metamorph Ring +1",
-        back = "Null Shawl",
+        back = gear.mnd_enfeebling_jse_back,
         waist = "Null Belt",
         legs = gear.chironic_macc_legs,
-        feet = gear.af3_feet
+        feet = gear.af2_feet
     }
 
     sets.midcast.Distract.Resistant = sets.midcast.Frazzle.Resistant
@@ -830,16 +830,16 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = empty,
         ammo = "Regal Gem",
-        head = gear.af2_head,
+        head = gear.af3_head,
         neck = gear.jse_neck,
         ear1 = "Malignance Earring",
         ear2 = "Snotra Earring",
         body = gear.af3_body,
-        hands = gear.af3_hands,
-        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        hands = "Regal Cuffs",
+        ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.mnd_enfeebling_jse_back,
-        waist = gear.obstinate_sash,
+        waist = "Null Sash",
         legs = gear.af3_legs,
         feet = gear.af2_feet
     }
@@ -850,20 +850,20 @@ function init_gear_sets()
     sets.midcast.Addle.Resistant = {
         main = "Daybreak",
         sub = "Ammurapi Shield",
-        range = "Ullr",
-        ammo = empty,
-        head = gear.af2_head,
-        neck = "Null Loop",
-        ear1 = "Malignance Earring",
+        range = empty,
+        ammo = "Regal Gem",
+        head = gear.af1_head,
+        neck = gear.jse_neck,
+        ear1 = "Regal Earring",
         ear2 = "Snotra Earring",
         body = gear.af3_body,
-        hands = gear.af3_hands,
+        hands = "Regal Cuffs",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Metamorph Ring +1",
-        back = "Null Shawl",
+        back = gear.mnd_enfeebling_jse_back,
         waist = "Null Belt",
         legs = gear.chironic_macc_legs,
-        feet = gear.af3_feet
+        feet = gear.af2_feet
     }
 
     sets.midcast.Paralyze.Resistant = sets.midcast.Addle.Resistant
@@ -887,7 +887,7 @@ function init_gear_sets()
         ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.int_enfeebling_jse_back,
-        waist = "Null Sash", --obstinante sash
+        waist = "Null Sash", -- Embla Sash
         legs = gear.af3_legs,
         feet = gear.af2_feet
     }
