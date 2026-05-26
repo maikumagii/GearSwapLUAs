@@ -123,7 +123,16 @@ function init_gear_sets()
     sets.precast.JA['Double Up'] = {}
     sets.precast.FoldDoubleBust = { hands = gear.af3_hands }                                                         --hands="Lanun Gants +3"
 
-    sets.precast.CorsairRoll = { main = gear.jse_main_roll, range = "Compensator", back = gear.ranger_wsd_jse_back } --legs="Desultor Tassets"
+    local roll_neck = item_available("Regal Necklace") and "Regal Necklace" or gear.jse_neck
+
+    sets.precast.CorsairRoll = {
+        main = gear.jse_main_roll,
+        range = "Compensator",
+        head = gear.af2_head,
+        neck = roll_neck,
+        hands = gear.af3_hands,
+        back = gear.ranger_wsd_jse_back
+    }
 
     sets.precast.LuzafRing = { ring2 = "Luzaf's Ring" }
 
@@ -133,8 +142,18 @@ function init_gear_sets()
     sets.precast.CorsairRoll["Tactician's Roll"] = set_combine(sets.precast.CorsairRoll, { body = gear.af3_body })
     sets.precast.CorsairRoll["Allies' Roll"] = set_combine(sets.precast.CorsairRoll, { hands = gear.af3_hands })
     sets.precast.CorsairRoll["Bolter's Roll"] = set_combine(sets.precast.CorsairRoll, {})
-    sets.precast.CorsairRoll.Recast = {}
-    sets.precast.CorsairRoll.Weak = {}
+    local roll_recast_gear = {}
+
+    if item_available("Desultor Tassets") then
+        roll_recast_gear.legs = "Desultor Tassets"
+    end
+
+    if item_available("Gunslinger's Cape") then
+        roll_recast_gear.back = "Gunslinger's Cape"
+    end
+
+    sets.precast.CorsairRoll.Recast = set_combine(sets.precast.CorsairRoll, roll_recast_gear)
+    sets.precast.CorsairRoll.Weak = roll_recast_gear
 
     --Standard TP Generating Shot
     sets.precast.CorsairShot = {
