@@ -1,6 +1,6 @@
 function character_user_job_setup()
     -- Options: Override default values
-    state.OffenseMode:options('Normal', 'Acc', 'Enspell')
+    state.OffenseMode:options('Normal', 'Acc')
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Match', 'Proc')
     state.CastingMode:options('Normal', 'Resistant', 'Proc', 'SIRD')
@@ -83,7 +83,7 @@ function character_user_job_setup()
 
     -- Empy Gear
     gear.af3_head = "Leth. Chappel +2"
-    gear.af3_body = "Lethargy Sayon +2"
+    gear.af3_body = "Leth. Sayon +3"
     gear.af3_hands = "Leth. Ganth. +3"
     gear.af3_legs = "Leth. Fuseau +2"
     gear.af3_feet = "Leth. Houseaux +3"
@@ -181,23 +181,13 @@ function init_gear_sets()
     sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword, range = empty }
     sets.weapons.DualWeaponsAcc = { main = "Naegling", sub = "Gleti's Knife", range = empty }
     --sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
-    --sets.weapons.DualEvisceration = {}
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak", range = empty }
     sets.weapons.DualAeolian = { main = "Tauret", sub = "Maxentius", range = empty }
-    --sets.weapons.DualProcSword = {main="Demers. Degen +1",sub="Gleti's Knife",range=empty}
-    --sets.weapons.ProcSword = {main="Demers. Degen +1",sub="Ammurapi Shield",range=empty}
-    --sets.weapons.ProcDagger = {main="Gleti's Knife",sub="Ammurapi Shield",range=empty}
-    --sets.weapons.DualProcDagger = {main="Gleti's Knife",sub="Demers. Degen +1",range=empty}
     sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = "Sacro Bulwark", range = "Ullr", ammo = empty }
     sets.weapons.DualEnspellOnly = { main = "Qutrub Knife", sub = "Ethereal Dagger", range = "Ullr", ammo = empty }
-    --sets.weapons.DualBow = {}
-    --sets.weapons.BowMacc = {}
     sets.weapons.DualMaxentius = { main = "Maxentius", sub = gear.tp_bonus_sword, range = empty }
     sets.weapons.DualMaxentiusAcc = { main = "Maxentius", sub = "Gleti's Knife", range = empty }
 
-    --Temporary Weapon Sets for Dynamis RP
-    --sets.weapons.DualCroceaSavageBlade = {main="Crocea Mors",sub=gear.tp_bonus_sword}
-    --sets.weapons.DualTauretCrocea = {main="Tauret",sub="Crocea Mors"}
 
     -- Precast Sets
 
@@ -893,13 +883,13 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Snotra Earring",
         body = gear.af3_body,
-        hands = gear.af3_hands,
+        hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.int_enfeebling_jse_back,
-        waist = gear.obstinate_sash,
+        waist = "Null Sash", --obstinante sash
         legs = gear.af3_legs,
-        feet = gear.af3_feet
+        feet = gear.af2_feet
     }
 
     sets.midcast.Gravity.Resistant = {
@@ -907,18 +897,18 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = empty,
         ammo = "Regal Gem",
-        head = gear.af3_head,
+        head = gear.af1_head,
         neck = gear.jse_neck,
-        ear1 = "Malignance Earring",
+        ear1 = "Regal Earring",
         ear2 = "Snotra Earring",
         body = gear.af3_body,
-        hands = gear.af3_hands,
+        hands = "Regal Cuffs",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Metamorph Ring +1",
         back = gear.int_enfeebling_jse_back,
         waist = "Null Belt",
         legs = gear.chironic_macc_legs,
-        feet = gear.af3_feet
+        feet = gear.af2_feet
     }
 
     sets.midcast.Gravity.DW = { main = "Bunzi's Rod", sub = "Maxentius" }
@@ -1444,22 +1434,6 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.Enspell = {
-        ammo = "Coiste Bodhar",
-        head = "Sworn Crown",
-        neck = "Anu Torque",
-        ear1 = "Sherida Earring",
-        ear2 = "Dedition Earring",
-        body = "Sworn Platemail",
-        hands = "Aya. Manopolas +2",
-        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = "Null Shawl",
-        waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
-        feet = "Sworn Sabatons"
-    }
-
     sets.engaged.DT = {
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
@@ -1490,22 +1464,6 @@ function init_gear_sets()
         waist = "Null Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
-    }
-
-    sets.engaged.Enspell.DT = {
-        ammo = "Coiste Bodhar",
-        head = "Sworn Crown",
-        neck = "Anu Torque",
-        ear1 = "Sherida Earring",
-        ear2 = "Dedition Earring",
-        body = "Sworn Platemail",
-        hands = "Sworn Gauntlets",
-        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = "Null Shawl",
-        waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
-        feet = "Sworn Sabatons"
     }
 
     sets.engaged.DW = {
@@ -1540,22 +1498,6 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.DW.Enspell = {
-        ammo = "Coiste Bodhar",
-        head = "Sworn Crown",
-        neck = "Anu Torque",
-        ear1 = "Sherida Earring",
-        ear2 = "Dedition Earring",
-        body = "Sworn Platemail",
-        hands = "Aya. Manopolas +2",
-        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
-        waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
-        feet = "Sworn Sabatons"
-    }
-
     sets.engaged.DW.DT = {
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
@@ -1586,22 +1528,6 @@ function init_gear_sets()
         waist = "Null Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
-    }
-
-    sets.engaged.DW.Enspell.DT = {
-        ammo = "Coiste Bodhar",
-        head = "Sworn Crown",
-        neck = "Anu Torque",
-        ear1 = "Sherida Earring",
-        ear2 = "Dedition Earring",
-        body = "Sworn Platemail",
-        hands = "Sworn Gauntlets",
-        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
-        waist = "Orpheus's Sash",
-        legs = "Sworn Brais",
-        feet = "Sworn Sabatons"
     }
 
     sets.engaged.EnspellOnly = {
