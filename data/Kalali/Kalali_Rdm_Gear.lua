@@ -793,7 +793,7 @@ function init_gear_sets()
         ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.mnd_enfeebling_jse_back,
-        waist = "Null Sash",
+        waist = "Null Belt",
         legs = gear.af3_legs,
         feet = gear.af2_feet
     }
@@ -839,7 +839,7 @@ function init_gear_sets()
         ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.mnd_enfeebling_jse_back,
-        waist = "Null Sash",
+        waist = "Null Belt",
         legs = gear.af3_legs,
         feet = gear.af2_feet
     }
@@ -887,7 +887,7 @@ function init_gear_sets()
         ring1 = "Kishar Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.int_enfeebling_jse_back,
-        waist = "Null Sash", -- Embla Sash
+        waist = "Null Belt", -- Embla Sash
         legs = gear.af3_legs,
         feet = gear.af2_feet
     }
