@@ -59,13 +59,22 @@ function character_user_job_setup()
     gear.flamma_legs = "Flamma Dirs +2"
     gear.flamma_feet = "Flam. Gambieras +2"
     gear.hjarrandi_head = "Hjarrandi Helm"
+    gear.nyame_head = "Nyame Helm"
+    gear.nyame_body = "Nyame Mail"
+    gear.nyame_hands = "Nyame Gauntlets"
+    gear.nyame_legs = "Nyame Flanchard"
+    gear.nyame_feet = "Nyame Sollerets"
+
+    -- Nyame Path B is only R15, so stronger WAR-specific WSD pieces win in these slots.
+    gear.ws_wsd_head = gear.af2_head
+    gear.ws_wsd_hands = gear.af3_hands
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here.
     gear.sakpatas_head = gear.hjarrandi_head -- "Sakpata's Helm"
     gear.sakpatas_body = gear.af2_body       -- "Sakpata's Plate"
     gear.sakpatas_hands = "Sakpata's Gauntlets"
-    gear.sakpatas_legs = "Nyame Flanchard"   -- "Sakpata's Cuisses"
-    gear.sakpatas_feet = "Nyame Sollerets"   -- "Sakpata's Leggings"
+    gear.sakpatas_legs = gear.nyame_legs     -- "Sakpata's Cuisses"
+    gear.sakpatas_feet = gear.nyame_feet     -- "Sakpata's Leggings"
     gear.null_masque = gear.hjarrandi_head   -- "Null Masque"
     gear.rep_plat_medal = gear.jse_neck      -- "Republican Platinum Medal"
     gear.niqmaddu_ring = "Petrov Ring"       -- "Niqmaddu Ring"
@@ -145,16 +154,16 @@ function init_gear_sets()
     sets.midcast.Cure = {}
     sets.midcast['Dark Magic'] = {
         ammo = "Pemphredo Tathlum",
-        head = "Nyame Helm",
+        head = gear.nyame_head,
         neck = "Null Loop",
-        body = "Nyame Mail",
-        hands = "Nyame Gauntlets",
+        body = gear.nyame_body,
+        hands = gear.nyame_hands,
         ring1 = "Metamorph Ring +1",
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        legs = gear.nyame_legs,
+        feet = gear.nyame_feet
     }
     sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
     sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
@@ -167,18 +176,18 @@ function init_gear_sets()
 
     sets.precast.WS = {
         ammo = gear.ws_ammo,
-        head = "Nyame Helm",
+        head = gear.ws_wsd_head,
         neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
         ear2 = "Thrud Earring",
-        body = "Nyame Mail",
-        hands = "Nyame Gauntlets",
+        body = gear.nyame_body,
+        hands = gear.ws_wsd_hands,
         ring1 = "Sroda Ring",
         ring2 = "Cornelia's Ring",
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
-        legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        legs = gear.nyame_legs,
+        feet = gear.nyame_feet
     }
     local ws_acc_overrides = {
         neck = "Null Loop",
@@ -257,13 +266,13 @@ function init_gear_sets()
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
         body = gear.af2_body,
-        hands = "Nyame Gauntlets",
+        hands = gear.nyame_hands,
         ring1 = "Murky Ring",
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        legs = gear.nyame_legs,
+        feet = gear.nyame_feet
     }
 
     sets.defense.PDT = {
@@ -273,7 +282,7 @@ function init_gear_sets()
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
         body = gear.af2_body,
-        hands = "Nyame Gauntlets",
+        hands = gear.nyame_hands,
         ring1 = "Murky Ring",
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.str_wsd_jse_back,
@@ -285,8 +294,8 @@ function init_gear_sets()
     sets.defense.MDT = set_combine(sets.defense.PDT, {
         neck = "Warder's Charm +1",
         back = "Null Shawl",
-        legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets",
+        legs = gear.nyame_legs,
+        feet = gear.nyame_feet,
     })
 
     sets.defense.MEVA = set_combine(sets.defense.MDT, {
