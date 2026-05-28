@@ -315,7 +315,7 @@ function init_gear_sets()
     sets.engaged = {
         ammo = gear.tp_ammo,
         head = gear.hjarrandi_head,
-        neck = "Vim Torque +1",
+        neck = gear.jse_neck,
         ear1 = "Schere Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
@@ -329,7 +329,7 @@ function init_gear_sets()
     }
 
     sets.engaged.Acc = set_combine(sets.engaged, {
-        neck = "Null Loop",
+        neck = gear.jse_neck,
         ear1 = "Telos Earring",
         waist = "Null Belt",
     })
