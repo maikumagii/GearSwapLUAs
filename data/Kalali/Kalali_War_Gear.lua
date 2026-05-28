@@ -34,7 +34,7 @@ function character_user_job_setup()
 
     -- Artifact gear.
     gear.af1_head = ""  -- "Pumm. Mask +4"
-    gear.af1_body = "Pumm. Lorica +2"
+    gear.af1_body = "Pumm. Lorica +3"
     gear.af1_hands = "" -- "Pumm. Mufflers +4"
     gear.af1_legs = "Pumm. Cuisses +4"
     gear.af1_feet = "Pumm. Calligae +4"
@@ -67,7 +67,10 @@ function character_user_job_setup()
 
     -- Nyame Path B is only R15, so stronger WAR-specific WSD pieces win in these slots.
     gear.ws_wsd_head = gear.af2_head
+    gear.ws_wsd_body = gear.af1_body
     gear.ws_wsd_hands = gear.af3_hands
+    gear.tp_body = gear.af2_body
+    gear.great_axe_tp_body = gear.af3_body
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here.
     gear.sakpatas_head = gear.hjarrandi_head -- "Sakpata's Helm"
@@ -180,7 +183,7 @@ function init_gear_sets()
         neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
         ear2 = "Thrud Earring",
-        body = gear.nyame_body,
+        body = gear.ws_wsd_body,
         hands = gear.ws_wsd_hands,
         ring1 = "Sroda Ring",
         ring2 = "Cornelia's Ring",
@@ -215,7 +218,7 @@ function init_gear_sets()
 
     sets.precast.WS['Upheaval'] = set_combine(sets.precast.WS, {
         head = gear.af3_head,
-        body = gear.af3_body,
+        body = gear.ws_wsd_body,
         hands = gear.af3_hands,
         back = gear.vit_wsd_jse_back,
         legs = gear.af3_legs,
@@ -318,7 +321,7 @@ function init_gear_sets()
         neck = gear.jse_neck,
         ear1 = "Schere Earring",
         ear2 = gear.jse_ear2,
-        body = gear.af2_body,
+        body = gear.tp_body,
         hands = gear.sakpatas_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -335,11 +338,11 @@ function init_gear_sets()
     })
 
     sets.engaged.DT = set_combine(sets.engaged, {
-        body = gear.af2_body,
+        body = gear.tp_body,
         back = gear.str_wsd_jse_back,
     })
     sets.engaged.Acc.DT = set_combine(sets.engaged.Acc, {
-        body = gear.af2_body,
+        body = gear.tp_body,
         back = gear.str_wsd_jse_back,
     })
 
@@ -358,7 +361,7 @@ function init_gear_sets()
     end
 
     sets.engaged.Chango = make_weapon_engaged_set({
-        body = gear.af3_body,
+        body = gear.great_axe_tp_body,
     })
     sets.engaged.ShiningOne = make_weapon_engaged_set()
     sets.engaged.Loxotic = make_weapon_engaged_set()

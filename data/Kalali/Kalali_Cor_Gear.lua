@@ -43,8 +43,8 @@ function character_user_job_setup()
 
     -- Ambuscade Capes
     gear.tp_ranger_jse_back = { name = "Camulus's Mantle", augments = { 'AGI+19', 'Rng.Acc.+20 Rng.Atk.+20', --[['Rng.Acc.+10',]] '"Store TP"+10', 'Phys. dmg. taken -10%' } }
-    gear.tp_snapshot_jse_back = gear.tp_ranger_jse_back
-    --gear.snapshot_jse_back = { name = "Camulus's Mantle", augments = { '"Snapshot"+10', } }
+    gear.snapshot_jse_back = { name = "Camulus's Mantle", augments = { '"Snapshot"+10', } }
+    gear.tp_snapshot_jse_back = gear.snapshot_jse_back
     gear.tp_jse_back = { name = "Camulus's Mantle", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'DEX+1', '"Double Attack"+10%', } }
     --gear.tp_jse_back = { name = "Camulus's Mantle", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'Accuracy+10', '"Store TP"+10', } }
     gear.magic_wsd_jse_back = { name = "Camulus's Mantle", augments = { 'AGI+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'AGI+10', 'Weapon skill damage +10%' } }
@@ -253,7 +253,7 @@ function init_gear_sets()
         body = gear.af1_body, -- Oshosi Vest +1 better
         --hands = "Carmine Fin. Ga. +1",
         ring1 = "Crepuscular Ring",
-        --back = gear.jse_snapshot_back,
+        back = gear.snapshot_jse_back,
         waist = gear.yemaya_belt, -- Impulse Belt 3%
         legs = "Adhemar Kecks +1",
         feet = "Meg. Jam. +2"
