@@ -82,10 +82,10 @@ function character_user_job_setup()
     gear.af2_feet = "Vitiation Boots +4" -- Need for Immunobreak macroing
 
     -- Empy Gear
-    gear.af3_head = "Leth. Chappel +2"
-    gear.af3_body = "Leth. Sayon +3"
+    gear.af3_head = "Leth. Chappel +3"
+    gear.af3_body = "Lethargy Sayon +3"
     gear.af3_hands = "Leth. Ganth. +3"
-    gear.af3_legs = "Leth. Fuseau +2"
+    gear.af3_legs = "Leth. Fuseau +3"
     gear.af3_feet = "Leth. Houseaux +3"
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
