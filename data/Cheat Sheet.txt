@@ -279,13 +279,13 @@ nuke - Highest Nuke
 smallnuke - Tier 2 or 1 nuke.
 helix - Elemental Helix
 weather - Scholar Weather
-skillchain1 - Tier 1 skillchain
-skillchain2 - Tier 2 skillchain
+skillchain1 - Tier 1 skillchain, closing with helix
+skillchain2 - Tier 2 skillchain, closing with helix
 skillchain3 - Only works on Fire element, does Liquefaction > Fusion
 skillchain4 - 4 Step skillchain for popping Perfidion
 skillchain6 - 6 Step Skillchain for popping Pluton (Requires you have a stratagem up and 5 stratagem charges to start)
 wsskillchain - Attempts to start skillchain with a weaponskill and finish with a spell (for conserving stratagems).
-endskillchain - Attempts to end a skillchain with the current element.
+endskillchain - Attempts to end a skillchain with a helix for the current element.
 tier1 - Casts a tier 1 spell of that element.
 tier2 - Casts a tier 2 spell of that element.
 tier3 - Casts a tier 3 spell of that element.

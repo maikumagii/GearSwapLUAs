@@ -51,13 +51,13 @@ Ninjutsu:
 /con gs c elemental ninjutsu
 
 Scholar Skillchains:
-//gs c elemental skillchain		Will choose the highest matching skillchain that avoids helix spells, preferring level 2 if both use helix
+//gs c elemental skillchain		Will choose the highest matching skillchain, closing with a helix spell
 /con gs c elemental skillchain
 
-//gs c elemental skillchain1		Will do a level 1 skill chain matching the element set, avoiding helix spells where possible
+//gs c elemental skillchain1		Will do a level 1 skill chain matching the element set, closing with a helix spell
 /con gs c elemental skillchain1
 
-//gs c elemental skillchain2		Will do a level 2 skill chain matching the element set, avoiding helix spells where possible
+//gs c elemental skillchain2		Will do a level 2 skill chain matching the element set, closing with a helix spell
 /con gs c elemental skillchain2
 
 //gs c elemental skillchain3		Will perform a three step skillchain, level I to level II marching the element set, closing with a helix I if available (only works with Fire)
@@ -72,7 +72,7 @@ Scholar Skillchains:
 //gs c elemental wsskillchain		Will perform a self skillchain utilizing a WS combined with strategems, only works with staff and club, not all elemental options available
 /con gs c elemental wsskillchain
 
-//gs c elemental endskillchain		Will close a skillchain matching the set elemental, will use the Tier I spell for all but Light/Dark
+//gs c elemental endskillchain		Will close a skillchain matching the set elemental with a helix spell
 /con gs c elemental endskillchain
 
 Strategems:

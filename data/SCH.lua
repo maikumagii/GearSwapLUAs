@@ -92,24 +92,24 @@ function job_setup()
 
     data.skillchains.scholar = {}
     data.skillchains.scholar['1'] = {
-        ['Fire'] = { ['skillchain'] = 'Liquefaction', ['first_spell'] = 'Stone', ['second_spell'] = 'Fire', ['burst_elements'] = '{Fire}' },
-        ['Wind'] = { ['skillchain'] = 'Detonation', ['first_spell'] = 'Stone', ['second_spell'] = 'Aero', ['burst_elements'] = '{Wind}' },
-        ['Lightning'] = { ['skillchain'] = 'Impaction', ['first_spell'] = 'Water', ['second_spell'] = 'Thunder', ['burst_elements'] = '{Lightning}' },
+        ['Fire'] = { ['skillchain'] = 'Liquefaction', ['first_spell'] = 'Stone', ['second_spell'] = 'Pyrohelix', ['burst_elements'] = '{Fire}' },
+        ['Wind'] = { ['skillchain'] = 'Detonation', ['first_spell'] = 'Stone', ['second_spell'] = 'Anemohelix', ['burst_elements'] = '{Wind}' },
+        ['Lightning'] = { ['skillchain'] = 'Impaction', ['first_spell'] = 'Water', ['second_spell'] = 'Ionohelix', ['burst_elements'] = '{Lightning}' },
         ['Light'] = { ['skillchain'] = 'Transfixion', ['first_spell'] = 'Noctohelix', ['second_spell'] = 'Luminohelix', ['burst_elements'] = '{Light}' },
-        ['Earth'] = { ['skillchain'] = 'Scission', ['first_spell'] = 'Fire', ['second_spell'] = 'Stone', ['burst_elements'] = '{Earth}' },
-        ['Ice'] = { ['skillchain'] = 'Induration', ['first_spell'] = 'Water', ['second_spell'] = 'Blizzard', ['burst_elements'] = '{Ice}' },
-        ['Water'] = { ['skillchain'] = 'Reverberation', ['first_spell'] = 'Stone', ['second_spell'] = 'Water', ['burst_elements'] = '{Water}' },
+        ['Earth'] = { ['skillchain'] = 'Scission', ['first_spell'] = 'Fire', ['second_spell'] = 'Geohelix', ['burst_elements'] = '{Earth}' },
+        ['Ice'] = { ['skillchain'] = 'Induration', ['first_spell'] = 'Water', ['second_spell'] = 'Cryohelix', ['burst_elements'] = '{Ice}' },
+        ['Water'] = { ['skillchain'] = 'Reverberation', ['first_spell'] = 'Stone', ['second_spell'] = 'Hydrohelix', ['burst_elements'] = '{Water}' },
         ['Dark'] = { ['skillchain'] = 'Compression', ['first_spell'] = 'Blizzard', ['second_spell'] = 'Noctohelix', ['burst_elements'] = '{Dark}' },
     }
     data.skillchains.scholar['2'] = {
-        ['Fire'] = { ['skillchain'] = 'Fusion', ['first_spell'] = 'Fire', ['second_spell'] = 'Thunder', ['burst_elements'] = '{Fire}, {Light}' },
-        ['Light'] = { ['skillchain'] = 'Fusion', ['first_spell'] = 'Fire', ['second_spell'] = 'Thunder', ['burst_elements'] = '{Fire}, {Light}' },
-        ['Wind'] = { ['skillchain'] = 'Fragmentation', ['first_spell'] = 'Blizzard', ['second_spell'] = 'Water', ['burst_elements'] = '{Wind}, {Lightning}' },
-        ['Lightning'] = { ['skillchain'] = 'Fragmentation', ['first_spell'] = 'Blizzard', ['second_spell'] = 'Water', ['burst_elements'] = '{Wind}, {Lightning}' },
+        ['Fire'] = { ['skillchain'] = 'Fusion', ['first_spell'] = 'Fire', ['second_spell'] = 'Ionohelix', ['burst_elements'] = '{Fire}, {Light}' },
+        ['Light'] = { ['skillchain'] = 'Fusion', ['first_spell'] = 'Fire', ['second_spell'] = 'Ionohelix', ['burst_elements'] = '{Fire}, {Light}' },
+        ['Wind'] = { ['skillchain'] = 'Fragmentation', ['first_spell'] = 'Blizzard', ['second_spell'] = 'Hydrohelix', ['burst_elements'] = '{Wind}, {Lightning}' },
+        ['Lightning'] = { ['skillchain'] = 'Fragmentation', ['first_spell'] = 'Blizzard', ['second_spell'] = 'Hydrohelix', ['burst_elements'] = '{Wind}, {Lightning}' },
         ['Earth'] = { ['skillchain'] = 'Gravitation', ['first_spell'] = 'Aero', ['second_spell'] = 'Noctohelix', ['burst_elements'] = '{Earth}, {Dark}' },
         ['Dark'] = { ['skillchain'] = 'Gravitation', ['first_spell'] = 'Aero', ['second_spell'] = 'Noctohelix', ['burst_elements'] = '{Earth}, {Dark}' },
-        ['Ice'] = { ['skillchain'] = 'Distortion', ['first_spell'] = 'Luminohelix', ['second_spell'] = 'Stone', ['burst_elements'] = '{Ice}, {Water}' },
-        ['Water'] = { ['skillchain'] = 'Distortion', ['first_spell'] = 'Luminohelix', ['second_spell'] = 'Stone', ['burst_elements'] = '{Ice}, {Water}' },
+        ['Ice'] = { ['skillchain'] = 'Distortion', ['first_spell'] = 'Luminohelix', ['second_spell'] = 'Geohelix', ['burst_elements'] = '{Ice}, {Water}' },
+        ['Water'] = { ['skillchain'] = 'Distortion', ['first_spell'] = 'Luminohelix', ['second_spell'] = 'Geohelix', ['burst_elements'] = '{Ice}, {Water}' },
     }
     data.skillchains.scholar['ws'] = {
         ['Fire'] = { ['skillchain'] = 'Liquefaction', ['weaponskill'] = 'Rock Crusher', ['second_spell'] = 'Pyrohelix', ['burst_elements'] = '{Fire}' },
