@@ -80,7 +80,7 @@ function character_user_job_setup()
     gear.sakpatas_feet = gear.nyame_feet     -- "Sakpata's Leggings"
     gear.null_masque = gear.hjarrandi_head   -- "Null Masque"
     gear.rep_plat_medal = gear.jse_neck      -- "Republican Platinum Medal"
-    gear.niqmaddu_ring = "Petrov Ring"       -- "Niqmaddu Ring"
+    gear.niqmaddu_ring = "Niqmaddu Ring"
     gear.regal_ring = "Sroda Ring"           -- "Regal Ring"
     gear.tp_ammo = "Coiste Bodhar"           -- "Aurgelmir Orb +1"
     gear.ws_ammo = "Knobkierrie"
@@ -97,8 +97,8 @@ function init_gear_sets()
     -- Weapons sets
     --------------------------------------
 
-    sets.weapons.Chango = { main = "Chango", sub = "Duplus Grip" }
-    sets.weapons.ShiningOne = { main = "Shining One", sub = "Duplus Grip" }
+    sets.weapons.Chango = { main = "Chango", sub = "Utu Grip" }
+    sets.weapons.ShiningOne = { main = "Shining One", sub = "Utu Grip" }
     sets.weapons.Loxotic = { main = "Loxotic Mace +1", sub = "Blurred Shield +1" }
     sets.weapons.Naegling = { main = "Naegling", sub = "Blurred Shield +1" }
     sets.weapons.Proc = { main = "Loxotic Mace +1", sub = "Blurred Shield +1" }
@@ -241,7 +241,7 @@ function init_gear_sets()
     sets.precast.WS["Ukko's Fury"] = set_combine(sets.precast.WS, {
         back = gear.da_jse_back,
         ear2 = gear.jse_ear2,
-        ring1 = "Petrov Ring",
+        ring1 = gear.niqmaddu_ring,
     })
     sets.precast.WS["Ukko's Fury"].Acc = set_combine(sets.precast.WS["Ukko's Fury"], ws_acc_overrides)
 
@@ -325,7 +325,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2,
         body = gear.tp_body,
         hands = gear.sakpatas_hands,
-        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
+        ring1 = gear.niqmaddu_ring,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = gear.da_jse_back,
         waist = "Ioskeha Belt +1",
@@ -341,10 +341,12 @@ function init_gear_sets()
 
     sets.engaged.DT = set_combine(sets.engaged, {
         body = gear.tp_body,
+        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         back = gear.str_wsd_jse_back,
     })
     sets.engaged.Acc.DT = set_combine(sets.engaged.Acc, {
         body = gear.tp_body,
+        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         back = gear.str_wsd_jse_back,
     })
 
