@@ -6,7 +6,7 @@ function character_user_job_setup()
     state.IdleMode:options('Normal', 'PDT')
     state.HybridMode:options('Normal', 'PDT')
     state.Weapons:options('None', 'Musa', 'Chatoyant', 'Mpaca', 'Bunzi', 'Maxentius')
-    state.MusaMode:options('Never', '1000', 'Always')
+    state.MusaMode:options('Always', '1000', 'Never')
 
     default_weapons = 'Maxentius'
 
