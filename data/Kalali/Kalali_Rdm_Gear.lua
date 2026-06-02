@@ -137,8 +137,6 @@ function character_user_job_setup()
     --  1  Luminary Sash                 Conserve MP / MND
     gear.bishops_sash = "Embla Sash"
     --  1  Bishop's Sash                 +5 Healing (cursna)
-    gear.olympus_sash = "Embla Sash"
-    --  1  Olympus Sash                  +5 Enhancing=
     gear.fuchonoobi = "Eschan Stone"
     --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
 
@@ -623,7 +621,7 @@ function init_gear_sets()
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = gear.ghostfyre_cape,
-        waist = gear.olympus_sash,
+        waist = "Olympus Sash",
         legs = gear.af1_legs,
         feet = gear.af3_feet
     }

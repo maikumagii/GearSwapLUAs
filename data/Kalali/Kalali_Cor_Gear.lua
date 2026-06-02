@@ -35,12 +35,6 @@ function character_user_job_setup()
     options.ammo_warning_limit = 15
     --Ikenga_vest_bonus = 190  -- It is 190 at R20. Uncomment if you need to manually adjust because you are using below R20
 
-    --gear.tp_ranger_jse_back = {name="Camulus's Mantle",augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+10','"Store TP"+10',}}
-    --gear.snapshot_jse_back = {name="Camulus's Mantle",augments={'"Snapshot"+10',}}
-    gear.ranger_wsd_jse_back = { name = "Camulus's Mantle", augments = { 'AGI+20', 'Rng.Acc.+20 Rng.Atk.+20', 'Weapon skill damage +10%', } }
-    --gear.magic_wsd_jse_back = {name="Camulus's Mantle",augments={'AGI+20','Mag. Acc+20 /Mag. Dmg.+20','AGI+10','Weapon skill damage +10%',}}
-    gear.str_wsd_jse_back = { name = "Camulus's Mantle", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', } }
-
     -- Ambuscade Capes
     gear.tp_ranger_jse_back = { name = "Camulus's Mantle", augments = { 'AGI+19', 'Rng.Acc.+20 Rng.Atk.+20', --[['Rng.Acc.+10',]] '"Store TP"+10', 'Phys. dmg. taken -10%' } }
     gear.snapshot_jse_back = { name = "Camulus's Mantle", augments = { '"Snapshot"+10', } }
@@ -76,7 +70,7 @@ function character_user_job_setup()
     -- Empy Gear
     gear.af3_head = "" --"Chass. Tricorne +1"
     gear.af3_body = "Chasseur's Frac +2"
-    gear.af3_hands = "Chasseur's Gants +2"
+    gear.af3_hands = "Chasseur's Gants +3"
     gear.af3_legs = "" --"Chas. Culottes +1"
     gear.af3_feet = "" --"Chass. Bottes +1"
 
@@ -121,7 +115,7 @@ function init_gear_sets()
     sets.precast.JA['Wild Card'] = { feet = gear.af2_feet }
     sets.precast.JA['Random Deal'] = { body = gear.af2_body }
     sets.precast.JA['Double Up'] = {}
-    sets.precast.FoldDoubleBust = { hands = gear.af3_hands }                                                         --hands="Lanun Gants +3"
+    sets.precast.FoldDoubleBust = { hands = gear.af3_hands } --hands="Lanun Gants +3"
 
     local roll_neck = item_available("Regal Necklace") and "Regal Necklace" or gear.jse_neck
 

@@ -9,9 +9,9 @@ function character_user_job_setup()
     state.Weapons:options('Chango', 'ShiningOne', 'Loxotic', 'Naegling', 'Proc')
 
     autows_list = {
+        Loxotic = 'Judgment',
         Chango = 'Upheaval',
         ShiningOne = 'Impulse Drive',
-        Loxotic = 'Black Halo',
         Naegling = 'Savage Blade',
         Proc = 'Seraph Strike',
     }
@@ -234,6 +234,8 @@ function init_gear_sets()
     sets.precast.WS['Impulse Drive'].Acc = set_combine(sets.precast.WS['Impulse Drive'], ws_acc_overrides)
     sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS['Black Halo'], ws_acc_overrides)
+    sets.precast.WS['Judgment'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Judgment'].Acc = set_combine(sets.precast.WS['Judgment'], ws_acc_overrides)
     sets.precast.WS['Resolution'] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Resolution'].Acc = set_combine(sets.precast.WS['Resolution'], ws_acc_overrides)
     sets.precast.WS["Ukko's Fury"] = set_combine(sets.precast.WS, {
