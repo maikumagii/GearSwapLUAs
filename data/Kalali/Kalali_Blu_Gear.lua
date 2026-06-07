@@ -90,6 +90,12 @@ function init_gear_sets()
     -- Precast sets to enhance JAs
     sets.precast.JA['Azure Lore'] = {} --hands = gear.af2_hands }
 
+    -- Waltz set (chr and vit)
+    sets.precast.Waltz = {
+        legs = "Dashing Subligar"
+    }
+    sets.precast.Waltz['Healing Waltz'] = {}
+
     -- Fast cast sets for spells
 
     sets.precast.FC = {

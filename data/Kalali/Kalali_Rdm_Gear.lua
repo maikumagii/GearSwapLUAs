@@ -76,7 +76,7 @@ function character_user_job_setup()
 
     -- Relic Gear
     gear.af2_head = "Viti. Chapeau +4"
-    gear.af2_body = "Viti. Tabard +3"
+    gear.af2_body = "Viti. Tabard +4"
     gear.af2_hands = "Viti. Gloves +4"
     gear.af2_legs = {}
     gear.af2_feet = "Vitiation Boots +4" -- Need for Immunobreak macroing
@@ -227,7 +227,9 @@ function init_gear_sets()
     }
 
     -- Waltz set (chr and vit)
-    sets.precast.Waltz = {}
+    sets.precast.Waltz = {
+        legs = "Dashing Subligar"
+    }
 
     -- Don't need any special gear for Healing Waltz.
     sets.precast.Waltz['Healing Waltz'] = {}
@@ -642,6 +644,7 @@ function init_gear_sets()
     sets.midcast.Protect = { ring2 = "Sheltered Ring" }
     sets.midcast.Shell = { ring2 = "Sheltered Ring" }
     sets.midcast.Regen = { main = "Crocea Mors", sub = "Ammurapi Shield" }
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
 
     sets.midcast.Curaga = sets.midcast.Cure
     sets.Self_Healing = { ear1 = "Etiolation Earring", waist = "Gishdubar Sash" }

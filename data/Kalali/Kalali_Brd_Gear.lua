@@ -203,7 +203,10 @@ function init_gear_sets()
     sets.precast.JA['Soul Voice'] = { --[[legs = gear.af2_legs]] }
 
     -- Waltz set (chr and vit)
-    sets.precast.Waltz = {}
+    sets.precast.Waltz = {
+        legs = "Dashing Subligar"
+    }
+    sets.precast.Waltz['Healing Waltz'] = {}
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
@@ -450,6 +453,17 @@ function init_gear_sets()
     }
     sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
     sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
+
+    sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.FastRecast, {
+        neck = "Incanter's Torque",
+        ear1 = "Andoaa Earring",
+        ear2 = "Mimir Earring",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        back = "Perimede Cape",
+        waist = "Embla Sash"
+    })
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
 
     -- Song-specific recast reduction
     sets.midcast.SongRecast = {

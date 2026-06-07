@@ -622,6 +622,7 @@ function init_gear_sets()
         legs = "Shedir Seraweels",
         feet = "Kaykaus Boots +1"
     }
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'],
         { legs = "Shedir Seraweels" })

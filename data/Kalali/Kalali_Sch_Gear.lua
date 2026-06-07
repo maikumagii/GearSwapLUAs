@@ -386,6 +386,7 @@ function init_gear_sets()
     sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
     sets.midcast.Storm = set_combine(sets.midcast['Enhancing Magic'], {})
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
 
     sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
     sets.midcast.Protectra = sets.midcast.Protect

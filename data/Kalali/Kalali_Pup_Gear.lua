@@ -303,6 +303,17 @@ function init_gear_sets()
     sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
     sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
 
+    sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.FastRecast, {
+        neck = "Incanter's Torque",
+        ear1 = "Andoaa Earring",
+        ear2 = "Mimir Earring",
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        back = "Perimede Cape",
+        waist = "Embla Sash"
+    })
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
+
     -- Midcast sets for pet actions
     sets.midcast.Pet.Cure = {
         neck = "Adad Amulet",

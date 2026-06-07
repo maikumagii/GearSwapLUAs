@@ -392,6 +392,7 @@ function init_gear_sets()
         back = gear.magic_jse_back,
         waist = "Regal Belt",
     }
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {})
