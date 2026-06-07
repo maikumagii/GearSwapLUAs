@@ -40,8 +40,9 @@ function character_user_job_setup()
     gear.af2_head = ""                -- Rampart
     gear.af2_body = "Nyame Mail"      -- Rev. Surcoat +3
     gear.af2_hands = ""               -- Shield Bash
+    gear.af2_legs = ""
     gear.af2_feet = "Nyame Sollerets" -- Rev. Leggings +3
-    gaer.af2_feet = ""                -- Sentinel
+
 
     -- Empy Gear
     gear.af3_head = "Nyame Helm" -- Chev. Armet +1
