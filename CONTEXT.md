@@ -63,6 +63,15 @@ Use these sources before inventing replacements:
 - Existing aliases in `Kalali-Items.lua`.
 - Existing job files for comparable sets.
 
+When adding or replacing gear in a job file, every equipped item must satisfy both constraints:
+
+- The item is owned, preferably confirmed in `OWNEDGEAR.md` or active personalized files.
+- The current job can equip it, confirmed by Windower resources/job flags or another authoritative source.
+
+Do not replace an invalid job item with aspirational gear just because the job can equip it. If the user
+explicitly says they acquired a new item that is not reflected in `OWNEDGEAR.md` yet, it can be used,
+but treat that as a user-provided owned-gear exception and keep it scoped to the requested change.
+
 If a best-in-slot or target piece is not owned, follow the RDM pattern:
 
 1. Define a `gear.<alias>` for the target concept.
