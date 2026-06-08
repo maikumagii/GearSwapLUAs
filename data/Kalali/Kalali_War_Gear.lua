@@ -34,7 +34,7 @@ function character_user_job_setup()
 
     -- Artifact gear.
     gear.af1_head = ""  -- "Pumm. Mask +4"
-    gear.af1_body = "Pumm. Lorica +3"
+    gear.af1_body = "Pumm. Lorica +4"
     gear.af1_hands = "" -- "Pumm. Mufflers +4"
     gear.af1_legs = "Pumm. Cuisses +4"
     gear.af1_feet = "Pumm. Calligae +4"
@@ -49,8 +49,8 @@ function character_user_job_setup()
     -- Empyrean gear.
     gear.af3_head = "Boii Mask +2"
     gear.af3_body = "Boii Lorica +2"
-    gear.af3_hands = "Boii Mufflers +2"
-    gear.af3_legs = "Boii Cuisses +2"
+    gear.af3_hands = "Boii Mufflers +3"
+    gear.af3_legs = "Boii Cuisses +3"
     gear.af3_feet = "" -- "Boii Calligae +3"
 
     gear.flamma_head = "Flam. Zucchetto +2"
@@ -130,7 +130,9 @@ function init_gear_sets()
     sets.precast.JA["Warrior's Charge"] = {
         legs = gear.af1_legs,
     }
-    sets.precast.JA['Tomahawk'] = {}
+    sets.precast.JA['Tomahawk'] = {
+        feet = gear.af2_feet,
+    }
     sets.precast.JA['Retaliation'] = {
         hands = gear.af3_hands,
         feet = gear.af1_feet,
@@ -380,8 +382,12 @@ function init_gear_sets()
         body = gear.great_axe_tp_body,
     })
     sets.engaged.ShiningOne = make_weapon_engaged_set()
-    sets.engaged.Loxotic = make_weapon_engaged_set()
-    sets.engaged.Naegling = make_weapon_engaged_set()
+    sets.engaged.Loxotic = make_weapon_engaged_set({
+        legs = gear.af3_legs,
+    })
+    sets.engaged.Naegling = make_weapon_engaged_set({
+        legs = gear.af3_legs,
+    })
     sets.engaged.Proc = make_weapon_engaged_set()
 end
 

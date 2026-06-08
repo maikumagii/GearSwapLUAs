@@ -645,7 +645,7 @@ function init_gear_sets()
         body = gear.af2_body,
         hands = "Asteria Mitts +1",
         ring1 = gear.stikini_ring1,
-        ring2 = gear.stikini_ring2,
+        ring2 = "Mephitas's Ring +1",
         back = "Null Shawl",
         legs = gear.apogee_legs_a,
         feet = gear.apogee_feet_a

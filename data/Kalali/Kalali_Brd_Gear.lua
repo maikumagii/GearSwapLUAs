@@ -548,7 +548,7 @@ function init_gear_sets()
 
     sets.idle.NoRefresh = {
         main = "Daybreak",
-        sub = gear.genmei_shield,
+        sub = "Archduke's Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
@@ -566,7 +566,7 @@ function init_gear_sets()
 
     sets.idle.DT = {
         main = "Daybreak",
-        sub = gear.genmei_shield,
+        sub = "Archduke's Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",

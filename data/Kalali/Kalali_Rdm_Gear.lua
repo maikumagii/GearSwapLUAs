@@ -131,8 +131,6 @@ function character_user_job_setup()
     --  2  Shadow Mantle                 Phys Annul
     gear.engulfer_cape = "Null Shawl"
     --  2  Engulfer Cape +1              -4% MDT, Magic Absorb
-    gear.sacro_cord = "Eschan Stone"
-    --  1  Sacro Cord                    +8 INT/MND/MAB/Macc
     gear.luminary_sash = "Embla Sash"
     --  1  Luminary Sash                 Conserve MP / MND
     gear.bishops_sash = "Embla Sash"
@@ -976,7 +974,7 @@ function init_gear_sets()
         ring1 = "Freke Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
-        waist = gear.sacro_cord,
+        waist = "Sacro Cord",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -1254,7 +1252,7 @@ function init_gear_sets()
 
     sets.idle.PDT = {
         main = "Daybreak",
-        sub = "Sacro Bulwark",
+        sub = "Archduke's Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
@@ -1272,7 +1270,7 @@ function init_gear_sets()
 
     sets.idle.MDT = {
         main = "Daybreak",
-        sub = "Sacro Bulwark",
+        sub = "Archduke's Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
@@ -1291,7 +1289,7 @@ function init_gear_sets()
 
     sets.idle.MEVA = {
         main = "Daybreak",
-        sub = "Sacro Bulwark",
+        sub = "Archduke's Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = "Bunzi's Hat",
@@ -1310,7 +1308,7 @@ function init_gear_sets()
 
     sets.idle.Aminon = {
         main = "Daybreak",
-        sub = "Sacro Bulwark",
+        sub = "Archduke's Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.null_masque,

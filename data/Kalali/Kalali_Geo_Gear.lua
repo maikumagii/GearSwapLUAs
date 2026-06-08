@@ -668,7 +668,7 @@ function init_gear_sets()
 
     sets.idle = {
         main = "Daybreak",
-        sub = "Ammurapi Shield",
+        sub = "Archduke's Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
@@ -840,7 +840,7 @@ function init_gear_sets()
         body = "Inyanga Jubbah +2",
         hands = "Jhakri Cuffs +2",
         ring1 = "Metamor. Ring +1",
-        ring2 = "Freke Ring",
+        ring2 = "Mephitas's Ring +1",
         back = "Null Shawl",
         legs = "Shedir Seraweels",
         feet = "Nyame Sollerets"

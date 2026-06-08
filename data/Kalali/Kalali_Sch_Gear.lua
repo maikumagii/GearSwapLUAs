@@ -53,7 +53,6 @@ function character_user_job_setup()
     gear.bishops_sash = "Embla Sash"
     gear.andoaa_earring = "Alabaster Earring"
     gear.obstinate_sash = "Embla Sash"
-    gear.sacro_cord = "Eschan Stone"
     gear.fuchonoobi = "Eschan Stone"
     gear.null_masque = gear.af3_head
     gear.homiliary = "Staunch Tathlum +1"
@@ -590,7 +589,7 @@ function init_gear_sets()
         ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
-        waist = gear.sacro_cord,
+        waist = "Sacro Cord",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -774,7 +773,7 @@ function init_gear_sets()
 
     sets.idle.PDT = {
         main = "Daybreak",
-        sub = "Ammurapi Shield",
+        sub = "Archduke's Shield",
         ammo = "Staunch Tathlum +1",
         head = "Kaykaus Mitra +1",
         neck = "Loricate Torque +1",
@@ -792,7 +791,7 @@ function init_gear_sets()
 
     sets.idle.MDT = {
         main = "Daybreak",
-        sub = "Ammurapi Shield",
+        sub = "Archduke's Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
@@ -811,7 +810,7 @@ function init_gear_sets()
 
     sets.idle.MEVA = {
         main = "Daybreak",
-        sub = "Ammurapi Shield",
+        sub = "Archduke's Shield",
         range = empty,
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,

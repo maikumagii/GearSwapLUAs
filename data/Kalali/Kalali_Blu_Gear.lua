@@ -391,7 +391,7 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = {
         main = "Sakpata's Sword",
-        sub = gear.genmei_shield,
+        sub = "Archduke's Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",

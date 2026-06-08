@@ -97,8 +97,7 @@ function character_user_job_setup()
     gear.valorous_wsd_body = "Nyame Mail"                               -- Valorous Mail WSD
     gear.odyssean_wsd_hands = "Nyame Gauntlets"                         -- Odyssean Gauntlets WSD
     gear.odyssean_fc_legs = gear.fc_legs
-    gear.ws_back =
-    "Null Shawl"                          -- Bleating Mantle / Ground. Mantle +1 / Toro Cape
+    gear.ws_back = "Null Shawl"           -- Bleating Mantle / Ground. Mantle +1 / Toro Cape
     gear.tank_back = "Null Shawl"         -- Moonlight Cape / Shadow Mantle
     gear.carmine_legs = "Nyame Flanchard" -- Carmine Cuisses +1
     gear.carmine_feet = "Nyame Sollerets" -- Carmine Greaves +1 / Hippo. Socks +1
@@ -575,7 +574,7 @@ function init_gear_sets()
 
     sets.midcast.Reprisal = {
         main = "Sakpata's Sword",
-        sub = "Forfend +1",
+        sub = "Priwen",
         ammo = "Staunch Tathlum +1",
         head = gear.enmity_head,
         neck = gear.dt_neck,
@@ -656,7 +655,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Crepuscular Ring",
-        ring2 = "Epona's Ring",
+        ring2 = "Mephitas's Ring +1",
         back = "Null Shawl",
         waist = "Plat. Mog. Belt",
         legs = "Dashing Subligar",
@@ -777,7 +776,7 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = {
         main = "Sakpata's Sword",
-        sub = "Duban",
+        sub = "Archduke's Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = gear.idle_neck,
@@ -886,16 +885,15 @@ function init_gear_sets()
         neck = gear.idle_neck,
         hands = "Nyame Gauntlets",
         ear2 = "Ethereal Earring",
-        waist =
-        "Flume Belt +1",
+        ring2 = "Mephitas's Ring +1",
+        waist = "Flume Belt +1",
         feet = gear.af2_feet
     }
     sets.passive.AbsorbMP = {
         head = gear.af3_head,
         neck = gear.idle_neck,
         ear2 = "Ethereal Earring",
-        waist =
-        "Flume Belt +1",
+        waist = "Flume Belt +1",
         feet = gear.af2_feet
     }
     sets.MP_Knockback = {}
@@ -1163,6 +1161,27 @@ function init_gear_sets()
     sets.buff.Doom = set_combine(sets.buff.Doom, {})
     sets.buff.Sleep = { neck = "Loricate Torque +1" }
     sets.buff.Cover = { body = gear.af1_body }
+    sets.buff.Reprisal = { sub = "Priwen" }
+end
+
+local function add_priwen_when_reprisal(baseSet)
+    if buffactive['Reprisal'] and sets.buff.Reprisal and not (state.CombatForm and state.CombatForm.value == 'DW') then
+        return set_combine(baseSet, sets.buff.Reprisal)
+    end
+
+    return baseSet
+end
+
+function job_customize_idle_set(idleSet)
+    return add_priwen_when_reprisal(idleSet)
+end
+
+function job_customize_melee_set(meleeSet)
+    return add_priwen_when_reprisal(meleeSet)
+end
+
+function job_customize_defense_set(defenseSet)
+    return add_priwen_when_reprisal(defenseSet)
 end
 
 -- Select default macro book on initial load or subjob change.
