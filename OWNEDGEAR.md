@@ -5,8 +5,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
 ```json
 {
   "schema": "owned-gear/v1",
-  "generated_at": "2026-06-02T22:31:18.590Z",
-  "source_policy": "Parsed active personalized Lua gear files under data/Kalali, excluding data/Kalali/UnusedJobs, Kalali_Crafting.lua, and Kalali-Globals.lua. Lua comments were stripped before extraction. Empty strings, empty tables, and empty sentinel values were ignored.",
+  "generated_at": "2026-06-22T18:03:05Z",
+  "source_policy": "Parsed active personalized Lua gear files under data/Kalali, excluding data/Kalali/UnusedJobs, Kalali_Crafting.lua, and Kalali-Globals.lua. Lua comments were stripped before extraction. Empty strings, empty tables, and empty sentinel values were ignored. User-confirmed acquisitions may be added with their requesting job file as a source before a full regeneration.",
   "duplicate_policy": "Non-accessory duplicates are collapsed by name plus augments plus bag. Ring and earring entries include copies=2 only when active Lua uses explicit bag-qualified duplicates, such as Wardrobe plus Wardrobe 2.",
   "source_files": [
     "data/Kalali/Kalali-Items.lua",
@@ -14,6 +14,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "data/Kalali/Kalali_Brd_Gear.lua",
     "data/Kalali/Kalali_Cor_Gear.lua",
     "data/Kalali/Kalali_Geo_Gear.lua",
+    "data/Kalali/Kalali_Pld_Gear.lua",
     "data/Kalali/Kalali_Pup_Gear.lua",
     "data/Kalali/Kalali_Rdm_Gear.lua",
     "data/Kalali/Kalali_Sch_Gear.lua",
@@ -36,7 +37,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 371,
+  "total_slot_entries": 377,
   "slots": {
     "main": [
       {
@@ -791,6 +792,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Carmine Mask +1",
+        "augments": [
+          "Path:D"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Cor_Gear.lua:gear.carmine_mask_d",
+          "data/Kalali/Kalali_Cor_Gear.lua:head"
+        ]
+      },
+      {
         "name": "Fili Calot +2",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.af3_head",
@@ -893,6 +904,17 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Geo_Gear.lua:head",
           "data/Kalali/Kalali_Rdm_Gear.lua:head",
           "data/Kalali/Kalali_Sch_Gear.lua:head"
+        ]
+      },
+      {
+        "name": "Souv. Schaller +1",
+        "augments": [
+          "HP+105",
+          "Enmity+9",
+          "\"Cure\" effect received +15%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_head"
         ]
       },
       {
@@ -1152,6 +1174,17 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Souv. Cuirass +1",
+        "augments": [
+          "HP+105",
+          "Enmity+9",
+          "\"Cure\" effect received +15%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_body"
+        ]
+      },
+      {
         "name": "Sworn Platemail",
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:body"
@@ -1399,6 +1432,30 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_hands",
           "data/Kalali/Kalali_War_Gear.lua:hands"
+        ]
+      },
+      {
+        "name": "Souv. Handsch. +1",
+        "augments": [
+          "HP+105",
+          "Enmity+9",
+          "\"Cure\" effect received +15%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_c",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands"
+        ]
+      },
+      {
+        "name": "Souv. Handsch. +1",
+        "augments": [
+          "HP+65",
+          "Shield Skill +15",
+          "Physical Damage Taken-4%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_d",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_block_hands"
         ]
       },
       {
@@ -2509,6 +2566,21 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Brd_Gear.lua:back",
           "data/Kalali/Kalali_Rdm_Gear.lua:back",
           "data/Kalali/Kalali_Sch_Gear.lua:back"
+        ]
+      },
+      {
+        "name": "Rudianos's Mantle",
+        "augments": [
+          "HP+60",
+          "Eva.+20 /Mag. Eva.+20",
+          "Mag. Evasion+10",
+          "Enmity+10",
+          "Chance of successful block +5"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_enmity_block_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.enmity_jse_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.tank_back"
         ]
       },
       {

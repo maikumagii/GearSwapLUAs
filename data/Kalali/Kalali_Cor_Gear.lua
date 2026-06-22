@@ -79,6 +79,7 @@ function character_user_job_setup()
     gear.null_masque = ""
     gear.genmei_earring = ""
     gear.iskur_gorget = "Null Loop"
+    gear.carmine_mask_d = { name = "Carmine Mask +1", augments = { 'Path:D' } }
 
 
     -- Additional local binds
@@ -242,7 +243,8 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
 
-    sets.precast.FC = {}
+    sets.precast.FC = { head = gear.carmine_mask_d }
+    sets.precast.FC['Absorb-TP'] = set_combine(sets.precast.FC, {})
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, { ear2 = "Mendi. Earring" })
 
@@ -432,17 +434,21 @@ function init_gear_sets()
         ring1 = "Dingir Ring",
         ring2 = "Epaminondas's Ring",
         back = gear.ranger_wsd_jse_back,
-        waist = "Fotia Belt",
+        waist = "Fotia Belt", -- Orpheus's Sash is applied dynamically when in range by the elemental WS helper.
         legs = "Nyame Flanchard",
         feet = gear.af2_feet
     }
 
     sets.precast.WS['Hot Shot'].Acc = set_combine(sets.precast.WS['Hot Shot'], {
+        head = "Malignance Chapeau",
         neck = "Null Loop",
         ear1 = "Crep. Earring",
-        ring1 = gear.regal_ring,
+        ear2 = gear.jse_ear2,
+        ring1 = "Metamor. Ring +1",
         ring2 = "Ilabrat Ring",
-        waist = "Null Belt"
+        waist = "Null Belt",
+        legs = "Malignance Tights",
+        feet = "Malignance Boots"
     })
 
     -- Swap to these on Moonshade using WS if at 3000 TP
@@ -458,7 +464,9 @@ function init_gear_sets()
     sets.midcast['Dark Magic'] = set_combine(sets.precast.CorsairShot['Light Shot'], {
         ammo = "Pemphredo Tathlum",
     })
-    sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
+    sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {
+        head = gear.carmine_mask_d
+    })
     sets.midcast.Stun = set_combine(sets.midcast['Dark Magic'], {})
 
     sets.midcast['Enhancing Magic'] = set_combine(sets.midcast.FastRecast, {

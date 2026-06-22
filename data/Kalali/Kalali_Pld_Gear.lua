@@ -25,9 +25,14 @@ function character_user_job_setup()
 
     state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP', 'Twilight' }
 
-    gear.fastcast_jse_back = "Null Shawl" -- Rudianos's Mantle: INT+20, Eva./MEVA, Fast Cast+10
-    gear.enmity_jse_back = "Null Shawl"   -- Rudianos's Mantle: HP+80, Eva./MEVA, Enmity+10
-    gear.phalanx_jse_back = "Null Shawl"  -- Weard Mantle / phalanx received cape placeholder
+    gear.rudianos_enmity_block_back = {
+        name = "Rudianos's Mantle",
+        augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+            'Chance of successful block +5', }
+    }
+    gear.fastcast_jse_back = "Null Shawl"              -- Rudianos's Mantle: INT+20, Eva./MEVA, Fast Cast+10
+    gear.enmity_jse_back = gear.rudianos_enmity_block_back
+    gear.phalanx_jse_back = "Null Shawl"               -- Weard Mantle / phalanx received cape placeholder
 
     -- Artifact Gear
     gear.af1_head = ""                     -- Unneeded
@@ -63,9 +68,12 @@ function character_user_job_setup()
     gear.enhancing_body = "Nyame Mail"                                  -- Shab. Cuirass +1
     gear.enhancing_hands = "Nyame Gauntlets"                            -- Regal Gauntlets
     gear.enhancing_back = "Null Shawl"                                  -- Merciful Cape
-    gear.souv_head = "Nyame Helm"                                       -- Souv. Schaller +1
-    gear.souv_body = "Nyame Mail"                                       -- Souv. Cuirass +1
-    gear.souv_hands = "Sakpata's Gauntlets"                             -- Souv. Handsch. +1
+    gear.souv_head = { name = "Souv. Schaller +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', } } -- Path C
+    gear.souv_body = { name = "Souv. Cuirass +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', } }  -- Path C
+    gear.souv_hands_c = { name = "Souv. Handsch. +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', } }
+    gear.souv_hands_d = { name = "Souv. Handsch. +1", augments = { 'HP+65', 'Shield Skill +15', 'Physical Damage Taken-4%', } }
+    gear.souv_hands = gear.souv_hands_c
+    gear.souv_block_hands = gear.souv_hands_d
     gear.souv_legs = "Nyame Flanchard"                                  -- Souv. Diechlings +1
     gear.souv_feet = "Nyame Sollerets"                                  -- Souveran Schuhs +1
     gear.enmity_head = "Nyame Helm"                                     -- Loess Barbuta +1
@@ -98,7 +106,7 @@ function character_user_job_setup()
     gear.odyssean_wsd_hands = "Nyame Gauntlets"                         -- Odyssean Gauntlets WSD
     gear.odyssean_fc_legs = gear.fc_legs
     gear.ws_back = "Null Shawl"           -- Bleating Mantle / Ground. Mantle +1 / Toro Cape
-    gear.tank_back = "Null Shawl"         -- Moonlight Cape / Shadow Mantle
+    gear.tank_back = gear.rudianos_enmity_block_back
     gear.carmine_legs = "Nyame Flanchard" -- Carmine Cuisses +1
     gear.carmine_feet = "Nyame Sollerets" -- Carmine Greaves +1 / Hippo. Socks +1
     gear.sulevia_legs = "Nyame Flanchard" -- Sulev. Cuisses +2
@@ -836,7 +844,7 @@ function init_gear_sets()
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
         body = "Sakpata's Plate",
-        hands = gear.souv_hands,
+        hands = gear.souv_block_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = gear.tank_back,
@@ -872,7 +880,7 @@ function init_gear_sets()
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
         body = "Sakpata's Plate",
-        hands = gear.souv_hands,
+        hands = gear.souv_block_hands,
         ring1 = gear.dt_ring1,
         ring2 = gear.dt_ring2,
         back = gear.tank_back,
@@ -935,7 +943,7 @@ function init_gear_sets()
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
         body = "Sakpata's Plate",
-        hands = gear.souv_hands,
+        hands = gear.souv_block_hands,
         ring1 = gear.defending_ring,
         ring2 = gear.dt_ring2,
         back = gear.tank_back,
@@ -1108,7 +1116,7 @@ function init_gear_sets()
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
         body = "Sakpata's Plate",
-        hands = gear.souv_hands,
+        hands = gear.souv_block_hands,
         ring1 = gear.defending_ring,
         ring2 = gear.dt_ring2,
         back = gear.tank_back,
