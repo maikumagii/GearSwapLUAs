@@ -20,11 +20,26 @@ function character_user_job_setup()
     gear.geo_range = "Dunna"
     gear.geo_neck = "Bagua Charm +2"
     gear.geo_back = "Lifestream Cape"
+    -- Artifact gear.
     gear.af1_head = ""
     gear.af1_body = "Geomancy Tunic +2"
     gear.af1_hands = "Geo. Mitaines +2"
     gear.af1_legs = ""
     gear.af1_feet = ""
+
+    -- Relic gear.
+    gear.af2_head = ""
+    gear.af2_body = ""
+    gear.af2_hands = ""
+    gear.af2_legs = "Bagua Pants +3"
+    gear.af2_feet = "Bagua Sandals +3"
+
+    -- Empyrean gear.
+    gear.af3_head = "Azimuth Hood +1"
+    gear.af3_body = "Azimuth Coat +1"
+    gear.af3_hands = "Azimuth Gloves +1"
+    gear.af3_legs = "Azimuth Tights +1"
+    gear.af3_feet = "Azimuth Gaiters +1"
 
     gear.nuke_jse_back = "Null Shawl"
     gear.idle_jse_back = gear.geo_back
@@ -71,7 +86,7 @@ function character_user_job_setup()
     send_command('bind ^delete input /ma "Aspir III" <t>')
     send_command('bind @delete input /ma "Sleep" <t>')
 
-    indi_duration = 290
+    indi_duration = 331
 
     select_default_macro_book()
 end
@@ -84,12 +99,12 @@ function init_gear_sets()
     -- Precast sets to enhance JAs
     sets.precast.JA.Bolster = {}
     sets.precast.JA['Life Cycle'] = { body = gear.af1_body, back = gear.geo_back }
-    sets.precast.JA['Radial Arcana'] = {}
-    sets.precast.JA['Mending Halation'] = {}
-    sets.precast.JA['Full Circle'] = { head = gear.af1_head, hands = gear.af1_hands }
+    sets.precast.JA['Radial Arcana'] = { feet = gear.af2_feet }
+    sets.precast.JA['Mending Halation'] = { legs = gear.af2_legs }
+    sets.precast.JA['Full Circle'] = { head = gear.af3_head }
 
     -- Indi Duration in slots that would normally have skill here to make entrust more efficient.
-    sets.buff.Entrust = {}
+    sets.buff.Entrust = { legs = gear.af2_legs, feet = gear.af3_feet }
 
     -- Relic hat for Blaze of Glory HP increase.
     sets.buff['Blaze of Glory'] = {}
@@ -227,7 +242,7 @@ function init_gear_sets()
         main = "Maxentius",
         sub = "Ammurapi Shield",
         range = gear.geo_range,
-        head = gear.af1_head,
+        head = gear.af3_head,
         neck = gear.geo_neck,
         ear1 = "Etiolation Earring",
         ear2 = "Malignance Earring",
@@ -243,7 +258,11 @@ function init_gear_sets()
 
 
     --Extra Indi duration as long as you can keep your 900 skill cap.
-    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy, { back = gear.geo_back })
+    sets.midcast.Geomancy.Indi = set_combine(sets.midcast.Geomancy, {
+        back = gear.geo_back,
+        legs = gear.af2_legs,
+        feet = gear.af3_feet
+    })
 
     sets.midcast.Cure = {
         main = gear.gada_healing_club,
@@ -458,7 +477,7 @@ function init_gear_sets()
         ring2 = gear.stikini_ring2,
         back = gear.nuke_jse_back,
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = gear.merlinic_aspir_feet
     }
 
@@ -476,7 +495,7 @@ function init_gear_sets()
         ring2 = "Evanescence Ring",
         back = gear.nuke_jse_back,
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = gear.merlinic_aspir_feet
     }
 
@@ -551,7 +570,7 @@ function init_gear_sets()
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
         legs = "Nyame Flanchard",
-        feet = gear.merlinic_aspir_feet
+        feet = gear.af2_feet
     }
 
     sets.midcast.Dispelga = set_combine(sets.midcast.Dispel, { main = "Daybreak", sub = "Ammurapi Shield" })
@@ -571,7 +590,7 @@ function init_gear_sets()
         back = gear.nuke_jse_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Amalric Nails +1"
+        feet = gear.af2_feet
     }
 
     sets.midcast['Enfeebling Magic'].Resistant = {
@@ -589,7 +608,7 @@ function init_gear_sets()
         back = gear.nuke_jse_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Amalric Nails +1"
+        feet = gear.af2_feet
     }
 
     sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'],
@@ -707,7 +726,7 @@ function init_gear_sets()
         main = "Mpaca's Staff",
         sub = "Khonsu",
         range = gear.geo_range,
-        head = gear.af1_head,
+        head = gear.af3_head,
         neck = gear.geo_neck,
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
@@ -718,14 +737,14 @@ function init_gear_sets()
         back = gear.geo_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        feet = gear.af2_feet
     }
 
     sets.idle.PDT.Pet = {
         main = "Mpaca's Staff",
         sub = "Khonsu",
         range = gear.geo_range,
-        head = gear.af1_head,
+        head = gear.af3_head,
         neck = gear.geo_neck,
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
@@ -736,7 +755,7 @@ function init_gear_sets()
         back = gear.geo_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
+        feet = gear.af2_feet
     }
 
     -- .Indi sets are for when an Indi-spell is active.

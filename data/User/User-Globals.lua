@@ -639,6 +639,16 @@ local function user_handle_magic_burst_command(commandArgs)
     windower.chat.input('/console gs c elemental ' .. command .. (#commandArgs > 0 and ' ' .. table.concat(commandArgs, ' ') or ''))
 end
 
+local function user_enable_sortie_addons()
+    local sortie_addons = { 'react', 'anchor', 'superwarp', 'skillchains' }
+
+    for _, addon in ipairs(sortie_addons) do
+        send_command('lua load ' .. addon)
+    end
+
+    add_to_chat(122, 'Sortie addons enabled: ' .. table.concat(sortie_addons, ', ') .. '.')
+end
+
 function user_self_command(commandArgs, eventArgs)
     local command = commandArgs[1] and commandArgs[1]:lower() or ''
 
@@ -646,6 +656,12 @@ function user_self_command(commandArgs, eventArgs)
         eventArgs.handled = true
         table.remove(commandArgs, 1)
         user_handle_magic_burst_command(commandArgs)
+        return
+    end
+
+    if command == 'sortie' then
+        eventArgs.handled = true
+        user_enable_sortie_addons()
         return
     end
 

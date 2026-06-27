@@ -27,4 +27,4 @@ gear.tp_bonus_gun = "Anarchy +2"
 
 -- Geas Fete Augmented Gear
 gear.herculean_ta_feet = { name = "Herculean Boots", augments = { 'Accuracy+12 Attack+27', '"Triple Atk."+4%', 'AGI+6' } }
-gear.chironic_macc_legs = { name = "Chironic Hose", augments = { 'MND+2', 'Accuracy+7 Attack+7', 'Mag. Acc.+31', '"Mag. Atk. Bns."+14' } }
+gear.chironic_macc_legs = { name = "Chironic Hose", augments = { 'MND+2', 'Accuracy+7 Attack+7', 'Mag. Acc.+31', '"Mag.Atk.Bns."+14' } }
