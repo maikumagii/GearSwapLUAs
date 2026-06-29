@@ -31,7 +31,7 @@ function character_user_job_setup()
     gear.af1_feet = "Acad. Loafers +3"
 
     -- Relic Gear
-    gear.af2_head = "Pedagogy Mortar. +3"
+    gear.af2_head = "Pedagogy Mortar. +4"
     gear.af2_body = "Pedagogy Gown +3"
     gear.af2_hands = "Pedagogy Bracers +3"
     gear.af2_legs = "Pedagogy Pants +3"
