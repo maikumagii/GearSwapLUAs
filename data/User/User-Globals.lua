@@ -711,6 +711,19 @@ for _, bag in ipairs(user_wardrobe_bags) do
     user_wardrobe_bags_by_number[bag.number] = bag
 end
 
+local user_unused_scan_jobs = {
+    { job = 'BLU', file_job = 'Blu' },
+    { job = 'BRD', file_job = 'Brd' },
+    { job = 'COR', file_job = 'Cor' },
+    { job = 'GEO', file_job = 'Geo' },
+    { job = 'PLD', file_job = 'Pld' },
+    { job = 'PUP', file_job = 'Pup' },
+    { job = 'RDM', file_job = 'Rdm' },
+    { job = 'SCH', file_job = 'Sch' },
+    { job = 'SMN', file_job = 'Smn' },
+    { job = 'WAR', file_job = 'War' },
+}
+
 local function user_item_name(item_id)
     local item = gearswap and gearswap.res and gearswap.res.items and gearswap.res.items[item_id]
     local language = gearswap and gearswap.language or 'english'
@@ -849,6 +862,86 @@ local function user_find_item_id(item_name, wardrobe_item_ids)
     return wardrobe_item_ids[user_normalize_item_name(item_name)]
 end
 
+local function user_add_path_candidate(path_candidates, seen_paths, path)
+    if path and not seen_paths[path] then
+        path_candidates[#path_candidates + 1] = path
+        seen_paths[path] = true
+    end
+end
+
+local function user_read_text_file(relative_path)
+    local path_candidates = {}
+    local seen_paths = {}
+
+    user_add_path_candidate(path_candidates, seen_paths, relative_path)
+
+    if windower and windower.addon_path then
+        user_add_path_candidate(path_candidates, seen_paths, windower.addon_path .. relative_path)
+    end
+
+    if windower and windower.windower_path then
+        user_add_path_candidate(path_candidates, seen_paths, windower.windower_path .. 'addons/GearSwap/' .. relative_path)
+        user_add_path_candidate(path_candidates, seen_paths, windower.windower_path .. 'addons/gearswap/' .. relative_path)
+    end
+
+    for _, path in ipairs(path_candidates) do
+        local file = io.open(path, 'r')
+
+        if file then
+            local text = file:read('*a')
+            file:close()
+            return text, path
+        end
+    end
+
+    return nil, nil
+end
+
+local function user_strip_lua_comments(source)
+    source = source:gsub('%-%-%[%[.-%]%]', '')
+    source = source:gsub('%-%-[^\r\n]*', '')
+
+    return source
+end
+
+local function user_count_gear_source_items(source, wardrobe_item_ids)
+    local counts = {}
+
+    source = user_strip_lua_comments(source)
+
+    for item_name in source:gmatch('"(.-)"') do
+        local item_id = user_find_item_id(item_name, wardrobe_item_ids)
+
+        if item_id then
+            counts[item_id] = (counts[item_id] or 0) + 1
+        end
+    end
+
+    for item_name in source:gmatch("'(.-)'") do
+        local item_id = user_find_item_id(item_name, wardrobe_item_ids)
+
+        if item_id then
+            counts[item_id] = (counts[item_id] or 0) + 1
+        end
+    end
+
+    return counts
+end
+
+local function user_other_job_gear_files()
+    local character_name = player and player.name or 'Kalali'
+    local current_job = player and player.main_job or nil
+    local files = {}
+
+    for _, job_info in ipairs(user_unused_scan_jobs) do
+        if job_info.job ~= current_job then
+            files[#files + 1] = 'data/' .. character_name .. '/' .. character_name .. '_' .. job_info.file_job .. '_Gear.lua'
+        end
+    end
+
+    return files
+end
+
 local function user_add_wanted_item(wanted_items, wanted_keys, item_id, set_item, slot)
     if not item_id then
         return
@@ -896,12 +989,31 @@ end
 local function user_build_wanted_gearset_items(bags_to_scan)
     local wardrobe_item_ids = user_build_wardrobe_item_ids(bags_to_scan)
     local wanted_items = {}
+    local wanted_keys = {}
+    local scanned_files = 0
+    local unread_files = 0
 
     if sets then
-        user_collect_gearset_items(sets, wardrobe_item_ids, wanted_items, {}, {}, nil)
+        user_collect_gearset_items(sets, wardrobe_item_ids, wanted_items, wanted_keys, {}, nil)
     end
 
-    return wanted_items
+    for _, gear_file in ipairs(user_other_job_gear_files()) do
+        local source = user_read_text_file(gear_file)
+
+        if source then
+            scanned_files = scanned_files + 1
+
+            for item_id, count in pairs(user_count_gear_source_items(source, wardrobe_item_ids)) do
+                for occurrence = 1, count do
+                    user_add_wanted_item(wanted_items, wanted_keys, item_id, nil, gear_file .. ':' .. occurrence)
+                end
+            end
+        else
+            unread_files = unread_files + 1
+        end
+    end
+
+    return wanted_items, scanned_files, unread_files
 end
 
 local function user_match_wanted_item(item, bag_id, wanted_items)
@@ -960,8 +1072,14 @@ local function user_scan_unused_wardrobe_gear(cmdParams)
         bags_to_scan = user_wardrobe_bags
     end
 
-    local wanted_items = user_build_wanted_gearset_items(bags_to_scan)
+    local wanted_items, scanned_files, unread_files = user_build_wanted_gearset_items(bags_to_scan)
     local total_unused = 0
+
+    add_to_chat(122, 'Unused scan comparing against current job plus ' .. scanned_files .. ' other job gear file(s).')
+
+    if unread_files > 0 then
+        add_to_chat(123, 'Unused scan could not read ' .. unread_files .. ' other job gear file(s).')
+    end
 
     for _, bag in ipairs(bags_to_scan) do
         local wardrobe = windower.ffxi.get_items(bag.id)
