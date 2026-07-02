@@ -62,7 +62,7 @@ function character_user_job_setup()
 
     -- Relic Gear
     gear.af2_head = "Lanun Tricorne +3"
-    gear.af2_body = "Lanun Frac +3"
+    gear.af2_body = "Lanun Frac +4"
     gear.af2_hands = "Lanun Gants +3"
     gear.af2_legs = "" -- "Lanun Trews +1"
     gear.af2_feet = "Lanun Bottes +4"
@@ -256,7 +256,7 @@ function init_gear_sets()
         --hands = "Carmine Fin. Ga. +1",
         ring1 = "Crepuscular Ring",
         back = gear.snapshot_jse_back,
-        waist = gear.yemaya_belt, -- Impulse Belt 3%
+        waist = "Yemaya Belt", -- Impulse Belt 3%
         legs = "Adhemar Kecks +1",
         feet = "Meg. Jam. +2"
     }
@@ -498,7 +498,7 @@ function init_gear_sets()
         ring1 = "Crepuscular Ring",
         ring2 = "Ilabrat Ring",
         back = gear.tp_ranger_jse_back,
-        waist = gear.yemaya_belt,
+        waist = "Yemaya Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -514,7 +514,7 @@ function init_gear_sets()
         ring1 = gear.regal_ring,
         ring2 = "Ilabrat Ring",
         back = gear.tp_ranger_jse_back,
-        waist = gear.yemaya_belt,
+        waist = "Yemaya Belt",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }

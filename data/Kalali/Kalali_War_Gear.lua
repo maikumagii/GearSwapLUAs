@@ -40,7 +40,7 @@ function character_user_job_setup()
     gear.af1_feet = "Pumm. Calligae +4"
 
     -- Relic gear.
-    gear.af2_head = "Agoge Mask +3"
+    gear.af2_head = "Agoge Mask +4"
     gear.af2_body = "Agoge Lorica +3"
     gear.af2_hands = "Agoge Mufflers +1"
     gear.af2_legs = "" -- "Agoge Cuisses +3"
