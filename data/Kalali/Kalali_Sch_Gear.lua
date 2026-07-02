@@ -56,7 +56,7 @@ function character_user_job_setup()
     gear.fuchonoobi = "Eschan Stone"
     gear.null_masque = gear.af3_head
     gear.homiliary = "Staunch Tathlum +1"
-    gear.shadow_ring = ""
+    gear.shadow_ring = "Shadow Ring"
     gear.shadow_mantle = "Null Shawl"
 
     -- Additional local binds
@@ -349,7 +349,7 @@ function init_gear_sets()
         back = "Oretan. Cape +1",
         waist = gear.bishops_sash,
         legs = "Kaykaus Tights +1",
-        feet = "Kaykaus Boots +1"
+        feet = "Vanya Clogs"
     }
 
     sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
@@ -386,6 +386,7 @@ function init_gear_sets()
 
     sets.midcast.Storm = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], { neck = "Nodens Gorget" })
 
     sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
     sets.midcast.Protectra = sets.midcast.Protect

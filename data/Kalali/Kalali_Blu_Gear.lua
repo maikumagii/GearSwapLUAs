@@ -306,7 +306,7 @@ function init_gear_sets()
         { head = "Amalric Coif +1", hands = "Regal Cuffs", waist = "Emphatikos Rope", legs = "Shedir Seraweels" })
 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'],
-        { legs = "Shedir Seraweels" })
+        { neck = "Nodens Gorget", legs = "Shedir Seraweels" })
 
     sets.midcast.BarElement = set_combine(sets.midcast['Enhancing Magic'], { legs = "Shedir Seraweels" })
 
@@ -334,7 +334,7 @@ function init_gear_sets()
 
     sets.midcast.UnlockedCure = sets.midcast.Cure
 
-    sets.midcast.Cursna = sets.midcast.Cure
+    sets.midcast.Cursna = set_combine(sets.midcast.Cure, { feet = "Vanya Clogs" })
 
     -- Physical Added Effect Spells most notably "Stun" spells --
 

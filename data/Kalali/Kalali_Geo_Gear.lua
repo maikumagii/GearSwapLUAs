@@ -328,7 +328,7 @@ function init_gear_sets()
         ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
         waist = "Witful Belt",
-        feet = "Kaykaus Boots +1"
+        feet = "Vanya Clogs"
     })
 
     sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {
@@ -644,7 +644,7 @@ function init_gear_sets()
     sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
 
     sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'],
-        { legs = "Shedir Seraweels" })
+        { neck = "Nodens Gorget", legs = "Shedir Seraweels" })
 
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], { head = "Amalric Coif +1" })
 

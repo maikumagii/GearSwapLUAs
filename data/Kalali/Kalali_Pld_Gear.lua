@@ -9,17 +9,20 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT_HP', 'MDT', 'MDT_Reraise')
     state.ResistDefenseMode:options('MEVA_HP', 'MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
-    state.Weapons:options('None', 'ExcaliburAegis', 'ExcaliburDuban', 'SakpataAegis', 'SakpataDuban', 'NaeglingBlurred',
-        'ClubDuban')
+    state.Weapons:options('None', 'ExcaliburAegis', 'ExcaliburDuban', 'ExcaliburSrivatsa', 'SakpataAegis',
+        'SakpataDuban', 'SakpataSrivatsa', 'NaeglingBlurred', 'NaeglingSrivatsa', 'ClubDuban')
 
     state.AutoCureCheat = M(true, 'Auto Cure Cheat')
 
     autows_list = {
         ExcaliburAegis = 'Knights of Round',
         ExcaliburDuban = 'Knights of Round',
+        ExcaliburSrivatsa = 'Knights of Round',
         SakpataAegis = 'Savage Blade',
         SakpataDuban = 'Savage Blade',
+        SakpataSrivatsa = 'Savage Blade',
         NaeglingBlurred = 'Savage Blade',
+        NaeglingSrivatsa = 'Savage Blade',
         ClubDuban = 'Black Halo',
     }
 
@@ -59,6 +62,7 @@ function character_user_job_setup()
     -- Owned fallbacks for older PLD set pieces.
     gear.deacon_sword = "Sakpata's Sword"                               -- Deacon Sword
     --gear.club = "Loxotic Mace +1"                                       -- Mafic Cudgel
+    gear.srivatsa = "Srivatsa"
     gear.fc_shield = "Sacro Bulwark"                                    -- Chanter's Shield
     gear.fc_head = "Nyame Helm"                                         -- Carmine Mask +1
     gear.fc_hands = "Nyame Gauntlets"                                   -- Leyline Gloves
@@ -160,7 +164,7 @@ function init_gear_sets()
 
     sets.Enmity.SIRD = {
         main = "Sakpata's Sword",
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.enmity_head,
         neck = gear.enmity_neck,
@@ -545,7 +549,7 @@ function init_gear_sets()
 
     sets.midcast.Cure = {
         main = "Sakpata's Sword",
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.enmity_head,
         neck = "Hoxne Torque",
@@ -563,7 +567,7 @@ function init_gear_sets()
 
     sets.midcast.Cure.SIRD = {
         main = gear.deacon_sword,
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Loricate Torque +1",
@@ -581,7 +585,7 @@ function init_gear_sets()
 
     sets.midcast.Cure.DT = {
         main = gear.deacon_sword,
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Loricate Torque +1",
@@ -617,7 +621,7 @@ function init_gear_sets()
 
     sets.Self_Healing = {
         main = gear.deacon_sword,
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Hoxne Torque",
@@ -635,7 +639,7 @@ function init_gear_sets()
 
     sets.Self_Healing.SIRD = {
         main = gear.deacon_sword,
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Loricate Torque +1",
@@ -653,7 +657,7 @@ function init_gear_sets()
 
     sets.Self_Healing.DT = {
         main = gear.deacon_sword,
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Loricate Torque +1",
@@ -689,7 +693,7 @@ function init_gear_sets()
 
     sets.HPCure = {
         main = gear.deacon_sword,
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Crepuscular Pebble",
         head = gear.souv_head,
         neck = "Hoxne Torque",
@@ -745,7 +749,7 @@ function init_gear_sets()
         feet = gear.fc_feet
     }
 
-    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], { waist = "Olympus Sash" })
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], { neck = "Nodens Gorget", waist = "Olympus Sash" })
 
     sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
     sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
@@ -801,7 +805,7 @@ function init_gear_sets()
     -- Idle sets
     sets.idle = {
         main = "Sakpata's Sword",
-        sub = "Archduke's Shield",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = gear.idle_neck,
@@ -819,7 +823,7 @@ function init_gear_sets()
 
     sets.idle.PDT = {
         main = "Sakpata's Sword",
-        sub = "Sacro Bulwark",
+        sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = "Sakpata's Helm",
         neck = gear.dt_neck,
@@ -928,9 +932,12 @@ function init_gear_sets()
     -- Weapons sets
     sets.weapons.ExcaliburAegis = { main = "Excalibur", sub = "Aegis" }
     sets.weapons.ExcaliburDuban = { main = "Excalibur", sub = "Duban" }
+    sets.weapons.ExcaliburSrivatsa = { main = "Excalibur", sub = gear.srivatsa }
     sets.weapons.SakpataAegis = { main = "Sakpata's Sword", sub = "Aegis" }
     sets.weapons.NaeglingBlurred = { main = "Naegling", sub = "Blurred Shield +1" }
     sets.weapons.SakpataDuban = { main = "Sakpata's Sword", sub = "Duban" }
+    sets.weapons.SakpataSrivatsa = { main = "Sakpata's Sword", sub = gear.srivatsa }
+    sets.weapons.NaeglingSrivatsa = { main = "Naegling", sub = gear.srivatsa }
     sets.weapons.ClubDuban = { main = gear.club, sub = "Duban" }
     sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword }
 
@@ -1191,6 +1198,11 @@ end
 
 local function add_priwen_when_reprisal(baseSet)
     if buffactive['Reprisal'] and sets.buff.Reprisal and not (state.CombatForm and state.CombatForm.value == 'DW') then
+        local weaponMode = state.Weapons and state.Weapons.value
+        if (baseSet and baseSet.sub == gear.srivatsa) or (weaponMode and weaponMode:find('Srivatsa')) then
+            return baseSet
+        end
+
         return set_combine(baseSet, sets.buff.Reprisal)
     end
 
@@ -1235,7 +1247,8 @@ function update_defense_mode()
     if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
         if player.equipment.sub and not player.equipment.sub:contains('Shield') and
             player.equipment.sub ~= 'Aegis' and player.equipment.sub ~= 'Duban' and
-            player.equipment.sub ~= 'Svalinn' and player.equipment.sub ~= 'Priwen' then
+            player.equipment.sub ~= 'Svalinn' and player.equipment.sub ~= 'Priwen' and
+            player.equipment.sub ~= 'Srivatsa' then
             state.CombatForm:set('DW')
         else
             state.CombatForm:reset()

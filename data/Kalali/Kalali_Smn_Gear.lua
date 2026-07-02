@@ -313,7 +313,7 @@ function init_gear_sets()
     sets.Cure_Received = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
 
-    sets.midcast.Cursna = set_combine(sets.midcast.Cure, {})
+    sets.midcast.Cursna = set_combine(sets.midcast.Cure, { feet = "Vanya Clogs" })
     sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, {})
 
     sets.midcast['Summoning Magic'] = {
@@ -395,7 +395,7 @@ function init_gear_sets()
     sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {})
     sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {})
-    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {})
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], { neck = "Nodens Gorget" })
     sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {})
 
     --------------------------------------

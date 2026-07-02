@@ -5,7 +5,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
 ```json
 {
   "schema": "owned-gear/v1",
-  "generated_at": "2026-06-22T18:03:05Z",
+  "generated_at": "2026-07-02T01:59:52Z",
   "source_policy": "Parsed active personalized Lua gear files under data/Kalali, excluding data/Kalali/UnusedJobs, Kalali_Crafting.lua, and Kalali-Globals.lua. Lua comments were stripped before extraction. Empty strings, empty tables, and empty sentinel values were ignored. User-confirmed acquisitions may be added with their requesting job file as a source before a full regeneration.",
   "duplicate_policy": "Non-accessory duplicates are collapsed by name plus augments plus bag. Ring and earring entries include copies=2 only when active Lua uses explicit bag-qualified duplicates, such as Wardrobe plus Wardrobe 2.",
   "source_files": [
@@ -37,7 +37,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 377,
+  "total_slot_entries": 378,
   "slots": {
     "main": [
       {
@@ -413,6 +413,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Sakpata's Sword",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:sub"
+        ]
+      },
+      {
+        "name": "Srivatsa",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.srivatsa",
+          "data/Kalali/Kalali_Pld_Gear.lua:sub",
+          "data/Kalali/Kalali_Pld_Gear.lua:sets.weapons.ExcaliburSrivatsa",
+          "data/Kalali/Kalali_Pld_Gear.lua:sets.weapons.SakpataSrivatsa",
+          "data/Kalali/Kalali_Pld_Gear.lua:sets.weapons.NaeglingSrivatsa"
         ]
       },
       {

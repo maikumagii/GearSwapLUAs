@@ -278,6 +278,52 @@ local function start_teleport_magic_fallback()
     start_utility_magic_fallback(spell_name)
 end
 
+local function user_set_mode_if_available(state_name, mode_value, changed_modes)
+    local state_var = state and state[state_name]
+
+    if not state_var or not state_var.contains or not state_var:contains(mode_value) then
+        return false
+    end
+
+    local old_value = state_var.value
+    state_var:set(mode_value)
+
+    if state_change then
+        state_change(state_var.description or state_name, state_var.value, old_value)
+    end
+
+    changed_modes[#changed_modes + 1] = state_name .. ': ' .. state_var.current
+    return true
+end
+
+local function user_set_aminon_modes()
+    local changed_modes = {}
+
+    user_set_mode_if_available('OffenseMode', 'Aminon', changed_modes)
+    user_set_mode_if_available('HybridMode', 'Aminon', changed_modes)
+    user_set_mode_if_available('IdleMode', 'Aminon', changed_modes)
+
+    if user_set_mode_if_available('PhysicalDefenseMode', 'Aminon', changed_modes) then
+        user_set_mode_if_available('DefenseMode', 'Physical', changed_modes)
+    end
+
+    if user_set_mode_if_available('MagicalDefenseMode', 'Aminon', changed_modes) then
+        user_set_mode_if_available('DefenseMode', 'Magical', changed_modes)
+    end
+
+    if user_set_mode_if_available('ResistDefenseMode', 'Aminon', changed_modes) then
+        user_set_mode_if_available('DefenseMode', 'Resist', changed_modes)
+    end
+
+    if #changed_modes == 0 then
+        add_to_chat(123, 'No Aminon offense, defense, or idle modes are available for this job.')
+        return
+    end
+
+    add_to_chat(122, 'Aminon modes set: ' .. table.concat(changed_modes, ', ') .. '.')
+    handle_equipping_gear(player.status)
+end
+
 function user_state_change(stateField, newValue, oldValue)
     if stateField == 'Hoxne Ampulla Mode' then
         set_hoxne_ampulla_mode(newValue)
@@ -649,8 +695,323 @@ local function user_enable_sortie_addons()
     add_to_chat(122, 'Sortie addons enabled: ' .. table.concat(sortie_addons, ', ') .. '.')
 end
 
+local user_wardrobe_bags = {
+    { number = 1, id = 8, api = 'wardrobe', name = 'Mog Wardrobe', bag_names = S { 'wardrobe', 'mog wardrobe' } },
+    { number = 2, id = 10, api = 'wardrobe2', name = 'Mog Wardrobe 2', bag_names = S { 'wardrobe2', 'wardrobe 2', 'mog wardrobe 2' } },
+    { number = 3, id = 11, api = 'wardrobe3', name = 'Mog Wardrobe 3', bag_names = S { 'wardrobe3', 'wardrobe 3', 'mog wardrobe 3' } },
+    { number = 4, id = 12, api = 'wardrobe4', name = 'Mog Wardrobe 4', bag_names = S { 'wardrobe4', 'wardrobe 4', 'mog wardrobe 4' } },
+    { number = 5, id = 13, api = 'wardrobe5', name = 'Mog Wardrobe 5', bag_names = S { 'wardrobe5', 'wardrobe 5', 'mog wardrobe 5' } },
+    { number = 6, id = 14, api = 'wardrobe6', name = 'Mog Wardrobe 6', bag_names = S { 'wardrobe6', 'wardrobe 6', 'mog wardrobe 6' } },
+    { number = 7, id = 15, api = 'wardrobe7', name = 'Mog Wardrobe 7', bag_names = S { 'wardrobe7', 'wardrobe 7', 'mog wardrobe 7' } },
+    { number = 8, id = 16, api = 'wardrobe8', name = 'Mog Wardrobe 8', bag_names = S { 'wardrobe8', 'wardrobe 8', 'mog wardrobe 8' } },
+}
+
+local user_wardrobe_bags_by_number = {}
+for _, bag in ipairs(user_wardrobe_bags) do
+    user_wardrobe_bags_by_number[bag.number] = bag
+end
+
+local function user_item_name(item_id)
+    local item = gearswap and gearswap.res and gearswap.res.items and gearswap.res.items[item_id]
+    local language = gearswap and gearswap.language or 'english'
+
+    if not item then
+        return tostring(item_id)
+    end
+
+    return item[language] or item.english or item.en or tostring(item_id)
+end
+
+local function user_item_log_name(item_id)
+    local item = gearswap and gearswap.res and gearswap.res.items and gearswap.res.items[item_id]
+    local language = gearswap and gearswap.language or 'english'
+
+    if not item then
+        return tostring(item_id)
+    end
+
+    return item[language .. '_log'] or item.log_name or user_item_name(item_id)
+end
+
+local function user_normalize_item_name(name)
+    return tostring(name or ''):lower()
+end
+
+local function user_normalize_bag_id(bag_name)
+    if not bag_name then
+        return nil
+    end
+
+    local normalized_bag_name = user_normalize_item_name(bag_name)
+
+    for _, bag in ipairs(user_wardrobe_bags) do
+        if bag.bag_names:contains(normalized_bag_name) then
+            return bag.id
+        end
+    end
+
+    return nil
+end
+
+local function user_build_wardrobe_item_ids(bags_to_scan)
+    local item_ids = {}
+
+    for _, bag in ipairs(bags_to_scan) do
+        local wardrobe = windower.ffxi.get_items(bag.id)
+
+        for _, item in ipairs(wardrobe or {}) do
+            if type(item) == 'table' and item.id and item.id ~= 0 then
+                item_ids[user_normalize_item_name(user_item_name(item.id))] = item.id
+                item_ids[user_normalize_item_name(user_item_log_name(item.id))] = item.id
+            end
+        end
+    end
+
+    return item_ids
+end
+
+local function user_copy_augments(augments)
+    if type(augments) ~= 'table' then
+        return nil
+    end
+
+    local copied_augments = {}
+
+    for index, augment in pairs(augments) do
+        if augment and augment ~= 'none' then
+            copied_augments[index] = augment
+        end
+    end
+
+    return next(copied_augments) and copied_augments or nil
+end
+
+local function user_set_item_augments(set_item)
+    return user_copy_augments(set_item.augments)
+        or (set_item.augment and set_item.augment ~= 'none' and { set_item.augment } or nil)
+end
+
+local function user_inventory_item_augments(item)
+    if not item or not gearswap or not gearswap.extdata or not gearswap.extdata.decode then
+        return nil
+    end
+
+    local decoded_item = gearswap.extdata.decode(item)
+
+    return decoded_item and user_copy_augments(decoded_item.augments) or nil
+end
+
+local function user_augments_key(augments)
+    if not augments then
+        return ''
+    end
+
+    local parts = {}
+
+    for index, augment in pairs(augments) do
+        parts[#parts + 1] = tostring(index) .. '=' .. tostring(augment)
+    end
+
+    table.sort(parts)
+
+    return table.concat(parts, '|')
+end
+
+local function user_augments_match(wanted_augments, item_augments)
+    if not wanted_augments then
+        return true
+    end
+
+    if gearswap and gearswap.extdata and gearswap.extdata.compare_augments then
+        return item_augments and gearswap.extdata.compare_augments(wanted_augments, item_augments)
+    end
+
+    return user_augments_key(wanted_augments) == user_augments_key(item_augments)
+end
+
+local function user_augments_display(augments)
+    if not augments then
+        return ''
+    end
+
+    local parts = {}
+
+    for _, augment in pairs(augments) do
+        parts[#parts + 1] = tostring(augment)
+    end
+
+    table.sort(parts)
+
+    return #parts > 0 and ' [' .. table.concat(parts, '; ') .. ']' or ''
+end
+
+local function user_find_item_id(item_name, wardrobe_item_ids)
+    return wardrobe_item_ids[user_normalize_item_name(item_name)]
+end
+
+local function user_add_wanted_item(wanted_items, wanted_keys, item_id, set_item, slot)
+    if not item_id then
+        return
+    end
+
+    local augments = type(set_item) == 'table' and user_set_item_augments(set_item) or nil
+    local bag_id = type(set_item) == 'table' and user_normalize_bag_id(set_item.bag) or nil
+    local entry_key = table.concat({ item_id, user_augments_key(augments), bag_id or '', slot or '' }, '#')
+
+    if wanted_keys[entry_key] then
+        return
+    end
+
+    wanted_keys[entry_key] = true
+    wanted_items[#wanted_items + 1] = {
+        id = item_id,
+        name = user_item_name(item_id),
+        augments = augments,
+        bag_id = bag_id,
+        used = false,
+    }
+end
+
+local function user_collect_gearset_items(table_level, wardrobe_item_ids, wanted_items, wanted_keys, visited_tables, parent_key)
+    if type(table_level) ~= 'table' or visited_tables[table_level] then
+        return
+    end
+
+    if table_level.name then
+        user_add_wanted_item(wanted_items, wanted_keys, user_find_item_id(table_level.name, wardrobe_item_ids), table_level, parent_key)
+        return
+    end
+
+    visited_tables[table_level] = true
+
+    for key, value in pairs(table_level) do
+        if type(value) == 'table' and key ~= 'augments' then
+            user_collect_gearset_items(value, wardrobe_item_ids, wanted_items, wanted_keys, visited_tables, key)
+        elseif type(value) == 'string' and value ~= 'augment' and value ~= 'augments' and value ~= 'priority' then
+            user_add_wanted_item(wanted_items, wanted_keys, user_find_item_id(value, wardrobe_item_ids), value, key)
+        end
+    end
+end
+
+local function user_build_wanted_gearset_items(bags_to_scan)
+    local wardrobe_item_ids = user_build_wardrobe_item_ids(bags_to_scan)
+    local wanted_items = {}
+
+    if sets then
+        user_collect_gearset_items(sets, wardrobe_item_ids, wanted_items, {}, {}, nil)
+    end
+
+    return wanted_items
+end
+
+local function user_match_wanted_item(item, bag_id, wanted_items)
+    local item_augments = user_inventory_item_augments(item)
+    local best_match = nil
+    local best_score = -1
+
+    for index, wanted_item in ipairs(wanted_items) do
+        if not wanted_item.used
+            and wanted_item.id == item.id
+            and (not wanted_item.bag_id or wanted_item.bag_id == bag_id)
+            and user_augments_match(wanted_item.augments, item_augments) then
+
+            local score = 0
+
+            if wanted_item.bag_id == bag_id then
+                score = score + 2
+            end
+
+            if wanted_item.augments then
+                score = score + 4
+            end
+
+            if score > best_score then
+                best_match = index
+                best_score = score
+            end
+        end
+    end
+
+    if best_match then
+        wanted_items[best_match].used = true
+        return true
+    end
+
+    return false, item_augments
+end
+
+local function user_scan_unused_wardrobe_gear(cmdParams)
+    local wardrobe_number = cmdParams[1] and tonumber(cmdParams[1]) or nil
+    local bags_to_scan = {}
+
+    if cmdParams[1] and not wardrobe_number then
+        add_to_chat(123, 'Unused command usage: gs c unused [1-8].')
+        return
+    end
+
+    if wardrobe_number then
+        if not user_wardrobe_bags_by_number[wardrobe_number] then
+            add_to_chat(123, 'Unused command usage: gs c unused [1-8].')
+            return
+        end
+
+        bags_to_scan = { user_wardrobe_bags_by_number[wardrobe_number] }
+    else
+        bags_to_scan = user_wardrobe_bags
+    end
+
+    local wanted_items = user_build_wanted_gearset_items(bags_to_scan)
+    local total_unused = 0
+
+    for _, bag in ipairs(bags_to_scan) do
+        local wardrobe = windower.ffxi.get_items(bag.id)
+        local bag_unused = {}
+
+        for slot, item in ipairs(wardrobe or {}) do
+            if type(item) == 'table' and item.id and item.id ~= 0 then
+                local matched, augments = user_match_wanted_item(item, bag.id, wanted_items)
+
+                if not matched then
+                    bag_unused[#bag_unused + 1] = {
+                        slot = slot,
+                        name = user_item_name(item.id),
+                        augments = augments,
+                    }
+                end
+            end
+        end
+
+        total_unused = total_unused + #bag_unused
+
+        if #bag_unused > 0 then
+            add_to_chat(122, bag.name .. ' unused gear: ' .. #bag_unused)
+
+            for _, unused_item in ipairs(bag_unused) do
+                add_to_chat(122, '  [' .. unused_item.slot .. '] ' .. unused_item.name .. user_augments_display(unused_item.augments))
+            end
+        elseif wardrobe_number then
+            add_to_chat(122, bag.name .. ': no unused gear found.')
+        end
+    end
+
+    if not wardrobe_number then
+        if total_unused == 0 then
+            add_to_chat(122, 'No unused gear found in Mog Wardrobes 1-8.')
+        else
+            add_to_chat(122, 'Unused gear scan complete: ' .. total_unused .. ' item(s) not found in gearsets.')
+        end
+    end
+end
+
 function user_self_command(commandArgs, eventArgs)
     local command = commandArgs[1] and commandArgs[1]:lower() or ''
+
+    if command == 'unused' then
+        eventArgs.handled = true
+        table.remove(commandArgs, 1)
+        user_scan_unused_wardrobe_gear(commandArgs)
+        return
+    end
 
     if command == 'mb' or command == 'magicburst' or command == 'burst' then
         eventArgs.handled = true
@@ -662,6 +1023,12 @@ function user_self_command(commandArgs, eventArgs)
     if command == 'sortie' then
         eventArgs.handled = true
         user_enable_sortie_addons()
+        return
+    end
+
+    if command == 'aminon' then
+        eventArgs.handled = true
+        user_set_aminon_modes()
         return
     end
 

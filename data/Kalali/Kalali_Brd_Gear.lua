@@ -64,7 +64,7 @@ function character_user_job_setup()
     --  3  Baetyl Pendant                FC +4%, MAB +13
     gear.hieros_mittens = "Inyan. Dastanas +2"
     --  1  Hieros Mittens                Cursna Set
-    gear.shadow_ring = ""
+    gear.shadow_ring = "Shadow Ring"
     --  7  Shadow Ring                   Death protection, MDB
     gear.shadow_mantle = "Null Shawl"
     --  2  Shadow Mantle                 Phys Annul
@@ -464,6 +464,7 @@ function init_gear_sets()
         waist = "Embla Sash"
     })
     sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], { neck = "Nodens Gorget" })
 
     -- Song-specific recast reduction
     sets.midcast.SongRecast = {
@@ -526,6 +527,7 @@ function init_gear_sets()
         ring1 = "Haoma's Ring",
         ring2 = "Menelaus's Ring",
         waist = "Witful Belt",
+        feet = "Vanya Clogs",
     })
 
     sets.idle = {

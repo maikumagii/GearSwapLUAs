@@ -74,7 +74,7 @@ function character_user_job_setup()
     gear.af3_legs = "" --"Chas. Culottes +1"
     gear.af3_feet = "" --"Chass. Bottes +1"
 
-    gear.yemaya_belt = "Null Belt"
+    gear.yemaya_belt = "Yemaya Belt"
     gear.regal_ring = ""
     gear.null_masque = ""
     gear.genmei_earring = ""

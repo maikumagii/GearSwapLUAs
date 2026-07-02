@@ -125,7 +125,7 @@ function character_user_job_setup()
     -- hands
     gear.hieros_mittens = gear.af1_hands
     --  1  Hieros Mittens                Cursna Set
-    gear.shadow_ring = ""
+    gear.shadow_ring = "Shadow Ring"
     --  7  Shadow Ring                   Death protection, MD
     gear.shadow_mantle = "Null Shawl"
     --  2  Shadow Mantle                 Phys Annul
@@ -575,7 +575,7 @@ function init_gear_sets()
         back = "Oretan. Cape +1",
         waist = gear.bishops_sash,
         legs = gear.af1_legs,
-        feet = gear.af1_feet
+        feet = "Vanya Clogs"
     }
 
     sets.midcast.StatusRemoval = set_combine(sets.midcast.FastRecast, { main = "Crocea Mors", sub = gear.filler_shield })
@@ -638,7 +638,7 @@ function init_gear_sets()
     sets.midcast.Temper = sets.EnhancingSkill
     sets.midcast.Enspell = sets.EnhancingSkill
     sets.midcast.BoostStat = { hands = gear.af2_hands }
-    sets.midcast.Stoneskin = { legs = "Shedir Seraweels" }
+    sets.midcast.Stoneskin = { neck = "Nodens Gorget", legs = "Shedir Seraweels" }
     sets.midcast.Protect = { ring2 = "Sheltered Ring" }
     sets.midcast.Shell = { ring2 = "Sheltered Ring" }
     sets.midcast.Regen = { main = "Crocea Mors", sub = "Ammurapi Shield" }
