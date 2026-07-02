@@ -831,15 +831,9 @@ local function user_augments_key(augments)
 end
 
 local function user_augments_match(wanted_augments, item_augments)
-    if not wanted_augments then
-        return true
-    end
-
-    if gearswap and gearswap.extdata and gearswap.extdata.compare_augments then
-        return item_augments and gearswap.extdata.compare_augments(wanted_augments, item_augments)
-    end
-
-    return user_augments_key(wanted_augments) == user_augments_key(item_augments)
+    -- Extdata augment strings vary for paths/ranks, so name/id is authoritative
+    -- for unused scans. The wanted augment key still preserves duplicate counts.
+    return true
 end
 
 local function user_augments_display(augments)
