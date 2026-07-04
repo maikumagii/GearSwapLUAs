@@ -15,7 +15,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "data/Kalali/Kalali_Cor_Gear.lua",
     "data/Kalali/Kalali_Geo_Gear.lua",
     "data/Kalali/Kalali_Pld_Gear.lua",
-    "data/Kalali/Kalali_Pld_Shield_Mode.lua",
     "data/Kalali/Kalali_Pup_Gear.lua",
     "data/Kalali/Kalali_Rdm_Gear.lua",
     "data/Kalali/Kalali_Sch_Gear.lua",
@@ -421,7 +420,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.srivatsa",
           "data/Kalali/Kalali_Pld_Gear.lua:sub",
-          "data/Kalali/Kalali_Pld_Shield_Mode.lua:sets.shields.Srivatsa"
+          "data/Kalali-PLD.lua:sets.shields.Srivatsa"
         ]
       },
       {

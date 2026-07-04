@@ -1262,7 +1262,7 @@ local function add_priwen_when_reprisal(baseSet)
     return baseSet
 end
 
-include('Kalali/Kalali_Pld_Shield_Mode.lua')
+include('Kalali-PLD.lua')
 
 function job_customize_idle_set(idleSet)
     return add_priwen_when_reprisal(idleSet)

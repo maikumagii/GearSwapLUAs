@@ -1,5 +1,3 @@
--- PLD-only sidecar for separating main-hand weapon mode from shield mode.
-
 local pld_shield_base_job_state_change = job_state_change
 
 local function pld_current_weapon_set()
