@@ -5,11 +5,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
 ```json
 {
   "schema": "owned-gear/v1",
-  "generated_at": "2026-07-04T17:58:46Z",
+  "generated_at": "2026-07-04T20:16:13Z",
   "source_policy": "Parsed active personalized Lua gear files under data/Kalali, excluding data/Kalali/UnusedJobs, Kalali_Crafting.lua, and Kalali-Globals.lua. Lua comments were stripped before extraction. Empty strings, empty tables, and empty sentinel values were ignored. User-confirmed acquisitions may be added with their requesting job file as a source before a full regeneration.",
   "duplicate_policy": "Non-accessory duplicates are collapsed by name plus augments plus bag. Ring and earring entries include copies=2 only when active Lua uses explicit bag-qualified duplicates, such as Wardrobe plus Wardrobe 2.",
   "source_files": [
     "data/Kalali/Kalali-Items.lua",
+    "data/Kalali-PLD.lua",
     "data/Kalali/Kalali_Blu_Gear.lua",
     "data/Kalali/Kalali_Brd_Gear.lua",
     "data/Kalali/Kalali_Cor_Gear.lua",
