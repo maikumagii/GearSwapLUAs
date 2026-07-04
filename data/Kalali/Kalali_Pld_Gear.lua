@@ -1,6 +1,6 @@
 function character_user_job_setup()
     -- Options: Override default values
-    state.OffenseMode:options('Normal', 'Acc')
+    state.OffenseMode:options('Normal', 'Acc', 'Tp')
     state.HybridMode:options('Tank', 'DDTank', 'Normal')
     state.WeaponskillMode:options('Match', 'Normal', 'Acc')
     state.CastingMode:options('Normal', 'SIRD')
@@ -9,20 +9,15 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT_HP', 'MDT', 'MDT_Reraise')
     state.ResistDefenseMode:options('MEVA_HP', 'MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
-    state.Weapons:options('None', 'ExcaliburAegis', 'ExcaliburDuban', 'ExcaliburSrivatsa', 'SakpataAegis',
-        'SakpataDuban', 'SakpataSrivatsa', 'NaeglingBlurred', 'NaeglingSrivatsa', 'ClubDuban')
+    state.Weapons:options('None', 'Excalibur', 'Sakpata', 'Naegling', 'ClubDuban')
+    pld_init_shield_state()
 
     state.AutoCureCheat = M(true, 'Auto Cure Cheat')
 
     autows_list = {
-        ExcaliburAegis = 'Knights of Round',
-        ExcaliburDuban = 'Knights of Round',
-        ExcaliburSrivatsa = 'Knights of Round',
-        SakpataAegis = 'Savage Blade',
-        SakpataDuban = 'Savage Blade',
-        SakpataSrivatsa = 'Savage Blade',
-        NaeglingBlurred = 'Savage Blade',
-        NaeglingSrivatsa = 'Savage Blade',
+        Excalibur = 'Knights of Round',
+        Sakpata = 'Savage Blade',
+        Naegling = 'Savage Blade',
         ClubDuban = 'Black Halo',
     }
 
@@ -129,6 +124,7 @@ function character_user_job_setup()
     send_command('bind !delete input /ma "Cure IV" <stal>')
     send_command('bind @delete input /ma "Flash" <stnpc>')
     send_command('bind !f11 gs c cycle ExtraDefenseMode')
+    send_command('bind @f7 gs c cycle Shield')
     send_command('bind @` gs c cycle RuneElement')
     send_command('bind ^pause gs c toggle AutoRuneMode')
     send_command('bind @f8 gs c toggle AutoTankMode')
@@ -422,20 +418,49 @@ function init_gear_sets()
     sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS.Acc,
         { neck = "Fotia Gorget", ear1 = gear.acc_ear1, ear2 = "Moonshade Earring" })
 
-    sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS,
-        { neck = "Fotia Gorget", ear1 = "Ishvara Earring", ear2 = "Moonshade Earring" })
-    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS.Acc,
-        { ear1 = gear.acc_ear1, ear2 = "Telos Earring" })
-
-    sets.precast.WS['Knights of Round'] = set_combine(sets.precast.WS, {
+    sets.precast.WS['Savage Blade'] = {
+        ammo = "Aurgelmir Orb +1",
+        head = "Nyame Helm",
+        neck = "Rep. Plat. Medal",
         ear1 = "Ishvara Earring",
-        ear2 =
-        "Brutal Earring"
-    })
-    sets.precast.WS['Knights of Round'].Acc = set_combine(sets.precast.WS.Acc, {
+        ear2 = "Moonshade Earring",
+        body = gear.valorous_wsd_body,
+        hands = gear.odyssean_wsd_hands,
+        ring1 = gear.ws_ring1,
+        ring2 = gear.ws_ring2,
+        back = gear.ws_back,
+        waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+    sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {
+        neck = "Null Loop",
         ear1 = gear.acc_ear1,
-        ear2 =
-        "Telos Earring"
+        ear2 = "Telos Earring",
+        waist = "Null Belt",
+    })
+
+    -- Excalibur's unique weaponskill.
+    sets.precast.WS['Knights of Round'] = {
+        ammo = "Aurgelmir Orb +1",
+        head = "Nyame Helm",
+        neck = "Rep. Plat. Medal",
+        ear1 = "Ishvara Earring",
+        ear2 = "Moonshade Earring",
+        body = gear.valorous_wsd_body,
+        hands = gear.odyssean_wsd_hands,
+        ring1 = gear.ws_ring1,
+        ring2 = gear.ws_ring2,
+        back = gear.ws_back,
+        waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
+    }
+    sets.precast.WS['Knights of Round'].Acc = set_combine(sets.precast.WS['Knights of Round'], {
+        neck = "Null Loop",
+        ear1 = gear.acc_ear1,
+        ear2 = "Telos Earring",
+        waist = "Null Belt",
     })
     sets.precast.WS['Knights of the Round'] = sets.precast.WS['Knights of Round']
     sets.precast.WS['Knights of the Round'].Acc = sets.precast.WS['Knights of Round'].Acc
@@ -488,7 +513,26 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.precast.WS['Atonement'] = sets.Enmity
+    sets.precast.WS['Atonement'] = {
+        ammo = "Staunch Tathlum +1",
+        head = gear.enmity_head,
+        neck = gear.enmity_neck,
+        ear1 = "Friomisi Earring",
+        ear2 = gear.enmity_ear2,
+        body = gear.souv_body,
+        hands = gear.enmity_hands,
+        ring1 = gear.enmity_ring1,
+        ring2 = gear.enmity_ring2,
+        back = gear.enmity_jse_back,
+        waist = "Flume Belt +1",
+        legs = gear.souv_legs,
+        feet = gear.enmity_feet
+    }
+    sets.precast.WS['Atonement'].Acc = set_combine(sets.precast.WS['Atonement'], {
+        neck = "Null Loop",
+        ear1 = gear.acc_ear1,
+        ear2 = "Telos Earring",
+    })
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear1 = "Cessance Earring", ear2 = "Brutal Earring", }
@@ -930,16 +974,12 @@ function init_gear_sets()
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 
     -- Weapons sets
-    sets.weapons.ExcaliburAegis = { main = "Excalibur", sub = "Aegis" }
-    sets.weapons.ExcaliburDuban = { main = "Excalibur", sub = "Duban" }
-    sets.weapons.ExcaliburSrivatsa = { main = "Excalibur", sub = gear.srivatsa }
-    sets.weapons.SakpataAegis = { main = "Sakpata's Sword", sub = "Aegis" }
-    sets.weapons.NaeglingBlurred = { main = "Naegling", sub = "Blurred Shield +1" }
-    sets.weapons.SakpataDuban = { main = "Sakpata's Sword", sub = "Duban" }
-    sets.weapons.SakpataSrivatsa = { main = "Sakpata's Sword", sub = gear.srivatsa }
-    sets.weapons.NaeglingSrivatsa = { main = "Naegling", sub = gear.srivatsa }
+    sets.weapons.Excalibur = { main = "Excalibur" }
+    sets.weapons.Sakpata = { main = "Sakpata's Sword" }
+    sets.weapons.Naegling = { main = "Naegling" }
     sets.weapons.ClubDuban = { main = gear.club, sub = "Duban" }
     sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword }
+    pld_init_shield_sets()
 
     sets.defense.Block = {
         main = "Sakpata's Sword",
@@ -1132,6 +1172,20 @@ function init_gear_sets()
         feet = gear.souv_feet
     }
 
+    sets.engaged.Tp = set_combine(sets.engaged.Tank, {
+        ammo = "Coiste Bodhar",
+        neck = "Rep. Plat. Medal",
+        ear1 = "Cessance Earring",
+        ear2 = "Brutal Earring",
+        body = gear.valorous_wsd_body,
+        hands = "Sakpata's Gauntlets",
+        ring2 = gear.tp_ring2,
+        back = gear.ws_back,
+        waist = "Sailfi Belt +1",
+        legs = gear.sulevia_legs,
+        feet = gear.sulevia_feet
+    })
+
     sets.engaged.DDTank = {
         ammo = "Coiste Bodhar",
         head = "Sakpata's Helm",
@@ -1198,8 +1252,7 @@ end
 
 local function add_priwen_when_reprisal(baseSet)
     if buffactive['Reprisal'] and sets.buff.Reprisal and not (state.CombatForm and state.CombatForm.value == 'DW') then
-        local weaponMode = state.Weapons and state.Weapons.value
-        if (baseSet and baseSet.sub == gear.srivatsa) or (weaponMode and weaponMode:find('Srivatsa')) then
+        if pld_should_keep_shield_for_reprisal and pld_should_keep_shield_for_reprisal(baseSet) then
             return baseSet
         end
 
@@ -1208,6 +1261,8 @@ local function add_priwen_when_reprisal(baseSet)
 
     return baseSet
 end
+
+include('Kalali/Kalali_Pld_Shield_Mode.lua')
 
 function job_customize_idle_set(idleSet)
     return add_priwen_when_reprisal(idleSet)

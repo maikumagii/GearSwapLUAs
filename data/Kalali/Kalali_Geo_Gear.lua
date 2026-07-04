@@ -35,11 +35,11 @@ function character_user_job_setup()
     gear.af2_feet = "Bagua Sandals +3"
 
     -- Empyrean gear.
-    gear.af3_head = "Azimuth Hood +1"
-    gear.af3_body = "Azimuth Coat +1"
-    gear.af3_hands = "Azimuth Gloves +1"
-    gear.af3_legs = "Azimuth Tights +1"
-    gear.af3_feet = "Azimuth Gaiters +1"
+    gear.af3_head = "Azimuth Hood +2"
+    gear.af3_body = "Azimuth Coat +2"
+    gear.af3_hands = "Azimuth Gloves +2"
+    gear.af3_legs = "Azimuth Tights +2"
+    gear.af3_feet = "Azimuth Gaiters +2"
 
     gear.nuke_jse_back = "Null Shawl"
     gear.idle_jse_back = gear.geo_back
@@ -63,7 +63,7 @@ function character_user_job_setup()
     gear.gada_enhancing_club = "Bunzi's Rod"
 
     gear.merlinic_nuke_head = "Amalric Coif +1"
-    gear.merlinic_nuke_body = "Nyame Mail"
+    gear.merlinic_nuke_body = gear.af3_body
     gear.merlinic_aspir_feet = "Amalric Nails +1"
     gear.merlinic_refresh_hands = "Nyame Gauntlets"
     gear.merlinic_refresh_feet = "Nyame Sollerets"
@@ -86,7 +86,7 @@ function character_user_job_setup()
     send_command('bind ^delete input /ma "Aspir III" <t>')
     send_command('bind @delete input /ma "Sleep" <t>')
 
-    indi_duration = 331
+    indi_duration = 336
 
     select_default_macro_book()
 end
@@ -346,12 +346,12 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -364,12 +364,12 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = gear.stikini_ring1,
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -400,12 +400,12 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = "Freke Ring",
         ring2 = "Metamor. Ring +1",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -418,12 +418,12 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = "Metamor. Ring +1",
         ring2 = "Freke Ring",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -436,12 +436,12 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = "Metamor. Ring +1",
         ring2 = "Freke Ring",
         back = gear.nuke_jse_back,
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -454,12 +454,12 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = "Metamor. Ring +1",
         ring2 = "Freke Ring",
         back = gear.nuke_jse_back,
         waist = "Acuity Belt +1",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = "Amalric Nails +1"
     }
 
@@ -472,7 +472,7 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = "Metamor. Ring +1",
         ring2 = gear.stikini_ring2,
         back = gear.nuke_jse_back,
@@ -490,7 +490,7 @@ function init_gear_sets()
         ear1 = "Malignance Earring",
         ear2 = "Friomisi Earring",
         body = gear.merlinic_nuke_body,
-        hands = "Jhakri Cuffs +2",
+        hands = gear.af3_hands,
         ring1 = "Metamor. Ring +1",
         ring2 = "Evanescence Ring",
         back = gear.nuke_jse_back,
@@ -515,7 +515,7 @@ function init_gear_sets()
         ring2 = gear.stikini_ring2,
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = "Kaykaus Boots +1"
     }
 
