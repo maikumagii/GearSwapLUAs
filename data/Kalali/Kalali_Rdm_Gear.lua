@@ -3,7 +3,7 @@ function character_user_job_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.HybridMode:options('Normal', 'DT')
     state.WeaponskillMode:options('Match', 'Proc')
-    state.CastingMode:options('Normal', 'Resistant', 'Proc', 'SIRD')
+    state.CastingMode:options('Normal', 'Resistant', 'Proc', 'SIRD', 'OccultAcumen')
     state.IdleMode:options('Normal', 'PDT', 'MDT', 'MEVA', 'Aminon')
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
     state.MagicalDefenseMode:options('MDT')
@@ -54,6 +54,8 @@ function character_user_job_setup()
     gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20/Mag. Dmg.+20', '"Mag. Atk. Bns."+10', 'Phys. dmg. taken-10%', } }      --TODO
     gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', --[[ 'Accuracy+10',]] '"Dual Wield"+10', 'Phys. dmg. taken-10%' } }
     gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10%', 'Phys. dmg. taken-10%', } } --TODO
+    gear.enhancing_duration_jse_back = gear.cure_jse_back
+    gear.absorb_tp_recast_jse_back = gear.cure_jse_back
 
     -- Unimplemented Ambuscade Capes with redirects to capes I do have
     gear.mnd_enfeebling_jse_back = gear.magical_mnd_wsd_jse_back
@@ -137,12 +139,16 @@ function character_user_job_setup()
     --  1  Bishop's Sash                 +5 Healing (cursna)
     gear.fuchonoobi = "Eschan Stone"
     --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
+    gear.oneiros_rope = "Witful Belt"
+    --  4  Oneiros Rope                  Occult Acumen TP/MP bonus
+    gear.perdition_slops = "Malignance Tights"
+    --  4  Perdition Slops               Occult Acumen +30
 
     -- Ignored placeholders
     gear.filler_shield = "Ammurapi Shield"
     --   3  Removed grip and replaced with Crocea, didn't research sub (FullFC, Status Removal, Cursna)
     gear.ghostfyre_cape = "Ghostfyre Cape" -- 4
-    --  ****"Ghostfyre Cape"            +10 Enhancing, +20% Enhancing Duration
+    --  ****"Ghostfyre Cape"            +10 Enhancing, +10% Enhancing Duration
 
 
     -- head body hands legs boots "Taeon " xxx gear for +3 Phalanx increase (+15 total) -- DI Dark Matter gear? +5 a piece (+25 total), and Sworn gear (+24 total, only body is better)
@@ -592,7 +598,7 @@ function init_gear_sets()
         hands = gear.af1_hands,
         ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
-        back = gear.ghostfyre_cape,
+        back = gear.enhancing_duration_jse_back,
         waist = "Embla Sash",
         legs = gear.telchine_braconi,
         feet = gear.af3_feet
@@ -1072,6 +1078,26 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
+    -- Thunder V maps to HighTierNuke; this mode favors TP gain over magic damage.
+    sets.midcast['Elemental Magic'].HighTierNuke.OccultAcumen = {
+        main = "Bunzi's Rod",
+        sub = "Ammurapi Shield",
+        range = empty,
+        ammo = "Aurgelmir Orb +1",
+        head = "Carmine Mask +1",
+        neck = "Null Loop",
+        ear1 = "Sherida Earring",
+        ear2 = "Crep. Earring",
+        body = "Malignance Tabard",
+        hands = "Malignance Gloves",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = "Null Shawl",
+        waist = gear.oneiros_rope,
+        legs = gear.perdition_slops,
+        feet = "Malignance Boots"
+    }
+
     -- Gear that Recovers MP when nuking.
     -- sets.RecoverMP = {body=gear.seidr_cotehardie}
 
@@ -1104,6 +1130,11 @@ function init_gear_sets()
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
+
+    sets.midcast.Impact.OccultAcumen = set_combine(sets.midcast['Elemental Magic'].HighTierNuke.OccultAcumen, {
+        head = empty,
+        body = gear.crepuscular_cloak
+    })
 
     sets.midcast['Dark Magic'] = {
         main = "Daybreak",
@@ -1143,23 +1174,24 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
-    sets.midcast.Aspir = sets.midcast.Drain
+    sets.midcast.Aspir = set_combine(sets.midcast.Drain, {})
+    sets.midcast.Aspir.OccultAcumen = set_combine(sets.midcast.Aspir, {})
 
     sets.midcast['Absorb-TP'] = {
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         range = "Ullr",
         ammo = empty,
-        head = gear.af1_head,
+        head = "Carmine Mask +1",
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
         hands = gear.af3_hands,
-        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        ring2 = "Metamorph Ring +1",
-        back = gear.mnd_enfeebling_jse_back,
-        waist = "Null Belt",
+        ring1 = "Kishar Ring",
+        ring2 = "Lebeche Ring",
+        back = gear.absorb_tp_recast_jse_back,
+        waist = "Witful Belt",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
@@ -1169,16 +1201,16 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = "Ullr",
         ammo = empty,
-        head = gear.af1_head,
+        head = "Carmine Mask +1",
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = gear.jse_ear2,
         body = gear.af3_body,
         hands = gear.af3_hands,
-        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        ring2 = "Metamorph Ring +1",
-        back = "Null Shawl",
-        waist = "Null Belt",
+        ring1 = "Kishar Ring",
+        ring2 = "Lebeche Ring",
+        back = gear.absorb_tp_recast_jse_back,
+        waist = "Witful Belt",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
