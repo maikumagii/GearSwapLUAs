@@ -2,7 +2,7 @@ function character_user_job_setup()
     -- Options: Override default values
     state.OffenseMode:options('Normal', 'Acc')
     state.HybridMode:options('Normal', 'DT')
-    state.WeaponskillMode:options('Match', 'Proc')
+    state.WeaponskillMode:options('Match', 'Acc', 'Proc')
     state.CastingMode:options('Normal', 'Resistant', 'Proc', 'SIRD', 'OccultAcumen')
     state.IdleMode:options('Normal', 'PDT', 'MDT', 'MEVA', 'Aminon')
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
@@ -398,6 +398,23 @@ function init_gear_sets()
         ring2 = "Cornelia's Ring",
         back = gear.physical_mnd_wsd_jse_back,
         waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = gear.af3_feet
+    }
+
+    sets.precast.WS['Black Halo'].Acc = {
+        range = empty,
+        ammo = "Oshasha's Treatise",
+        head = gear.af2_head,
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ear2 = "Moonshade Earring",
+        body = "Nyame Mail",
+        hands = gear.af1_hands,
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = "Cornelia's Ring",
+        back = gear.physical_mnd_wsd_jse_back,
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
