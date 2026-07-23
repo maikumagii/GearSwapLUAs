@@ -296,23 +296,67 @@ local function user_set_mode_if_available(state_name, mode_value, changed_modes)
     return true
 end
 
-local function user_set_aminon_modes()
+local function user_mode_is_available(state_name, mode_value)
+    local state_var = state and state[state_name]
+    return state_var and state_var.contains and state_var:contains(mode_value)
+end
+
+local function user_mode_is_current(state_name, mode_value)
+    local state_var = state and state[state_name]
+    return state_var and state_var.value == mode_value
+end
+
+local function user_aminon_modes_active()
+    local tracked_modes = {
+        { 'IdleMode', 'Aminon' },
+        { 'CastingMode', 'OccultAcumen' },
+        { 'WeaponskillMode', 'Acc' },
+        { 'OffenseMode', 'Acc' },
+    }
+
+    local available_modes = 0
+
+    for _, mode in ipairs(tracked_modes) do
+        if user_mode_is_available(mode[1], mode[2]) then
+            available_modes = available_modes + 1
+
+            if not user_mode_is_current(mode[1], mode[2]) then
+                return false
+            end
+        end
+    end
+
+    return available_modes > 0
+end
+
+local function user_set_aminon_modes(enabled)
     local changed_modes = {}
 
-    user_set_mode_if_available('OffenseMode', 'Aminon', changed_modes)
-    user_set_mode_if_available('HybridMode', 'Aminon', changed_modes)
-    user_set_mode_if_available('IdleMode', 'Aminon', changed_modes)
+    if enabled then
+        user_set_mode_if_available('IdleMode', 'Aminon', changed_modes)
+        user_set_mode_if_available('HybridMode', 'Aminon', changed_modes)
+        user_set_mode_if_available('CastingMode', 'OccultAcumen', changed_modes)
+        user_set_mode_if_available('WeaponskillMode', 'Acc', changed_modes)
+        user_set_mode_if_available('OffenseMode', 'Acc', changed_modes)
 
-    if user_set_mode_if_available('PhysicalDefenseMode', 'Aminon', changed_modes) then
-        user_set_mode_if_available('DefenseMode', 'Physical', changed_modes)
-    end
+        if user_set_mode_if_available('PhysicalDefenseMode', 'Aminon', changed_modes) then
+            user_set_mode_if_available('DefenseMode', 'Physical', changed_modes)
+        end
 
-    if user_set_mode_if_available('MagicalDefenseMode', 'Aminon', changed_modes) then
-        user_set_mode_if_available('DefenseMode', 'Magical', changed_modes)
-    end
+        if user_set_mode_if_available('MagicalDefenseMode', 'Aminon', changed_modes) then
+            user_set_mode_if_available('DefenseMode', 'Magical', changed_modes)
+        end
 
-    if user_set_mode_if_available('ResistDefenseMode', 'Aminon', changed_modes) then
-        user_set_mode_if_available('DefenseMode', 'Resist', changed_modes)
+        if user_set_mode_if_available('ResistDefenseMode', 'Aminon', changed_modes) then
+            user_set_mode_if_available('DefenseMode', 'Resist', changed_modes)
+        end
+    else
+        user_set_mode_if_available('IdleMode', 'Normal', changed_modes)
+        user_set_mode_if_available('HybridMode', 'Normal', changed_modes)
+        user_set_mode_if_available('CastingMode', 'Normal', changed_modes)
+        user_set_mode_if_available('WeaponskillMode', 'Match', changed_modes)
+        user_set_mode_if_available('OffenseMode', 'Normal', changed_modes)
+        user_set_mode_if_available('DefenseMode', 'None', changed_modes)
     end
 
     if #changed_modes == 0 then
@@ -320,7 +364,7 @@ local function user_set_aminon_modes()
         return
     end
 
-    add_to_chat(122, 'Aminon modes set: ' .. table.concat(changed_modes, ', ') .. '.')
+    add_to_chat(122, 'Aminon modes ' .. (enabled and 'enabled' or 'disabled') .. ': ' .. table.concat(changed_modes, ', ') .. '.')
     handle_equipping_gear(player.status)
 end
 
@@ -685,14 +729,16 @@ local function user_handle_magic_burst_command(commandArgs)
     windower.chat.input('/console gs c elemental ' .. command .. (#commandArgs > 0 and ' ' .. table.concat(commandArgs, ' ') or ''))
 end
 
-local function user_enable_sortie_addons()
-    local sortie_addons = { 'react', 'anchor', 'superwarp', 'skillchains' }
+local sortie_addons_enabled = false
+local sortie_addons = { 'react', 'anchor', 'superwarp', 'skillchains', 'absorbtp' }
 
+local function user_set_sortie_addons(enabled)
     for _, addon in ipairs(sortie_addons) do
-        send_command('lua load ' .. addon)
+        send_command('lua ' .. (enabled and 'load ' or 'unload ') .. addon)
     end
 
-    add_to_chat(122, 'Sortie addons enabled: ' .. table.concat(sortie_addons, ', ') .. '.')
+    sortie_addons_enabled = enabled
+    add_to_chat(122, 'Sortie addons ' .. (enabled and 'enabled' or 'disabled') .. ': ' .. table.concat(sortie_addons, ', ') .. '.')
 end
 
 local user_wardrobe_bags = {
@@ -1134,13 +1180,13 @@ function user_self_command(commandArgs, eventArgs)
 
     if command == 'sortie' then
         eventArgs.handled = true
-        user_enable_sortie_addons()
+        user_set_sortie_addons(not sortie_addons_enabled)
         return
     end
 
     if command == 'aminon' then
         eventArgs.handled = true
-        user_set_aminon_modes()
+        user_set_aminon_modes(not user_aminon_modes_active())
         return
     end
 
