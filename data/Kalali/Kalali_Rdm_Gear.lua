@@ -127,8 +127,6 @@ function character_user_job_setup()
     -- hands
     gear.hieros_mittens = gear.af1_hands
     --  1  Hieros Mittens                Cursna Set
-    gear.shadow_ring = "Shadow Ring"
-    --  7  Shadow Ring                   Death protection, MD
     gear.shadow_mantle = "Null Shawl"
     --  2  Shadow Mantle                 Phys Annul
     gear.engulfer_cape = "Null Shawl"
@@ -137,18 +135,10 @@ function character_user_job_setup()
     --  1  Luminary Sash                 Conserve MP / MND
     gear.bishops_sash = "Embla Sash"
     --  1  Bishop's Sash                 +5 Healing (cursna)
-    gear.fuchonoobi = "Eschan Stone"
-    --  2  Fucho-no-obi                  +8 Drain/Aspirt Potency
-    gear.oneiros_rope = "Witful Belt"
-    --  4  Oneiros Rope                  Occult Acumen TP/MP bonus
-    gear.perdition_slops = "Malignance Tights"
-    --  4  Perdition Slops               Occult Acumen +30
 
     -- Ignored placeholders
     gear.filler_shield = "Ammurapi Shield"
-    --   3  Removed grip and replaced with Crocea, didn't research sub (FullFC, Status Removal, Cursna)
-    gear.ghostfyre_cape = "Ghostfyre Cape" -- 4
-    --  ****"Ghostfyre Cape"            +10 Enhancing, +10% Enhancing Duration
+    --   3  Removed grip and replaced with Crocea, didn't research sub (FullFC, Status Removal, Cursna)==--
 
 
     -- head body hands legs boots "Taeon " xxx gear for +3 Phalanx increase (+15 total) -- DI Dark Matter gear? +5 a piece (+25 total), and Sworn gear (+24 total, only body is better)
@@ -1110,8 +1100,8 @@ function init_gear_sets()
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = gear.oneiros_rope,
-        legs = gear.perdition_slops,
+        waist = "Oneiros Rope",
+        legs = "Perdition Slops",
         feet = "Malignance Boots"
     }
 
@@ -1123,8 +1113,7 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Ammurapi Shield",
         neck = "Mizu. Kubikazari",
-        hands =
-        "Bunzi's Gloves",
+        hands = "Bunzi's Gloves",
         ring1 = "Mujin Band"
     }
     sets.midcast['Elemental Magic'].DW = { main = "Bunzi's Rod", sub = "Daybreak" }
@@ -1186,7 +1175,7 @@ function init_gear_sets()
         ring1 = "Evanescence Ring",
         ring2 = "Metamorph Ring +1",
         back = gear.nuke_jse_back,
-        waist = gear.fuchonoobi,
+        waist = "Fucho-no-obi",
         legs = gear.af1_legs,
         feet = gear.af3_feet
     }
@@ -1310,7 +1299,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = gear.shadow_ring,
+        ring2 = Shadow Ring,
         back = gear.shadow_mantle,
         waist = "Plat. Mog. Belt",
         legs = "Nyame Flanchard",
@@ -1329,7 +1318,7 @@ function init_gear_sets()
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
-        ring2 = gear.shadow_ring,
+        ring2 = Shadow Ring,
         back = gear.engulfer_cape,
         waist = "Null Belt",
         legs = "Bunzi's Pants",
@@ -1348,7 +1337,7 @@ function init_gear_sets()
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
-        ring2 = gear.shadow_ring,
+        ring2 = Shadow Ring,
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Bunzi's Pants",
@@ -1367,7 +1356,7 @@ function init_gear_sets()
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
-        ring2 = gear.shadow_ring,
+        ring2 = Shadow Ring,
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Bunzi's Pants",
@@ -1386,7 +1375,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = gear.shadow_ring,
+        ring2 = Shadow Ring,
         back = gear.shadow_mantle,
         waist = "Plat. Mog. Belt",
         legs = "Nyame Flanchard",
@@ -1407,7 +1396,7 @@ function init_gear_sets()
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
-        ring2 = gear.shadow_ring,
+        ring2 = Shadow Ring,
         back = gear.engulfer_cape,
         waist = "Null Belt",
         legs = "Bunzi's Pants",
@@ -1426,7 +1415,7 @@ function init_gear_sets()
         body = "Bunzi's Robe",
         hands = "Bunzi's Gloves",
         ring1 = "Murky Ring",
-        ring2 = gear.shadow_ring,
+        ring2 = Shadow Ring,
         back = "Null Shawl",
         waist = "Null Belt",
         legs = "Bunzi's Pants",
@@ -1434,7 +1423,7 @@ function init_gear_sets()
     }
 
     sets.Kiting = { ring2 = "Shneddick Ring" }
-    sets.latent_refresh = { waist = gear.fuchonoobi }
+    sets.latent_refresh = { waist = "Fucho-no-obi" }
     sets.DayIdle = {}
     sets.NightIdle = {}
 

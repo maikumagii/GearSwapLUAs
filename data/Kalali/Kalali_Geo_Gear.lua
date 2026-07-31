@@ -6,17 +6,19 @@ function character_user_job_setup()
     state.PhysicalDefenseMode:options('PDT', 'NukeLock', 'GeoLock', 'PetPDT')
     state.MagicalDefenseMode:options('MDT', 'NukeLock')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('None', 'Maxentius', 'DualWeapons')
+    state.Weapons:options('None', 'Default', 'Maxentius', 'DualWeapons')
 
-    default_weapons = 'Maxentius'
+    default_weapons = 'Default'
 
     autows_list = {
+        Default = 'Black Halo',
         Maxentius = 'Black Halo',
         DualWeapons = 'Black Halo',
     }
 
     -- GEO gear starts from owned non-GEO pieces evidenced in other active Kalali gear files,
     -- plus verified GEO pieces listed here.
+    gear.idris = "Idris"
     gear.geo_range = "Dunna"
     gear.geo_neck = "Bagua Charm +2"
     gear.geo_back = "Lifestream Cape"
@@ -239,7 +241,7 @@ function init_gear_sets()
     }
 
     sets.midcast.Geomancy = {
-        main = "Maxentius",
+        main = gear.idris,
         sub = "Ammurapi Shield",
         range = gear.geo_range,
         head = gear.af3_head,
@@ -937,6 +939,7 @@ function init_gear_sets()
 
     -- Weapons sets
     sets.weapons.None = { range = gear.geo_range, ammo = empty }
+    sets.weapons.Default = { main = gear.idris, sub = 'Ammurapi Shield', range = gear.geo_range, ammo = empty }
     sets.weapons.Maxentius = { main = 'Maxentius', sub = 'Ammurapi Shield', range = gear.geo_range, ammo = empty }
     sets.weapons.DualWeapons = { main = 'Maxentius', sub = 'Daybreak', range = gear.geo_range, ammo = empty }
 end
