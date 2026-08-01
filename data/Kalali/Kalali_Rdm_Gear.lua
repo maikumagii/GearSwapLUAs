@@ -104,8 +104,6 @@ function character_user_job_setup()
     --  3  Baetyl Pendant                FC +4%, MAB +13
     gear.ournmilas_torque = gear.jse_neck
     --  1  Orunmila's Torque             FC +5%
-    gear.andoaa_earring = "Alabaster Earring"
-    --  2  Andoaa Earring                Enhancing +5
     gear.perimede_cape = gear.cure_jse_back
     --  3  Perimede Cape                 QC+4%
     gear.obstinate_sash = "Embla Sash"
@@ -599,7 +597,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.telchine_cap,
         neck = gear.jse_neck,
-        ear1 = gear.andoaa_earring,
+        ear1 = "Andoaa Earring",
         ear2 = gear.jse_ear2,
         body = gear.af2_body,
         hands = gear.af1_hands,
@@ -627,7 +625,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Befouled Crown",
         neck = "Hoxne Torque",
-        ear1 = gear.andoaa_earring,
+        ear1 = "Andoaa Earring",
         ear2 = "Mimir Earring",
         body = gear.af2_body,
         hands = gear.af2_hands,
@@ -1091,9 +1089,9 @@ function init_gear_sets()
         sub = "Ammurapi Shield",
         range = empty,
         ammo = "Aurgelmir Orb +1",
-        head = "Carmine Mask +1",
+        head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = "Sherida Earring",
+        ear1 = "Dedition Earring",
         ear2 = "Crep. Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
