@@ -200,7 +200,7 @@ function init_gear_sets()
         body = gear.ws_wsd_body,
         hands = gear.ws_wsd_hands,
         ring1 = "Sroda Ring",
-        ring2 = "Cornelia's Ring",
+        ring2 = gear.tvr_ring,
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = gear.nyame_legs,

@@ -121,7 +121,7 @@ function init_gear_sets()
 	-- Default set for any weaponskill that isn't any more specifically defined
 	sets.precast.WS = {ammo="Oshasha's Treatise",
 		head="Nyame Helm",neck="Rep. Plat. Medal",ear1="Moonshade Earring",ear2="Sherida Earring",
-		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Gere Ring",ring2="Cornelia's Ring",
+		body="Nyame Mail",hands="Nyame Gauntlets",ring1="Gere Ring",ring2=gear.tvr_ring,
 		back="Null Shawl",waist="Sailfi Belt +1",legs="Nyame Flanchard",feet="Nyame Sollerets"}
 	sets.precast.WS.Acc = set_combine(sets.precast.WS, {})
 
