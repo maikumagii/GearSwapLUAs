@@ -3100,7 +3100,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Cornelia's Ring",
+        "name": "Ephramaud's Ring",
         "copies": 1,
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:ring2",

@@ -96,7 +96,7 @@ function character_user_job_setup()
     gear.dt_ring1 = { name = "Moonlight Ring", bag = "Wardrobe" }       -- Gelatinous Ring +1
     gear.dt_ring2 = "Shadow Ring"                                       -- Warden's Ring / Shadow Ring
     gear.ws_ring1 = "Sroda Ring"                                        -- Regal Ring
-    gear.ws_ring2 = "Cornelia's Ring"                                   -- Rufescent Ring
+    gear.ws_ring2 = gear.tvr_ring                                   -- Rufescent Ring
     gear.tp_ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" }      -- Flamma Ring / Ramuh Ring +1
     gear.tp_ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" }    -- Petrov Ring / Ramuh Ring +1 / Patricius Ring
     gear.waltz_ring1 = "Menelaus's Ring"                                -- Asklepian Ring
@@ -506,7 +506,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Metamor. Ring +1",
-        ring2 = "Cornelia's Ring",
+        ring2 = gear.tvr_ring,
         back = gear.ws_back,
         waist = "Orpheus's Sash",
         legs = "Nyame Flanchard",

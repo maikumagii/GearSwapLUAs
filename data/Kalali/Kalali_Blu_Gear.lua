@@ -126,7 +126,7 @@ function init_gear_sets()
         body = gear.af1_body,
         hands = "Jhakri Cuffs +2",
         ring1 = "Epaminondas's Ring",
-        ring2 = "Cornelia's Ring",
+        ring2 = gear.tvr_ring,
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = gear.af2_legs,

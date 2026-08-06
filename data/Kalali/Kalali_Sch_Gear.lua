@@ -153,7 +153,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Epaminondas's Ring",
-        ring2 = "Cornelia's Ring",
+        ring2 = gear.tvr_ring,
         back = "Null Shawl",
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
