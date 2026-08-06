@@ -10,14 +10,14 @@ function character_user_job_setup()
     state.ResistDefenseMode:options('MEVA')
     state.BuffWeaponsMode = M { 'Always', 'Never' }
     state.AutoBuffMode = M { ['description'] = 'Auto Buff Mode', 'Off', 'Auto', 'AutoMelee', 'AutoMage' }
-    state.Weapons:options('None', 'Naegling', 'Maxentius', 'Crocea', 'Tauret', 'EnspellOnly', 'DualWeapons',
-        'DualWeaponsAcc', 'DualMaxentius', 'DualCrocea', 'DualMaxentiusAcc' --[[,'DualPrime']], 'DualAeolian',
+    state.Weapons:options('None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly',]] 'DualNaegling',
+        'DualNaeglingAcc', 'DualMaxentius', 'DualCrocea', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']],
         'DualEnspellOnly' --[[,'DualProcSword']])
     state.WeaponSets:options('Default', 'Dual' --[[,'Proc','Dynamis']])
 
     weapon_sets = {
-        ['Default'] = { 'None', 'Naegling', 'Maxentius', 'Crocea', 'Tauret', 'EnspellOnly' },
-        ['Dual'] = { 'DualWeapons', 'DualWeaponsAcc', 'DualMaxentius', 'DualCrocea', 'DualMaxentiusAcc' --[[,'DualPrime']], 'DualAeolian', 'DualEnspellOnly' },
+        ['Default'] = { 'None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly']] },
+        ['Dual'] = { 'DualNaegling', 'DualNaeglingAcc', 'DualCrocea', 'DualMaxentius', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']], 'DualEnspellOnly' },
         --[[['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','DualTauretCrocea','DualAeolian'},
 		['Proc'] = {'ProcSword','ProcDagger','DualProcSword','DualProcDagger'},]]
     }
@@ -30,8 +30,8 @@ function character_user_job_setup()
         ['Maxentius'] = 'Black Halo',
         ['Crocea'] = 'Sanguine Blade',
         ['Tauret'] = 'Aeolian Edge',
-        ['DualWeapons'] = 'Savage Blade',
-        ['DualWeaponsAcc'] = 'Savage Blade',
+        ['DualNaegling'] = 'Savage Blade',
+        ['DualNaeglingAcc'] = 'Savage Blade',
         ['DualMaxentius'] = 'Black Halo',
         ['DualMaxentiusAcc'] = 'Black Halo',
         ['DualEvisceration'] = 'Evisceration',
@@ -58,6 +58,7 @@ function character_user_job_setup()
     gear.absorb_tp_recast_jse_back = gear.cure_jse_back
 
     -- Unimplemented Ambuscade Capes with redirects to capes I do have
+    gear.enspell_jse_back = gear.dw_jse_back
     gear.mnd_enfeebling_jse_back = gear.magical_mnd_wsd_jse_back
     gear.int_enfeebling_jse_back = gear.nuke_jse_back
     gear.int_wsd_jse_back = gear.nuke_jse_back
@@ -108,6 +109,7 @@ function character_user_job_setup()
     --  3  Perimede Cape                 QC+4%
     gear.obstinate_sash = "Embla Sash"
     --  6  Obstinate Sash                +5 Enfeebling Duration
+    gear.bathy_choker = "Null Loop"  -- need to farm for Master Trials
     --
     -- Pure min/max or niche
     gear.diamond_aspis = ""
@@ -167,16 +169,17 @@ function init_gear_sets()
     sets.weapons.Naegling = { main = "Naegling", sub = "Ammurapi Shield", range = empty }
     sets.weapons.Crocea = { main = "Crocea Mors", sub = "Ammurapi Shield", range = empty }
     sets.weapons.Maxentius = { main = "Maxentius", sub = "Ammurapi Shield", range = empty }
-    sets.weapons.Tauret = { main = "Tauret", sub = "Ammurapi Shield", range = empty }
-    sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword, range = empty }
-    sets.weapons.DualWeaponsAcc = { main = "Naegling", sub = "Gleti's Knife", range = empty }
+    --sets.weapons.Tauret = { main = "Tauret", sub = "Ammurapi Shield", range = empty }
+    --sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = "Sacro Bulwark", range = "Ullr", ammo = empty }
+
+    sets.weapons.DualNaegling = { main = "Naegling", sub = gear.tp_bonus_sword, range = empty }
+    sets.weapons.DualNaeglingAcc = { main = "Naegling", sub = "Gleti's Knife", range = empty }
     --sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak", range = empty }
-    sets.weapons.DualAeolian = { main = "Tauret", sub = "Maxentius", range = empty }
-    sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = "Sacro Bulwark", range = "Ullr", ammo = empty }
-    sets.weapons.DualEnspellOnly = { main = "Qutrub Knife", sub = "Ethereal Dagger", range = "Ullr", ammo = empty }
+    --sets.weapons.DualAeolian = { main = "Tauret", sub = "Maxentius", range = empty }
     sets.weapons.DualMaxentius = { main = "Maxentius", sub = gear.tp_bonus_sword, range = empty }
     sets.weapons.DualMaxentiusAcc = { main = "Maxentius", sub = "Gleti's Knife", range = empty }
+    sets.weapons.DualEnspellOnly = { main = "Crocea Mors", sub = "Ammurapi Shield", range = "Ullr", ammo = empty }
 
 
     -- Precast Sets
@@ -1565,7 +1568,7 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
-    sets.engaged.EnspellOnly = {
+    --[[sets.engaged.EnspellOnly = {
         range = "Ullr",
         ammo = empty,
         head = "Malignance Chapeau",
@@ -1599,24 +1602,23 @@ function init_gear_sets()
         legs = "Malignance Tights",
         -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
         feet = "Malignance Boots"
-    }
+    }]]
 
     sets.engaged.DualEnspellOnly = {
         range = "Ullr",
         ammo = empty,
-        head = "Malignance Chapeau",
-        neck = "Null Loop",
-        ear1 = "Suppanomimi",
-        ear2 = gear.jse_ear2,
+        head = "Sworn Crown",
+        neck = gear.bathy_choker,
+        ear1 = "Dedition Earring",
+        ear2 = "Crepuscular Earring",
         body = "Sworn Platemail",
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
+        back = gear.enspell_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Malignance Tights",
-        -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
-        feet = "Malignance Boots"
+        legs = "Sworn Brais",
+        feet = "Sworn Sabatons"
     }
 
     sets.engaged.DualEnspellOnly.Acc = {
