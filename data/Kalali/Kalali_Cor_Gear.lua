@@ -51,7 +51,7 @@ function character_user_job_setup()
     gear.jse_main_ma = { name = "Rostam", augments = { 'Path:B' } }
     gear.jse_main_stp = { name = "Lanun Knife", augments = { 'Path:A' } }
     gear.jse_neck = "Comm. Charm +2"
-    gear.jse_ear2 = "Regal Earring"
+    gear.jse_ear2 = "Chas. Earring +2"
 
     -- Artifact Gear
     --gear.af1_head = ""

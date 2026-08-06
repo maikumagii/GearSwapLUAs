@@ -1093,14 +1093,14 @@ function init_gear_sets()
         neck = "Null Loop",
         ear1 = "Dedition Earring",
         ear2 = "Crep. Earring",
-        body = "Malignance Tabard",
+        body = gear.merlinic_oa_body,
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Oneiros Rope",
         legs = "Perdition Slops",
-        feet = "Malignance Boots"
+        feet = gear.merlinic_oa_feet
     }
 
     -- Gear that Recovers MP when nuking.

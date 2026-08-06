@@ -24,10 +24,8 @@ function character_user_job_setup()
 
     gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
     gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
-    gear.linos_dex_wsd = gear
-        .linos_chr_wsd                                                                                      -- Rudra's Storm
-    gear.linos_int_wsd = gear
-        .linos_chr_wsd                                                                                      -- Aeolian Edge
+    gear.linos_dex_wsd = gear.linos_chr_wsd                                                                                      -- Rudra's Storm
+    gear.linos_int_wsd = gear.linos_chr_wsd                                                                                      -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
     gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadruple Attack +3%' } }
     -- JSE Weapon/Neck/Earring
@@ -35,11 +33,11 @@ function character_user_job_setup()
     gear.jse_neck = "Bard's Charm +2"
 
     -- Artifact Gear
-    gear.af1_head = "Brioso Roundlet +3"
+    gear.af1_head = "Brioso Roundlet +4"
     gear.af1_body = {}  --"Brioso Just. +3"
     gear.af1_hands = {} --"Brioso Cuffs"
     gear.af1_legs = {}  --"Brioso Cannions"
-    gear.af1_feet = "Brioso Slippers +3"
+    gear.af1_feet = "Brioso Slippers +4"
 
     -- Relic Gear
     gear.af2_head = {}

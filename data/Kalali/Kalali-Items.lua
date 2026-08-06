@@ -28,3 +28,5 @@ gear.tp_bonus_gun = "Anarchy +2"
 -- Geas Fete Augmented Gear
 gear.herculean_ta_feet = { name = "Herculean Boots", augments = { 'Accuracy+12 Attack+27', '"Triple Atk."+4%', 'AGI+6' } }
 gear.chironic_macc_legs = {name="Chironic Hose", augments={'Mag. Acc.+17','MND+2','Accuracy+7 Attack+7','Mag. Acc.+14 "Mag.Atk.Bns."+14',}}
+gear.merlinic_oa_body = { name = "Merlinic Jubbah", augments = { 'Mag. Acc.+24', '"Occult Acumen"+11' } }
+gear.merlinic_oa_feet = { name = "Merlinic Crackows", augments = { 'INT+2', 'Mag. Acc.+8', '"Mag.Atk.Bns."+12', '"Occult Acumen"+11' } }

@@ -358,8 +358,10 @@ function init_gear_sets()
     })
     sets.midcast['Elemental Magic'].OccultAcumen = set_combine(sets.midcast['Elemental Magic'], {
         main = gear.khatvanga,
+        body = gear.merlinic_oa_body,
         waist = "Oneiros Rope",
         legs = "Perdition Slops",
+        feet = gear.merlinic_oa_feet,
     })
 
     sets.midcast.Impact = set_combine(sets.midcast['Elemental Magic'].Resistant, { head = empty })
