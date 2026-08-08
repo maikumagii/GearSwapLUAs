@@ -1,17 +1,18 @@
 function character_user_job_setup()
     -- Options: Override default values
-    state.OffenseMode:options('Normal')
-    state.CastingMode:options('Normal', 'Resistant', 'Fodder', 'Proc')
+    state.OffenseMode:options('Normal', 'Acc')
+    state.CastingMode:options('Normal', 'Resistant', 'Fodder', 'Proc', 'OccultAcumen')
+    state.WeaponskillMode:options('Match', 'Acc', 'Proc')
     state.IdleMode:options('Normal', 'PDT')
     state.PhysicalDefenseMode:options('PDT', 'NukeLock', 'GeoLock', 'PetPDT')
     state.MagicalDefenseMode:options('MDT', 'NukeLock')
     state.ResistDefenseMode:options('MEVA')
-    state.Weapons:options('None', 'Default', 'Maxentius', 'DualWeapons')
+    state.Weapons:options('None', 'Idris', 'Maxentius', 'DualWeapons')
 
-    default_weapons = 'Default'
+    default_weapons = 'Idris'
 
     autows_list = {
-        Default = 'Black Halo',
+        Idris = 'Black Halo',
         Maxentius = 'Black Halo',
         DualWeapons = 'Black Halo',
     }
@@ -117,31 +118,36 @@ function init_gear_sets()
         main = gear.grioavolr_fc_staff,
         sub = "Khonsu",
         ammo = "Impatiens",
-        head = "Bunzi's Hat",
+        head = "Amalric Coif +1",
         neck = "Voltsurge Torque",
-        ear1 = "Etiolation Earring",
-        ear2 = "Malignance Earring",
+        ear1 = "Malignance Earring",
+        ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
         hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
-        ring2 = "Lebeche Ring",
+        ring2 = "Prolix Ring",
         back = gear.perimede_cape,
         waist = "Witful Belt",
-        legs = "Kaykaus Tights +1",
-        feet = "Kaykaus Boots +1"
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.FC.Geomancy = set_combine(sets.precast.FC, { range = gear.geo_range, ammo = empty })
     sets.precast.FC.Indi = sets.precast.FC.Geomancy
 
-    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC,
-        { ear2 = "Malignance Earring" })
+    sets.precast.FC['Elemental Magic'] = set_combine(sets.precast.FC, {})
 
-    sets.precast.FC.Cure = set_combine(sets.precast.FC, { main = "Daybreak", sub = "Ammurapi Shield" })
+    sets.precast.FC.Cure = set_combine(sets.precast.FC, { main = "Daybreak", sub = "Ammurapi Shield", ring2 = "Lebeche Ring" })
 
     sets.precast.FC.Curaga = sets.precast.FC.Cure
 
-    sets.Self_Healing = { waist = "Gishdubar Sash" }
+    sets.Self_Healing = {
+        neck = "Hoxne Torque",
+        ear1 = "Etiolation Earring",
+        ear2 = "Mendi. Earring",
+        ring2 = "Menelaus's Ring",
+        waist = "Gishdubar Sash"
+    }
     sets.Cure_Received = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
 
@@ -153,16 +159,16 @@ function init_gear_sets()
         ammo = "Impatiens",
         head = empty,
         neck = "Voltsurge Torque",
-        ear1 = "Etiolation Earring",
-        ear2 = "Malignance Earring",
+        ear1 = "Malignance Earring",
+        ear2 = "Loquac. Earring",
         body = "Crepuscular Cloak",
         hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
-        ring2 = "Lebeche Ring",
+        ring2 = "Prolix Ring",
         back = gear.perimede_cape,
         waist = "Witful Belt",
-        legs = "Kaykaus Tights +1",
-        feet = "Kaykaus Boots +1"
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC, { main = "Daybreak", sub = "Ammurapi Shield" })
@@ -172,7 +178,7 @@ function init_gear_sets()
     sets.precast.WS = {
         ammo = "Oshasha's Treatise",
         head = "Nyame Helm",
-        neck = "Null Loop",
+        neck = "Rep. Plat. Medal",
         ear1 = "Sherida Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
@@ -185,23 +191,63 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.precast.WS.Proc = {
-        ammo = "Staunch Tathlum +1",
-        head = "Malignance Chapeau",
+    sets.precast.WS.Acc = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
         neck = "Null Loop",
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        waist = "Null Belt"
+    })
+
+    sets.precast.WS.Proc = {
+        ammo = "Staunch Tathlum +1",
+        head = "Nyame Helm",
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ear2 = "Telos Earring",
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.WS['Black Halo'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS.Acc, {})
+
+    sets.precast.WS['Judgment'] = set_combine(sets.precast.WS, {
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt"
+    })
+    sets.precast.WS['Judgment'].Acc = set_combine(sets.precast.WS.Acc, {
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt"
+    })
+
+    sets.precast.WS['Exudation'] = set_combine(sets.precast.WS, {
+        ammo = "Pemphredo Tathlum",
+        neck = "Fotia Gorget",
+        ear1 = "Malignance Earring",
+        ear2 = "Moonshade Earring",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
+        ring1 = gear.stikini_ring1,
+        ring2 = "Metamor. Ring +1",
+        waist = "Fotia Belt",
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
+    })
+    sets.precast.WS['Exudation'].Acc = set_combine(sets.precast.WS['Exudation'], {
+        ammo = "Pemphredo Tathlum",
+        neck = "Null Loop",
+        ear2 = "Crep. Earring",
+        waist = "Null Belt"
+    })
     sets.precast.WS['Flash Nova'] = {
         ammo = "Ghastly Tathlum +1",
         head = "Pixie Hairpin +1",
@@ -228,16 +274,16 @@ function init_gear_sets()
         sub = "Khonsu",
         head = "Amalric Coif +1",
         neck = "Voltsurge Torque",
-        ear1 = "Etiolation Earring",
-        ear2 = "Malignance Earring",
+        ear1 = "Malignance Earring",
+        ear2 = "Loquac. Earring",
         body = "Inyanga Jubbah +2",
         hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
         ring2 = "Prolix Ring",
         back = gear.perimede_cape,
         waist = "Witful Belt",
-        legs = "Kaykaus Tights +1",
-        feet = "Kaykaus Boots +1"
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.midcast.Geomancy = {
@@ -246,8 +292,8 @@ function init_gear_sets()
         range = gear.geo_range,
         head = gear.af3_head,
         neck = gear.geo_neck,
-        ear1 = "Etiolation Earring",
-        ear2 = "Malignance Earring",
+        ear1 = "Malignance Earring",
+        ear2 = "Etiolation Earring",
         body = gear.af1_body,
         hands = gear.af1_hands,
         ring1 = gear.stikini_ring1,
@@ -280,8 +326,8 @@ function init_gear_sets()
         ring2 = "Menelaus's Ring",
         back = gear.obi_cure_back,
         waist = "Witful Belt",
-        legs = "Kaykaus Tights +1",
-        feet = "Kaykaus Boots +1"
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.midcast.LightWeatherCure = {
@@ -298,8 +344,8 @@ function init_gear_sets()
         ring2 = "Menelaus's Ring",
         back = gear.obi_cure_back,
         waist = "Hachirin-no-Obi",
-        legs = "Kaykaus Tights +1",
-        feet = "Kaykaus Boots +1"
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     --Cureset for if it's not light weather but is light day.
@@ -317,8 +363,8 @@ function init_gear_sets()
         ring2 = "Lebeche Ring",
         back = gear.obi_cure_back,
         waist = "Hachirin-no-Obi",
-        legs = "Kaykaus Tights +1",
-        feet = "Kaykaus Boots +1"
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.midcast.Curaga = set_combine(sets.midcast.Cure, { main = "Daybreak", sub = "Ammurapi Shield" })
@@ -390,7 +436,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Witful Belt",
         legs = "Nyame Flanchard",
-        feet = "Kaykaus Boots +1"
+        feet = "Nyame Sollerets"
     }
 
     sets.midcast['Elemental Magic'].Fodder = {
@@ -465,6 +511,26 @@ function init_gear_sets()
         feet = "Amalric Nails +1"
     }
 
+    sets.midcast['Elemental Magic'].OccultAcumen = {
+        main = gear.grioavolr_nuke_staff,
+        sub = "Ammurapi Shield",
+        ammo = "Aurgelmir Orb +1",
+        head = "Mall. Chapeau +2",
+        neck = "Null Loop",
+        ear1 = "Dedition Earring",
+        ear2 = "Crep. Earring",
+        body = gear.af3_body,
+        hands = gear.af3_hands,
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = "Null Shawl",
+        waist = "Oneiros Rope",
+        legs = gear.af3_legs,
+        feet = gear.af3_feet
+    }
+
+    sets.midcast['Elemental Magic'].HighTierNuke.OccultAcumen = sets.midcast['Elemental Magic'].OccultAcumen
+
     sets.midcast['Dark Magic'] = {
         main = gear.grioavolr_nuke_staff,
         sub = "Ammurapi Shield",
@@ -518,7 +584,7 @@ function init_gear_sets()
         back = "Null Shawl",
         waist = "Null Belt",
         legs = gear.af3_legs,
-        feet = "Kaykaus Boots +1"
+        feet = "Nyame Sollerets"
     }
 
     sets.midcast.Stun.Resistant = {
@@ -557,6 +623,11 @@ function init_gear_sets()
         feet = "Amalric Nails +1"
     }
 
+    sets.midcast.Impact.OccultAcumen = set_combine(sets.midcast['Elemental Magic'].OccultAcumen, {
+        head = empty,
+        body = "Crepuscular Cloak"
+    })
+
     sets.midcast.Dispel = {
         main = "Daybreak",
         sub = "Ammurapi Shield",
@@ -583,8 +654,8 @@ function init_gear_sets()
         ammo = "Pemphredo Tathlum",
         head = "Amalric Coif +1",
         neck = "Null Loop",
-        ear1 = "Etiolation Earring",
-        ear2 = "Malignance Earring",
+        ear1 = "Malignance Earring",
+        ear2 = "Etiolation Earring",
         body = gear.merlinic_nuke_body,
         hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
@@ -601,8 +672,8 @@ function init_gear_sets()
         ammo = "Pemphredo Tathlum",
         head = "Amalric Coif +1",
         neck = "Null Loop",
-        ear1 = "Etiolation Earring",
-        ear2 = "Malignance Earring",
+        ear1 = "Malignance Earring",
+        ear2 = "Etiolation Earring",
         body = gear.merlinic_nuke_body,
         hands = "Regal Cuffs",
         ring1 = "Metamor. Ring +1",
@@ -614,9 +685,9 @@ function init_gear_sets()
     }
 
     sets.midcast.ElementalEnfeeble = set_combine(sets.midcast['Enfeebling Magic'],
-        { head = "Amalric Coif +1", ear2 = "Malignance Earring", waist = "Acuity Belt +1" })
+        { head = "Amalric Coif +1", waist = "Acuity Belt +1" })
     sets.midcast.ElementalEnfeeble.Resistant = set_combine(sets.midcast['Enfeebling Magic'].Resistant,
-        { head = "Amalric Coif +1", ear2 = "Malignance Earring", waist = "Acuity Belt +1" })
+        { head = "Amalric Coif +1", waist = "Acuity Belt +1" })
 
     sets.midcast.Dia = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
     sets.midcast['Dia II'] = set_combine(sets.midcast['Enfeebling Magic'], sets.TreasureHunter)
@@ -641,7 +712,7 @@ function init_gear_sets()
         back = gear.perimede_cape,
         waist = "Embla Sash",
         legs = "Shedir Seraweels",
-        feet = "Kaykaus Boots +1"
+        feet = gear.af3_feet
     }
     sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
 
@@ -846,7 +917,7 @@ function init_gear_sets()
 
     sets.defense.GeoLock = sets.midcast.Geomancy.Indi
 
-    sets.Kiting = {}
+    sets.Kiting = { ring2 = "Shneddick Ring" }
     sets.latent_refresh = { waist = "Null Belt" }
     sets.latent_refresh_grip = { sub = "Khonsu" }
     sets.TPEat = { neck = "Null Loop" }
@@ -880,36 +951,50 @@ function init_gear_sets()
 
     -- Normal melee group
     sets.engaged = {
-        ammo = "Crepuscular Pebble",
+        ammo = "Coiste Bodhar",
         head = "Nyame Helm",
         neck = "Null Loop",
-        ear1 = "Sherida Earring",
-        ear2 = "Brutal Earring",
+        ear1 = "Cessance Earring",
+        ear2 = "Dedition Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Epaminondas's Ring",
-        ring2 = gear.tvr_ring,
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Sailfi Belt +1",
+        waist = "Windbuffet Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
 
-    sets.engaged.DW = {
+    sets.engaged.Acc = set_combine(sets.engaged, {
         ammo = "Crepuscular Pebble",
+        ear1 = "Crep. Earring",
+        ear2 = "Telos Earring",
+        waist = "Null Belt"
+    })
+
+    sets.engaged.DW = {
+        ammo = "Coiste Bodhar",
         head = "Nyame Helm",
         neck = "Null Loop",
-        ear1 = "Sherida Earring",
-        ear2 = "Brutal Earring",
+        ear1 = "Cessance Earring",
+        ear2 = "Dedition Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Epaminondas's Ring",
-        ring2 = gear.tvr_ring,
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Reiki Yotai",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
+
+    sets.engaged.DW.Acc = set_combine(sets.engaged.DW, {
+        ammo = "Crepuscular Pebble",
+        ear1 = "Crep. Earring",
+        ear2 = "Telos Earring",
+        waist = "Reiki Yotai"
+    })
 
     --------------------------------------
     -- Custom buff sets
@@ -939,7 +1024,7 @@ function init_gear_sets()
 
     -- Weapons sets
     sets.weapons.None = { range = gear.geo_range, ammo = empty }
-    sets.weapons.Default = { main = gear.idris, sub = 'Ammurapi Shield', range = gear.geo_range, ammo = empty }
+    sets.weapons.Idris = { main = gear.idris, sub = 'Ammurapi Shield', range = gear.geo_range, ammo = empty }
     sets.weapons.Maxentius = { main = 'Maxentius', sub = 'Ammurapi Shield', range = gear.geo_range, ammo = empty }
     sets.weapons.DualWeapons = { main = 'Maxentius', sub = 'Daybreak', range = gear.geo_range, ammo = empty }
 end

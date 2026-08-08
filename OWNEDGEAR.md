@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 426,
+  "total_slot_entries": 427,
   "slots": {
     "main": [
       {
@@ -946,8 +946,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:head",
           "data/Kalali/Kalali_Cor_Gear.lua:head",
-          "data/Kalali/Kalali_Geo_Gear.lua:head",
           "data/Kalali/Kalali_Rdm_Gear.lua:head"
+        ]
+      },
+      {
+        "name": "Mall. Chapeau +2",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:head"
         ]
       },
       {

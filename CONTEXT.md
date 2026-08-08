@@ -68,6 +68,11 @@ When adding or replacing gear in a job file, every equipped item must satisfy bo
 - The item is owned, preferably confirmed in `OWNEDGEAR.md` or active personalized files.
 - The current job can equip it, confirmed by Windower resources/job flags or another authoritative source.
 
+Do not infer job eligibility from an item appearing in another job's gear file, or from a plain
+`OWNEDGEAR.md` source entry. `OWNEDGEAR.md` is only authoritative for job eligibility or item
+properties when the specific entry explicitly records those fields. Otherwise, verify the item's
+jobs and relevant stats before adding it to a new job file.
+
 Do not replace an invalid job item with aspirational gear just because the job can equip it. If the user
 explicitly says they acquired a new item that is not reflected in `OWNEDGEAR.md` yet, it can be used,
 but treat that as a user-provided owned-gear exception and keep it scoped to the requested change.
@@ -97,13 +102,25 @@ Use aliases for:
 - Augmented gear.
 - Missing or aspirational pieces with fallbacks.
 
-Do not use aliases as simple wrappers for gear that is owned and has no augment or substitution meaning. For example, avoid this:
+Hard rule: do not create `gear.*` aliases as simple wrappers for plain owned gear.
+An alias must communicate augment details, a future upgrade path, shared special handling, or a missing/aspirational fallback.
+If an item is just an owned item name, put the literal item name directly in the set.
+
+Avoid this:
 
 ```lua
 gear.nyame_mail = "Nyame Mail"
+gear.mall_chapeau = "Mall. Chapeau +2"
 ```
 
-Use `"Nyame Mail"` directly in sets instead. The `gear.*` namespace should make substitutions and special handling easy to spot; mixing plain owned gear into it makes missing or replacement gear harder to identify.
+Do this instead:
+
+```lua
+body = "Nyame Mail"
+head = "Mall. Chapeau +2"
+```
+
+The `gear.*` namespace should make substitutions and special handling easy to spot; mixing plain owned gear into it makes missing or replacement gear harder to identify.
 
 This also applies to bag-qualified duplicate rings or earrings. Do not define `gear.moonlight_ring1`, `gear.moonlight_ring2`, `gear.stikini_ring1`, etc. just to encode wardrobe location. In this repo, `ring1` corresponds to `Wardrobe` and `ring2` corresponds to `Wardrobe 2`, so inline the bag-qualified table where needed.
 
