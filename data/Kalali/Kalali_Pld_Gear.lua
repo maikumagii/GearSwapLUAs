@@ -9,7 +9,7 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT_HP', 'MDT', 'MDT_Reraise')
     state.ResistDefenseMode:options('MEVA_HP', 'MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
-    state.Weapons:options('None', 'Excalibur', 'Sakpata', 'Naegling', 'ClubDuban')
+    state.Weapons:options('None', 'Excalibur', 'Sakpata', 'Naegling')
     pld_init_shield_state()
 
     state.AutoCureCheat = M(true, 'Auto Cure Cheat')
@@ -18,7 +18,6 @@ function character_user_job_setup()
         Excalibur = 'Knights of Round',
         Sakpata = 'Savage Blade',
         Naegling = 'Savage Blade',
-        ClubDuban = 'Black Halo',
     }
 
     state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP', 'Twilight' }
@@ -33,30 +32,30 @@ function character_user_job_setup()
     gear.phalanx_jse_back = "Null Shawl"               -- Weard Mantle / phalanx received cape placeholder
 
     -- Artifact Gear
-    gear.af1_head = ""                     -- Unneeded
+    gear.af1_head = "Nyame Helm"           -- Unneeded
     gear.af1_body = "Nyame Mail"           -- Cab. Surcoat +1
     gear.af1_hands = "Sakpata's Gauntlets" -- Cab. Gauntlets +1
     gear.af1_legs = "Nyame Flanchard"      -- Cab. Breeches +1
     gear.af1_feet = "Nyame Sollerets"      -- Cab. Leggings +1
 
     -- Relic Gear
-    gear.af2_head = ""                -- Rampart
+    gear.af2_head = "Nyame Helm"      -- Rampart
     gear.af2_body = "Nyame Mail"      -- Rev. Surcoat +3
-    gear.af2_hands = ""               -- Shield Bash
-    gear.af2_legs = ""
+    gear.af2_hands = "Nyame Gauntlets" -- Shield Bash
+    gear.af2_legs = "Nyame Flanchard"
     gear.af2_feet = "Nyame Sollerets" -- Rev. Leggings +3
 
 
     -- Empy Gear
     gear.af3_head = "Nyame Helm" -- Chev. Armet +1
-    gear.af3_body = ""
-    gear.af3_hands = ""
+    gear.af3_body = "Nyame Mail"
+    gear.af3_hands = "Nyame Gauntlets"
     gear.af3_legs = "Nyame Flanchard" -- Chev. Cuisses +1
     gear.af3_feet = "Nyame Sollerets" -- Chev. Sabatons +1
 
     -- Owned fallbacks for older PLD set pieces.
     gear.deacon_sword = "Sakpata's Sword"                               -- Deacon Sword
-    --gear.club = "Loxotic Mace +1"                                       -- Mafic Cudgel
+    -- No owned PLD-legal club is tracked yet; Mafic Cudgel remains the target.
     gear.srivatsa = "Srivatsa"
     gear.fc_shield = "Sacro Bulwark"                                    -- Chanter's Shield
     gear.fc_head = "Nyame Helm"                                         -- Carmine Mask +1
@@ -110,8 +109,8 @@ function character_user_job_setup()
     gear.carmine_feet = "Nyame Sollerets" -- Carmine Greaves +1 / Hippo. Socks +1
     gear.sulevia_legs = "Nyame Flanchard" -- Sulev. Cuisses +2
     gear.sulevia_feet = "Nyame Sollerets" -- Sulev. Leggings +2
-    gear.reraise_head = ""                -- Twilight Helm
-    gear.reraise_body = ""                -- Twilight Mail
+    gear.reraise_head = "Nyame Helm"      -- Twilight Helm
+    gear.reraise_body = "Nyame Mail"      -- Twilight Mail
 
     -- Additional local binds
     send_command('bind !` gs c SubJobEnmity')
@@ -977,7 +976,6 @@ function init_gear_sets()
     sets.weapons.Excalibur = { main = "Excalibur" }
     sets.weapons.Sakpata = { main = "Sakpata's Sword" }
     sets.weapons.Naegling = { main = "Naegling" }
-    sets.weapons.ClubDuban = { main = gear.club, sub = "Duban" }
     sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword }
     pld_init_shield_sets()
 
