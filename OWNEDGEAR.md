@@ -322,7 +322,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:sub",
           "data/Kalali/Kalali_Brd_Gear.lua:sub",
-          "data/Kalali/Kalali_Geo_Gear.lua:sub",
           "data/Kalali/Kalali_Rdm_Gear.lua:sub",
           "data/Kalali/Kalali_Sch_Gear.lua:sub"
         ]
@@ -1200,8 +1199,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Inyanga Jubbah +2",
         "sources": [
-          "data/Kalali/Kalali_Brd_Gear.lua:body",
-          "data/Kalali/Kalali_Geo_Gear.lua:body"
+          "data/Kalali/Kalali_Brd_Gear.lua:body"
         ]
       },
       {
@@ -2482,6 +2480,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:waist",
           "data/Kalali/Kalali_Cor_Gear.lua:waist",
+          "data/Kalali/Kalali_Geo_Gear.lua:waist",
           "data/Kalali/Kalali_Pup_Gear.lua:waist",
           "data/Kalali/Kalali_Rdm_Gear.lua:waist",
           "data/Kalali/Kalali_Smn_Gear.lua:waist"
@@ -2591,8 +2590,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Reiki Yotai",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:waist",
-          "data/Kalali/Kalali_Brd_Gear.lua:waist",
-          "data/Kalali/Kalali_Geo_Gear.lua:waist"
+          "data/Kalali/Kalali_Brd_Gear.lua:waist"
         ]
       },
       {
@@ -2609,7 +2607,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Brd_Gear.lua:gear.kentarch_belt",
           "data/Kalali/Kalali_Brd_Gear.lua:waist",
           "data/Kalali/Kalali_Cor_Gear.lua:waist",
-          "data/Kalali/Kalali_Geo_Gear.lua:waist",
           "data/Kalali/Kalali_Pup_Gear.lua:waist",
           "data/Kalali/Kalali_Rdm_Gear.lua:waist",
           "data/Kalali/Kalali_Sch_Gear.lua:waist",
@@ -3359,7 +3356,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "copies": 1,
         "sources": [
           "data/Kalali/Kalali_Cor_Gear.lua:ear1",
-          "data/Kalali/Kalali_Geo_Gear.lua:ear1",
           "data/Kalali/Kalali_Rdm_Gear.lua:ear1"
         ]
       },
@@ -3489,7 +3485,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Ephramaud's Ring",
+        "name": "Ephramad's Ring",
         "copies": 1,
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:ring2",

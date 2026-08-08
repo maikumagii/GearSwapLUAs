@@ -122,7 +122,7 @@ function init_gear_sets()
         neck = "Voltsurge Torque",
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
-        body = "Inyanga Jubbah +2",
+        body = "Vrikodara Jupon",
         hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
         ring2 = "Prolix Ring",
@@ -179,14 +179,14 @@ function init_gear_sets()
         ammo = "Oshasha's Treatise",
         head = "Nyame Helm",
         neck = "Rep. Plat. Medal",
-        ear1 = "Sherida Earring",
+        ear1 = "Crep. Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Epaminondas's Ring",
         ring2 = gear.tvr_ring,
         back = "Null Shawl",
-        waist = "Sailfi Belt +1",
+        waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -276,7 +276,7 @@ function init_gear_sets()
         neck = "Voltsurge Torque",
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
-        body = "Inyanga Jubbah +2",
+        body = "Vrikodara Jupon",
         hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
         ring2 = "Prolix Ring",
@@ -429,7 +429,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
-        body = "Inyanga Jubbah +2",
+        body = "Vrikodara Jupon",
         hands = "Regal Cuffs",
         ring1 = "Kishar Ring",
         ring2 = "Prolix Ring",
@@ -514,7 +514,7 @@ function init_gear_sets()
     sets.midcast['Elemental Magic'].OccultAcumen = {
         main = gear.grioavolr_nuke_staff,
         sub = "Ammurapi Shield",
-        ammo = "Aurgelmir Orb +1",
+        ammo = "Crepuscular Pebble",
         head = "Mall. Chapeau +2",
         neck = "Null Loop",
         ear1 = "Dedition Earring",
@@ -577,7 +577,7 @@ function init_gear_sets()
         neck = "Null Loop",
         ear1 = "Malignance Earring",
         ear2 = "Loquac. Earring",
-        body = "Inyanga Jubbah +2",
+        body = "Vrikodara Jupon",
         hands = "Regal Cuffs",
         ring1 = "Metamor. Ring +1",
         ring2 = gear.stikini_ring2,
@@ -705,7 +705,7 @@ function init_gear_sets()
         neck = "Hoxne Torque",
         ear1 = "Malignance Earring",
         ear2 = "Mimir Earring",
-        body = "Inyanga Jubbah +2",
+        body = gear.af3_body,
         hands = "Regal Cuffs",
         ring1 = gear.stikini_ring1,
         ring2 = gear.stikini_ring2,
@@ -747,7 +747,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Inyanga Jubbah +2",
+        body = gear.af3_body,
         hands = gear.merlinic_refresh_hands,
         ring1 = gear.stikini_ring1,
         ring2 = gear.stikini_ring2,
@@ -760,13 +760,13 @@ function init_gear_sets()
 
     sets.idle = {
         main = "Daybreak",
-        sub = "Archduke's Shield",
+        sub = "Ammurapi Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Inyanga Jubbah +2",
+        body = gear.af3_body,
         hands = gear.chironic_refresh_hands,
         ring1 = gear.stikini_ring1,
         ring2 = gear.stikini_ring2,
@@ -929,7 +929,7 @@ function init_gear_sets()
         head = "Pixie Hairpin +1",
         ear1 = "Etiolation Earring",
         ear2 = "Evans Earring",
-        body = "Inyanga Jubbah +2",
+        body = "Nyame Mail",
         hands = "Jhakri Cuffs +2",
         ring1 = "Metamor. Ring +1",
         ring2 = "Mephitas's Ring +1",
@@ -951,7 +951,7 @@ function init_gear_sets()
 
     -- Normal melee group
     sets.engaged = {
-        ammo = "Coiste Bodhar",
+        ammo = "Crepuscular Pebble",
         head = "Nyame Helm",
         neck = "Null Loop",
         ear1 = "Cessance Earring",
@@ -974,7 +974,7 @@ function init_gear_sets()
     })
 
     sets.engaged.DW = {
-        ammo = "Coiste Bodhar",
+        ammo = "Crepuscular Pebble",
         head = "Nyame Helm",
         neck = "Null Loop",
         ear1 = "Cessance Earring",
@@ -984,7 +984,7 @@ function init_gear_sets()
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Reiki Yotai",
+        waist = "Windbuffet Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
@@ -993,7 +993,7 @@ function init_gear_sets()
         ammo = "Crepuscular Pebble",
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
-        waist = "Reiki Yotai"
+        waist = "Windbuffet Belt +1"
     })
 
     --------------------------------------
