@@ -45,6 +45,7 @@ function character_user_job_setup()
     gear.ranger_wsd_jse_back = gear.magic_wsd_jse_back
     --gear.ranger_wsd_jse_back = { name = "Camulus's Mantle", augments = { 'AGI+20', 'Rng.Acc.+20 Rng.Atk.+20', 'AGI+10', 'Weapon skill damage +10%', } }
     gear.str_wsd_jse_back = { name = "Camulus's Mantle", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', 'Phys. dmg. taken -10%' } }
+    gear.carmine_mask_d = { name = "Carmine Mask +1", augments = { 'Path:D' } }
 
     -- JSE Weapon/Neck/Earring
     gear.jse_main_roll = { name = "Rostam", augments = { 'Path:C' } }
@@ -75,11 +76,10 @@ function character_user_job_setup()
     gear.af3_feet = "" --"Chass. Bottes +1"
 
     gear.yemaya_belt = "Yemaya Belt"
-    gear.regal_ring = ""
-    gear.null_masque = ""
-    gear.genmei_earring = ""
+    gear.regal_ring = "Crepuscular Ring"
+    gear.null_masque = "Nyame Helm"
+    gear.genmei_earring = "Ethereal Earring"
     gear.iskur_gorget = "Null Loop"
-    gear.carmine_mask_d = { name = "Carmine Mask +1", augments = { 'Path:D' } }
 
 
     -- Additional local binds
@@ -250,7 +250,7 @@ function init_gear_sets()
 
     sets.precast.RA = {
         ammo = gear.RAbullet,
-        head = gear.af3_head, -- MISSING
+        head = gear.carmine_mask_d, -- Chass. Tricorne +1
         neck = gear.jse_neck,
         body = gear.af1_body, -- Oshosi Vest +1 better
         --hands = "Carmine Fin. Ga. +1",
@@ -337,18 +337,18 @@ function init_gear_sets()
     })
 
     sets.precast.WS['Aeolian Edge'] = {
-        head = gear.af2_head,
-        neck = "Rep. Plat. Medal",
-        ear1 = "Sherida Earring",
+        head = "Nyame Helm",
+        neck = "Sibyl Scarf",
+        ear1 = "Friomisi Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        ring1 = "Sroda Ring",
-        ring2 = gear.tvr_ring,
-        back = gear.str_wsd_jse_back,
-        waist = "Sailfi Belt +1",
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Dingir Ring",
+        back = gear.magic_wsd_jse_back,
+        waist = "Orpheus's Sash",
         legs = "Nyame Flanchard",
-        feet = gear.af3_feet
+        feet = "Nyame Sollerets" -- Chass. Bottes +1
     }
 
     sets.precast.WS['Leaden Salute'] = {
@@ -724,14 +724,14 @@ function init_gear_sets()
     sets.engaged.DW = {
         head = "Malignance Chapeau",
         neck = gear.iskur_gorget,
-        ear1 = "Dedition Earring",
-        ear2 = "Telos Earring",
+        ear1 = "Suppanomimi",
+        ear2 = "Eabani Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Sailfi Belt +1",
+        waist = "Reiki Yotai",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -739,14 +739,14 @@ function init_gear_sets()
     sets.engaged.DW.Acc = {
         head = "Malignance Chapeau",
         neck = gear.iskur_gorget,
-        ear1 = "Dedition Earring",
-        ear2 = "Telos Earring",
+        ear1 = "Suppanomimi",
+        ear2 = "Eabani Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Sailfi Belt +1",
+        waist = "Reiki Yotai",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -754,14 +754,14 @@ function init_gear_sets()
     sets.engaged.DW.DT = {
         head = "Malignance Chapeau",
         neck = gear.iskur_gorget,
-        ear1 = "Dedition Earring",
-        ear2 = "Telos Earring",
+        ear1 = "Suppanomimi",
+        ear2 = "Eabani Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Sailfi Belt +1",
+        waist = "Reiki Yotai",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -769,14 +769,14 @@ function init_gear_sets()
     sets.engaged.DW.Acc.DT = {
         head = "Malignance Chapeau",
         neck = gear.iskur_gorget,
-        ear1 = "Dedition Earring",
-        ear2 = "Telos Earring",
+        ear1 = "Suppanomimi",
+        ear2 = "Eabani Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",
-        waist = "Sailfi Belt +1",
+        waist = "Reiki Yotai",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }

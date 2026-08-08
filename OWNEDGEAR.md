@@ -979,6 +979,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:head",
           "data/Kalali/Kalali_Sch_Gear.lua:head",
           "data/Kalali/Kalali_Smn_Gear.lua:head",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.chev_armet_fallback",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_head",
           "data/Kalali/Kalali_War_Gear.lua:head"
         ]
@@ -1278,6 +1279,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:body",
           "data/Kalali/Kalali_Sch_Gear.lua:body",
           "data/Kalali/Kalali_Smn_Gear.lua:body",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rev_surcoat_fallback",
           "data/Kalali/Kalali_War_Gear.lua:body",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_body"
         ]
@@ -1858,6 +1860,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:legs",
           "data/Kalali/Kalali_Sch_Gear.lua:legs",
           "data/Kalali/Kalali_Smn_Gear.lua:legs",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.chev_cuisses_fallback",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_legs",
           "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_legs",
           "data/Kalali/Kalali_War_Gear.lua:legs"
@@ -2122,6 +2125,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:feet",
           "data/Kalali/Kalali_Sch_Gear.lua:feet",
           "data/Kalali/Kalali_Smn_Gear.lua:feet",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.cab_leggings_fallback",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rev_leggings_fallback",
           "data/Kalali/Kalali_War_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_feet"
@@ -2363,6 +2368,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Sibyl Scarf",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:neck",
+          "data/Kalali/Kalali_Cor_Gear.lua:neck",
           "data/Kalali/Kalali_Geo_Gear.lua:neck",
           "data/Kalali/Kalali_Rdm_Gear.lua:neck",
           "data/Kalali/Kalali_Sch_Gear.lua:neck"
@@ -2566,6 +2572,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:waist",
           "data/Kalali/Kalali_Brd_Gear.lua:waist",
+          "data/Kalali/Kalali_Cor_Gear.lua:waist",
           "data/Kalali/Kalali_Geo_Gear.lua:waist",
           "data/Kalali/Kalali_Rdm_Gear.lua:waist",
           "data/Kalali/Kalali_Sch_Gear.lua:waist"
@@ -2590,7 +2597,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Reiki Yotai",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:waist",
-          "data/Kalali/Kalali_Brd_Gear.lua:waist"
+          "data/Kalali/Kalali_Brd_Gear.lua:waist",
+          "data/Kalali/Kalali_Cor_Gear.lua:waist"
         ]
       },
       {
@@ -3135,7 +3143,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "copies": 1,
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:ear2",
-          "data/Kalali/Kalali_Brd_Gear.lua:ear1"
+          "data/Kalali/Kalali_Brd_Gear.lua:ear1",
+          "data/Kalali/Kalali_Cor_Gear.lua:ear2"
         ]
       },
       {
@@ -3355,7 +3364,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Sherida Earring",
         "copies": 1,
         "sources": [
-          "data/Kalali/Kalali_Cor_Gear.lua:ear1",
           "data/Kalali/Kalali_Rdm_Gear.lua:ear1"
         ]
       },
@@ -3380,6 +3388,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "copies": 1,
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:ear2",
+          "data/Kalali/Kalali_Cor_Gear.lua:ear1",
           "data/Kalali/Kalali_Rdm_Gear.lua:ear1"
         ]
       },

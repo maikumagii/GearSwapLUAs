@@ -92,6 +92,14 @@ gear.umuthi_hat = gear.af3_head
 
 This keeps sets runnable today while documenting future upgrades.
 
+## Endgame Set Philosophy
+
+Current Kalali gear sets are generally built for endgame content, where some defensive capability is expected even in
+damage-oriented sets. Treat default engaged/TP sets as hybrid sets unless the file or user explicitly says a set is a
+glass-cannon/farm/fodder option. When improving DPS, do not strip defensive value such as DT, magic evasion, accuracy,
+or sturdy armor from baseline sets just to add raw multi-attack or damage. Prefer adding or refining explicit offensive
+variants while preserving the durable default/hybrid set behavior.
+
 ## Gear Alias Conventions
 
 Use aliases for:
@@ -132,6 +140,18 @@ Common RDM-style aliases:
 - `gear.jse_ear2`, `gear.jse_neck`: job-specific earring/neck.
 - `gear.*_jse_back`: Ambuscade cape variants.
 - `gear.tp_bonus_sword`, `gear.tp_bonus_dagger`, `gear.tp_bonus_gun`: shared Magian TP bonus weapons from `Kalali-Items.lua`.
+
+Never assign non-JSE fallback gear to `gear.af1_*`, `gear.af2_*`, or `gear.af3_*` aliases. These aliases are reserved
+only for the job's actual Artifact (AF1), Relic (AF2), and Empyrean (AF3) pieces. If the JSE piece is missing or
+unowned, leave the alias empty/commented or set it only to the actual lower-tier JSE piece, and put any owned fallback
+directly in the set slot or in a separate, clearly named fallback alias.
+
+For any job, `sets.precast.JA`, roll, buff, or other ability-specific swap that exists to enhance a job ability must use
+only the exact enhancing item. Do not substitute non-enhancing fallback gear for missing AF/Relic/Empy/JSE pieces in
+these sets, because the swap is only valuable when the exact item modifies the ability. If the enhancing piece is not
+owned, keep the set slot wired to the reserved alias, leave that alias blank or commented above, and keep a comment naming
+the target piece. This preserves the plumbing so acquiring the item later only requires filling in the alias. Stat-based
+JA sets, such as MND/CHR/VIT builds, may use normal owned gear directly for those stats.
 
 When a cape or augmented piece is not owned, redirect the alias to the closest owned cape and comment the intended future version.
 
