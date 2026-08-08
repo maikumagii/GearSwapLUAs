@@ -22,6 +22,7 @@ function character_user_job_setup()
     gear.nuke_jse_back =
     "Cornflower Cape" --{ name = "Rosmerta's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', '"Mag.Atk.Bns."+10', } }
     gear.int_wsd_jse_back = gear.str_wsd_jse_back
+    gear.carmine_mask_d = { name = "Carmine Mask +1", augments = { 'Path:D' } }
 
     gear.jse_neck = "Mirage Stole +2"
     gear.jse_ear2 = ""
@@ -101,18 +102,22 @@ function init_gear_sets()
     sets.precast.FC = {
         main = "Sakpata's Sword",
         ammo = "Impatiens",
+        head = gear.carmine_mask_d,
         neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
-        --body = gear.af2_body,
+        body = "Sworn Platemail",
         ring1 = "Kishar Ring",
-        ring = "Prolix Ring",
-        ring2 = "Lebeche Ring",
+        ring2 = "Prolix Ring",
         --back = "Perimede Cape", OR BLU Fast Cast cape?
         waist = "Witful Belt",
+        legs = "Sworn Brais",
+        feet = "Sworn Sabatons",
     }
 
-    sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, { body = gear.af3_body })
+    sets.precast.FC.Cure = set_combine(sets.precast.FC, { ring2 = "Lebeche Ring" })
+
+    sets.precast.FC['Blue Magic'] = set_combine(sets.precast.FC, { body = gear.af3_body, hands = gear.af3_hands })
 
 
     -- Weaponskill sets
@@ -322,19 +327,23 @@ function init_gear_sets()
         main = "Bunzi's Rod",
         sub = "Sakpata's Sword",
         ammo = "Staunch Tathlum +1",
+        head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = gear.regal_earring,
         ear2 = "Mendi. Earring",
         body = "Vrikodara Jupon",
+        hands = "Nyame Gauntlets",
         ring1 = "Naji's Loop",
         ring2 = "Menelaus's Ring",
         --back = "Moonlight Cape",
         waist = gear.luminary_sash,
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.midcast.UnlockedCure = sets.midcast.Cure
 
-    sets.midcast.Cursna = set_combine(sets.midcast.Cure, { feet = "Vanya Clogs" })
+    sets.midcast.Cursna = set_combine(sets.midcast.Cure, {})
 
     -- Physical Added Effect Spells most notably "Stun" spells --
 
@@ -358,10 +367,17 @@ function init_gear_sets()
 
     sets.midcast['Blue Magic'].Healing = {
         ammo = "Staunch Tathlum +1",
+        head = "Nyame Helm",
         neck = "Loricate Torque +1",
+        ear1 = gear.regal_earring,
+        ear2 = "Mendi. Earring",
         body = "Vrikodara Jupon",
+        hands = "Nyame Gauntlets",
         ring1 = "Naji's Loop",
+        ring2 = "Menelaus's Ring",
         waist = gear.luminary_sash,
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.midcast['Blue Magic'].UnlockedHealing = sets.midcast['Blue Magic'].Healing
@@ -643,7 +659,7 @@ function init_gear_sets()
     sets.engaged.DW.FullAcc.DT.AM = sets.engaged.DW.FullAcc.DT
 
     sets.Self_Healing = { waist = "Gishdubar Sash" }
-    sets.Self_Refresh = { back = "Amalric Coif +1", waist = "Gishdubar Sash" }
+    sets.Self_Refresh = { head = "Amalric Coif +1", waist = "Gishdubar Sash" }
     sets.Phalanx_Received = {}
 end
 

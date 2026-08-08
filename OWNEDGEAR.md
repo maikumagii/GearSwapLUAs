@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 427,
+  "total_slot_entries": 426,
   "slots": {
     "main": [
       {
@@ -872,6 +872,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "Path:D"
         ],
         "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:gear.carmine_mask_d",
+          "data/Kalali/Kalali_Blu_Gear.lua:head",
           "data/Kalali/Kalali_Cor_Gear.lua:gear.carmine_mask_d",
           "data/Kalali/Kalali_Cor_Gear.lua:head"
         ]
@@ -1330,6 +1332,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Sworn Platemail",
         "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:body",
           "data/Kalali/Kalali_Rdm_Gear.lua:body"
         ]
       },
@@ -1900,6 +1903,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Sworn Brais",
         "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:legs",
           "data/Kalali/Kalali_Rdm_Gear.lua:legs"
         ]
       },
@@ -2141,13 +2145,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Sworn Sabatons",
         "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:feet",
           "data/Kalali/Kalali_Rdm_Gear.lua:feet"
         ]
       },
       {
         "name": "Vanya Clogs",
         "sources": [
-          "data/Kalali/Kalali_Blu_Gear.lua:feet",
           "data/Kalali/Kalali_Brd_Gear.lua:feet",
           "data/Kalali/Kalali_Geo_Gear.lua:feet",
           "data/Kalali/Kalali_Rdm_Gear.lua:feet",
@@ -2640,12 +2644,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       }
     ],
     "back": [
-      {
-        "name": "Amalric Coif +1",
-        "sources": [
-          "data/Kalali/Kalali_Blu_Gear.lua:back"
-        ]
-      },
       {
         "name": "Bookworm's Cape",
         "sources": [
