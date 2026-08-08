@@ -109,7 +109,6 @@ function character_user_job_setup()
     --  3  Perimede Cape                 QC+4%
     gear.obstinate_sash = "Embla Sash"
     --  6  Obstinate Sash                +5 Enfeebling Duration
-    gear.bathy_choker = "Bathy Choker"  -- need to farm for Master Trials
     --
     -- Pure min/max or niche
     gear.diamond_aspis = ""
@@ -1608,7 +1607,7 @@ function init_gear_sets()
         range = "Ullr",
         ammo = empty,
         head = "Sworn Crown",
-        neck = gear.bathy_choker,
+        neck = "Bathy Choker",
         ear1 = "Dedition Earring",
         ear2 = "Crepuscular Earring",
         body = "Sworn Platemail",
