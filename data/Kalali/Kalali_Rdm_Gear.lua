@@ -109,7 +109,7 @@ function character_user_job_setup()
     --  3  Perimede Cape                 QC+4%
     gear.obstinate_sash = "Embla Sash"
     --  6  Obstinate Sash                +5 Enfeebling Duration
-    gear.bathy_choker = "Null Loop"  -- need to farm for Master Trials
+    gear.bathy_choker = "Bathy Choker"  -- need to farm for Master Trials
     --
     -- Pure min/max or niche
     gear.diamond_aspis = ""
