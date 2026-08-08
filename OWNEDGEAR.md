@@ -5,7 +5,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
 ```json
 {
   "schema": "owned-gear/v1",
-  "generated_at": "2026-07-04T20:16:13Z",
+  "generated_at": "2026-08-08T00:00:00Z",
   "source_policy": "Parsed active personalized Lua gear files under data/Kalali, excluding data/Kalali/UnusedJobs, Kalali_Crafting.lua, and Kalali-Globals.lua. Lua comments were stripped before extraction. Empty strings, empty tables, and empty sentinel values were ignored. User-confirmed acquisitions may be added with their requesting job file as a source before a full regeneration.",
   "duplicate_policy": "Non-accessory duplicates are collapsed by name plus augments plus bag. Ring and earring entries include copies=2 only when active Lua uses explicit bag-qualified duplicates, such as Wardrobe plus Wardrobe 2.",
   "source_files": [
@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 378,
+  "total_slot_entries": 426,
   "slots": {
     "main": [
       {
@@ -106,6 +106,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Excalibur",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:main"
+        ]
+      },
+      {
         "name": "Fusetto +2",
         "sources": [
           "data/Kalali/Kalali-Items.lua:gear.tp_bonus_dagger"
@@ -140,6 +146,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ],
         "sources": [
           "data/Kalali/Kalali_Smn_Gear.lua:main"
+        ]
+      },
+      {
+        "name": "Idris",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.idris",
+          "data/Kalali/Kalali_Geo_Gear.lua:main"
         ]
       },
       {
@@ -286,6 +299,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     ],
     "sub": [
       {
+        "name": "Aegis",
+        "sources": [
+          "data/Kalali-PLD.lua:sub",
+          "data/Kalali/Kalali_Pld_Gear.lua:sub"
+        ]
+      },
+      {
         "name": "Ammurapi Shield",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.genmei_shield",
@@ -295,6 +315,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:sub",
           "data/Kalali/Kalali_Sch_Gear.lua:sub",
           "data/Kalali/Kalali_Smn_Gear.lua:sub"
+        ]
+      },
+      {
+        "name": "Archduke's Shield",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:sub",
+          "data/Kalali/Kalali_Brd_Gear.lua:sub",
+          "data/Kalali/Kalali_Geo_Gear.lua:sub",
+          "data/Kalali/Kalali_Rdm_Gear.lua:sub",
+          "data/Kalali/Kalali_Sch_Gear.lua:sub"
         ]
       },
       {
@@ -322,6 +352,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Geo_Gear.lua:sub",
           "data/Kalali/Kalali_Rdm_Gear.lua:sub"
+        ]
+      },
+      {
+        "name": "Duban",
+        "sources": [
+          "data/Kalali-PLD.lua:sub",
+          "data/Kalali/Kalali_Pld_Gear.lua:sub"
         ]
       },
       {
@@ -402,6 +439,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Nusku Shield",
         "sources": [
           "data/Kalali/Kalali_Cor_Gear.lua:sub"
+        ]
+      },
+      {
+        "name": "Priwen",
+        "sources": [
+          "data/Kalali-PLD.lua:sub",
+          "data/Kalali/Kalali_Pld_Gear.lua:sub"
         ]
       },
       {
@@ -711,6 +755,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Agoge Mask +4",
+        "sources": [
+          "data/Kalali/Kalali_War_Gear.lua:gear.af2_head",
+          "data/Kalali/Kalali_War_Gear.lua:gear.ws_wsd_head",
+          "data/Kalali/Kalali_War_Gear.lua:head"
+        ]
+      },
+      {
         "name": "Amalric Coif +1",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:head",
@@ -765,6 +817,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Azimuth Hood +2",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.af3_head",
+          "data/Kalali/Kalali_Geo_Gear.lua:head"
+        ]
+      },
+      {
         "name": "Beckoner's Horn +2",
         "sources": [
           "data/Kalali/Kalali_Smn_Gear.lua:gear.af3_head",
@@ -787,6 +846,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       },
       {
         "name": "Brioso Roundlet +3",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:gear.af1_head",
+          "data/Kalali/Kalali_Brd_Gear.lua:head"
+        ]
+      },
+      {
+        "name": "Brioso Roundlet +4",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.af1_head",
           "data/Kalali/Kalali_Brd_Gear.lua:head"
@@ -885,6 +951,18 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Merlinic Hood",
+        "augments": [
+          "\"Mag.Atk.Bns.\"+24",
+          "\"Occult Acumen\"+11",
+          "CHR+2"
+        ],
+        "sources": [
+          "data/Kalali/Kalali-Items.lua:gear.merlinic_oa_head",
+          "data/Kalali/Kalali_Rdm_Gear.lua:head"
+        ]
+      },
+      {
         "name": "Nyame Helm",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:head",
@@ -916,6 +994,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Sakpata's Helm",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:head"
+        ]
+      },
+      {
         "name": "Souv. Schaller +1",
         "augments": [
           "HP+105",
@@ -924,6 +1008,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_head"
+        ]
+      },
+      {
+        "name": "Sworn Crown",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:head"
         ]
       },
       {
@@ -994,6 +1084,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Ayanmo Corazza +2",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:body"
+        ]
+      },
+      {
+        "name": "Azimuth Coat +2",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:body",
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.merlinic_nuke_body"
         ]
       },
       {
@@ -1131,6 +1228,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Lanun Frac +4",
+        "sources": [
+          "data/Kalali/Kalali_Cor_Gear.lua:body",
+          "data/Kalali/Kalali_Cor_Gear.lua:gear.af2_body"
+        ]
+      },
+      {
         "name": "Lethargy Sayon +3",
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:body",
@@ -1144,6 +1248,18 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Cor_Gear.lua:body",
           "data/Kalali/Kalali_Geo_Gear.lua:body",
           "data/Kalali/Kalali_Rdm_Gear.lua:body"
+        ]
+      },
+      {
+        "name": "Merlinic Jubbah",
+        "augments": [
+          "Mag. Acc.+24",
+          "\"Occult Acumen\"+11"
+        ],
+        "sources": [
+          "data/Kalali/Kalali-Items.lua:gear.merlinic_oa_body",
+          "data/Kalali/Kalali_Rdm_Gear.lua:body",
+          "data/Kalali/Kalali_Smn_Gear.lua:body"
         ]
       },
       {
@@ -1177,6 +1293,19 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Pumm. Lorica +4",
+        "sources": [
+          "data/Kalali/Kalali_War_Gear.lua:body",
+          "data/Kalali/Kalali_War_Gear.lua:gear.ws_wsd_body"
+        ]
+      },
+      {
+        "name": "Sakpata's Plate",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:body"
+        ]
+      },
+      {
         "name": "Shomonjijoe +1",
         "sources": [
           "data/Kalali/Kalali_Smn_Gear.lua:body"
@@ -1201,6 +1330,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       },
       {
         "name": "Viti. Tabard +3",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:body",
+          "data/Kalali/Kalali_Rdm_Gear.lua:gear.af2_body"
+        ]
+      },
+      {
+        "name": "Viti. Tabard +4",
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:body",
           "data/Kalali/Kalali_Rdm_Gear.lua:gear.af2_body"
@@ -1266,7 +1402,22 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Azimuth Gloves +2",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.af3_hands",
+          "data/Kalali/Kalali_Geo_Gear.lua:hands"
+        ]
+      },
+      {
         "name": "Boii Mufflers +2",
+        "sources": [
+          "data/Kalali/Kalali_War_Gear.lua:gear.af3_hands",
+          "data/Kalali/Kalali_War_Gear.lua:gear.ws_wsd_hands",
+          "data/Kalali/Kalali_War_Gear.lua:hands"
+        ]
+      },
+      {
+        "name": "Boii Mufflers +3",
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:gear.af3_hands",
           "data/Kalali/Kalali_War_Gear.lua:gear.ws_wsd_hands",
@@ -1390,6 +1541,18 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Blu_Gear.lua:hands",
           "data/Kalali/Kalali_Cor_Gear.lua:hands",
           "data/Kalali/Kalali_Geo_Gear.lua:hands",
+          "data/Kalali/Kalali_Rdm_Gear.lua:hands"
+        ]
+      },
+      {
+        "name": "Merlinic Dastanas",
+        "augments": [
+          "\"Occult Acumen\"+11",
+          "INT+8",
+          "\"Mag.Atk.Bns.\"+14"
+        ],
+        "sources": [
+          "data/Kalali/Kalali-Items.lua:gear.merlinic_oa_hands",
           "data/Kalali/Kalali_Rdm_Gear.lua:hands"
         ]
       },
@@ -1536,7 +1699,28 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Azimuth Tights +2",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.af3_legs",
+          "data/Kalali/Kalali_Geo_Gear.lua:legs"
+        ]
+      },
+      {
+        "name": "Bagua Pants +3",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.af2_legs",
+          "data/Kalali/Kalali_Geo_Gear.lua:legs"
+        ]
+      },
+      {
         "name": "Boii Cuisses +2",
+        "sources": [
+          "data/Kalali/Kalali_War_Gear.lua:gear.af3_legs",
+          "data/Kalali/Kalali_War_Gear.lua:legs"
+        ]
+      },
+      {
+        "name": "Boii Cuisses +3",
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:gear.af3_legs",
           "data/Kalali/Kalali_War_Gear.lua:legs"
@@ -1559,6 +1743,17 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali-Items.lua:gear.chironic_macc_legs",
           "data/Kalali/Kalali_Rdm_Gear.lua:legs"
+        ]
+      },
+      {
+        "name": "Dashing Subligar",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:legs",
+          "data/Kalali/Kalali_Brd_Gear.lua:legs",
+          "data/Kalali/Kalali_Cor_Gear.lua:legs",
+          "data/Kalali/Kalali_Pld_Gear.lua:legs",
+          "data/Kalali/Kalali_Rdm_Gear.lua:legs",
+          "data/Kalali/Kalali_War_Gear.lua:legs"
         ]
       },
       {
@@ -1609,18 +1804,18 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Kaykaus tights +1",
-        "sources": [
-          "data/Kalali/Kalali_Brd_Gear.lua:legs"
-        ]
-      },
-      {
         "name": "Kaykaus Tights +1",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:legs",
           "data/Kalali/Kalali_Geo_Gear.lua:legs",
           "data/Kalali/Kalali_Rdm_Gear.lua:legs",
           "data/Kalali/Kalali_Sch_Gear.lua:legs"
+        ]
+      },
+      {
+        "name": "Kaykaus tights +1",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:legs"
         ]
       },
       {
@@ -1670,10 +1865,23 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Perdition Slops",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:legs",
+          "data/Kalali/Kalali_Smn_Gear.lua:legs"
+        ]
+      },
+      {
         "name": "Pumm. Cuisses +4",
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:gear.af1_legs",
           "data/Kalali/Kalali_War_Gear.lua:legs"
+        ]
+      },
+      {
+        "name": "Sakpata's Cuisses",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:legs"
         ]
       },
       {
@@ -1761,6 +1969,20 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Azimuth Gaiters +2",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:feet",
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.af3_feet"
+        ]
+      },
+      {
+        "name": "Bagua Sandals +3",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:feet",
+          "data/Kalali/Kalali_Geo_Gear.lua:gear.af2_feet"
+        ]
+      },
+      {
         "name": "Bihu Slippers +1",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:feet",
@@ -1769,6 +1991,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       },
       {
         "name": "Brioso Slippers +3",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:feet",
+          "data/Kalali/Kalali_Brd_Gear.lua:gear.af1_feet"
+        ]
+      },
+      {
+        "name": "Brioso Slippers +4",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:feet",
           "data/Kalali/Kalali_Brd_Gear.lua:gear.af1_feet"
@@ -1860,6 +2089,20 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Merlinic Crackows",
+        "augments": [
+          "INT+1",
+          "Mag. Acc.+8",
+          "\"Mag.Atk.Bns.\"+12",
+          "\"Occult Acumen\"+11"
+        ],
+        "sources": [
+          "data/Kalali/Kalali-Items.lua:gear.merlinic_oa_feet",
+          "data/Kalali/Kalali_Rdm_Gear.lua:feet",
+          "data/Kalali/Kalali_Smn_Gear.lua:feet"
+        ]
+      },
+      {
         "name": "Nyame Sollerets",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:feet",
@@ -1882,6 +2125,29 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.af1_feet"
+        ]
+      },
+      {
+        "name": "Sakpata's Leggings",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:feet"
+        ]
+      },
+      {
+        "name": "Sworn Sabatons",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:feet"
+        ]
+      },
+      {
+        "name": "Vanya Clogs",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:feet",
+          "data/Kalali/Kalali_Brd_Gear.lua:feet",
+          "data/Kalali/Kalali_Geo_Gear.lua:feet",
+          "data/Kalali/Kalali_Rdm_Gear.lua:feet",
+          "data/Kalali/Kalali_Sch_Gear.lua:feet",
+          "data/Kalali/Kalali_Smn_Gear.lua:feet"
         ]
       },
       {
@@ -1920,6 +2186,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Brd_Gear.lua:gear.baetyl_pendant",
           "data/Kalali/Kalali_Brd_Gear.lua:gear.jse_neck",
           "data/Kalali/Kalali_Brd_Gear.lua:neck"
+        ]
+      },
+      {
+        "name": "Bathy Choker",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:neck"
         ]
       },
       {
@@ -1982,6 +2254,15 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Incanter's Torque",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:neck",
+          "data/Kalali/Kalali_Cor_Gear.lua:neck",
+          "data/Kalali/Kalali_Pup_Gear.lua:neck",
+          "data/Kalali/Kalali_War_Gear.lua:neck"
+        ]
+      },
+      {
         "name": "Loricate Torque +1",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:neck",
@@ -2025,6 +2306,18 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Nicander's Necklace",
         "sources": [
           "data/Kalali/Kalali-Items.lua:neck"
+        ]
+      },
+      {
+        "name": "Nodens Gorget",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:neck",
+          "data/Kalali/Kalali_Brd_Gear.lua:neck",
+          "data/Kalali/Kalali_Geo_Gear.lua:neck",
+          "data/Kalali/Kalali_Pld_Gear.lua:neck",
+          "data/Kalali/Kalali_Rdm_Gear.lua:neck",
+          "data/Kalali/Kalali_Sch_Gear.lua:neck",
+          "data/Kalali/Kalali_Smn_Gear.lua:neck"
         ]
       },
       {
@@ -2124,6 +2417,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Chaac Belt",
+        "sources": [
+          "data/Kalali/Kalali-Items.lua:waist"
+        ]
+      },
+      {
         "name": "Embla Sash",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.luminary_sash",
@@ -2177,6 +2476,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Pup_Gear.lua:waist",
           "data/Kalali/Kalali_Rdm_Gear.lua:waist",
           "data/Kalali/Kalali_Smn_Gear.lua:waist"
+        ]
+      },
+      {
+        "name": "Fucho-no-obi",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:waist"
         ]
       },
       {
@@ -2242,6 +2547,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Oneiros Rope",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:waist",
+          "data/Kalali/Kalali_Smn_Gear.lua:waist"
+        ]
+      },
+      {
         "name": "Orpheus's Sash",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:waist",
@@ -2272,6 +2584,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Blu_Gear.lua:waist",
           "data/Kalali/Kalali_Brd_Gear.lua:waist",
           "data/Kalali/Kalali_Geo_Gear.lua:waist"
+        ]
+      },
+      {
+        "name": "Sacro Cord",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:waist",
+          "data/Kalali/Kalali_Sch_Gear.lua:waist"
         ]
       },
       {
@@ -2306,6 +2625,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:waist",
           "data/Kalali/Kalali_Sch_Gear.lua:waist",
           "data/Kalali/Kalali_Smn_Gear.lua:waist"
+        ]
+      },
+      {
+        "name": "Yemaya Belt",
+        "sources": [
+          "data/Kalali/Kalali_Cor_Gear.lua:waist"
         ]
       }
     ],
@@ -2578,18 +2903,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Rudianos's Mantle",
-        "augments": [
-          "HP+60",
-          "Eva.+20 /Mag. Eva.+20",
-          "Mag. Evasion+10",
-          "Enmity+10",
-          "Chance of successful block +5"
-        ],
+        "name": "Perimede Cape",
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_enmity_block_back",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.enmity_jse_back",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.tank_back"
+          "data/Kalali/Kalali_Brd_Gear.lua:back",
+          "data/Kalali/Kalali_Cor_Gear.lua:back",
+          "data/Kalali/Kalali_Pup_Gear.lua:back",
+          "data/Kalali/Kalali_War_Gear.lua:back"
         ]
       },
       {
@@ -2618,6 +2937,21 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Blu_Gear.lua:back",
           "data/Kalali/Kalali_Blu_Gear.lua:gear.int_wsd_jse_back",
           "data/Kalali/Kalali_Blu_Gear.lua:gear.str_wsd_jse_back"
+        ]
+      },
+      {
+        "name": "Rudianos's Mantle",
+        "augments": [
+          "HP+60",
+          "Eva.+20 /Mag. Eva.+20",
+          "Mag. Evasion+10",
+          "Enmity+10",
+          "Chance of successful block +5"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_enmity_block_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.enmity_jse_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.tank_back"
         ]
       },
       {
@@ -2712,6 +3046,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Andoaa Earring",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:ear1",
+          "data/Kalali/Kalali_Cor_Gear.lua:ear1",
+          "data/Kalali/Kalali_Pup_Gear.lua:ear1",
+          "data/Kalali/Kalali_Rdm_Gear.lua:ear1",
+          "data/Kalali/Kalali_War_Gear.lua:ear1"
+        ]
+      },
+      {
         "name": "Beck. Earring +1",
         "copies": 1,
         "sources": [
@@ -2749,6 +3093,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Chas. Earring +2",
+        "sources": [
+          "data/Kalali/Kalali_Cor_Gear.lua:ear2",
+          "data/Kalali/Kalali_Cor_Gear.lua:gear.jse_ear2"
+        ]
+      },
+      {
         "name": "Crep. Earring",
         "copies": 1,
         "sources": [
@@ -2760,6 +3111,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Sch_Gear.lua:ear2",
           "data/Kalali/Kalali_Sch_Gear.lua:gear.jse_ear2",
           "data/Kalali/Kalali_Smn_Gear.lua:ear1"
+        ]
+      },
+      {
+        "name": "Crepuscular Earring",
+        "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:ear2"
         ]
       },
       {
@@ -3100,21 +3457,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Ephramaud's Ring",
-        "copies": 1,
-        "sources": [
-          "data/Kalali/Kalali_Blu_Gear.lua:ring2",
-          "data/Kalali/Kalali_Brd_Gear.lua:ring2",
-          "data/Kalali/Kalali_Cor_Gear.lua:ring2",
-          "data/Kalali/Kalali_Geo_Gear.lua:ring2",
-          "data/Kalali/Kalali_Pup_Gear.lua:ring2",
-          "data/Kalali/Kalali_Rdm_Gear.lua:ring2",
-          "data/Kalali/Kalali_Sch_Gear.lua:ring2",
-          "data/Kalali/Kalali_Smn_Gear.lua:ring2",
-          "data/Kalali/Kalali_War_Gear.lua:ring2"
-        ]
-      },
-      {
         "name": "Crepuscular Ring",
         "copies": 1,
         "sources": [
@@ -3141,6 +3483,21 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:ring1",
           "data/Kalali/Kalali_Sch_Gear.lua:ring1",
           "data/Kalali/Kalali_Smn_Gear.lua:ring1"
+        ]
+      },
+      {
+        "name": "Ephramaud's Ring",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:ring2",
+          "data/Kalali/Kalali_Brd_Gear.lua:ring2",
+          "data/Kalali/Kalali_Cor_Gear.lua:ring2",
+          "data/Kalali/Kalali_Geo_Gear.lua:ring2",
+          "data/Kalali/Kalali_Pup_Gear.lua:ring2",
+          "data/Kalali/Kalali_Rdm_Gear.lua:ring2",
+          "data/Kalali/Kalali_Sch_Gear.lua:ring2",
+          "data/Kalali/Kalali_Smn_Gear.lua:ring2",
+          "data/Kalali/Kalali_War_Gear.lua:ring2"
         ]
       },
       {
@@ -3243,6 +3600,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Mephitas's Ring +1",
+        "sources": [
+          "data/Kalali/Kalali_Geo_Gear.lua:ring2",
+          "data/Kalali/Kalali_Pld_Gear.lua:ring2",
+          "data/Kalali/Kalali_Smn_Gear.lua:ring2"
+        ]
+      },
+      {
         "name": "Metamor. Ring +1",
         "copies": 1,
         "sources": [
@@ -3340,6 +3705,18 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "copies": 1,
         "sources": [
           "data/Kalali/Kalali-Items.lua:ring1"
+        ]
+      },
+      {
+        "name": "Shadow Ring",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:gear.shadow_ring",
+          "data/Kalali/Kalali_Brd_Gear.lua:ring2",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.dt_ring2",
+          "data/Kalali/Kalali_Pld_Gear.lua:ring2",
+          "data/Kalali/Kalali_Rdm_Gear.lua:ring2",
+          "data/Kalali/Kalali_Sch_Gear.lua:gear.shadow_ring",
+          "data/Kalali/Kalali_Sch_Gear.lua:ring2"
         ]
       },
       {

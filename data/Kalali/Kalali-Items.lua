@@ -26,7 +26,7 @@ gear.tp_bonus_dagger = "Fusetto +2"
 gear.tp_bonus_gun = "Anarchy +2"
 
 -- Expansions Ring
-gear.tvr_ring = "Ephramad's Ring"
+gear.tvr_ring = "Ephramaud's Ring"
 
 -- Geas Fete Augmented Gear
 gear.herculean_ta_feet = { name = "Herculean Boots", augments = { 'Accuracy+12 Attack+27', '"Triple Atk."+4%', 'AGI+6' } }
