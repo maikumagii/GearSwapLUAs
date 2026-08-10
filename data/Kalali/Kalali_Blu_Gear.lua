@@ -226,8 +226,8 @@ function init_gear_sets()
     -- Magical Spells --
 
     sets.midcast['Blue Magic'].Magical = {
-        main = "Bunzi's Rod",
-        sub = "Maxentius",
+        main = "Telopanos Saber",
+        sub = "Bunzi's Rod",
         ammo = "Ghastly Tathlum +1",
         head = gear.af3_head,
         neck = "Sibyl Scarf",
@@ -252,7 +252,7 @@ function init_gear_sets()
 
     sets.midcast['Blue Magic'].MagicAccuracy = {
         main = "Tizona",
-        sub = "Sakpata's Sword",
+        sub = "Telopanos Saber",
         ammo = "Pemphredo Tathlum",
         head = gear.af3_head,
         neck = "Mirage Stole +2",

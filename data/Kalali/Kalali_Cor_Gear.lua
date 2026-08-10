@@ -548,7 +548,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shneddick Ring",
@@ -565,7 +565,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shneddick Ring",
@@ -581,7 +581,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
         ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
@@ -598,7 +598,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shneddick Ring",
@@ -614,7 +614,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shneddick Ring",
@@ -630,7 +630,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.genmei_earring,
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shneddick Ring",
@@ -649,9 +649,9 @@ function init_gear_sets()
     sets.weapons.Ranged = { main = gear.jse_main_stp, sub = "Nusku Shield", range = "Fomalhaut" }
     sets.weapons.Savage = { main = "Naegling", sub = "Nusku Shield", range = gear.tp_bonus_gun }
     sets.weapons.DualSavageWeapons = { main = "Naegling", sub = "Gleti's Knife", range = gear.tp_bonus_gun }
-    sets.weapons.DualLeadenRanged = { main = gear.jse_main_stp, sub = "Tauret", range = "Death Penalty" }
-    sets.weapons.DualLeadenMelee = { main = gear.jse_main_ma, sub = "Tauret", range = "Death Penalty" }
-    sets.weapons.DualAeolian = { main = gear.jse_main_ma, sub = "Tauret", range = gear.tp_bonus_gun }
+    sets.weapons.DualLeadenRanged = { main = gear.jse_main_stp, sub = "Telopanos Saber", range = "Death Penalty" }
+    sets.weapons.DualLeadenMelee = { main = gear.jse_main_ma, sub = "Telopanos Saber", range = "Death Penalty" }
+    sets.weapons.DualAeolian = { main = gear.jse_main_ma, sub = "Telopanos Saber", range = gear.tp_bonus_gun }
 
     -- Engaged sets
 

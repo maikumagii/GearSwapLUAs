@@ -5,7 +5,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
 ```json
 {
   "schema": "owned-gear/v1",
-  "generated_at": "2026-08-08T00:00:00Z",
+  "generated_at": "2026-08-10T00:00:00Z",
   "source_policy": "Parsed active personalized Lua gear files under data/Kalali, excluding data/Kalali/UnusedJobs, Kalali_Crafting.lua, and Kalali-Globals.lua. Lua comments were stripped before extraction. Empty strings, empty tables, and empty sentinel values were ignored. User-confirmed acquisitions may be added with their requesting job file as a source before a full regeneration.",
   "duplicate_policy": "Non-accessory duplicates are collapsed by name plus augments plus bag. Ring and earring entries include copies=2 only when active Lua uses explicit bag-qualified duplicates, such as Wardrobe plus Wardrobe 2.",
   "source_files": [
@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 426,
+  "total_slot_entries": 430,
   "slots": {
     "main": [
       {
@@ -211,7 +211,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Brd_Gear.lua:main",
           "data/Kalali/Kalali_Geo_Gear.lua:gear.grioavolr_fc_staff",
           "data/Kalali/Kalali_Geo_Gear.lua:main",
-          "data/Kalali/Kalali_Rdm_Gear.lua:main",
+          "data/Kalali/Kalali_Rdm_Gear.lua:main"
+        ]
+      },
+      {
+        "name": "Telopanos Staff",
+        "sources": [
           "data/Kalali/Kalali_Sch_Gear.lua:main"
         ]
       },
@@ -273,6 +278,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       },
       {
         "name": "Sakpata's Sword",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:main",
+          "data/Kalali/Kalali_Rdm_Gear.lua:main"
+        ]
+      },
+      {
+        "name": "Telopanos Saber",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:main",
           "data/Kalali/Kalali_Rdm_Gear.lua:main"
@@ -385,6 +397,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Flametongue",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:sub"
+        ]
+      },
+      {
+        "name": "Telopanos Saber",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:sub",
+          "data/Kalali/Kalali_Cor_Gear.lua:sub",
+          "data/Kalali/Kalali_Rdm_Gear.lua:sub"
         ]
       },
       {
@@ -1198,6 +1218,21 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Adamantite Armor",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:body",
+          "data/Kalali/Kalali_Cor_Gear.lua:body",
+          "data/Kalali/Kalali_Geo_Gear.lua:body",
+          "data/Kalali/Kalali_Pld_Gear.lua:body",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.reraise_body",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rev_surcoat_fallback",
+          "data/Kalali/Kalali_Pup_Gear.lua:body",
+          "data/Kalali/Kalali_Rdm_Gear.lua:body",
+          "data/Kalali/Kalali_Sch_Gear.lua:body",
+          "data/Kalali/Kalali_Smn_Gear.lua:body"
+        ]
+      },
+      {
         "name": "Inyanga Jubbah +2",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:body"
@@ -1271,7 +1306,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Nyame Mail",
         "sources": [
-          "data/Kalali/Kalali_Brd_Gear.lua:body",
           "data/Kalali/Kalali_Cor_Gear.lua:body",
           "data/Kalali/Kalali_Geo_Gear.lua:body",
           "data/Kalali/Kalali_Geo_Gear.lua:gear.merlinic_nuke_body",
@@ -1279,7 +1313,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:body",
           "data/Kalali/Kalali_Sch_Gear.lua:body",
           "data/Kalali/Kalali_Smn_Gear.lua:body",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.rev_surcoat_fallback",
           "data/Kalali/Kalali_War_Gear.lua:body",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_body"
         ]

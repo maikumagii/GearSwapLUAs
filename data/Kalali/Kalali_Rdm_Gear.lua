@@ -11,13 +11,13 @@ function character_user_job_setup()
     state.BuffWeaponsMode = M { 'Always', 'Never' }
     state.AutoBuffMode = M { ['description'] = 'Auto Buff Mode', 'Off', 'Auto', 'AutoMelee', 'AutoMage' }
     state.Weapons:options('None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly',]] 'DualNaegling',
-        'DualNaeglingAcc', 'DualMaxentius', 'DualCrocea', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']],
+        'DualNaeglingAcc', 'DualMaxentius', 'DualCrocea', 'DualCroceaTP', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']],
         'DualEnspellOnly' --[[,'DualProcSword']])
     state.WeaponSets:options('Default', 'Dual' --[[,'Proc','Dynamis']])
 
     weapon_sets = {
         ['Default'] = { 'None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly']] },
-        ['Dual'] = { 'DualNaegling', 'DualNaeglingAcc', 'DualCrocea', 'DualMaxentius', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']], 'DualEnspellOnly' },
+        ['Dual'] = { 'DualNaegling', 'DualNaeglingAcc', 'DualCrocea', 'DualCroceaTP', 'DualMaxentius', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']], 'DualEnspellOnly' },
         --[[['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','DualTauretCrocea','DualAeolian'},
 		['Proc'] = {'ProcSword','ProcDagger','DualProcSword','DualProcDagger'},]]
     }
@@ -36,6 +36,7 @@ function character_user_job_setup()
         ['DualMaxentiusAcc'] = 'Black Halo',
         ['DualEvisceration'] = 'Evisceration',
         ['DualCrocea'] = 'Sanguine Blade',
+        ['DualCroceaTP'] = 'Savage Blade',
         ['DualClubs'] = 'Black Halo',
         ['DualAeolian'] = 'Aeolian Edge',
         ['DualPrime'] = 'Exenterator',
@@ -175,6 +176,7 @@ function init_gear_sets()
     sets.weapons.DualNaeglingAcc = { main = "Naegling", sub = "Gleti's Knife", range = empty }
     --sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak", range = empty }
+    sets.weapons.DualCroceaTP = { main = "Crocea Mors", sub = gear.tp_bonus_sword, range = empty }
     --sets.weapons.DualAeolian = { main = "Tauret", sub = "Maxentius", range = empty }
     sets.weapons.DualMaxentius = { main = "Maxentius", sub = gear.tp_bonus_sword, range = empty }
     sets.weapons.DualMaxentiusAcc = { main = "Maxentius", sub = "Gleti's Knife", range = empty }
@@ -973,9 +975,8 @@ function init_gear_sets()
 
     sets.midcast.Silence.DW = { main = "Bunzi's Rod", sub = "Daybreak" }
 
-    --After Bunzi's is augmented it will probably win on low-tier nukes.
     sets.midcast['Elemental Magic'] = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Culminus",
         ammo = "Ghastly Tathlum +1",
         head = gear.af3_head,
@@ -993,7 +994,7 @@ function init_gear_sets()
     }
 
     sets.midcast['Elemental Magic'].DT = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Culminus",
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
@@ -1011,7 +1012,7 @@ function init_gear_sets()
     }
 
     sets.midcast['Elemental Magic'].Resistant = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Ammurapi Shield",
         range = "Ullr",
         ammo = empty,
@@ -1049,7 +1050,7 @@ function init_gear_sets()
     }
 
     sets.midcast['Elemental Magic'].HighTierNuke = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Ammurapi Shield",
         ammo = "Ghastly Tathlum +1",
         head = gear.af3_head,
@@ -1067,7 +1068,7 @@ function init_gear_sets()
     }
 
     sets.midcast['Elemental Magic'].HighTierNuke.Resistant = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Ammurapi Shield",
         range = "Ullr",
         ammo = empty,
@@ -1087,7 +1088,7 @@ function init_gear_sets()
 
     -- Thunder V maps to HighTierNuke; this mode favors TP gain over magic damage.
     sets.midcast['Elemental Magic'].HighTierNuke.OccultAcumen = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Ammurapi Shield",
         range = empty,
         ammo = "Aurgelmir Orb +1",
@@ -1110,16 +1111,16 @@ function init_gear_sets()
 
     -- Gear for Magic Burst mode.
     sets.MagicBurst = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Ammurapi Shield",
         neck = "Mizu. Kubikazari",
         hands = "Bunzi's Gloves",
         ring1 = "Mujin Band"
     }
-    sets.midcast['Elemental Magic'].DW = { main = "Bunzi's Rod", sub = "Daybreak" }
+    sets.midcast['Elemental Magic'].DW = { main = "Telopanos Saber", sub = "Bunzi's Rod" }
 
     sets.midcast.Impact = {
-        main = "Bunzi's Rod",
+        main = "Telopanos Saber",
         sub = "Ammurapi Shield",
         range = empty,
         ammo = "Regal Gem",
@@ -1296,7 +1297,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shadow Ring",
@@ -1372,7 +1373,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shadow Ring",

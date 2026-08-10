@@ -8,9 +8,14 @@ state.ReEquip          = M(true, 'ReEquip Mode')        --Set this to false if y
 state.AutoArts         = M(true, 'AutoArts')            --Set this to false if you don't want to automatically try to keep up Solace/Arts.
 state.AutoLockstyle    = M(true, 'AutoLockstyle Mode')  --Set this to false if you don't want gearswap to automatically lockstyle on load and weapon change.
 state.CancelStoneskin  = M(true, 'Cancel Stone Skin')   --Set this to false if you don't want to automatically cancel stoneskin when you're slept.
-state.HoxneAmpullaMode = M(false, 'Hoxne Ampulla Mode') --Equips Hoxne Ampulla, uses it after 5 seconds, then keeps range/ammo locked until toggled off.
+state.HoxneMode        = M(false, 'HoxneMode')          --Equips Hoxne Ampulla with an empty ranged slot until toggled off.
+state.HoxneAmpullaMode = state.HoxneMode                --Legacy alias; gs c toggle HoxneAmpullaMode still works.
 state.SkipProcWeapons  = M(true, 'Skip Proc Weapons')   --Set this to false if you want to display weapon sets fulltime rather than just Aby/Voidwatch.
 state.NotifyBuffs      = M(false, 'Notify Buffs')       --Set this to true if you want to notify your party when you recieve a specific buff/debuff. (List Below)
+
+if disable_priority and not disable_priority:contains('HoxneMode') then
+    table.insert(disable_priority, 1, 'HoxneMode')
+end
 
 --[[Binds you may want to change.
 	Bind special characters.
@@ -135,7 +140,7 @@ function set_dual_wield()
     apply_dual_wield_weapon_defaults:schedule(1)
 end
 
-local hoxne_ampulla_name = 'Hoxne Ampulla'
+local hoxne_mode_set = { range = 'empty', ammo = 'Hoxne Ampulla' }
 local teleport_ring_names = {
     'Dim. Ring (Dem)',
     'Dim. Ring (Mea)',
@@ -244,14 +249,15 @@ local function utility_best_accessible_item(item_names)
     return fallback_item_name
 end
 
-local function set_hoxne_ampulla_mode(enabled)
+local function set_hoxne_mode(enabled)
     enable('range', 'ammo')
 
     if enabled then
-        equip({ ammo = hoxne_ampulla_name })
+        equip(hoxne_mode_set)
+        internal_disable_set(hoxne_mode_set, 'HoxneMode')
         disable('range', 'ammo')
-        send_command('gs c useitem ammo Hoxne Ampulla')
     else
+        internal_enable_set('HoxneMode')
         send_command('gs c update')
     end
 end
@@ -369,8 +375,8 @@ local function user_set_aminon_modes(enabled)
 end
 
 function user_state_change(stateField, newValue, oldValue)
-    if stateField == 'Hoxne Ampulla Mode' then
-        set_hoxne_ampulla_mode(newValue)
+    if stateField == 'HoxneMode' then
+        set_hoxne_mode(newValue)
     end
 end
 

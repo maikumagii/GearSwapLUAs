@@ -55,7 +55,7 @@ function character_user_job_setup()
 
     -- Owned fallbacks for older PLD set pieces.
     gear.cab_leggings_fallback = "Nyame Sollerets"       -- Cab. Leggings +1
-    gear.rev_surcoat_fallback = "Nyame Mail"             -- Rev. Surcoat +3
+    gear.rev_surcoat_fallback = "Adamantite Armor"       -- Rev. Surcoat +3
     gear.rev_leggings_fallback = "Nyame Sollerets"       -- Rev. Leggings +3
     gear.chev_armet_fallback = "Nyame Helm"              -- Chev. Armet +1
     gear.chev_cuisses_fallback = "Nyame Flanchard"       -- Chev. Cuisses +1
@@ -115,7 +115,7 @@ function character_user_job_setup()
     gear.sulevia_legs = "Nyame Flanchard" -- Sulev. Cuisses +2
     gear.sulevia_feet = "Nyame Sollerets" -- Sulev. Leggings +2
     gear.reraise_head = "Nyame Helm"      -- Twilight Helm
-    gear.reraise_body = "Nyame Mail"      -- Twilight Mail
+    gear.reraise_body = "Adamantite Armor" -- Twilight Mail
 
     -- Additional local binds
     send_command('bind !` gs c SubJobEnmity')
@@ -840,7 +840,7 @@ function init_gear_sets()
         neck = gear.idle_neck,
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = gear.souv_hands,
         ring1 = gear.defending_ring,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -859,7 +859,7 @@ function init_gear_sets()
         neck = gear.idle_neck,
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = gear.enhancing_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
@@ -913,7 +913,7 @@ function init_gear_sets()
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Archon Ring",
         ring2 = gear.dt_ring2,
@@ -1046,7 +1046,7 @@ function init_gear_sets()
         neck = "Warder's Charm +1",
         ear1 = gear.dt_ear1,
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Archon Ring",
         ring2 = gear.dt_ring2,
@@ -1082,7 +1082,7 @@ function init_gear_sets()
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Purity Ring",
         ring2 = gear.dt_ring2,

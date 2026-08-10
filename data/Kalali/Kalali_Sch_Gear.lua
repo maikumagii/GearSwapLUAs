@@ -5,14 +5,14 @@ function character_user_job_setup()
     state.CastingMode:options('Normal', 'Resistant')
     state.IdleMode:options('Normal', 'PDT')
     state.HybridMode:options('Normal', 'PDT')
-    state.Weapons:options('None', 'Musa', 'Chatoyant', 'Mpaca', 'Bunzi', 'Maxentius')
+    state.Weapons:options('None', 'Musa', 'Chatoyant', 'Telopanos', 'Bunzi', 'Maxentius')
     state.MusaMode:options('Always', '1000', 'Never')
 
     default_weapons = 'Maxentius'
 
     autows_list = {
         ['Maxentius'] = 'Black Halo',
-        ['Mpaca'] = 'Omniscience',
+        ['Telopanos'] = 'Omniscience',
     }
 
     gear.nuke_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', '"Mag.Atk.Bns."+10', } }
@@ -85,7 +85,7 @@ function init_gear_sets()
     -- Weapons sets
     sets.weapons.Chatoyant = { main = "Chatoyant Staff", sub = "Khonsu" }
     sets.weapons.Musa = { main = "Musa", sub = "Khonsu" }
-    sets.weapons.Mpaca = { main = "Mpaca's Staff", sub = "Khonsu" }
+    sets.weapons.Telopanos = { main = "Telopanos Staff", sub = "Khonsu" }
     sets.weapons.Bunzi = { main = "Bunzi's Rod", sub = "Ammurapi Shield" }
     sets.weapons.Maxentius = { main = "Maxentius", sub = "Ammurapi Shield" }
 
@@ -735,7 +735,7 @@ function init_gear_sets()
 
     -- Resting sets
     sets.resting = {
-        main = "Mpaca's Staff",
+        main = "Telopanos Staff",
         sub = "Khonsu",
         ammo = gear.homiliary,
         head = gear.null_masque,
@@ -755,7 +755,7 @@ function init_gear_sets()
     -- Idle sets (default idle set not needed since the other three are defined, but leaving for testing purposes)
 
     sets.idle = {
-        main = "Mpaca's Staff",
+        main = "Telopanos Staff",
         sub = "Khonsu",
         ammo = gear.homiliary,
         head = gear.null_masque,
@@ -780,7 +780,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = gear.shadow_ring,
@@ -838,7 +838,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = gear.shadow_ring,
@@ -940,17 +940,17 @@ function init_gear_sets()
     sets.engaged.Bunzi = set_combine(sets.engaged, sets.weapons.Bunzi)
     sets.engaged.Bunzi.Acc = set_combine(sets.engaged.Acc, sets.weapons.Bunzi)
 
-    sets.engaged.Mpaca = set_combine(sets.engaged, sets.weapons.Mpaca, {
+    sets.engaged.Telopanos = set_combine(sets.engaged, sets.weapons.Telopanos, {
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
     })
-    sets.engaged.Mpaca.Acc = set_combine(sets.engaged.Acc, sets.weapons.Mpaca)
+    sets.engaged.Telopanos.Acc = set_combine(sets.engaged.Acc, sets.weapons.Telopanos)
 
-    sets.engaged.Musa = set_combine(sets.engaged.Mpaca, sets.weapons.Musa)
-    sets.engaged.Musa.Acc = set_combine(sets.engaged.Mpaca.Acc, sets.weapons.Musa)
+    sets.engaged.Musa = set_combine(sets.engaged.Telopanos, sets.weapons.Musa)
+    sets.engaged.Musa.Acc = set_combine(sets.engaged.Telopanos.Acc, sets.weapons.Musa)
 
-    sets.engaged.Chatoyant = set_combine(sets.engaged.Mpaca, sets.weapons.Chatoyant)
-    sets.engaged.Chatoyant.Acc = set_combine(sets.engaged.Mpaca.Acc, sets.weapons.Chatoyant)
+    sets.engaged.Chatoyant = set_combine(sets.engaged.Telopanos, sets.weapons.Chatoyant)
+    sets.engaged.Chatoyant.Acc = set_combine(sets.engaged.Telopanos.Acc, sets.weapons.Chatoyant)
 
     -- Buff sets: Gear that needs to be worn to actively enhance a current player buff.
     sets.buff['Ebullience'] = { head = gear.af3_head }

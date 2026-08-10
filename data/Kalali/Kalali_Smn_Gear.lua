@@ -568,7 +568,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
-        body = "Nyame Mail",
+        body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring",
         ring2 = gear.stikini_ring2,
