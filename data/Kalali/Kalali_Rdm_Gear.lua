@@ -57,7 +57,6 @@ function character_user_job_setup()
     gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10%', 'Phys. dmg. taken-10%', } } --TODO
     gear.ghostfyre_enhancing_skill_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+9', 'Enfb. mag. skill +6', 'Enha. mag. skill +10', 'Enhancing magic effect duration +11%' } }
     gear.ghostfyre_enhancing_duration_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+4', 'Enfb. mag. skill +1', 'Enha. mag. skill +7', 'Enhancing magic effect duration +20%' } }
-    gear.enhancing_duration_jse_back = gear.ghostfyre_enhancing_duration_cape
     gear.absorb_tp_recast_jse_back = gear.cure_jse_back
 
     -- Unimplemented Ambuscade Capes with redirects to capes I do have
@@ -674,16 +673,22 @@ function init_gear_sets()
         hands = gear.af1_hands,
         ring1 = "Kishar Ring",
         ring2 = "Lebeche Ring",
-        back = gear.enhancing_duration_jse_back,
+        back = gear.ghostfyre_enhancing_duration_cape,
         waist = "Embla Sash",
         legs = gear.telchine_braconi,
         feet = gear.af3_feet
     }
 
-    --Atrophy Gloves are better than Lethargy for me despite the set bonus for duration on others.
+    -- Duration on others with Composure: 4-piece Lethargy plus Atrophy hands
+    -- wins after outside duration gear is included.
+    -- Current: 1.35 Composure * 1.89 listed duration * 1.45 augments.
+    -- Telchine head: 1.20 Composure * 1.89 listed duration * 1.55 augments.
+    -- Telchine head + Viti body: 1.10 Composure * 2.04 listed duration * 1.55 augments.
+    -- Lethargy hands: 1.50 Composure * 1.69 listed duration * 1.45 augments.
     sets.buff.ComposureOther = {
         head = gear.af3_head,
         body = gear.af3_body,
+        hands = gear.af1_hands,
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
