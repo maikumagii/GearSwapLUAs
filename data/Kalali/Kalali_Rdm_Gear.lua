@@ -2,7 +2,7 @@ function character_user_job_setup()
     -- Options: Override default values
     state.OffenseMode:options('Normal', 'Acc')
     state.HybridMode:options('Normal', 'DT')
-    state.WeaponskillMode:options('Match', 'Acc', 'Proc')
+    state.WeaponskillMode:options('Match', 'Acc', 'HighBuff', 'HighBuffAcc', 'Proc')
     state.CastingMode:options('Normal', 'Resistant', 'Proc', 'SIRD', 'OccultAcumen')
     state.IdleMode:options('Normal', 'PDT', 'MDT', 'MEVA', 'Aminon')
     state.PhysicalDefenseMode:options('PDT', 'NukeLock')
@@ -55,7 +55,9 @@ function character_user_job_setup()
     gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20/Mag. Dmg.+20', '"Mag. Atk. Bns."+10', 'Phys. dmg. taken-10%', } }      --TODO
     gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', --[[ 'Accuracy+10',]] '"Dual Wield"+10', 'Phys. dmg. taken-10%' } }
     gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10%', 'Phys. dmg. taken-10%', } } --TODO
-    gear.enhancing_duration_jse_back = gear.cure_jse_back
+    gear.ghostfyre_enhancing_skill_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+9', 'Enfb. mag. skill +6', 'Enha. mag. skill +10', 'Enhancing magic effect duration +11%' } }
+    gear.ghostfyre_enhancing_duration_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+4', 'Enfb. mag. skill +1', 'Enha. mag. skill +7', 'Enhancing magic effect duration +20%' } }
+    gear.enhancing_duration_jse_back = gear.ghostfyre_enhancing_duration_cape
     gear.absorb_tp_recast_jse_back = gear.cure_jse_back
 
     -- Unimplemented Ambuscade Capes with redirects to capes I do have
@@ -94,7 +96,6 @@ function character_user_job_setup()
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
-    gear.telchine_cap = gear.af3_head
     --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
     gear.telchine_braconi = gear.af3_legs
     --  1  Telchine Braconi              + Enhancing Duration
@@ -307,6 +308,20 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        neck = gear.jse_neck,
+        ear1 = "Ishvara Earring",
+        ring2 = gear.tvr_ring,
+        waist = "Sailfi Belt +1"
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
+
     sets.precast.WS.Proc = {
         ammo = "Aurgelmir Orb +1",
         head = "Malignance Chapeau",
@@ -341,22 +356,52 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
 
+    sets.precast.WS['Requiescat'].HighBuff = set_combine(sets.precast.WS['Requiescat'], {
+        ammo = "Crepuscular Pebble",
+        head = gear.null_masque,
+        ear1 = "Malignance Earring",
+        ear2 = "Regal Earring",
+        body = "Bunzi's Robe",
+        hands = "Malignance Gloves",
+        ring1 = "Sroda Ring",
+        ring2 = gear.tvr_ring,
+        legs = "Nyame Flanchard"
+    })
+    sets.precast.WS['Requiescat'].HighBuffAcc = set_combine(sets.precast.WS['Requiescat'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
+
     sets.precast.WS['Chant Du Cygne'] = {
         range = empty,
-        ammo = "Coiste Bodhar",
+        ammo = "Oshasha's Treatise",
         head = "Nyame Helm",
         neck = "Fotia Gorget",
         ear1 = "Sherida Earring",
         ear2 = "Brutal Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
-        ring1 = "Epaminondas's Ring",
-        ring2 = gear.tvr_ring,
+        ring1 = "Ilabrat Ring",
+        ring2 = "Epona's Ring",
         back = gear.str_wsd_jse_back,
         waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
+    sets.precast.WS['Chant Du Cygne'].HighBuff = set_combine(sets.precast.WS['Chant Du Cygne'], {
+        ammo = "Crepuscular Pebble",
+        ear2 = "Regal Earring",
+        ring1 = "Sroda Ring",
+        ring2 = gear.tvr_ring
+    })
+    sets.precast.WS['Chant Du Cygne'].HighBuffAcc = set_combine(sets.precast.WS['Chant Du Cygne'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
 
     sets.precast.WS['Evisceration'] = sets.precast.WS['Chant Du Cygne']
 
@@ -365,51 +410,66 @@ function init_gear_sets()
         ammo = "Oshasha's Treatise",
         head = gear.af2_head,
         neck = "Rep. Plat. Medal",
-        ear1 = "Sherida Earring",
+        ear1 = "Ishvara Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = gear.af1_hands,
         ring1 = "Sroda Ring",
-        ring2 = gear.tvr_ring,
+        ring2 = "Epaminondas's Ring",
         back = gear.str_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], {
+        ammo = "Crepuscular Pebble",
+        neck = gear.jse_neck,
+        ring2 = gear.tvr_ring
+    })
+    sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
 
     sets.precast.WS['Black Halo'] = {
         range = empty,
         ammo = "Oshasha's Treatise",
         head = gear.af2_head,
         neck = "Rep. Plat. Medal",
-        ear1 = "Sherida Earring",
+        ear1 = "Regal Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = gear.af1_hands,
         ring1 = "Sroda Ring",
-        ring2 = gear.tvr_ring,
+        ring2 = "Epaminondas's Ring",
         back = gear.physical_mnd_wsd_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
 
-    sets.precast.WS['Black Halo'].Acc = {
-        range = empty,
-        ammo = "Oshasha's Treatise",
-        head = gear.af2_head,
+    sets.precast.WS['Black Halo'].Acc = set_combine(sets.precast.WS['Black Halo'], {
         neck = "Null Loop",
         ear1 = "Telos Earring",
-        ear2 = "Moonshade Earring",
-        body = "Nyame Mail",
-        hands = gear.af1_hands,
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
-        ring2 = gear.tvr_ring,
-        back = gear.physical_mnd_wsd_jse_back,
-        waist = "Fotia Belt",
-        legs = "Nyame Flanchard",
-        feet = gear.af3_feet
-    }
+        waist = "Null Belt"
+    })
+
+    sets.precast.WS['Black Halo'].HighBuff = set_combine(sets.precast.WS['Black Halo'], {
+        ammo = "Crepuscular Pebble",
+        neck = gear.jse_neck,
+        body = "Bunzi's Robe",
+        hands = gear.af1_hands,
+        ring2 = gear.tvr_ring
+    })
+    sets.precast.WS['Black Halo'].HighBuffAcc = set_combine(sets.precast.WS['Black Halo'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
 
     sets.precast.WS['Sanguine Blade'] = {
         range = empty,
@@ -417,33 +477,35 @@ function init_gear_sets()
         head = "Pixie Hairpin +1",
         neck = gear.baetyl_pendant,
         ear1 = "Malignance Earring",
-        ear2 = "Friomisi Earring",
+        ear2 = "Regal Earring",
         body = "Nyame Mail",
         hands = "Jhakri Cuffs +2",
-        ring1 = "Archon Ring",
-        ring2 = gear.tvr_ring,
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Archon Ring",
         back = gear.magical_mnd_wsd_jse_back,
         waist = "Orpheus's Sash",
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
+    sets.precast.WS['Sanguine Blade'].HighBuff = set_combine(sets.precast.WS['Sanguine Blade'], {})
 
     sets.precast.WS['Seraph Blade'] = {
         range = empty,
         ammo = "Sroda Tathlum",
         head = gear.af3_head,
-        neck = gear.baetyl_pendant,
+        neck = "Fotia Gorget",
         ear1 = "Malignance Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
         hands = gear.af3_hands,
         ring1 = "Epaminondas's Ring",
-        ring2 = gear.tvr_ring,
+        ring2 = "Freke Ring",
         back = gear.magical_mnd_wsd_jse_back,
         waist = "Orpheus's Sash",
         legs = "Nyame Flanchard",
         feet = gear.af3_feet
     }
+    sets.precast.WS['Seraph Blade'].HighBuff = set_combine(sets.precast.WS['Seraph Blade'], {})
 
     sets.precast.WS['Shining Strike'] = sets.precast.WS['Seraph Blade']
     sets.precast.WS['Flash Nova'] = sets.precast.WS['Seraph Blade']
@@ -452,28 +514,33 @@ function init_gear_sets()
         range = empty,
         ammo = "Sroda Tathlum",
         head = gear.af3_head,
-        neck = "Fotia Gorget",
+        neck = "Sibyl Scarf",
         ear1 = "Malignance Earring",
         ear2 = "Moonshade Earring",
         body = "Nyame Mail",
-        hands = gear.af1_hands,
-        ring1 = "Freke Ring",
-        ring2 = gear.tvr_ring,
+        hands = "Jhakri Cuffs +2",
+        ring1 = "Epaminondas's Ring",
+        ring2 = "Freke Ring",
         back = gear.int_wsd_jse_back,
         waist = "Orpheus's Sash",
-        legs = "Nyame Flanchard",
+        legs = gear.af3_legs,
         feet = gear.af3_feet
     }
+    sets.precast.WS['Aeolian Edge'].HighBuff = set_combine(sets.precast.WS['Aeolian Edge'], {})
 
     sets.precast.WS['Red Lotus Blade'] = set_combine(sets.precast.WS['Aeolian Edge'], {
         neck = "Sibyl Scarf",
         hands = "Jhakri Cuffs +2",
         back = gear.nuke_jse_back
     })
+    sets.precast.WS['Red Lotus Blade'].HighBuff = set_combine(sets.precast.WS['Red Lotus Blade'], {})
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear2 = "Brutal Earring" }
+    sets.MaxTP['Requiescat'] = { ear2 = "Regal Earring" }
+    sets.MaxTP['Black Halo'] = { ear2 = "Ishvara Earring" }
     sets.AccMaxTP = { ear2 = "Telos Earring" }
+    sets.AccMaxTP['Black Halo'] = { ear2 = "Crep. Earring" }
     sets.MagicalMaxTP = { ear2 = "Friomisi Earring" }
 
     -- Midcast Sets
@@ -599,7 +666,7 @@ function init_gear_sets()
         main = gear.Colada,
         sub = "Ammurapi Shield",
         ammo = "Staunch Tathlum +1",
-        head = gear.telchine_cap,
+        head = gear.telchine_enhancing_duration_head,
         neck = gear.jse_neck,
         ear1 = "Andoaa Earring",
         ear2 = gear.jse_ear2,
@@ -635,7 +702,7 @@ function init_gear_sets()
         hands = gear.af2_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.ghostfyre_cape,
+        back = gear.ghostfyre_enhancing_skill_cape,
         waist = "Olympus Sash",
         legs = gear.af1_legs,
         feet = gear.af3_feet

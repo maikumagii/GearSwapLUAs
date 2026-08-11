@@ -20,8 +20,7 @@ function character_user_job_setup()
     gear.magic_wsd_jse_back = { name = "Lugh's Cape", augments = { 'INT+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'INT+10', 'Weapon skill damage +10%', } }
     gear.black_halo_jse_back = gear.magic_wsd_jse_back
     gear.jse_neck = "Argute Stole +2"
-    --gear.jse_ear2 = "Arbatel Earring"
-    gear.jse_ear2 = "Crep. Earring"
+    gear.jse_ear2 = "Arbatel Earring +1"
 
     -- Artifact Gear
     gear.af1_head = "Acad. Mortar. +3"
@@ -46,6 +45,8 @@ function character_user_job_setup()
 
 
     gear.perimede_cape = "Null Shawl"
+    gear.enhancing_duration_head = gear.telchine_enhancing_duration_head
+    gear.enhancing_duration_back = gear.perimede_cape
     gear.luminary_sash = "Embla Sash"
     gear.orunmilas_torque = "Voltsurge Torque"
     gear.meili_earring = "Alabaster Earring"
@@ -359,7 +360,7 @@ function init_gear_sets()
 
     sets.midcast['Enhancing Magic'] = {
         ammo = "Pemphredo Tathlum",
-        head = gear.af3_head,
+        head = gear.enhancing_duration_head,
         neck = "Hoxne Torque",
         ear1 = gear.andoaa_earring,
         ear2 = gear.jse_ear2,
@@ -367,7 +368,7 @@ function init_gear_sets()
         hands = gear.af3_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.perimede_cape,
+        back = gear.enhancing_duration_back,
         waist = "Embla Sash",
         legs = gear.af3_legs,
         feet = gear.af3_feet

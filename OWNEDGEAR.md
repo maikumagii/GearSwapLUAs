@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 430,
+  "total_slot_entries": 435,
   "slots": {
     "main": [
       {
@@ -1044,6 +1044,19 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Telchine Cap",
+        "augments": [
+          "Enhancing magic effect duration +10%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali-Items.lua:gear.telchine_enhancing_duration_head",
+          "data/Kalali/Kalali_Rdm_Gear.lua:gear.telchine_cap",
+          "data/Kalali/Kalali_Rdm_Gear.lua:head",
+          "data/Kalali/Kalali_Sch_Gear.lua:gear.enhancing_duration_head",
+          "data/Kalali/Kalali_Sch_Gear.lua:head"
+        ]
+      },
+      {
         "name": "Viti. Chapeau +4",
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:gear.af2_head",
@@ -1776,10 +1789,10 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Chironic Hose",
         "augments": [
-          "MND+2",
-          "Accuracy+7 Attack+7",
-          "Mag. Acc.+31",
-          "\"Mag. Atk. Bns.\"+14"
+          "CHR+6",
+          "Mag. Acc.+40",
+          "Haste+1%",
+          "\"Mag. Atk. Bns.\"+25"
         ],
         "sources": [
           "data/Kalali/Kalali-Items.lua:gear.chironic_macc_legs",
@@ -2829,9 +2842,33 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       },
       {
         "name": "Ghostfyre Cape",
+        "augments": [
+          "Mag. Acc.+9",
+          "Enfb. mag. skill +6",
+          "Enha. mag. skill +10",
+          "Enhancing magic effect duration +11%"
+        ],
         "sources": [
+          "data/Kalali/Kalali-Items.lua:gear.ghostfyre_enhancing_skill_cape",
           "data/Kalali/Kalali_Rdm_Gear.lua:back",
-          "data/Kalali/Kalali_Rdm_Gear.lua:gear.ghostfyre_cape"
+          "data/Kalali/Kalali_Rdm_Gear.lua:gear.ghostfyre_cape",
+          "data/Kalali/Kalali_Rdm_Gear.lua:gear.ghostfyre_enhancing_skill_cape"
+        ]
+      },
+      {
+        "name": "Ghostfyre Cape",
+        "augments": [
+          "Mag. Acc.+4",
+          "Enfb. mag. skill +1",
+          "Enha. mag. skill +7",
+          "Enhancing magic effect duration +20%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali-Items.lua:gear.ghostfyre_enhancing_duration_cape",
+          "data/Kalali/Kalali_Rdm_Gear.lua:back",
+          "data/Kalali/Kalali_Rdm_Gear.lua:gear.enhancing_duration_jse_back",
+          "data/Kalali/Kalali_Sch_Gear.lua:back",
+          "data/Kalali/Kalali_Sch_Gear.lua:gear.enhancing_duration_back"
         ]
       },
       {
@@ -2996,6 +3033,20 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Weard Mantle",
+        "augments": [
+          "DEX+2",
+          "VIT+2",
+          "Enmity+4",
+          "\"Phalanx\" received +4"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:back",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.phalanx_jse_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.weard_phalanx_received_back"
+        ]
+      },
+      {
         "name": "Scintillating Cape",
         "sources": [
           "data/Kalali/Kalali_Smn_Gear.lua:back",
@@ -3097,6 +3148,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Arbatel Earring +1",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Sch_Gear.lua:ear2",
+          "data/Kalali/Kalali_Sch_Gear.lua:gear.jse_ear2"
+        ]
+      },
+      {
         "name": "Beck. Earring +1",
         "copies": 1,
         "sources": [
@@ -3138,6 +3197,15 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Cor_Gear.lua:ear2",
           "data/Kalali/Kalali_Cor_Gear.lua:gear.jse_ear2"
+        ]
+      },
+      {
+        "name": "Chev. Earring +1",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ear2",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.enmity_ear2",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.jse_ear2"
         ]
       },
       {

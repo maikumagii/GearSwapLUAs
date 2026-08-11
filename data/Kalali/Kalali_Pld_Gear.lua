@@ -27,9 +27,13 @@ function character_user_job_setup()
         augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
             'Chance of successful block +5', }
     }
+    gear.phalanx_jse_back = {
+        name = "Weard Mantle",
+        augments = { 'DEX+2', 'VIT+2', 'Enmity+4', '"Phalanx" received +4' }
+    }
     gear.fastcast_jse_back = "Null Shawl"              -- Rudianos's Mantle: INT+20, Eva./MEVA, Fast Cast+10
     gear.enmity_jse_back = gear.rudianos_enmity_block_back
-    gear.phalanx_jse_back = "Null Shawl"               -- Weard Mantle / phalanx received cape placeholder
+    gear.jse_ear2 = "Chev. Earring +1"
 
     -- Artifact Gear
     gear.af1_head = "" -- Unneeded
@@ -86,7 +90,7 @@ function character_user_job_setup()
     gear.dt_neck = "Loricate Torque +1"                                 -- Unmoving Collar +1
     gear.block_neck = "Loricate Torque +1"                              -- Diemer Gorget
     gear.idle_neck = "Loricate Torque +1"                               -- Coatl Gorget +1
-    gear.enmity_ear2 = "Etiolation Earring"                             -- Trux Earring
+    gear.enmity_ear2 = gear.jse_ear2                                    -- Trux Earring
     gear.dt_ear1 = "Etiolation Earring"                                 -- Odnowa Earring +1
     gear.dt_ear2 = "Sanare Earring"                                     -- Tuisto Earring
     gear.block_ear1 = "Ethereal Earring"                                -- Creed Earring
