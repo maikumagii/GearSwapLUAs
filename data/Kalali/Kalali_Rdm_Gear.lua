@@ -55,8 +55,9 @@ function character_user_job_setup()
     gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20/Mag. Dmg.+20', '"Mag. Atk. Bns."+10', 'Phys. dmg. taken-10%', } }      --TODO
     gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', --[[ 'Accuracy+10',]] '"Dual Wield"+10', 'Phys. dmg. taken-10%' } }
     gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10%', 'Phys. dmg. taken-10%', } } --TODO
-    gear.ghostfyre_enhancing_skill_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+9', 'Enfb. mag. skill +6', 'Enha. mag. skill +10', 'Enhancing magic effect duration +11%' } }
-    gear.ghostfyre_enhancing_duration_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+4', 'Enfb. mag. skill +1', 'Enha. mag. skill +7', 'Enhancing magic effect duration +20%' } }
+    
+    gear.ghostfyre_enhancing_skill_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+9', 'Enfb.mag. skill +6', 'Enha.mag. skill +10', 'Enh. Mag. eff. dur. +11' } }
+    gear.ghostfyre_enhancing_duration_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+4', 'Enfb.mag. skill +1', 'Enha.mag. skill +7', 'Enh. Mag. eff. dur. +20' } }
     gear.absorb_tp_recast_jse_back = gear.cure_jse_back
 
     -- Unimplemented Ambuscade Capes with redirects to capes I do have
@@ -94,10 +95,6 @@ function character_user_job_setup()
     gear.af3_feet = "Leth. Houseaux +3"
 
     -- List of gear I want, could be BiS. When I get the item, can replace it here
-    -- Actually important
-    --  1  Telchine Cap                  Augmented, Enhancing Magic Duration +10%
-    gear.telchine_braconi = gear.af3_legs
-    --  1  Telchine Braconi              + Enhancing Duration
     --
     -- Useful but mostly optimizatio
     gear.umuthi_hat = gear.af3_head
@@ -675,7 +672,7 @@ function init_gear_sets()
         ring2 = "Lebeche Ring",
         back = gear.ghostfyre_enhancing_duration_cape,
         waist = "Embla Sash",
-        legs = gear.telchine_braconi,
+        legs = gear.af3_legs,
         feet = gear.af3_feet
     }
 
