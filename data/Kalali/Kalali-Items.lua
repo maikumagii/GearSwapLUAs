@@ -31,7 +31,7 @@ gear.tvr_ring = "Ephramad's Ring"
 -- Geas Fete Augmented Gear
 gear.herculean_ta_feet = { name = "Herculean Boots", augments = { 'Accuracy+12 Attack+27', '"Triple Atk."+4%', 'AGI+6' } }
 gear.telchine_enhancing_duration_head = { name = "Telchine Cap", augments = { 'Enh. Mag. eff. dur. +10' } }
-gear.chironic_macc_legs = { name = "Chironic Hose", augments = { 'CHR+6', 'Mag. Acc.+25', 'Haste+1', '"Mag.Atk.Bns."+25', 'Mag. Acc.+15' } }
+gear.chironic_macc_legs = { name = "Chironic Hose", augments = { 'CHR+6', 'Mag. Acc.+25 "Mag.Atk.Bns."+25', 'Haste+1', 'Mag. Acc.+15' } }
 gear.merlinic_oa_head = { name = "Merlinic Hood", augments = { '"Mag.Atk.Bns."+24', '"Occult Acumen"+11', 'CHR+2' } }
 gear.merlinic_oa_body = { name = "Merlinic Jubbah", augments = { 'Mag. Acc.+24', '"Occult Acumen"+11' } }
 gear.merlinic_oa_hands = { name = "Merlinic Dastanas", augments = { '"Occult Acumen"+11', 'INT+8', '"Mag.Atk.Bns."+14'  } }
