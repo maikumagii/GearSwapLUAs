@@ -1681,7 +1681,7 @@ function init_gear_sets()
         ammo = empty,
         head = "Sworn Crown",
         neck = "Bathy Choker",
-        ear1 = "Dedition Earring",
+        ear1 = "Digni. Earring",
         ear2 = "Crepuscular Earring",
         body = "Sworn Platemail",
         hands = "Aya. Manopolas +2",

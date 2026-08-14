@@ -35,7 +35,7 @@ function character_user_job_setup()
     gear.af2_body = ""
     gear.af2_hands = ""
     gear.af2_legs = "Bagua Pants +3"
-    gear.af2_feet = "Bagua Sandals +3"
+    gear.af2_feet = "Bagua Sandals +4"
 
     -- Empyrean gear.
     gear.af3_head = "Azimuth Hood +2"

@@ -9,15 +9,18 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT_HP', 'MDT', 'MDT_Reraise')
     state.ResistDefenseMode:options('MEVA_HP', 'MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
-    state.Weapons:options('None', 'Excalibur', 'Sakpata', 'Naegling')
-    pld_init_shield_state()
+    state.Weapons:options('None', 'ExcaliburDuban', 'ExcaliburAegis', 'NaeglingDuban', 'NaeglingAegis',
+        'BurtgangDuban', 'BurtgangAegis')
 
     state.AutoCureCheat = M(true, 'Auto Cure Cheat')
 
     autows_list = {
-        Excalibur = 'Knights of Round',
-        Sakpata = 'Savage Blade',
-        Naegling = 'Savage Blade',
+        ExcaliburDuban = 'Knights of Round',
+        ExcaliburAegis = 'Knights of Round',
+        NaeglingDuban = 'Savage Blade',
+        NaeglingAegis = 'Savage Blade',
+        BurtgangDuban = 'Atonement',
+        BurtgangAegis = 'Atonement',
     }
 
     state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP', 'Twilight' }
@@ -132,7 +135,6 @@ function character_user_job_setup()
     send_command('bind !delete input /ma "Cure IV" <stal>')
     send_command('bind @delete input /ma "Flash" <stnpc>')
     send_command('bind !f11 gs c cycle ExtraDefenseMode')
-    send_command('bind @f7 gs c cycle Shield')
     send_command('bind @` gs c cycle RuneElement')
     send_command('bind ^pause gs c toggle AutoRuneMode')
     send_command('bind @f8 gs c toggle AutoTankMode')
@@ -982,11 +984,13 @@ function init_gear_sets()
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 
     -- Weapons sets
-    sets.weapons.Excalibur = { main = "Excalibur" }
-    sets.weapons.Sakpata = { main = "Sakpata's Sword" }
-    sets.weapons.Naegling = { main = "Naegling" }
+    sets.weapons.ExcaliburDuban = { main = "Excalibur", sub = "Duban" }
+    sets.weapons.ExcaliburAegis = { main = "Excalibur", sub = "Aegis" }
+    sets.weapons.NaeglingDuban = { main = "Naegling", sub = "Duban" }
+    sets.weapons.NaeglingAegis = { main = "Naegling", sub = "Aegis" }
+    sets.weapons.BurtgangDuban = { main = "Burtgang", sub = "Duban" }
+    sets.weapons.BurtgangAegis = { main = "Burtgang", sub = "Aegis" }
     sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword }
-    pld_init_shield_sets()
 
     sets.defense.Block = {
         main = "Sakpata's Sword",
@@ -1259,7 +1263,7 @@ end
 
 local function add_priwen_when_reprisal(baseSet)
     if buffactive['Reprisal'] and sets.buff.Reprisal and not (state.CombatForm and state.CombatForm.value == 'DW') then
-        if pld_should_keep_shield_for_reprisal and pld_should_keep_shield_for_reprisal(baseSet) then
+        if baseSet and baseSet.sub == gear.srivatsa then
             return baseSet
         end
 
@@ -1268,8 +1272,6 @@ local function add_priwen_when_reprisal(baseSet)
 
     return baseSet
 end
-
-include('Kalali-PLD.lua')
 
 function job_customize_idle_set(idleSet)
     return add_priwen_when_reprisal(idleSet)
@@ -1309,6 +1311,7 @@ function update_defense_mode()
     if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
         if player.equipment.sub and not player.equipment.sub:contains('Shield') and
             player.equipment.sub ~= 'Aegis' and player.equipment.sub ~= 'Duban' and
+            player.equipment.sub ~= 'Sacro Bulwark' and
             player.equipment.sub ~= 'Svalinn' and player.equipment.sub ~= 'Priwen' and
             player.equipment.sub ~= 'Srivatsa' then
             state.CombatForm:set('DW')
