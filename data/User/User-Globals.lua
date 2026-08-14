@@ -316,7 +316,7 @@ local function user_aminon_modes_active()
     local tracked_modes = {
         { 'IdleMode', 'Aminon' },
         { 'CastingMode', 'OccultAcumen' },
-        { 'WeaponskillMode', 'Acc' },
+        { 'WeaponskillMode', 'HighBuffAcc' },
         { 'OffenseMode', 'Acc' },
     }
 
@@ -335,14 +335,24 @@ local function user_aminon_modes_active()
     return available_modes > 0
 end
 
+local aminon_addons = { 'absorbtp' }
+
+local function user_set_aminon_addons(enabled)
+    for _, addon in ipairs(aminon_addons) do
+        send_command('lua ' .. (enabled and 'load ' or 'unload ') .. addon)
+    end
+end
+
 local function user_set_aminon_modes(enabled)
     local changed_modes = {}
+
+    user_set_aminon_addons(enabled)
 
     if enabled then
         user_set_mode_if_available('IdleMode', 'Aminon', changed_modes)
         user_set_mode_if_available('HybridMode', 'Aminon', changed_modes)
         user_set_mode_if_available('CastingMode', 'OccultAcumen', changed_modes)
-        user_set_mode_if_available('WeaponskillMode', 'Acc', changed_modes)
+        user_set_mode_if_available('WeaponskillMode', 'HighBuffAcc', changed_modes)
         user_set_mode_if_available('OffenseMode', 'Acc', changed_modes)
 
         if user_set_mode_if_available('PhysicalDefenseMode', 'Aminon', changed_modes) then
@@ -736,7 +746,7 @@ local function user_handle_magic_burst_command(commandArgs)
 end
 
 local sortie_addons_enabled = false
-local sortie_addons = { 'react', 'anchor', 'superwarp', 'skillchains', 'absorbtp' }
+local sortie_addons = { 'react', 'anchor', 'superwarp', 'skillchains' }
 
 local function user_set_sortie_addons(enabled)
     for _, addon in ipairs(sortie_addons) do
