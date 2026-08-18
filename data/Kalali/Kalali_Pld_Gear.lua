@@ -9,14 +9,15 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT_HP', 'MDT', 'MDT_Reraise')
     state.ResistDefenseMode:options('MEVA_HP', 'MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
-    state.Weapons:options('None', 'ExcaliburDuban', 'ExcaliburAegis', 'NaeglingDuban', 'NaeglingAegis',
-        'BurtgangDuban', 'BurtgangAegis')
+    state.Weapons:options('None', 'ExcaliburDuban', 'ExcaliburAegis', 'ExcaliburBlurred', 'NaeglingDuban',
+        'NaeglingAegis', 'BurtgangDuban', 'BurtgangAegis')
 
     state.AutoCureCheat = M(true, 'Auto Cure Cheat')
 
     autows_list = {
         ExcaliburDuban = 'Knights of Round',
         ExcaliburAegis = 'Knights of Round',
+        ExcaliburBlurred = 'Knights of Round',
         NaeglingDuban = 'Savage Blade',
         NaeglingAegis = 'Savage Blade',
         BurtgangDuban = 'Atonement',
@@ -449,6 +450,14 @@ function init_gear_sets()
         ear2 = "Telos Earring",
         waist = "Null Belt",
     })
+    sets.precast.WS['Savage Blade'].ExcaliburBlurred = set_combine(sets.precast.WS['Savage Blade'], {
+        main = "Excalibur",
+        sub = "Blurred Shield +1",
+    })
+    sets.precast.WS['Savage Blade'].ExcaliburBlurredAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {
+        main = "Excalibur",
+        sub = "Blurred Shield +1",
+    })
 
     -- Excalibur's unique weaponskill.
     sets.precast.WS['Knights of Round'] = {
@@ -472,8 +481,18 @@ function init_gear_sets()
         ear2 = "Telos Earring",
         waist = "Null Belt",
     })
+    sets.precast.WS['Knights of Round'].ExcaliburBlurred = set_combine(sets.precast.WS['Knights of Round'], {
+        main = "Excalibur",
+        sub = "Blurred Shield +1",
+    })
+    sets.precast.WS['Knights of Round'].ExcaliburBlurredAcc = set_combine(sets.precast.WS['Knights of Round'].Acc, {
+        main = "Excalibur",
+        sub = "Blurred Shield +1",
+    })
     sets.precast.WS['Knights of the Round'] = sets.precast.WS['Knights of Round']
     sets.precast.WS['Knights of the Round'].Acc = sets.precast.WS['Knights of Round'].Acc
+    sets.precast.WS['Knights of the Round'].ExcaliburBlurred = sets.precast.WS['Knights of Round'].ExcaliburBlurred
+    sets.precast.WS['Knights of the Round'].ExcaliburBlurredAcc = sets.precast.WS['Knights of Round'].ExcaliburBlurredAcc
 
     sets.precast.WS['Flat Blade'] = {
         ammo = "Aurgelmir Orb +1",
@@ -986,6 +1005,7 @@ function init_gear_sets()
     -- Weapons sets
     sets.weapons.ExcaliburDuban = { main = "Excalibur", sub = "Duban" }
     sets.weapons.ExcaliburAegis = { main = "Excalibur", sub = "Aegis" }
+    sets.weapons.ExcaliburBlurred = { main = "Excalibur", sub = "Blurred Shield +1" }
     sets.weapons.NaeglingDuban = { main = "Naegling", sub = "Duban" }
     sets.weapons.NaeglingAegis = { main = "Naegling", sub = "Aegis" }
     sets.weapons.BurtgangDuban = { main = "Burtgang", sub = "Duban" }
@@ -1160,6 +1180,21 @@ function init_gear_sets()
         legs = gear.carmine_legs,
         feet = gear.sulevia_feet
     }
+
+    sets.engaged.ExcaliburBlurred = set_combine(sets.engaged, {
+        main = "Excalibur",
+        sub = "Blurred Shield +1",
+        body = "Flamma Korazin +2",
+        hands = "Flam. Manopolas +2",
+        legs = "Flamma Dirs +2",
+    })
+    sets.engaged.ExcaliburBlurred.Acc = set_combine(sets.engaged.Acc, {
+        main = "Excalibur",
+        sub = "Blurred Shield +1",
+        body = "Flamma Korazin +2",
+        hands = "Flam. Manopolas +2",
+        legs = "Flamma Dirs +2",
+    })
 
     sets.engaged.DW = {}
 

@@ -11,13 +11,13 @@ function character_user_job_setup()
     state.BuffWeaponsMode = M { 'Always', 'Never' }
     state.AutoBuffMode = M { ['description'] = 'Auto Buff Mode', 'Off', 'Auto', 'AutoMelee', 'AutoMage' }
     state.Weapons:options('None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly',]] 'DualNaegling',
-        'DualNaeglingAcc', 'DualMaxentius', 'DualCrocea', 'DualCroceaTP', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']],
+        'DualNaeglingAcc', 'DualExcaliburTP', 'DualMaxentius', 'DualCrocea', 'DualCroceaTP', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']],
         'DualEnspellOnly' --[[,'DualProcSword']])
     state.WeaponSets:options('Default', 'Dual' --[[,'Proc','Dynamis']])
 
     weapon_sets = {
         ['Default'] = { 'None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly']] },
-        ['Dual'] = { 'DualNaegling', 'DualNaeglingAcc', 'DualCrocea', 'DualCroceaTP', 'DualMaxentius', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']], 'DualEnspellOnly' },
+        ['Dual'] = { 'DualNaegling', 'DualNaeglingAcc', 'DualExcaliburTP', 'DualCrocea', 'DualCroceaTP', 'DualMaxentius', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']], 'DualEnspellOnly' },
         --[[['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','DualTauretCrocea','DualAeolian'},
 		['Proc'] = {'ProcSword','ProcDagger','DualProcSword','DualProcDagger'},]]
     }
@@ -32,6 +32,7 @@ function character_user_job_setup()
         ['Tauret'] = 'Aeolian Edge',
         ['DualNaegling'] = 'Savage Blade',
         ['DualNaeglingAcc'] = 'Savage Blade',
+        ['DualExcaliburTP'] = 'Knights of Round',
         ['DualMaxentius'] = 'Black Halo',
         ['DualMaxentiusAcc'] = 'Black Halo',
         ['DualEvisceration'] = 'Evisceration',
@@ -171,6 +172,7 @@ function init_gear_sets()
 
     sets.weapons.DualNaegling = { main = "Naegling", sub = gear.tp_bonus_sword, range = empty }
     sets.weapons.DualNaeglingAcc = { main = "Naegling", sub = "Gleti's Knife", range = empty }
+    sets.weapons.DualExcaliburTP = { main = "Excalibur", sub = gear.tp_bonus_sword, range = empty }
     --sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak", range = empty }
     sets.weapons.DualCroceaTP = { main = "Crocea Mors", sub = gear.tp_bonus_sword, range = empty }
@@ -429,6 +431,44 @@ function init_gear_sets()
         waist = "Null Belt"
     })
 
+    sets.precast.WS['Knights of Round'] = {
+        range = empty,
+        ammo = "Oshasha's Treatise",
+        head = gear.af2_head,
+        neck = "Rep. Plat. Medal",
+        ear1 = "Ishvara Earring",
+        ear2 = "Moonshade Earring",
+        body = "Nyame Mail",
+        hands = gear.af1_hands,
+        ring1 = "Sroda Ring",
+        ring2 = "Epaminondas's Ring",
+        back = gear.physical_mnd_wsd_jse_back,
+        waist = "Sailfi Belt +1",
+        legs = "Nyame Flanchard",
+        feet = gear.af3_feet
+    }
+    sets.precast.WS['Knights of Round'].Acc = set_combine(sets.precast.WS['Knights of Round'], {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
+    sets.precast.WS['Knights of Round'].HighBuff = set_combine(sets.precast.WS['Knights of Round'], {
+        ammo = "Crepuscular Pebble",
+        neck = gear.jse_neck,
+        ring2 = gear.tvr_ring
+    })
+    sets.precast.WS['Knights of Round'].HighBuffAcc = set_combine(sets.precast.WS['Knights of Round'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
+    sets.precast.WS['Knights of the Round'] = sets.precast.WS['Knights of Round']
+    sets.precast.WS['Knights of the Round'].Acc = sets.precast.WS['Knights of Round'].Acc
+    sets.precast.WS['Knights of the Round'].HighBuff = sets.precast.WS['Knights of Round'].HighBuff
+    sets.precast.WS['Knights of the Round'].HighBuffAcc = sets.precast.WS['Knights of Round'].HighBuffAcc
+
     sets.precast.WS['Black Halo'] = {
         range = empty,
         ammo = "Oshasha's Treatise",
@@ -534,6 +574,8 @@ function init_gear_sets()
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear2 = "Brutal Earring" }
     sets.MaxTP['Requiescat'] = { ear2 = "Regal Earring" }
+    sets.MaxTP['Knights of Round'] = { ear2 = "Ishvara Earring" }
+    sets.MaxTP['Knights of the Round'] = sets.MaxTP['Knights of Round']
     sets.MaxTP['Black Halo'] = { ear2 = "Ishvara Earring" }
     sets.AccMaxTP = { ear2 = "Telos Earring" }
     sets.AccMaxTP['Black Halo'] = { ear2 = "Crep. Earring" }
