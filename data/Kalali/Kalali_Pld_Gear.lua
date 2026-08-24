@@ -48,7 +48,7 @@ function character_user_job_setup()
 
     -- Relic Gear
     gear.af2_head = "" -- Rampart
-    gear.af2_body = "" -- Rev. Surcoat +3
+    gear.af2_body = "Rev. Surcoat +3"
     gear.af2_hands = "" -- Shield Bash
     gear.af2_legs = ""
     gear.af2_feet = "" -- Rev. Leggings +3
@@ -63,7 +63,6 @@ function character_user_job_setup()
 
     -- Owned fallbacks for older PLD set pieces.
     gear.cab_leggings_fallback = "Nyame Sollerets"       -- Cab. Leggings +1
-    gear.rev_surcoat_fallback = "Adamantite Armor"       -- Rev. Surcoat +3
     gear.rev_leggings_fallback = "Nyame Sollerets"       -- Rev. Leggings +3
     gear.chev_armet_fallback = "Nyame Helm"              -- Chev. Armet +1
     gear.chev_cuisses_fallback = "Nyame Flanchard"       -- Chev. Cuisses +1
@@ -90,7 +89,8 @@ function character_user_job_setup()
     gear.enmity_head = "Nyame Helm"                                     -- Loess Barbuta +1
     gear.enmity_hands = "Sakpata's Gauntlets"                           -- Macabre Gaunt. +1
     gear.enmity_feet = "Nyame Sollerets"                                -- Eschite Greaves
-    gear.enmity_neck = "Loricate Torque +1"                             -- Moonlight Necklace
+    gear.enmity_neck = "Moonlight Necklace"
+    gear.elite_royal_collar = "Elite Royal Collar"
     gear.dt_neck = "Loricate Torque +1"                                 -- Unmoving Collar +1
     gear.block_neck = "Loricate Torque +1"                              -- Diemer Gorget
     gear.idle_neck = "Loricate Torque +1"                               -- Coatl Gorget +1
@@ -154,16 +154,30 @@ function init_gear_sets()
     sets.Enmity = {
         main = "Sakpata's Sword",
         sub = "Duban",
+        -- ammo = { name = "Iron Gobbet", priority = 8 },
         ammo = "Staunch Tathlum +1",
+        -- head = { name = "Loess Barbuta +1", priority = 11 },
         head = gear.enmity_head,
-        neck = gear.enmity_neck,
+        neck = { name = gear.enmity_neck, priority = 7 },
+        -- ear1 = { name = "Trux Earring", priority = 10 },
         ear1 = "Friomisi Earring",
         ear2 = gear.enmity_ear2,
-        body = gear.souv_body,
-        hands = gear.enmity_hands,
+        -- ear2 = { name = "Odnowa Earring +1", priority = 12 },
+        body = { name = "Souv. Cuirass +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', }, priority = 1 },
+        hands = { name = "Souv. Handsch. +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', }, priority = 13 },
+        -- legs = { name = gear.af1_legs, priority = 2 }, -- Cab. Breeches +4
+        -- feet = { name = gear.af3_feet, priority = 4 }, -- Chev. Sabatons +3
         ring1 = gear.enmity_ring1,
+        -- ring1 = { name = "Apeile Ring +1", priority = 6 },
         ring2 = gear.enmity_ring2,
-        back = gear.enmity_jse_back,
+        -- ring2 = { name = "Apeile Ring", priority = 5 },
+        back = {
+            name = "Rudianos's Mantle",
+            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Chance of successful block +5', },
+            priority = 3,
+        },
+        -- waist = { name = "Creed Baudrier", priority = 9 },
         waist = "Flume Belt +1",
         legs = gear.souv_legs,
         feet = gear.enmity_feet
@@ -172,17 +186,29 @@ function init_gear_sets()
     sets.Enmity.SIRD = {
         main = "Sakpata's Sword",
         sub = gear.srivatsa,
+        -- ammo = { name = "Iron Gobbet", priority = 8 },
         ammo = "Staunch Tathlum +1",
         head = gear.enmity_head,
-        neck = gear.enmity_neck,
+        -- head = { name = "Loess Barbuta +1", priority = 11 },
+        neck = { name = gear.enmity_neck, priority = 7 },
         ear1 = "Friomisi Earring",
+        -- ear1 = { name = "Trux Earring", priority = 10 },
         ear2 = gear.enmity_ear2,
-        body = gear.souv_body,
-        hands = gear.enmity_hands,
+        -- ear2 = { name = "Odnowa Earring +1", priority = 12 },
+        body = { name = gear.af2_body, priority = 13 },
+        hands = { name = "Souv. Handsch. +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', }, priority = 13 },
         ring1 = gear.enmity_ring1,
+        -- ring1 = { name = "Apeile Ring +1", priority = 6 },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.enmity_jse_back,
+        -- ring2 = { name = "Apeile Ring", priority = 5 },
+        back = {
+            name = "Rudianos's Mantle",
+            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Chance of successful block +5', },
+            priority = 3,
+        },
         waist = "Flume Belt +1",
+        -- waist = { name = "Creed Baudrier", priority = 9 },
         legs = gear.souv_legs,
         feet = gear.fc_feet
     }
@@ -193,7 +219,7 @@ function init_gear_sets()
         neck = gear.dt_neck,
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -206,19 +232,39 @@ function init_gear_sets()
     -- Precast sets to enhance JAs
     sets.precast.JA['Invincible'] = set_combine(sets.Enmity, { legs = gear.af1_legs })
     sets.precast.JA['Holy Circle'] = set_combine(sets.Enmity, { feet = gear.af2_feet })
-    sets.precast.JA['Sentinel'] = set_combine(sets.Enmity, { feet = gear.af1_feet })
+    sets.precast.JA['Sentinel'] = set_combine(sets.Enmity, {
+        -- feet = gear.af1_feet, -- Cab. Leggings +3
+        feet = gear.cab_leggings_fallback,
+    })
     sets.precast.JA['Rampart'] = set_combine(sets.Enmity, {}) --head="Valor Coronet" (Also Vit?)
-    sets.precast.JA['Fealty'] = set_combine(sets.Enmity, { body = gear.af1_body })
+    sets.precast.JA['Fealty'] = set_combine(sets.Enmity, {
+        -- body = gear.af1_body, -- Cab. Surcoat +4
+        body = gear.af2_body,
+    })
     sets.precast.JA['Divine Emblem'] = set_combine(sets.Enmity, { feet = gear.af3_feet })
-    sets.precast.JA['Cover'] = set_combine(sets.Enmity, { body = gear.af1_body }) -- head="Rev. Coronet +1"
+    sets.precast.JA['Cover'] = set_combine(sets.Enmity, {
+        -- head = gear.af2_head, -- Rev. Coronet +3
+        -- body = gear.af1_body, -- Cab. Surcoat +4
+        body = gear.af2_body,
+    })
 
     sets.precast.JA['Invincible'].DT = set_combine(sets.Enmity.DT, { legs = gear.af1_legs })
     sets.precast.JA['Holy Circle'].DT = set_combine(sets.Enmity.DT, { feet = gear.af2_feet })
-    sets.precast.JA['Sentinel'].DT = set_combine(sets.Enmity.DT, { feet = gear.af1_feet })
+    sets.precast.JA['Sentinel'].DT = set_combine(sets.Enmity.DT, {
+        -- feet = gear.af1_feet, -- Cab. Leggings +3
+        feet = gear.cab_leggings_fallback,
+    })
     sets.precast.JA['Rampart'].DT = set_combine(sets.Enmity.DT, {}) --head="Valor Coronet" (Also Vit?)
-    sets.precast.JA['Fealty'].DT = set_combine(sets.Enmity.DT, { body = gear.af1_body })
+    sets.precast.JA['Fealty'].DT = set_combine(sets.Enmity.DT, {
+        -- body = gear.af1_body, -- Cab. Surcoat +4
+        body = gear.af2_body,
+    })
     sets.precast.JA['Divine Emblem'].DT = set_combine(sets.Enmity.DT, { feet = gear.af3_feet })
-    sets.precast.JA['Cover'].DT = set_combine(sets.Enmity.DT, { body = gear.af1_body }) -- head="Rev. Coronet +1"
+    sets.precast.JA['Cover'].DT = set_combine(sets.Enmity.DT, {
+        -- head = gear.af2_head, -- Rev. Coronet +3
+        -- body = gear.af1_body, -- Cab. Surcoat +4
+        body = gear.af2_body,
+    })
 
     -- add mnd for Chivalry
     sets.precast.JA['Chivalry'] = {
@@ -227,7 +273,7 @@ function init_gear_sets()
         neck = gear.dt_neck,
         ear1 = "Mendi. Earring",
         ear2 = "Etiolation Earring",
-        body = "Nyame Mail",
+        body = gear.af2_body,
         hands = "Sakpata's Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Metamor. Ring +1",
@@ -243,7 +289,7 @@ function init_gear_sets()
         neck = gear.dt_neck,
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = "Nyame Mail",
+        body = gear.af2_body,
         hands = "Sakpata's Gauntlets",
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -278,7 +324,7 @@ function init_gear_sets()
         neck = gear.dt_neck,
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.enhancing_hands,
         ring1 = gear.waltz_ring1,
         ring2 = gear.waltz_ring2,
@@ -330,18 +376,28 @@ function init_gear_sets()
     sets.precast.FC = {
         main = "Sakpata's Sword",
         sub = gear.fc_shield,
+        -- ammo = { name = "Sapience Orb", priority = 10 },
         ammo = "Impatiens",
+        -- head = { name = "Carmine Mask +1", priority = 3 },
         head = gear.fc_head,
+        -- neck = { name = "Orunmila's Torque", priority = 5 },
         neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
-        ear2 = "Loquac. Earring",
-        body = gear.rev_surcoat_fallback,
+        -- ear1 = { name = "Enchanter's Earring +1", priority = 1 },
+        ear2 = { name = "Loquac. Earring", priority = 2 },
+        body = { name = gear.af2_body, priority = 13 },
+        -- body = { name = "Reverence Surcoat +4", priority = 13 },
+        -- hands = { name = "Leyline Gloves", priority = 6 },
         hands = gear.fc_hands,
         ring1 = "Lebeche Ring",
-        ring2 = "Kishar Ring",
+        ring2 = { name = "Kishar Ring", priority = 7 },
         back = gear.fastcast_jse_back,
+        -- back = { name = "Rudianos's Mantle", priority = 12 }, -- FCSIRD augments
+        -- waist = { name = "Platinum Moogle Belt", priority = 8 },
         waist = "Flume Belt +1",
+        -- legs = { name = "Sworn Brais", priority = 11 },
         legs = gear.odyssean_fc_legs,
+        -- feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
         feet = gear.fc_feet
     }
 
@@ -352,7 +408,7 @@ function init_gear_sets()
         neck = "Voltsurge Torque",
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -392,7 +448,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -581,7 +637,7 @@ function init_gear_sets()
         neck = "Voltsurge Torque",
         ear1 = "Etiolation Earring",
         ear2 = "Loquac. Earring",
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.fc_hands,
         ring1 = gear.dt_ring1,
         ring2 = "Kishar Ring",
@@ -599,7 +655,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -616,8 +672,16 @@ function init_gear_sets()
     sets.midcast['Dark Magic'] = set_combine(sets.Enmity, {})
     sets.midcast['Dark Magic'].SIRD = set_combine(sets.Enmity.SIRD, {})
     sets.midcast['Absorb-TP'] = set_combine(sets.midcast['Dark Magic'], {})
-    sets.midcast['Blue Magic'] = set_combine(sets.Enmity, {})
-    sets.midcast['Blue Magic'].SIRD = set_combine(sets.Enmity.SIRD, {})
+    sets.midcast['Blue Magic'] = set_combine(sets.Enmity, {
+        -- body = gear.af3_body, -- Chev. Cuirass +3
+        -- hands = gear.af1_hands, -- Cab. Gauntlets +3
+        -- legs = "Founder's Hose",
+        -- feet = gear.af3_feet, -- Chev. Sabatons +3
+        body = gear.af2_body,
+    })
+    sets.midcast['Blue Magic'].SIRD = set_combine(sets.Enmity.SIRD, {
+        body = gear.af2_body,
+    })
     sets.midcast.Cocoon = set_combine(sets.Enmity.SIRD, {})
 
     sets.midcast.Cure = {
@@ -625,7 +689,7 @@ function init_gear_sets()
         sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.enmity_head,
-        neck = "Hoxne Torque",
+        neck = gear.enmity_neck,
         ear1 = "Mendi. Earring",
         ear2 = "Etiolation Earring",
         body = "Nyame Mail",
@@ -643,7 +707,7 @@ function init_gear_sets()
         sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        neck = "Loricate Torque +1",
+        neck = gear.enmity_neck,
         ear1 = "Mendi. Earring",
         ear2 = "Etiolation Earring",
         body = "Nyame Mail",
@@ -664,7 +728,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -682,7 +746,7 @@ function init_gear_sets()
         neck = gear.dt_neck,
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -697,10 +761,10 @@ function init_gear_sets()
         sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        neck = "Hoxne Torque",
+        neck = gear.enmity_neck,
         ear1 = "Mendi. Earring",
         ear2 = "Etiolation Earring",
-        body = gear.souv_body,
+        body = "Sakpata's Plate",
         hands = gear.enmity_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -715,10 +779,10 @@ function init_gear_sets()
         sub = gear.srivatsa,
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        neck = "Loricate Torque +1",
+        neck = gear.enmity_neck,
         ear1 = "Mendi. Earring",
         ear2 = "Etiolation Earring",
-        body = gear.souv_body,
+        body = "Sakpata's Plate",
         hands = gear.enmity_hands,
         ring1 = gear.defending_ring,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -736,7 +800,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -831,10 +895,10 @@ function init_gear_sets()
         {
             main = "Sakpata's Sword",
             sub = "Forfend +1",
+            head = "Sakpata's Helm",
             hands = gear.souv_hands,
             back = gear.phalanx_jse_back,
-            legs =
-            "Sakpata's Cuisses",
+            legs = "Sakpata's Cuisses",
             feet = gear.souv_feet
         })
     sets.midcast.Phalanx.SIRD = set_combine(sets.midcast['Enhancing Magic'].SIRD,
@@ -843,16 +907,15 @@ function init_gear_sets()
             sub = "Duban",
             hands = gear.souv_hands,
             back = gear.phalanx_jse_back,
-            feet = gear
-                .souv_feet
+            body = gear.af2_body,
+            feet = gear.souv_feet
         })
     sets.midcast.Phalanx.DT = set_combine(sets.midcast.Phalanx.SIRD, {})
     sets.Phalanx_Received = {
         main = "Sakpata's Sword",
         hands = gear.souv_hands,
         back = gear.phalanx_jse_back,
-        legs =
-        "Sakpata's Cuisses",
+        legs = "Sakpata's Cuisses",
         feet = gear.souv_feet
     }
     --------------------------------------
@@ -897,18 +960,33 @@ function init_gear_sets()
     sets.idle.PDT = {
         main = "Sakpata's Sword",
         sub = gear.srivatsa,
-        ammo = "Staunch Tathlum +1",
+        ammo = { name = "Staunch Tathlum +1", priority = 8 },
+        -- head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         head = "Sakpata's Helm",
+        -- neck = { name = "Kgt. Beads +2", priority = 10 },
         neck = gear.dt_neck,
+        -- ear1 = { name = "Tuisto Earring", priority = 6 },
         ear1 = gear.dt_ear1,
+        -- ear2 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = gear.dt_ear2,
+        -- body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         body = "Sakpata's Plate",
+        -- hands = { name = "Regal Gauntlets", priority = 2 },
         hands = "Sakpata's Gauntlets",
+        -- ring1 = { name = "Fortified Ring", priority = 5 },
         ring1 = gear.dt_ring1,
+        -- ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         ring2 = gear.dt_ring2,
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
+        back = {
+            name = "Rudianos's Mantle",
+            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Chance of successful block +5', },
+            priority = 3,
+        },
+        waist = { name = "Flume Belt +1", priority = 7 },
+        -- legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
         legs = "Sakpata's Cuisses",
+        -- feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
         feet = "Sakpata's Leggings"
     }
 
@@ -938,11 +1016,13 @@ function init_gear_sets()
         neck = "Warder's Charm +1",
         ear1 = "Etiolation Earring",
         ear2 = "Sanare Earring",
+        -- body = gear.af3_body, -- Chev. Cuirass +3
         body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Archon Ring",
         ring2 = gear.dt_ring2,
         back = gear.fastcast_jse_back,
+        -- waist = "Carrier's Sash",
         waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -967,6 +1047,28 @@ function init_gear_sets()
     }
 
     sets.idle.Kiting = { ring2 = "Shneddick Ring" }
+
+    sets.idle.XP = set_combine(sets.idle, {
+        -- ammo = "Homiliary",
+        -- body = "Sacro Breastplate",
+        neck = gear.elite_royal_collar,
+        -- right_ear = "Infused Earring",
+        body = gear.af2_body,
+    })
+
+    sets.idle.Refresh = set_combine(sets.idle, {
+        -- ammo = "Homiliary",
+        -- neck = "Creed Collar",
+        -- ring2 = "Paguroidea Ring",
+        waist = "Eschan Stone",
+    })
+
+    sets.idle.Town = set_combine(sets.idle, {
+        -- head = gear.af3_head, -- Chev. Armet +3
+        -- body = gear.af3_body, -- Chev. Cuirass +3
+        -- feet = gear.af3_feet, -- Chev. Sabatons +3
+        body = gear.af2_body,
+    })
 
     sets.Kiting = { ring2 = "Shneddick Ring" }
 
@@ -1056,7 +1158,7 @@ function init_gear_sets()
         neck = gear.dt_neck,
         ear1 = gear.dt_ear1,
         ear2 = gear.dt_ear2,
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = gear.souv_hands,
         ring1 = gear.dt_ring1,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
@@ -1272,7 +1374,7 @@ function init_gear_sets()
         neck = "Loricate Torque +1",
         ear1 = gear.block_ear2,
         ear2 = "Etiolation Earring",
-        body = gear.rev_surcoat_fallback,
+        body = gear.af2_body,
         hands = "Sakpata's Gauntlets",
         ring1 = gear.defending_ring,
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
