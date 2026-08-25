@@ -2098,7 +2098,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Cab. Leggings +1",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_feet",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.cab_leggings_fallback",
           "data/Kalali/Kalali_Pld_Gear.lua:feet",
           "user-confirmed:pld-new-gear"
         ]

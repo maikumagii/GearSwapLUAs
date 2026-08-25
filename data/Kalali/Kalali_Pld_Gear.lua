@@ -79,9 +79,9 @@ function character_user_job_setup()
         melic_torque = "Melic Torque",                       -- 1
         moonlight_cape = "Moonlight Cape",                   -- 4
         odnowa_earring_1 = "Odnowa Earring +1",              -- 4
-        odyss_chestplate = "Odyss. Chestplate",              -- 1
-        odyssean_greaves = "Odyssean Greaves",               -- 6
-        odyssean_helm = "Odyssean Helm",                     -- 1
+        odyss_chestplate = "Odyss. Chestplate",              -- 1, Phalanx +5
+        odyssean_greaves = "Odyssean Greaves",               -- 6, Phalanx +5; SIRD +11 only via DM
+        odyssean_helm = "Odyssean Helm",                     -- 1, Phalanx +5
         orunmilas_torque = "Orunmila's Torque",              -- 4
         regal_gauntlets = "Regal Gauntlets",                 -- 6
         rev_coronet_3 = "Rev. Coronet +3",                   -- 1
@@ -121,7 +121,6 @@ function character_user_job_setup()
     gear.af3_feet = "" -- Chev. Sabatons +1
 
     -- Owned fallbacks for older PLD set pieces.
-    gear.cab_leggings_fallback = gear.af2_feet           -- Cab. Leggings +1
     gear.rev_leggings_fallback = "Nyame Sollerets"       -- Rev. Leggings +3
     gear.chev_armet_fallback = "Nyame Helm"              -- Chev. Armet +1
     gear.chev_cuisses_fallback = "Nyame Flanchard"       -- Chev. Cuisses +1
@@ -253,7 +252,7 @@ function init_gear_sets()
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
         -- legs = { name = "Founder's Hose", priority = 2 },
-        -- feet = { name = "Odyssean Greaves", priority = 4 },
+        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' }, priority = 4 }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
     sets.Enmity.DT = {
@@ -763,7 +762,7 @@ function init_gear_sets()
         back = gear.tank_back, -- Rudianos's Mantle
         -- waist = "Audumbla Sash",
         -- legs = "Founder's Hose",
-        -- feet = "Odyssean Greaves",
+        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
     sets.midcast.Cure.SIRD = {
@@ -781,7 +780,7 @@ function init_gear_sets()
         back = gear.tank_back, -- Rudianos's Mantle
         -- waist = "Audumbla Sash",
         -- legs = "Founder's Hose",
-        -- feet = "Odyssean Greaves",
+        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
     sets.midcast.Cure.DT = {
@@ -835,7 +834,7 @@ function init_gear_sets()
         -- back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
         -- legs = "Founder's Hose",
-        -- feet = "Odyssean Greaves",
+        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
     sets.Self_Healing.SIRD = {
@@ -853,7 +852,7 @@ function init_gear_sets()
         -- back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
         -- legs = "Founder's Hose",
-        -- feet = "Odyssean Greaves",
+        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
     sets.Self_Healing.DT = {
@@ -950,11 +949,11 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         ammo = "Aurgelmir Orb +1",
-        -- head = "Odyssean Helm",
+        -- head = { name = "Odyssean Helm", augments = { 'Phalanx +5' } },
         -- neck = "Melic Torque",
         ear1 = "Mimir Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
-        -- body = "Odyss. Chestplate",
+        -- body = { name = "Odyss. Chestplate", augments = { 'Phalanx +5' } },
         hands = gear.souv_hands,
         -- ring1 = "Gelatinous Ring +1",
         ring2 = "Murky Ring",
@@ -978,7 +977,7 @@ function init_gear_sets()
         back = "Weard Mantle",
         -- waist = "Audumbla Sash",
         legs = "Sakpata's Cuisses",
-        -- feet = "Odyssean Greaves",
+        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
     sets.midcast.Phalanx.DT = sets.midcast.Phalanx.SIRD
     sets.Phalanx_Received = {
@@ -1005,7 +1004,7 @@ function init_gear_sets()
         back = gear.tank_back,
         waist = "Eschan Stone",
         legs = gear.sulevia_legs,
-        feet = gear.cab_leggings_fallback
+        feet = gear.af2_feet
     }
 
     -- Idle sets
@@ -1499,7 +1498,7 @@ function init_gear_sets()
         back = gear.tank_back,
         waist = "Flume Belt +1",
         legs = gear.odyssean_fc_legs,
-        feet = gear.cab_leggings_fallback
+        feet = gear.af2_feet
     }
 
     sets.Reraise = sets.Twilight
