@@ -355,8 +355,8 @@ function init_gear_sets()
     sets.midcast['Honor March'] = set_combine(sets.midcast.March, { range = "Marsyas" })
     sets.midcast.Minuet = { body = gear.af3_body }
     sets.midcast.Minne = {}
-    sets.midcast.Threnody = { --[[neck = "Elite Royal Collar"]] }
-    sets.midcast.Carol = {}
+    sets.midcast.Threnody = { body = "Mou. Manteel +1" --[[neck = "Elite Royal Collar"]] }
+    sets.midcast.Carol = { hands = "Mousai Gages +1" }
     sets.midcast["Sentinel's Scherzo"] = { feet = gear.af3_feet }
     sets.midcast['Magic Finale'] = { range = "Daurdabla" }
     sets.midcast.Mazurka = { range = "Marsyas" }

@@ -47,8 +47,6 @@ function character_user_job_setup()
         blenmots_ring_1 = "Blenmot's Ring +1",               -- 1
         burtgang = "Burtgang",                               -- 22
         cab_breeches_3 = "Cab. Breeches +3",                 -- 1
-        cab_coronet_3 = "Cab. Coronet +3",                   -- 1
-        cab_gauntlets_3 = "Cab. Gauntlets +3",               -- 2
         cab_leggings_3 = "Cab. Leggings +3",                 -- 1
         cab_surcoat_3 = "Cab. Surcoat +3",                   -- 2
         carmine_cuisses_1 = "Carmine Cuisses +1",            -- 2
@@ -108,11 +106,11 @@ function character_user_job_setup()
     gear.af1_feet = "" -- Rev. Leggings +3
 
     -- Relic Gear
-    gear.af2_head = "" -- Cab. Coronet +3
-    gear.af2_body = "" -- Cab. Surcoat +4
-    gear.af2_hands = "" -- Cab. Gauntlets +3
-    gear.af2_legs = "" -- Cab. Breeches +4
-    gear.af2_feet = "" -- Cab. Leggings +3
+    gear.af2_head = "Cab. Coronet +3"
+    gear.af2_body = "Cab. Surcoat +1" -- Cab. Surcoat +4
+    gear.af2_hands = "Cab. Gauntlets +3"
+    gear.af2_legs = "Cab. Breeches +1" -- Cab. Breeches +4
+    gear.af2_feet = "Cab. Leggings +1" -- Cab. Leggings +3
 
 
     -- Empy Gear
@@ -123,7 +121,7 @@ function character_user_job_setup()
     gear.af3_feet = "" -- Chev. Sabatons +1
 
     -- Owned fallbacks for older PLD set pieces.
-    gear.cab_leggings_fallback = "Nyame Sollerets"       -- Cab. Leggings +1
+    gear.cab_leggings_fallback = gear.af2_feet           -- Cab. Leggings +1
     gear.rev_leggings_fallback = "Nyame Sollerets"       -- Rev. Leggings +3
     gear.chev_armet_fallback = "Nyame Helm"              -- Chev. Armet +1
     gear.chev_cuisses_fallback = "Nyame Flanchard"       -- Chev. Cuisses +1
@@ -277,18 +275,21 @@ function init_gear_sets()
     -- Precast sets to enhance JAs
     sets.precast.JA['Invincible'] = {
         -- legs = gear.af2_legs, -- Cab. Breeches +3
+        legs = gear.af2_legs,
     }
     sets.precast.JA['Holy Circle'] = {
         -- feet = gear.af1_feet, -- Rev. Leggings +3
     }
     sets.precast.JA['Sentinel'] = {
         -- feet = gear.af2_feet, -- Cab. Leggings +3
+        feet = gear.af2_feet,
     }
     sets.precast.JA['Rampart'] = {
-        -- head = gear.af2_head, -- Cab. Coronet +3
+        head = gear.af2_head,
     }
     sets.precast.JA['Fealty'] = {
         -- body = gear.af2_body, -- Cab. Surcoat +3
+        body = gear.af2_body,
     }
     sets.precast.JA['Divine Emblem'] = {
         -- feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -297,6 +298,7 @@ function init_gear_sets()
         -- main = "Save the Queen III",
         -- head = gear.af1_head, -- Rev. Coronet +3
         -- body = gear.af2_body, -- Cab. Surcoat +3
+        body = gear.af2_body,
     }
 
     sets.precast.JA['Invincible'].DT = sets.precast.JA['Invincible']
@@ -309,7 +311,7 @@ function init_gear_sets()
 
     -- add mnd for Chivalry
     sets.precast.JA['Chivalry'] = {
-        -- hands = gear.af2_hands, -- Cab. Gauntlets +3
+        hands = gear.af2_hands,
     }
 
     sets.precast.JA['Chivalry'].DT = sets.precast.JA['Chivalry']
@@ -317,7 +319,7 @@ function init_gear_sets()
     sets.precast.JA['Shield Bash'] = {
         sub = "Aegis",
         -- ear1 = "Knightly Earring",
-        -- hands = gear.af2_hands, -- Cab. Gauntlets +3
+        hands = gear.af2_hands,
         -- ring1 = "Fenian Ring",
     }
     sets.precast.JA['Provoke'] = sets.Enmity

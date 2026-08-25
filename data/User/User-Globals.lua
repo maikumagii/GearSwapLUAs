@@ -318,6 +318,7 @@ local function user_aminon_modes_active()
         { 'CastingMode', 'OccultAcumen' },
         { 'WeaponskillMode', 'HighBuffAcc' },
         { 'OffenseMode', 'Acc' },
+        { 'TreasureMode', 'Tag' },
     }
 
     local available_modes = 0
@@ -354,6 +355,7 @@ local function user_set_aminon_modes(enabled)
         user_set_mode_if_available('CastingMode', 'OccultAcumen', changed_modes)
         user_set_mode_if_available('WeaponskillMode', 'HighBuffAcc', changed_modes)
         user_set_mode_if_available('OffenseMode', 'Acc', changed_modes)
+        user_set_mode_if_available('TreasureMode', 'Tag', changed_modes)
 
         if user_set_mode_if_available('PhysicalDefenseMode', 'Aminon', changed_modes) then
             user_set_mode_if_available('DefenseMode', 'Physical', changed_modes)
@@ -372,6 +374,7 @@ local function user_set_aminon_modes(enabled)
         user_set_mode_if_available('CastingMode', 'Normal', changed_modes)
         user_set_mode_if_available('WeaponskillMode', 'Match', changed_modes)
         user_set_mode_if_available('OffenseMode', 'Normal', changed_modes)
+        user_set_mode_if_available('TreasureMode', 'None', changed_modes)
         user_set_mode_if_available('DefenseMode', 'None', changed_modes)
     end
 

@@ -898,6 +898,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Cab. Coronet +3",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_head",
+          "data/Kalali/Kalali_Pld_Gear.lua:head",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
         "name": "Fili Calot +2",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.af3_head",
@@ -1253,7 +1261,15 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Rev. Surcoat +3",
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_body"
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af1_body"
+        ]
+      },
+      {
+        "name": "Cab. Surcoat +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_body",
+          "data/Kalali/Kalali_Pld_Gear.lua:body",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {
@@ -1319,6 +1335,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali-Items.lua:gear.merlinic_oa_body",
           "data/Kalali/Kalali_Rdm_Gear.lua:body",
           "data/Kalali/Kalali_Smn_Gear.lua:body"
+        ]
+      },
+      {
+        "name": "Mou. Manteel +1",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:body"
         ]
       },
       {
@@ -1498,6 +1520,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Cab. Gauntlets +3",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_hands",
+          "data/Kalali/Kalali_Pld_Gear.lua:hands",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
         "name": "Fili Manchettes +2",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.af3_hands",
@@ -1601,6 +1631,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Cor_Gear.lua:hands",
           "data/Kalali/Kalali_Geo_Gear.lua:hands",
           "data/Kalali/Kalali_Rdm_Gear.lua:hands"
+        ]
+      },
+      {
+        "name": "Mousai Gages +1",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:hands"
         ]
       },
       {
@@ -1769,6 +1805,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Geo_Gear.lua:gear.af2_legs",
           "data/Kalali/Kalali_Geo_Gear.lua:legs"
+        ]
+      },
+      {
+        "name": "Cab. Breeches +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_legs",
+          "data/Kalali/Kalali_Pld_Gear.lua:legs",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {
@@ -2051,6 +2095,15 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Cab. Leggings +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_feet",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.cab_leggings_fallback",
+          "data/Kalali/Kalali_Pld_Gear.lua:feet",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
         "name": "Brioso Slippers +3",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:feet",
@@ -2176,7 +2229,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:feet",
           "data/Kalali/Kalali_Sch_Gear.lua:feet",
           "data/Kalali/Kalali_Smn_Gear.lua:feet",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.cab_leggings_fallback",
           "data/Kalali/Kalali_Pld_Gear.lua:gear.rev_leggings_fallback",
           "data/Kalali/Kalali_War_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_feet",
