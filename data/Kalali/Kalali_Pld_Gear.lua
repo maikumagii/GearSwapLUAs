@@ -700,41 +700,8 @@ function init_gear_sets()
     -- Midcast sets
     --------------------------------------
 
-    sets.midcast.FastRecast = {
-        main = "Sakpata's Sword",
-        sub = gear.fc_shield,
-        ammo = "Impatiens",
-        head = gear.fc_head,
-        neck = "Voltsurge Torque",
-        ear1 = "Etiolation Earring",
-        ear2 = "Loquac. Earring",
-        body = gear.af1_body,
-        hands = gear.fc_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = "Kishar Ring",
-        back = gear.fastcast_jse_back,
-        waist = "Flume Belt +1",
-        legs = gear.odyssean_fc_legs,
-        feet = gear.fc_feet
-    }
-
-    sets.midcast.FastRecast.DT = {
-        main = "Sakpata's Sword",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = "Loricate Torque +1",
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = gear.af1_body,
-        hands = gear.souv_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
-        legs = gear.souv_legs,
-        feet = gear.souv_feet
-    }
+    sets.midcast.FastRecast = sets.precast.FC
+    sets.midcast.FastRecast.DT = sets.precast.FC.DT
 
     sets.midcast.Flash = sets.Enmity
     sets.midcast.Flash.SIRD = sets.Enmity.SIRD
