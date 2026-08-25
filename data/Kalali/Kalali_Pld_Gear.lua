@@ -5,9 +5,9 @@ function character_user_job_setup()
     state.WeaponskillMode:options('Match', 'Normal', 'Acc')
     state.CastingMode:options('Normal', 'SIRD')
     state.Passive:options('None', 'AbsorbMP')
-    state.PhysicalDefenseMode:options('PDT_HP', 'PDT', 'PDT_Reraise')
-    state.MagicalDefenseMode:options('MDT_HP', 'MDT', 'MDT_Reraise')
-    state.ResistDefenseMode:options('MEVA_HP', 'MEVA')
+    state.PhysicalDefenseMode:options('PDT', 'PDT_Reraise')
+    state.MagicalDefenseMode:options('MDT', 'MDT_Reraise')
+    state.ResistDefenseMode:options('MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
     state.Weapons:options('None', 'ExcaliburDuban', 'ExcaliburAegis', 'ExcaliburBlurred', 'NaeglingDuban',
         'NaeglingAegis', 'BurtgangDuban', 'BurtgangAegis')
@@ -1227,77 +1227,10 @@ function init_gear_sets()
         feet = gear.souv_feet
     }
 
-    sets.defense.PDT = {
-        main = "Sakpata's Sword",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = "Sakpata's Helm",
-        neck = gear.dt_neck,
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = "Sakpata's Plate",
-        hands = "Sakpata's Gauntlets",
-        ring1 = gear.dt_ring1,
-        ring2 = gear.dt_ring2,
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
-        legs = "Sakpata's Cuisses",
-        feet = "Sakpata's Leggings"
-    }
-
-    sets.defense.PDT_HP = {
-        main = "Sakpata's Sword",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = gear.dt_neck,
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = gear.af1_body,
-        hands = gear.souv_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
-        legs = "Nyame Flanchard",
-        feet = gear.souv_feet
-    }
-
-    sets.defense.MDT = {
-        main = "Sakpata's Sword",
-        sub = "Aegis",
-        ammo = "Staunch Tathlum +1",
-        head = "Nyame Helm",
-        neck = "Warder's Charm +1",
-        ear1 = gear.dt_ear1,
-        ear2 = "Sanare Earring",
-        body = "Adamantite Armor",
-        hands = "Nyame Gauntlets",
-        ring1 = "Archon Ring",
-        ring2 = gear.dt_ring2,
-        back = gear.fastcast_jse_back,
-        waist = "Null Belt",
-        legs = "Nyame Flanchard",
-        feet = "Nyame Sollerets"
-    }
-
-    sets.defense.MDT_HP = {
-        main = "Sakpata's Sword",
-        sub = "Aegis",
-        ammo = "Staunch Tathlum +1",
-        head = "Sakpata's Helm",
-        neck = "Warder's Charm +1",
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = "Sakpata's Plate",
-        hands = "Sakpata's Gauntlets",
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Null Belt",
-        legs = "Sakpata's Cuisses",
-        feet = "Sakpata's Leggings"
-    }
+    sets.defense.PDT = sets.idle.PDT
+    sets.defense.PDT_HP = sets.defense.PDT
+    sets.defense.MDT = sets.idle.MDT
+    sets.defense.MDT_HP = sets.defense.MDT
 
     sets.defense.MEVA = {
         main = "Sakpata's Sword",
@@ -1317,23 +1250,7 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.defense.MEVA_HP = {
-        main = "Sakpata's Sword",
-        sub = "Aegis",
-        ammo = "Staunch Tathlum +1",
-        head = "Sakpata's Helm",
-        neck = "Warder's Charm +1",
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = "Sakpata's Plate",
-        hands = "Sakpata's Gauntlets",
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Null Belt",
-        legs = "Sakpata's Cuisses",
-        feet = "Sakpata's Leggings"
-    }
+    sets.defense.MEVA_HP = sets.defense.MEVA
 
     sets.defense.PDT_Reraise = set_combine(sets.defense.PDT_HP, sets.Twilight)
     sets.defense.MDT_Reraise = set_combine(sets.defense.MDT_HP, sets.Twilight)
