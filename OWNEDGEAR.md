@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 438,
+  "total_slot_entries": 453,
   "slots": {
     "main": [
       {
@@ -906,6 +906,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Chev. Armet +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_head",
+          "user-confirmed:pld-chev-armor-1"
+        ]
+      },
+      {
         "name": "Fili Calot +2",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.af3_head",
@@ -1007,7 +1014,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:head",
           "data/Kalali/Kalali_Sch_Gear.lua:head",
           "data/Kalali/Kalali_Smn_Gear.lua:head",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.chev_armet_fallback",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_head",
           "data/Kalali/Kalali_War_Gear.lua:head"
         ]
@@ -1265,11 +1271,25 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Brioso Justau. +3",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:gear.af1_body",
+          "user-confirmed:brd-new-gear"
+        ]
+      },
+      {
         "name": "Cab. Surcoat +1",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_body",
           "data/Kalali/Kalali_Pld_Gear.lua:body",
           "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
+        "name": "Chev. Cuirass +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_body",
+          "user-confirmed:pld-chev-armor-1"
         ]
       },
       {
@@ -1525,6 +1545,20 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_hands",
           "data/Kalali/Kalali_Pld_Gear.lua:hands",
           "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
+        "name": "Brioso Cuffs +3",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:gear.af1_hands",
+          "user-confirmed:brd-new-gear"
+        ]
+      },
+      {
+        "name": "Chev. Gauntlets +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_hands",
+          "user-confirmed:pld-chev-armor-1"
         ]
       },
       {
@@ -1816,6 +1850,20 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Brioso Cannions +3",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:gear.af1_legs",
+          "user-confirmed:brd-new-gear"
+        ]
+      },
+      {
+        "name": "Chev. Cuisses +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_legs",
+          "user-confirmed:pld-chev-armor-1"
+        ]
+      },
+      {
         "name": "Boii Cuisses +2",
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:gear.af3_legs",
@@ -1955,7 +2003,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:legs",
           "data/Kalali/Kalali_Sch_Gear.lua:legs",
           "data/Kalali/Kalali_Smn_Gear.lua:legs",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.chev_cuisses_fallback",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_legs",
           "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_legs",
           "data/Kalali/Kalali_War_Gear.lua:legs"
@@ -2100,6 +2147,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_feet",
           "data/Kalali/Kalali_Pld_Gear.lua:feet",
           "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
+        "name": "Chev. Sabatons +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_feet",
+          "user-confirmed:pld-chev-armor-1"
         ]
       },
       {

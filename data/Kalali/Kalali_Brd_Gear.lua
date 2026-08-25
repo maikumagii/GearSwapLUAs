@@ -34,9 +34,9 @@ function character_user_job_setup()
 
     -- Artifact Gear
     gear.af1_head = "Brioso Roundlet +4"
-    gear.af1_body = {}  --"Brioso Just. +3"
-    gear.af1_hands = {} --"Brioso Cuffs"
-    gear.af1_legs = {}  --"Brioso Cannions"
+    gear.af1_body = "Brioso Justau. +3"
+    gear.af1_hands = "Brioso Cuffs +3"
+    gear.af1_legs = "Brioso Cannions +3"
     gear.af1_feet = "Brioso Slippers +4"
 
     -- Relic Gear
@@ -529,9 +529,8 @@ function init_gear_sets()
     })
 
     sets.idle = {
-        main = "Mpaca's Staff",
-        sub = "Umbra Strap",
-        ammo = "Staunch Tathlum +1",
+        range = gear.linos_tp,
+        ammo = empty,
         head = gear.af3_head,
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
@@ -547,9 +546,8 @@ function init_gear_sets()
     }
 
     sets.idle.NoRefresh = {
-        main = "Daybreak",
-        sub = "Archduke's Shield",
-        ammo = "Staunch Tathlum +1",
+        range = gear.linos_tp,
+        ammo = empty,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
@@ -565,9 +563,8 @@ function init_gear_sets()
     }
 
     sets.idle.DT = {
-        main = "Daybreak",
-        sub = "Archduke's Shield",
-        ammo = "Staunch Tathlum +1",
+        range = gear.linos_tp,
+        ammo = empty,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
@@ -585,9 +582,8 @@ function init_gear_sets()
     -- Defense sets
 
     sets.defense.PDT = {
-        main = "Daybreak",
-        sub = gear.genmei_shield,
-        ammo = "Staunch Tathlum +1",
+        range = gear.linos_tp,
+        ammo = empty,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
@@ -603,9 +599,8 @@ function init_gear_sets()
     }
 
     sets.defense.MDT = {
-        main = "Daybreak",
-        sub = gear.genmei_shield,
-        ammo = "Staunch Tathlum +1",
+        range = gear.linos_tp,
+        ammo = empty,
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",

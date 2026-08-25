@@ -114,16 +114,14 @@ function character_user_job_setup()
 
 
     -- Empy Gear
-    gear.af3_head = "" -- Chev. Armet +1
-    gear.af3_body = ""
-    gear.af3_hands = ""
-    gear.af3_legs = "" -- Chev. Cuisses +1
-    gear.af3_feet = "" -- Chev. Sabatons +1
+    gear.af3_head = "Chev. Armet +1"
+    gear.af3_body = "Chev. Cuirass +1"
+    gear.af3_hands = "Chev. Gauntlets +1"
+    gear.af3_legs = "Chev. Cuisses +1"
+    gear.af3_feet = "Chev. Sabatons +1"
 
     -- Owned fallbacks for older PLD set pieces.
     gear.rev_leggings_fallback = "Nyame Sollerets"       -- Rev. Leggings +3
-    gear.chev_armet_fallback = "Nyame Helm"              -- Chev. Armet +1
-    gear.chev_cuisses_fallback = "Nyame Flanchard"       -- Chev. Cuisses +1
     gear.deacon_sword = "Sakpata's Sword"                               -- Deacon Sword
     -- No owned PLD-legal club is tracked yet; Mafic Cudgel remains the target.
     gear.srivatsa = "Srivatsa"
@@ -229,7 +227,7 @@ function init_gear_sets()
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
         -- legs = { name = gear.souv_legs, priority = 2 }, -- Souv. Diechlings +1
-        -- feet = { name = gear.af3_feet, priority = 4 }, -- Chev. Sabatons +3
+        feet = { name = gear.af3_feet, priority = 4 }, -- Chev. Sabatons +3
     }
 
     sets.Enmity.SIRD = {
@@ -240,7 +238,7 @@ function init_gear_sets()
         neck = { name = "Moonlight Necklace", priority = 7 },
         -- ear1 = { name = "Odnowa Earring +1", priority = 12 },
         -- ear2 = { name = "Trux Earring", priority = 10 },
-        -- body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
+        body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = "Souv. Handsch. +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', }, priority = 13 },
         -- ring1 = { name = "Apeile Ring +1", priority = 6 },
         -- ring2 = { name = "Gelatinous Ring +1", priority = 5 },
@@ -273,30 +271,26 @@ function init_gear_sets()
 
     -- Precast sets to enhance JAs
     sets.precast.JA['Invincible'] = {
-        -- legs = gear.af2_legs, -- Cab. Breeches +3
         legs = gear.af2_legs,
     }
     sets.precast.JA['Holy Circle'] = {
         -- feet = gear.af1_feet, -- Rev. Leggings +3
     }
     sets.precast.JA['Sentinel'] = {
-        -- feet = gear.af2_feet, -- Cab. Leggings +3
         feet = gear.af2_feet,
     }
     sets.precast.JA['Rampart'] = {
         head = gear.af2_head,
     }
     sets.precast.JA['Fealty'] = {
-        -- body = gear.af2_body, -- Cab. Surcoat +3
         body = gear.af2_body,
     }
     sets.precast.JA['Divine Emblem'] = {
-        -- feet = gear.af3_feet, -- Chev. Sabatons +3
+        feet = gear.af3_feet, -- Chev. Sabatons +3
     }
     sets.precast.JA['Cover'] = {
         -- main = "Save the Queen III",
         -- head = gear.af1_head, -- Rev. Coronet +3
-        -- body = gear.af2_body, -- Cab. Surcoat +3
         body = gear.af2_body,
     }
 
@@ -402,7 +396,7 @@ function init_gear_sets()
         -- neck = { name = "Orunmila's Torque", priority = 5 },
         -- ear1 = { name = "Enchntr. Earring +1", priority = 1 },
         ear2 = { name = "Loquac. Earring", priority = 2 },
-        -- body = { name = "Rev. Surcoat +4", priority = 13 },
+        body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
         -- hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
@@ -414,7 +408,7 @@ function init_gear_sets()
         },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
-        -- feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
+        feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
 
     sets.precast.FC.DT = {
@@ -425,7 +419,7 @@ function init_gear_sets()
         -- neck = { name = "Orunmila's Torque", priority = 5 },
         -- ear1 = { name = "Enchntr. Earring +1", priority = 1 },
         ear2 = { name = "Loquac. Earring", priority = 2 },
-        -- body = { name = "Rev. Surcoat +4", priority = 13 },
+        body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
         -- hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
@@ -437,7 +431,7 @@ function init_gear_sets()
         },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
-        -- feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
+        feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
 
     sets.precast.FC['Enhancing Magic'] = {
@@ -448,7 +442,7 @@ function init_gear_sets()
         -- neck = { name = "Orunmila's Torque", priority = 5 },
         -- ear1 = { name = "Enchntr. Earring +1", priority = 1 },
         ear2 = { name = "Loquac. Earring", priority = 2 },
-        -- body = { name = "Rev. Surcoat +4", priority = 13 },
+        body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
         -- hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
@@ -460,7 +454,7 @@ function init_gear_sets()
         },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
-        -- feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
+        feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
     sets.precast.FC['Enhancing Magic'].DT = sets.precast.FC['Enhancing Magic']
 
@@ -472,7 +466,7 @@ function init_gear_sets()
         -- neck = { name = "Orunmila's Torque", priority = 5 },
         -- ear1 = { name = "Enchntr. Earring +1", priority = 1 },
         ear2 = { name = "Loquac. Earring", priority = 2 },
-        -- body = { name = "Rev. Surcoat +4", priority = 13 },
+        body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
         -- hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
@@ -484,7 +478,7 @@ function init_gear_sets()
         },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
-        -- feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
+        feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
 
     -- Weaponskill sets
@@ -682,7 +676,7 @@ function init_gear_sets()
         back = gear.tank_back, -- Rudianos's Mantle
         -- waist = "Creed Baudrier",
         -- legs = gear.souv_legs, -- Souv. Diechlings +1
-        -- feet = gear.af3_feet, -- Chev. Sabatons +3
+        feet = gear.af3_feet, -- Chev. Sabatons +3
     }
     sets.precast.WS['Atonement'].Acc = set_combine(sets.precast.WS['Atonement'], {
         neck = "Null Loop",
@@ -866,8 +860,8 @@ function init_gear_sets()
         -- ring2 = "Gelatinous Ring +1",
         back = gear.tank_back, -- Rudianos's Mantle
         -- waist = "Asklepian Belt",
-        -- legs = gear.af3_legs, -- Chev. Cuisses +3
-        -- feet = gear.af3_feet, -- Chev. Sabatons +3
+        legs = gear.af3_legs, -- Chev. Cuisses +3
+        feet = gear.af3_feet, -- Chev. Sabatons +3
     }
     sets.midcast['Enlight II'] = sets.midcast.Enlight
 
@@ -901,7 +895,7 @@ function init_gear_sets()
         neck = "Moonlight Necklace",
         ear1 = gear.jse_ear2, -- Chev. Earring +1
         ear2 = "Mimir Earring",
-        -- body = gear.af3_body, -- Chev. Cuirass +3
+        body = gear.af3_body, -- Chev. Cuirass +3
         hands = gear.souv_hands,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Murky Ring",
@@ -962,12 +956,12 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
-        -- head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
+        head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         -- neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
         -- ear2 = { name = "Odnowa Earring +1", priority = 11 },
-        body = { name = "Adamantite Armor", priority = 13 },
-        -- hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
+        body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
+        hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         -- ring1 = { name = "Fortified Ring", priority = 5 },
         -- ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
@@ -977,15 +971,15 @@ function init_gear_sets()
             priority = 3,
         },
         waist = { name = "Null Belt", priority = 7 },
-        -- legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
-        -- feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
+        legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
+        feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
 
     sets.idle.Block = {
         main = gear.deacon_sword,
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
-        head = gear.chev_armet_fallback,
+        head = gear.af3_head,
         neck = gear.block_neck,
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
@@ -1021,7 +1015,7 @@ function init_gear_sets()
         main = "Sakpata's Sword",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
-        head = gear.chev_armet_fallback,
+        head = gear.af3_head,
         neck = "Warder's Charm +1",
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
@@ -1031,7 +1025,7 @@ function init_gear_sets()
         ring2 = gear.dt_ring2,
         back = gear.tank_back,
         waist = "Flume Belt +1",
-        legs = gear.chev_cuisses_fallback,
+        legs = gear.af3_legs,
         feet = gear.souv_feet
     }
 
@@ -1041,12 +1035,12 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
-        -- head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
+        head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         -- neck = { name = "Kgt. Beads +2", priority = 10 },
         -- ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
-        -- body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
-        -- hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
+        body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
+        hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         -- ring1 = { name = "Fortified Ring", priority = 5 },
         -- ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
@@ -1056,15 +1050,15 @@ function init_gear_sets()
             priority = 3,
         },
         -- waist = { name = "Asklepian Belt", priority = 7 },
-        -- legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
-        -- feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
+        legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
+        feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
 
     sets.idle.Refresh = {
         -- main = "Burtgang",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
-        -- head = gear.af3_head, -- Chev. Armet +3
+        head = gear.af3_head, -- Chev. Armet +3
         -- neck = "Coatl Gorget +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
@@ -1075,14 +1069,14 @@ function init_gear_sets()
         back = gear.tank_back, -- Rudianos's Mantle
         waist = "Plat. Mog. Belt",
         -- legs = "Carmine Cuisses +1",
-        -- feet = gear.af3_feet, -- Chev. Sabatons +3
+        feet = gear.af3_feet, -- Chev. Sabatons +3
     }
 
     sets.idle.Town = {
         -- main = "Burtgang",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
-        -- head = gear.af3_head, -- Chev. Armet +3
+        head = gear.af3_head, -- Chev. Armet +3
         -- neck = "Coatl Gorget +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
@@ -1093,7 +1087,7 @@ function init_gear_sets()
         back = gear.tank_back, -- Rudianos's Mantle
         waist = "Plat. Mog. Belt",
         -- legs = "Carmine Cuisses +1",
-        -- feet = gear.af3_feet, -- Chev. Sabatons +3
+        feet = gear.af3_feet, -- Chev. Sabatons +3
     }
 
     sets.Kiting = { ring2 = "Shneddick Ring" }
@@ -1111,7 +1105,7 @@ function init_gear_sets()
     -- Extra defense sets.  Apply these on top of melee or defense sets.
     sets.Knockback = {}
     sets.MP = {
-        head = gear.chev_armet_fallback,
+        head = gear.af3_head,
         neck = gear.idle_neck,
         hands = "Nyame Gauntlets",
         ear2 = "Ethereal Earring",
@@ -1120,7 +1114,7 @@ function init_gear_sets()
         feet = gear.rev_leggings_fallback
     }
     sets.passive.AbsorbMP = {
-        head = gear.chev_armet_fallback,
+        head = gear.af3_head,
         neck = gear.idle_neck,
         ear2 = "Ethereal Earring",
         waist = "Flume Belt +1",
@@ -1144,7 +1138,7 @@ function init_gear_sets()
         main = "Sakpata's Sword",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
-        head = gear.chev_armet_fallback,
+        head = gear.af3_head,
         neck = gear.block_neck,
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
@@ -1200,7 +1194,7 @@ function init_gear_sets()
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = gear.tank_back, -- Rudianos's Mantle
         waist = "Sailfi Belt +1",
-        -- legs = gear.af3_legs, -- Chev. Cuisses +3
+        legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = "Sakpata's Leggings"
     }
 
@@ -1226,12 +1220,12 @@ function init_gear_sets()
         -- main = "Malevolence",
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
-        -- head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
+        head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         -- neck = { name = "Kgt. Beads +2", priority = 10 },
         -- ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
-        -- body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
-        -- hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
+        body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
+        hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         -- ring1 = { name = "Fortified Ring", priority = 5 },
         -- ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
@@ -1241,8 +1235,8 @@ function init_gear_sets()
             priority = 3,
         },
         -- waist = { name = "Asklepian Belt", priority = 7 },
-        -- legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
-        -- feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
+        legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
+        feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
 
     sets.engaged.ExcaliburBlurred = set_combine(sets.engaged, {
@@ -1268,7 +1262,7 @@ function init_gear_sets()
         main = "Sakpata's Sword",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
-        head = gear.chev_armet_fallback,
+        head = gear.af3_head,
         neck = "Loricate Torque +1",
         ear1 = gear.block_ear1,
         ear2 = gear.block_ear2,
@@ -1278,7 +1272,7 @@ function init_gear_sets()
         ring2 = gear.dt_ring2,
         back = gear.tank_back,
         waist = "Flume Belt +1",
-        legs = gear.chev_cuisses_fallback,
+        legs = gear.af3_legs,
         feet = gear.souv_feet
     }
 
