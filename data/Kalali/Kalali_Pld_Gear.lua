@@ -980,6 +980,7 @@ function init_gear_sets()
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
     sets.midcast.Phalanx.DT = sets.midcast.Phalanx.SIRD
+
     sets.Phalanx_Received = {
         main = "Sakpata's Sword",
         hands = gear.souv_hands,
