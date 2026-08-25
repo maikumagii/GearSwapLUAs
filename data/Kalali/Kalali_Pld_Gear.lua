@@ -873,42 +873,6 @@ function init_gear_sets()
         feet = gear.souv_feet
     }
 
-    sets.HPDown = {
-        main = gear.deacon_sword,
-        sub = "Sacro Bulwark",
-        ammo = "Staunch Tathlum +1",
-        head = "Pixie Hairpin +1",
-        neck = "Loricate Torque +1",
-        ear1 = "Friomisi Earring",
-        ear2 = "Ethereal Earring",
-        body = "Nyame Mail",
-        hands = "Nyame Gauntlets",
-        ring1 = "Crepuscular Ring",
-        ring2 = "Mephitas's Ring +1",
-        back = "Null Shawl",
-        waist = "Plat. Mog. Belt",
-        legs = "Dashing Subligar",
-        feet = "Nyame Sollerets"
-    }
-
-    sets.HPCure = {
-        main = gear.deacon_sword,
-        sub = gear.srivatsa,
-        ammo = "Crepuscular Pebble",
-        head = gear.souv_head,
-        neck = "Hoxne Torque",
-        ear1 = "Mendi. Earring",
-        ear2 = "Etiolation Earring",
-        body = gear.souv_body,
-        hands = gear.enmity_hands,
-        ring1 = gear.enmity_ring1,
-        ring2 = gear.enmity_ring2,
-        back = gear.enmity_jse_back,
-        waist = "Flume Belt +1",
-        legs = gear.souv_legs,
-        feet = gear.souv_feet
-    }
-
     sets.Cure_Received = { hands = gear.souv_hands, feet = gear.souv_feet }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
     sets.Enhancing_Received = {}
@@ -1228,9 +1192,7 @@ function init_gear_sets()
     }
 
     sets.defense.PDT = sets.idle.PDT
-    sets.defense.PDT_HP = sets.defense.PDT
     sets.defense.MDT = sets.idle.MDT
-    sets.defense.MDT_HP = sets.defense.MDT
 
     sets.defense.MEVA = {
         main = "Sakpata's Sword",
@@ -1250,10 +1212,8 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.defense.MEVA_HP = sets.defense.MEVA
-
-    sets.defense.PDT_Reraise = set_combine(sets.defense.PDT_HP, sets.Twilight)
-    sets.defense.MDT_Reraise = set_combine(sets.defense.MDT_HP, sets.Twilight)
+    sets.defense.PDT_Reraise = set_combine(sets.defense.PDT, sets.Twilight)
+    sets.defense.MDT_Reraise = set_combine(sets.defense.MDT, sets.Twilight)
 
     --------------------------------------
     -- Engaged sets
