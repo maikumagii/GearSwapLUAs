@@ -12,7 +12,7 @@ function character_user_job_setup()
     state.WeaponSets:options('Default', 'Dual')
     weapon_sets = {
         ['Default'] = { 'Tizona', 'Naegling', 'None' },
-        ['Dual'] = { 'Tizbron', 'Tiztongue', 'MeleeClubs', 'Naegbron', 'Naegtongue' },
+        ['Dual'] = { 'Tizbron', 'Tiztongue', 'MeleeClubs', 'Naegbron', 'Naegtongue', 'None' },
     }
     default_weapons = 'Tizona'
     default_dual_weapons = 'Tizbron'
