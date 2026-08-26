@@ -341,14 +341,15 @@ function init_gear_sets()
 
     -- Gear to enhance certain classes of songs
     sets.midcast.Ballad = { legs = gear.af3_legs }
-    sets.midcast.Lullaby = { range = "Marsyas" }
-    sets.midcast.Lullaby.Resistant = { range = "Daurdabla" }
-    sets.midcast['Horde Lullaby'] = { range = "Marsyas" }
-    sets.midcast['Horde Lullaby'].Resistant = { range = "Daurdabla" }
-    sets.midcast['Horde Lullaby'].AoE = { range = "Daurdabla" }
-    sets.midcast['Horde Lullaby II'] = { range = "Marsyas" }
-    sets.midcast['Horde Lullaby II'].Resistant = { range = "Daurdabla" }
-    sets.midcast['Horde Lullaby II'].AoE = { range = "Daurdabla" }
+    sets.midcast.Lullaby = { hands = gear.af1_hands }
+    sets.midcast.Lullaby.Resistant = set_combine(sets.midcast.Lullaby, {})
+    sets.midcast.Lullaby.AoE = set_combine(sets.midcast.Lullaby, { range = "Daurdabla" })
+    sets.midcast['Horde Lullaby'] = sets.midcast.Lullaby
+    sets.midcast['Horde Lullaby'].Resistant = sets.midcast.Lullaby.Resistant
+    sets.midcast['Horde Lullaby'].AoE = sets.midcast.Lullaby.AoE
+    sets.midcast['Horde Lullaby II'] = sets.midcast.Lullaby
+    sets.midcast['Horde Lullaby II'].Resistant = sets.midcast.Lullaby.Resistant
+    sets.midcast['Horde Lullaby II'].AoE = sets.midcast.Lullaby.AoE
     sets.midcast.Madrigal = { head = gear.af3_head }
     sets.midcast.Paeon = {}
     sets.midcast.March = { hands = gear.af3_hands, }
@@ -356,9 +357,10 @@ function init_gear_sets()
     sets.midcast.Minuet = { body = gear.af3_body }
     sets.midcast.Minne = {}
     sets.midcast.Threnody = { body = "Mou. Manteel +1" --[[neck = "Elite Royal Collar"]] }
+    sets.midcast.Threnody.Resistant = set_combine(sets.midcast.Threnody, {})
     sets.midcast.Carol = { hands = "Mousai Gages +1" }
     sets.midcast["Sentinel's Scherzo"] = { feet = gear.af3_feet }
-    sets.midcast['Magic Finale'] = { range = "Daurdabla" }
+    sets.midcast['Magic Finale'] = {}
     sets.midcast.Mazurka = { range = "Marsyas" }
 
     -- For song buffs (duration and AF3 set bonus)
@@ -386,33 +388,8 @@ function init_gear_sets()
         sub = "Kali",
     } --Only weapons in this set. This set is overlayed onto  SongEffect
 
-    -- For song defbuffs (duration primary, accuracy secondary)
+    -- For song debuffs. Accuracy comes from MAcc, CHR, Singing, and the skill matching the equipped instrument.
     sets.midcast.SongDebuff = {
-        main = "Kali",
-        sub = "Ammurapi Shield",
-        range = "Marsyas",
-        ammo = empty,
-        head = "Inyanga Tiara +2",
-        neck = "Mnbw. Whistle +1",
-        ear1 = "Regal Earring",
-        ear2 = gear.jse_ear2,
-        body = gear.af3_body,
-        hands = "Inyan. Dastanas +2",
-        ring1 = "Metamorph Ring +1",
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.magic_jse_back,
-        waist = "Acuity Belt +1",
-        legs = "Inyanga Shalwar +2",
-        feet = gear.af1_feet
-    }
-
-    sets.midcast.SongDebuff.DW = {
-        main = "Kali",
-        sub = "Kali",
-    } --Only weapons in this set. This set is overlayed onto  SongDebuff
-
-    -- For song debuffs (accuracy primary, duration secondary)
-    sets.midcast.SongDebuff.Resistant = {
         main = "Daybreak",
         sub = "Ammurapi Shield",
         range = "Gjallarhorn",
@@ -420,16 +397,20 @@ function init_gear_sets()
         head = gear.af1_head,
         neck = "Mnbw. Whistle +1",
         ear1 = "Regal Earring",
-        ear2 = "Fili Earring +1",
+        ear2 = gear.jse_ear2,
         body = gear.af1_body,
         hands = gear.af1_hands,
         ring1 = "Metamorph Ring +1",
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.magic_jse_back,
-        waist = "Acuity Belt +1",
+        back = "Null Shawl",
+        waist = "Null Belt",
         legs = gear.af1_legs,
         feet = gear.af1_feet
     }
+
+    sets.midcast.SongDebuff.DW = {} -- Keep Ammurapi Shield for landing songs.
+    sets.midcast.SongDebuff.Resistant = set_combine(sets.midcast.SongDebuff, {})
+    sets.midcast.SongDebuff.AoE = set_combine(sets.midcast.SongDebuff, { range = "Daurdabla" })
 
     sets.midcast['Dark Magic'] = {
         main = "Daybreak",
