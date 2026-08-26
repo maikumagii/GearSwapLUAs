@@ -41,7 +41,7 @@ function character_user_job_setup()
 
     -- Relic Gear
     gear.af2_head = {}
-    gear.af2_body = "Bihu Jstcorps. +4"
+    gear.af2_body = "Bihu Just. +4"
     gear.af2_hands = {}
     gear.af2_legs = {}
     gear.af2_feet = "Bihu Slippers +1" --"Bihu Slippers +3"

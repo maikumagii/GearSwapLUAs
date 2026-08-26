@@ -1156,7 +1156,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Bihu Jstcorps. +4",
+        "name": "Bihu Just. +4",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:body",
           "data/Kalali/Kalali_Brd_Gear.lua:gear.af2_body"
