@@ -45,15 +45,7 @@ function character_user_job_setup()
         baetyl_pendant = "Baetyl Pendant",                   -- 1
         blenmots_ring_1 = "Blenmot's Ring +1",               -- 1
         burtgang = "Burtgang",                               -- 22
-        cab_breeches_3 = "Cab. Breeches +3",                 -- 1
-        cab_leggings_3 = "Cab. Leggings +3",                 -- 1
-        cab_surcoat_3 = "Cab. Surcoat +3",                   -- 2
         carmine_cuisses_1 = "Carmine Cuisses +1",            -- 2
-        chev_armet_3 = "Chev. Armet +3",                     -- 5
-        chev_cuirass_3 = "Chev. Cuirass +3",                 -- 4
-        chev_cuisses_3 = "Chev. Cuisses +3",                 -- 5
-        chev_gauntlets_3 = "Chev. Gauntlets +3",             -- 3
-        chev_sabatons_3 = "Chev. Sabatons +3",               -- 13
         coatl_gorget_1 = "Coatl Gorget +1",                  -- 2
         cornelias_ring = "Cornelia's Ring",                  -- 3
         creed_baudrier = "Creed Baudrier",                   -- 3
@@ -62,7 +54,6 @@ function character_user_job_setup()
         eschite_gauntlets = "Eschite Gauntlets",             -- 1
         fenian_ring = "Fenian Ring",                         -- 1
         fortified_ring = "Fortified Ring",                   -- 4
-        founders_hose = "Founder's Hose",                    -- 5
         gelatinous_ring_1 = "Gelatinous Ring +1",            -- 10
         jumalik_helm = "Jumalik Helm",                       -- 1
         jumalik_mail = "Jumalik Mail",                       -- 2
@@ -82,7 +73,6 @@ function character_user_job_setup()
         rev_surcoat_4 = "Rev. Surcoat +4",                   -- 4
         sacro_gorget = "Sacro Gorget",                       -- 2
         sapience_orb = "Sapience Orb",                       -- 6
-        save_the_queen_iii = "Save the Queen III",           -- 1
         shab_cuirass_1 = "Shab. Cuirass +1",                 -- 2
         souv_diechlings_1 = "Souv. Diechlings +1",           -- 2
         souveran_schuhs_1 = "Souveran Schuhs +1",            -- 1
@@ -101,7 +91,7 @@ function character_user_job_setup()
     -- Relic Gear
     gear.af2_head = "Cab. Coronet +3"
     gear.af2_body = "Cab. Surcoat +1" -- Cab. Surcoat +4
-    gear.af2_hands = "Cab. Gauntlets +3"
+    gear.af2_hands = "Cab. Gauntlets +4"
     gear.af2_legs = "Cab. Breeches +1" -- Cab. Breeches +4
     gear.af2_feet = "Cab. Leggings +1" -- Cab. Leggings +3
 
@@ -242,7 +232,7 @@ function init_gear_sets()
             priority = 3,
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
-        -- legs = { name = "Founder's Hose", priority = 2 },
+        legs = { name = "Founder's Hose", priority = 2 },
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' }, priority = 4 }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
@@ -282,7 +272,6 @@ function init_gear_sets()
         feet = gear.af3_feet, -- Chev. Sabatons +3
     }
     sets.precast.JA['Cover'] = {
-        -- main = "Save the Queen III",
         -- head = gear.af1_head, -- Rev. Coronet +3
         body = gear.af2_body,
     }
@@ -715,7 +704,7 @@ function init_gear_sets()
         ring2 = "Murky Ring", -- Defending Ring
         back = gear.tank_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
-        -- legs = "Founder's Hose",
+        legs = "Founder's Hose",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
@@ -733,7 +722,7 @@ function init_gear_sets()
         ring2 = "Murky Ring", -- Defending Ring
         back = gear.tank_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
-        -- legs = "Founder's Hose",
+        legs = "Founder's Hose",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
@@ -787,7 +776,7 @@ function init_gear_sets()
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
-        -- legs = "Founder's Hose",
+        legs = "Founder's Hose",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
@@ -805,7 +794,7 @@ function init_gear_sets()
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
-        -- legs = "Founder's Hose",
+        legs = "Founder's Hose",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 

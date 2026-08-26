@@ -64,7 +64,7 @@ function character_user_job_setup()
     -- Relic Gear
     gear.af2_head = "Lanun Tricorne +3"
     gear.af2_body = "Lanun Frac +4"
-    gear.af2_hands = "Lanun Gants +3"
+    gear.af2_hands = "Lanun Gants +4"
     gear.af2_legs = "" -- "Lanun Trews +1"
     gear.af2_feet = "Lanun Bottes +4"
 
@@ -116,7 +116,7 @@ function init_gear_sets()
     sets.precast.JA['Wild Card'] = { feet = gear.af2_feet }
     sets.precast.JA['Random Deal'] = { body = gear.af2_body }
     sets.precast.JA['Double Up'] = {}
-    sets.precast.FoldDoubleBust = { hands = gear.af3_hands } --hands="Lanun Gants +3"
+    sets.precast.FoldDoubleBust = { hands = gear.af2_hands }
 
     local roll_neck = item_available("Regal Necklace") and "Regal Necklace" or gear.jse_neck
 

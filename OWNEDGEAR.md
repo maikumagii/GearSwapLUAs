@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 459,
+  "total_slot_entries": 460,
   "slots": {
     "main": [
       {
@@ -1540,7 +1540,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Cab. Gauntlets +3",
+        "name": "Cab. Gauntlets +4",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_hands",
           "data/Kalali/Kalali_Pld_Gear.lua:hands",
@@ -1638,7 +1638,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Lanun Gants +3",
+        "name": "Lanun Gants +4",
         "sources": [
           "data/Kalali/Kalali_Cor_Gear.lua:gear.af2_hands",
           "data/Kalali/Kalali_Cor_Gear.lua:hands"
@@ -1911,6 +1911,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Desultor Tassets",
         "sources": [
           "data/Kalali/Kalali_Cor_Gear.lua:legs"
+        ]
+      },
+      {
+        "name": "Founder's Hose",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:legs"
         ]
       },
       {
