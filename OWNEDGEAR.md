@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 453,
+  "total_slot_entries": 459,
   "slots": {
     "main": [
       {
@@ -2600,6 +2600,18 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Audumbla Sash",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:waist"
+        ]
+      },
+      {
+        "name": "Carrier's Sash",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:waist"
+        ]
+      },
+      {
         "name": "Chaac Belt",
         "sources": [
           "data/Kalali/Kalali-Items.lua:waist"
@@ -3037,6 +3049,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Moonlight Cape",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:back"
+        ]
+      },
+      {
         "name": "Lugh's Cape",
         "augments": [
           "INT+20",
@@ -3353,6 +3371,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Cryptic Earring",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.cryptic_earring",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
         "name": "Dedition Earring",
         "copies": 1,
         "sources": [
@@ -3392,6 +3417,19 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Pup_Gear.lua:ear1",
           "data/Kalali/Kalali_Rdm_Gear.lua:ear1",
           "data/Kalali/Kalali_Sch_Gear.lua:ear1",
+          "data/Kalali/Kalali_Smn_Gear.lua:ear1",
+          "data/Kalali/Kalali_War_Gear.lua:ear1"
+        ]
+      },
+      {
+        "name": "Enchntr. Earring +1",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:ear1",
+          "data/Kalali/Kalali_Brd_Gear.lua:ear1",
+          "data/Kalali/Kalali_Cor_Gear.lua:ear1",
+          "data/Kalali/Kalali_Pld_Gear.lua:ear1",
+          "data/Kalali/Kalali_Pup_Gear.lua:ear1",
           "data/Kalali/Kalali_Smn_Gear.lua:ear1",
           "data/Kalali/Kalali_War_Gear.lua:ear1"
         ]
@@ -3457,6 +3495,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Pup_Gear.lua:ear2",
           "data/Kalali/Kalali_Pup_Gear.lua:gear.crepuscular_earring",
           "data/Kalali/Kalali_Pup_Gear.lua:gear.jse_ear2"
+        ]
+      },
+      {
+        "name": "Knightly Earring",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ear1"
         ]
       },
       {
@@ -3894,6 +3939,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Blu_Gear.lua:ring1",
           "data/Kalali/Kalali_Brd_Gear.lua:ring1",
           "data/Kalali/Kalali_Cor_Gear.lua:ring1",
+          "data/Kalali/Kalali_Pld_Gear.lua:ring1",
+          "data/Kalali/Kalali_Pld_Gear.lua:ring2",
           "data/Kalali/Kalali_Pup_Gear.lua:ring1",
           "data/Kalali/Kalali_Rdm_Gear.lua:ring1",
           "data/Kalali/Kalali_Sch_Gear.lua:ring1",

@@ -104,7 +104,7 @@ function init_gear_sets()
         ammo = "Impatiens",
         head = gear.carmine_mask_d,
         neck = "Voltsurge Torque",
-        ear1 = "Etiolation Earring",
+        ear1 = "Enchntr. Earring +1",
         ear2 = "Loquac. Earring",
         body = "Sworn Platemail",
         ring1 = "Kishar Ring",

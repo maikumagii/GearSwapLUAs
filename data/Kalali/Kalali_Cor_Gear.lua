@@ -243,7 +243,7 @@ function init_gear_sets()
 
     -- Fast cast sets for spells
 
-    sets.precast.FC = { head = gear.carmine_mask_d }
+    sets.precast.FC = { head = gear.carmine_mask_d, ear1 = "Enchntr. Earring +1" }
     sets.precast.FC['Absorb-TP'] = set_combine(sets.precast.FC, {})
 
     sets.precast.FC.Cure = set_combine(sets.precast.FC, { ear2 = "Mendi. Earring" })

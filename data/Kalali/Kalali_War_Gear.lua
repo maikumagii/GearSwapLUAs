@@ -153,7 +153,7 @@ function init_gear_sets()
     sets.precast.Step = {}
     sets.precast.Flourish1 = {}
 
-    sets.precast.FC = {}
+    sets.precast.FC = { ear1 = "Enchntr. Earring +1" }
     sets.precast.FC.Utsusemi = set_combine(sets.precast.FC, {})
 
     sets.midcast.FastRecast = {}

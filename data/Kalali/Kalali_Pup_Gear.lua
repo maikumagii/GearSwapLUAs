@@ -145,7 +145,7 @@ function init_gear_sets()
     sets.precast.FC = {
         ammo = "Impatiens",
         neck = "Voltsurge Torque",
-        ear1 = "Etiolation Earring",
+        ear1 = "Enchntr. Earring +1",
         ear2 = "Loquac. Earring",
         ring1 = "Prolix Ring",
         ring2 = "Lebeche Ring",
