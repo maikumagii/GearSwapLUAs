@@ -31,7 +31,7 @@ function character_user_job_setup()
     }
     gear.phalanx_jse_back = {
         name = "Weard Mantle",
-        augments = { 'DEX+2', 'VIT+2', 'Enmity+4', '"Phalanx" received +4' }
+        augments = { 'DEX+2', 'VIT+4', '"Phalanx" received +5' }
     }
     gear.fastcast_jse_back = "Null Shawl"              -- Rudianos's Mantle: INT+20, Eva./MEVA, Fast Cast+10
     gear.enmity_jse_back = gear.rudianos_enmity_block_back

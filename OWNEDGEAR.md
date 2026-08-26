@@ -3184,9 +3184,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Weard Mantle",
         "augments": [
           "DEX+2",
-          "VIT+2",
-          "Enmity+4",
-          "\"Phalanx\" received +4"
+          "VIT+4",
+          "\"Phalanx\" received +5"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:back",
