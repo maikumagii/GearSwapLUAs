@@ -759,6 +759,24 @@ function init_gear_sets()
         feet = gear.souv_feet
     }
 
+    sets.HPDown = {
+        main = "Sakpata's Sword",
+        sub = "Duban",
+        ammo = "Staunch Tathlum +1",
+        head = "Nyame Helm",
+        neck = "Loricate Torque +1",
+        ear1 = "Etiolation Earring",
+        ear2 = "Sanare Earring",
+        body = "Sakpata's Plate",
+        hands = "Sakpata's Gauntlets",
+        ring1 = "Murky Ring",
+        ring2 = "Shadow Ring",
+        back = gear.tank_back,
+        waist = "Carrier's Sash",
+        legs = "Sakpata's Cuisses",
+        feet = "Sakpata's Leggings"
+    }
+
     sets.Self_Healing = {
         -- main = "Burtgang",
         sub = "Duban",
@@ -811,6 +829,24 @@ function init_gear_sets()
         waist = "Flume Belt +1",
         legs = gear.souv_legs,
         feet = gear.souv_feet
+    }
+
+    sets.HPCure = {
+        -- main = "Burtgang",
+        sub = "Duban",
+        ammo = "Staunch Tathlum +1",
+        head = gear.souv_head,
+        -- neck = "Unmoving Collar +1",
+        -- ear1 = "Tuisto Earring",
+        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        body = gear.souv_body,
+        hands = gear.souv_hands,
+        -- ring1 = "Gelatinous Ring +1",
+        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
+        back = "Moonlight Cape",
+        waist = "Plat. Mog. Belt",
+        legs = "Founder's Hose",
+        feet = gear.souv_feet,
     }
 
     sets.Cure_Received = { hands = gear.souv_hands, feet = gear.souv_feet }
