@@ -57,7 +57,6 @@ function character_user_job_setup()
         gelatinous_ring_1 = "Gelatinous Ring +1",            -- 10
         jumalik_helm = "Jumalik Helm",                       -- 1
         jumalik_mail = "Jumalik Mail",                       -- 2
-        kgt_beads_2 = "Kgt. Beads +2",                       -- 4
         leyline_gloves = "Leyline Gloves",                   -- 4
         loess_barbuta_1 = "Loess Barbuta +1",                -- 3
         malevolence = "Malevolence",                         -- 2
@@ -74,8 +73,6 @@ function character_user_job_setup()
         sacro_gorget = "Sacro Gorget",                       -- 2
         sapience_orb = "Sapience Orb",                       -- 6
         shab_cuirass_1 = "Shab. Cuirass +1",                 -- 2
-        souv_diechlings_1 = "Souv. Diechlings +1",           -- 2
-        souveran_schuhs_1 = "Souveran Schuhs +1",            -- 1
         trux_earring = "Trux Earring",                       -- 3
         tuisto_earring = "Tuisto Earring",                   -- 6
         unmoving_collar_1 = "Unmoving Collar +1",            -- 4
@@ -93,7 +90,7 @@ function character_user_job_setup()
     gear.af2_body = "Cab. Surcoat +1" -- Cab. Surcoat +4
     gear.af2_hands = "Cab. Gauntlets +4"
     gear.af2_legs = "Cab. Breeches +1" -- Cab. Breeches +4
-    gear.af2_feet = "Cab. Leggings +1" -- Cab. Leggings +3
+    gear.af2_feet = "Cab. Leggings +3"
 
 
     -- Empy Gear
@@ -117,14 +114,14 @@ function character_user_job_setup()
     gear.enhancing_body = "Nyame Mail"                                  -- Shab. Cuirass +1
     gear.enhancing_hands = "Nyame Gauntlets"                            -- Regal Gauntlets
     gear.enhancing_back = "Null Shawl"                                  -- Merciful Cape
-    gear.souv_head = { name = "Souv. Schaller +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', } } -- Path C
-    gear.souv_body = { name = "Souv. Cuirass +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', } }  -- Path C
-    gear.souv_hands_c = { name = "Souv. Handsch. +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', } }
-    gear.souv_hands_d = { name = "Souv. Handsch. +1", augments = { 'HP+65', 'Shield Skill +15', 'Physical Damage Taken-4%', } }
+    gear.souv_head = { name = "Souv. Schaller +1", augments = { 'Path: C' } }
+    gear.souv_body = { name = "Souv. Cuirass +1", augments = { 'Path: C' } }
+    gear.souv_hands_c = { name = "Souv. Handsch. +1", augments = { 'Path: C' } }
+    gear.souv_hands_d = { name = "Souv. Handsch. +1", augments = { 'Path: D' } }
     gear.souv_hands = gear.souv_hands_c
     gear.souv_block_hands = gear.souv_hands_d
-    gear.souv_legs = "Nyame Flanchard"                                  -- Souv. Diechlings +1
-    gear.souv_feet = "Nyame Sollerets"                                  -- Souveran Schuhs +1
+    gear.souv_legs = { name = "Souv. Diechlings +1", augments = { 'Path: C' } }
+    gear.souv_feet = { name = "Souveran Schuhs +1", augments = { 'Path: C' } }
     gear.enmity_head = "Nyame Helm"                                     -- Loess Barbuta +1
     gear.enmity_hands = "Sakpata's Gauntlets"                           -- Macabre Gaunt. +1
     gear.enmity_feet = "Nyame Sollerets"                                -- Eschite Greaves
@@ -198,8 +195,8 @@ function init_gear_sets()
         neck = { name = "Moonlight Necklace", priority = 7 },
         -- ear1 = { name = "Trux Earring", priority = 10 },
         ear2 = { name = gear.cryptic_earring, priority = 12 },
-        body = { name = "Souv. Cuirass +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', }, priority = 1 },
-        hands = { name = "Souv. Handsch. +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', }, priority = 13 },
+        body = { name = "Souv. Cuirass +1", augments = { 'Path: C' }, priority = 1 },
+        hands = { name = "Souv. Handsch. +1", augments = { 'Path: C' }, priority = 13 },
         -- ring1 = { name = "Apeile Ring +1", priority = 6 },
         -- ring2 = { name = "Apeile Ring", priority = 5 },
         back = {
@@ -209,7 +206,7 @@ function init_gear_sets()
             priority = 3,
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
-        -- legs = { name = gear.souv_legs, priority = 2 }, -- Souv. Diechlings +1
+        legs = { name = "Souv. Diechlings +1", augments = { 'Path: C' }, priority = 2 },
         feet = { name = gear.af3_feet, priority = 4 }, -- Chev. Sabatons +3
     }
 
@@ -222,7 +219,7 @@ function init_gear_sets()
         -- ear1 = { name = "Odnowa Earring +1", priority = 12 },
         -- ear2 = { name = "Trux Earring", priority = 10 },
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
-        hands = { name = "Souv. Handsch. +1", augments = { 'HP+105', 'Enmity+9', '"Cure" effect received +15%', }, priority = 13 },
+        hands = { name = "Souv. Handsch. +1", augments = { 'Path: C' }, priority = 13 },
         -- ring1 = { name = "Apeile Ring +1", priority = 6 },
         -- ring2 = { name = "Gelatinous Ring +1", priority = 5 },
         back = {
@@ -529,7 +526,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Crepuscular Pebble",
         head = "Nyame Helm",
-        -- neck = "Kgt. Beads +2",
+        neck = "Kgt. Beads +2",
         -- ear1 = "Tuisto Earring",
         ear2 = "Thrud Earring",
         body = "Nyame Mail",
@@ -657,7 +654,7 @@ function init_gear_sets()
         -- ring2 = "Apeile Ring",
         back = gear.tank_back, -- Rudianos's Mantle
         -- waist = "Creed Baudrier",
-        -- legs = gear.souv_legs, -- Souv. Diechlings +1
+        legs = gear.souv_legs, -- Souv. Diechlings +1
         feet = gear.af3_feet, -- Chev. Sabatons +3
     }
     sets.precast.WS['Atonement'].Acc = set_combine(sets.precast.WS['Atonement'], {
@@ -867,7 +864,7 @@ function init_gear_sets()
         back = "Weard Mantle",
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
-        -- feet = "Souveran Schuhs +1",
+        feet = gear.souv_feet,
     }
     sets.midcast.Phalanx.SIRD = {
         -- main = "Burtgang",
@@ -939,7 +936,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
-        -- neck = { name = "Kgt. Beads +2", priority = 10 },
+        neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
         -- ear2 = { name = "Odnowa Earring +1", priority = 11 },
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
@@ -1018,7 +1015,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
-        -- neck = { name = "Kgt. Beads +2", priority = 10 },
+        neck = { name = "Kgt. Beads +2", priority = 10 },
         -- ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
@@ -1203,7 +1200,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
-        -- neck = { name = "Kgt. Beads +2", priority = 10 },
+        neck = { name = "Kgt. Beads +2", priority = 10 },
         -- ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3

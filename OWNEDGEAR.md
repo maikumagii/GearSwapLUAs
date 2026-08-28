@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 460,
+  "total_slot_entries": 463,
   "slots": {
     "main": [
       {
@@ -964,7 +964,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Lanun Tricorne +3",
+        "name": "Lanun Tricorne +4",
         "sources": [
           "data/Kalali/Kalali_Cor_Gear.lua:gear.af2_head",
           "data/Kalali/Kalali_Cor_Gear.lua:head"
@@ -1043,9 +1043,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Schaller +1",
         "augments": [
-          "HP+105",
-          "Enmity+9",
-          "\"Cure\" effect received +15%"
+          "Path: C"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_head"
@@ -1414,9 +1412,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Cuirass +1",
         "augments": [
-          "HP+105",
-          "Enmity+9",
-          "\"Cure\" effect received +15%"
+          "Path: C"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_body"
@@ -1738,9 +1734,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Handsch. +1",
         "augments": [
-          "HP+105",
-          "Enmity+9",
-          "\"Cure\" effect received +15%"
+          "Path: C"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_c",
@@ -1750,9 +1744,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Handsch. +1",
         "augments": [
-          "HP+65",
-          "Shield Skill +15",
-          "Physical Damage Taken-4%"
+          "Path: D"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_d",
@@ -2042,6 +2034,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Souv. Diechlings +1",
+        "augments": [
+          "Path: C"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_legs",
+          "data/Kalali/Kalali_Pld_Gear.lua:legs"
+        ]
+      },
+      {
         "name": "Shedir Seraweels",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:legs",
@@ -2148,7 +2150,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Cab. Leggings +1",
+        "name": "Cab. Leggings +3",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af2_feet",
           "data/Kalali/Kalali_Pld_Gear.lua:feet",
@@ -2308,6 +2310,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Souveran Schuhs +1",
+        "augments": [
+          "Path: C"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_feet",
+          "data/Kalali/Kalali_Pld_Gear.lua:feet"
+        ]
+      },
+      {
         "name": "Sworn Sabatons",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:feet",
@@ -2441,6 +2453,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Cor_Gear.lua:neck",
           "data/Kalali/Kalali_Pup_Gear.lua:neck",
           "data/Kalali/Kalali_War_Gear.lua:neck"
+        ]
+      },
+      {
+        "name": "Kgt. Beads +2",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:neck"
         ]
       },
       {
