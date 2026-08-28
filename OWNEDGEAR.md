@@ -1043,7 +1043,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Schaller +1",
         "augments": [
-          "Path: C"
+          "HP+105",
+          "Enmity+9",
+          "Potency of \"Cure\" effect received +15%"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_head"
@@ -1412,7 +1414,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Cuirass +1",
         "augments": [
-          "Path: C"
+          "HP+105",
+          "Enmity+9",
+          "Potency of \"Cure\" effect received +15%"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_body"
@@ -1734,7 +1738,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Handsch. +1",
         "augments": [
-          "Path: C"
+          "HP+105",
+          "Enmity+9",
+          "Potency of \"Cure\" effect received +15%"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_c",
@@ -1744,7 +1750,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Handsch. +1",
         "augments": [
-          "Path: D"
+          "HP+65",
+          "Shield skill +15",
+          "Phys. dmg. taken -4"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_d",
@@ -2036,7 +2044,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souv. Diechlings +1",
         "augments": [
-          "Path: C"
+          "HP+105",
+          "Enmity+9",
+          "Potency of \"Cure\" effect received +15%"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_legs",
@@ -2312,7 +2322,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Souveran Schuhs +1",
         "augments": [
-          "Path: C"
+          "HP+105",
+          "Enmity+9",
+          "Potency of \"Cure\" effect received +15%"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_feet",
@@ -3201,9 +3213,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Weard Mantle",
         "augments": [
-          "DEX+2",
           "VIT+4",
-          "\"Phalanx\" received +5"
+          "DEX+2",
+          "Phalanx +5"
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:back",

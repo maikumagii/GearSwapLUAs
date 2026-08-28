@@ -31,7 +31,7 @@ function character_user_job_setup()
     }
     gear.phalanx_jse_back = {
         name = "Weard Mantle",
-        augments = { 'DEX+2', 'VIT+4', '"Phalanx" received +5' }
+        augments = { 'VIT+4', 'DEX+2', 'Phalanx +5' }
     }
     gear.fastcast_jse_back = "Null Shawl"              -- Rudianos's Mantle: INT+20, Eva./MEVA, Fast Cast+10
     gear.enmity_jse_back = gear.rudianos_enmity_block_back
@@ -114,14 +114,32 @@ function character_user_job_setup()
     gear.enhancing_body = "Nyame Mail"                                  -- Shab. Cuirass +1
     gear.enhancing_hands = "Nyame Gauntlets"                            -- Regal Gauntlets
     gear.enhancing_back = "Null Shawl"                                  -- Merciful Cape
-    gear.souv_head = { name = "Souv. Schaller +1", augments = { 'Path: C' } }
-    gear.souv_body = { name = "Souv. Cuirass +1", augments = { 'Path: C' } }
-    gear.souv_hands_c = { name = "Souv. Handsch. +1", augments = { 'Path: C' } }
-    gear.souv_hands_d = { name = "Souv. Handsch. +1", augments = { 'Path: D' } }
+    gear.souv_head = {
+        name = "Souv. Schaller +1",
+        augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
+    }
+    gear.souv_body = {
+        name = "Souv. Cuirass +1",
+        augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
+    }
+    gear.souv_hands_c = {
+        name = "Souv. Handsch. +1",
+        augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
+    }
+    gear.souv_hands_d = {
+        name = "Souv. Handsch. +1",
+        augments = { 'HP+65', 'Shield skill +15', 'Phys. dmg. taken -4' }
+    }
     gear.souv_hands = gear.souv_hands_c
     gear.souv_block_hands = gear.souv_hands_d
-    gear.souv_legs = { name = "Souv. Diechlings +1", augments = { 'Path: C' } }
-    gear.souv_feet = { name = "Souveran Schuhs +1", augments = { 'Path: C' } }
+    gear.souv_legs = {
+        name = "Souv. Diechlings +1",
+        augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
+    }
+    gear.souv_feet = {
+        name = "Souveran Schuhs +1",
+        augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
+    }
     gear.enmity_head = "Nyame Helm"                                     -- Loess Barbuta +1
     gear.enmity_hands = "Sakpata's Gauntlets"                           -- Macabre Gaunt. +1
     gear.enmity_feet = "Nyame Sollerets"                                -- Eschite Greaves
@@ -195,8 +213,16 @@ function init_gear_sets()
         neck = { name = "Moonlight Necklace", priority = 7 },
         -- ear1 = { name = "Trux Earring", priority = 10 },
         ear2 = { name = gear.cryptic_earring, priority = 12 },
-        body = { name = "Souv. Cuirass +1", augments = { 'Path: C' }, priority = 1 },
-        hands = { name = "Souv. Handsch. +1", augments = { 'Path: C' }, priority = 13 },
+        body = {
+            name = "Souv. Cuirass +1",
+            augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
+            priority = 1
+        },
+        hands = {
+            name = "Souv. Handsch. +1",
+            augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
+            priority = 13
+        },
         -- ring1 = { name = "Apeile Ring +1", priority = 6 },
         -- ring2 = { name = "Apeile Ring", priority = 5 },
         back = {
@@ -206,7 +232,11 @@ function init_gear_sets()
             priority = 3,
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
-        legs = { name = "Souv. Diechlings +1", augments = { 'Path: C' }, priority = 2 },
+        legs = {
+            name = "Souv. Diechlings +1",
+            augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
+            priority = 2
+        },
         feet = { name = gear.af3_feet, priority = 4 }, -- Chev. Sabatons +3
     }
 
@@ -219,7 +249,11 @@ function init_gear_sets()
         -- ear1 = { name = "Odnowa Earring +1", priority = 12 },
         -- ear2 = { name = "Trux Earring", priority = 10 },
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
-        hands = { name = "Souv. Handsch. +1", augments = { 'Path: C' }, priority = 13 },
+        hands = {
+            name = "Souv. Handsch. +1",
+            augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
+            priority = 13
+        },
         -- ring1 = { name = "Apeile Ring +1", priority = 6 },
         -- ring2 = { name = "Gelatinous Ring +1", priority = 5 },
         back = {
