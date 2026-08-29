@@ -99,20 +99,6 @@ function character_user_job_setup()
     gear.af3_legs = "Chev. Cuisses +1"
     gear.af3_feet = "Chev. Sabatons +1"
 
-    -- Owned fallbacks for older PLD set pieces.
-    gear.rev_leggings_fallback = "Nyame Sollerets"       -- Rev. Leggings +3
-    gear.deacon_sword = "Sakpata's Sword"                               -- Deacon Sword
-    -- No owned PLD-legal club is tracked yet; Mafic Cudgel remains the target.
-    gear.srivatsa = "Srivatsa"
-    gear.fc_shield = "Sacro Bulwark"                                    -- Chanter's Shield
-    gear.fc_head = "Nyame Helm"                                         -- Carmine Mask +1
-    gear.fc_hands = "Nyame Gauntlets"                                   -- Leyline Gloves
-    gear.fc_legs = "Nyame Flanchard"                                    -- Odyssean FC legs
-    gear.fc_feet = "Nyame Sollerets"                                    -- Odyssean Greaves
-    gear.enhancing_main = "Sakpata's Sword"                             -- Colada
-    gear.enhancing_body = "Nyame Mail"                                  -- Shab. Cuirass +1
-    gear.enhancing_hands = "Nyame Gauntlets"                            -- Regal Gauntlets
-    gear.enhancing_back = "Null Shawl"                                  -- Merciful Cape
     gear.souv_head = {
         name = "Souv. Schaller +1",
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
@@ -129,8 +115,6 @@ function character_user_job_setup()
         name = "Souv. Handsch. +1",
         augments = { 'HP+65', 'Shield skill +15', 'Phys. dmg. taken -4' }
     }
-    gear.souv_hands = gear.souv_hands_c
-    gear.souv_block_hands = gear.souv_hands_d
     gear.souv_legs = {
         name = "Souv. Diechlings +1",
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
@@ -139,44 +123,6 @@ function character_user_job_setup()
         name = "Souveran Schuhs +1",
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
     }
-    gear.enmity_head = "Nyame Helm"                                     -- Loess Barbuta +1
-    gear.enmity_hands = "Sakpata's Gauntlets"                           -- Macabre Gaunt. +1
-    gear.enmity_feet = "Nyame Sollerets"                                -- Eschite Greaves
-    gear.enmity_neck = "Moonlight Necklace"
-    gear.elite_royal_collar = "Elite Royal Collar"
-    gear.dt_neck = "Loricate Torque +1"                                 -- Unmoving Collar +1
-    gear.block_neck = "Loricate Torque +1"                              -- Diemer Gorget
-    gear.idle_neck = "Loricate Torque +1"                               -- Coatl Gorget +1
-    gear.enmity_ear2 = gear.jse_ear2                                    -- Trux Earring
-    gear.cryptic_earring = "Cryptic Earring"
-    gear.dt_ear1 = "Etiolation Earring"                                 -- Odnowa Earring +1
-    gear.dt_ear2 = "Sanare Earring"                                     -- Tuisto Earring
-    gear.block_ear1 = "Ethereal Earring"                                -- Creed Earring
-    gear.block_ear2 = "Sanare Earring"                                  -- Thureous Earring
-    gear.acc_ear1 = "Crep. Earring"                                     -- Mache Earring +1
-    gear.macc_ear1 = "Crep. Earring"                                    -- Gwati Earring
-    gear.macc_ear2 = "Alabaster Earring"                                -- Digni. Earring
-    gear.enmity_ring1 = { name = "Moonlight Ring", bag = "Wardrobe" }   -- Apeile Ring +1
-    gear.enmity_ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" } -- Apeile Ring
-    gear.dt_ring1 = { name = "Moonlight Ring", bag = "Wardrobe" }       -- Gelatinous Ring +1
-    gear.dt_ring2 = "Shadow Ring"                                       -- Warden's Ring / Shadow Ring
-    gear.ws_ring1 = "Sroda Ring"                                        -- Regal Ring
-    gear.ws_ring2 = gear.tvr_ring                                   -- Rufescent Ring
-    gear.tp_ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" }      -- Flamma Ring / Ramuh Ring +1
-    gear.tp_ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" }    -- Petrov Ring / Ramuh Ring +1 / Patricius Ring
-    gear.waltz_ring1 = "Menelaus's Ring"                                -- Asklepian Ring
-    gear.waltz_ring2 = "Naji's Loop"                                    -- Valseur's Ring
-    gear.valorous_wsd_body = "Nyame Mail"                               -- Valorous Mail WSD
-    gear.odyssean_wsd_hands = "Nyame Gauntlets"                         -- Odyssean Gauntlets WSD
-    gear.odyssean_fc_legs = gear.fc_legs
-    gear.ws_back = "Null Shawl"           -- Bleating Mantle / Ground. Mantle +1 / Toro Cape
-    gear.tank_back = gear.rudianos_enmity_block_back
-    gear.carmine_legs = "Nyame Flanchard" -- Carmine Cuisses +1
-    gear.carmine_feet = "Nyame Sollerets" -- Carmine Greaves +1 / Hippo. Socks +1
-    gear.sulevia_legs = "Nyame Flanchard" -- Sulev. Cuisses +2
-    gear.sulevia_feet = "Nyame Sollerets" -- Sulev. Leggings +2
-    gear.reraise_head = "Nyame Helm"      -- Twilight Helm
-    gear.reraise_body = "Adamantite Armor" -- Twilight Mail
 
     -- Additional local binds
     send_command('bind !` gs c SubJobEnmity')
@@ -211,7 +157,7 @@ function init_gear_sets()
         -- head = { name = "Loess Barbuta +1", priority = 11 },
         neck = { name = "Moonlight Necklace", priority = 7 },
         -- ear1 = { name = "Trux Earring", priority = 10 },
-        ear2 = { name = gear.cryptic_earring, priority = 12 },
+        ear2 = { name = "Cryptic Earring", priority = 12 },
         body = {
             name = "Souv. Cuirass +1",
             augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
@@ -313,14 +259,14 @@ function init_gear_sets()
     sets.precast.Waltz = {
         ammo = "Aurgelmir Orb +1",
         head = "Nyame Helm",
-        neck = gear.dt_neck,
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
+        neck = "Loricate Torque +1",
+        ear1 = "Etiolation Earring",
+        ear2 = "Sanare Earring",
         body = gear.af1_body,
-        hands = gear.enhancing_hands,
-        ring1 = gear.waltz_ring1,
-        ring2 = gear.waltz_ring2,
-        back = gear.tank_back,
+        hands = "Nyame Gauntlets",
+        ring1 = "Menelaus's Ring",
+        ring2 = "Naji's Loop",
+        back = gear.rudianos_enmity_block_back,
         waist = "Gishdubar Sash",
         legs = "Dashing Subligar",
         feet = "Nyame Sollerets"
@@ -333,13 +279,13 @@ function init_gear_sets()
         ammo = "Aurgelmir Orb +1",
         head = "Flam. Zucchetto +2",
         neck = "Null Loop",
-        ear1 = gear.acc_ear1,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Flamma Korazin +2",
         hands = "Flam. Manopolas +2",
-        ring1 = gear.tp_ring1,
-        ring2 = gear.tp_ring2,
-        back = gear.ws_back,
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = gear.fastcast_jse_back,
         waist = "Null Belt",
         legs = "Flamma Dirs +2",
         feet = "Flam. Gambieras +2"
@@ -349,13 +295,13 @@ function init_gear_sets()
         ammo = "Aurgelmir Orb +1",
         head = "Flam. Zucchetto +2",
         neck = "Erra Pendant",
-        ear1 = gear.macc_ear1,
-        ear2 = gear.macc_ear2,
+        ear1 = "Crep. Earring",
+        ear2 = "Alabaster Earring",
         body = "Flamma Korazin +2",
         hands = "Flam. Manopolas +2",
         ring1 = "Murky Ring",
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        back = gear.ws_back,
+        back = gear.fastcast_jse_back,
         waist = "Null Belt",
         legs = "Flamma Dirs +2",
         feet = "Flam. Gambieras +2"
@@ -441,42 +387,42 @@ function init_gear_sets()
         neck = "Rep. Plat. Medal",
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
-        body = gear.valorous_wsd_body,
-        hands = gear.odyssean_wsd_hands,
-        ring1 = gear.ws_ring1,
-        ring2 = gear.ws_ring2,
-        back = gear.ws_back,
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = "Sroda Ring",
+        ring2 = gear.tvr_ring,
+        back = gear.fastcast_jse_back,
         waist = "Fotia Belt",
-        legs = gear.sulevia_legs,
-        feet = gear.sulevia_feet
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.precast.WS.Acc = {
         ammo = "Coiste Bodhar",
         head = "Hjarrandi Helm",
         neck = "Null Loop",
-        ear1 = gear.acc_ear1,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
-        body = gear.valorous_wsd_body,
+        body = "Nyame Mail",
         hands = "Sakpata's Gauntlets",
-        ring1 = gear.tp_ring1,
-        ring2 = gear.tp_ring2,
-        back = gear.ws_back,
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = gear.fastcast_jse_back,
         waist = "Null Belt",
-        legs = gear.carmine_legs,
-        feet = gear.sulevia_feet
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     -- Specific weaponskill sets.  Uses the base set if an appropriate WSMod version isn't found.
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS,
         { neck = "Fotia Gorget", ear1 = "Brutal Earring", ear2 = "Moonshade Earring" })
     sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS.Acc,
-        { neck = "Fotia Gorget", ear1 = gear.acc_ear1, ear2 = "Moonshade Earring" })
+        { neck = "Fotia Gorget", ear1 = "Crep. Earring", ear2 = "Moonshade Earring" })
 
     sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS,
         { neck = "Fotia Gorget", ear1 = "Brutal Earring", ear2 = "Moonshade Earring" })
     sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS.Acc,
-        { neck = "Fotia Gorget", ear1 = gear.acc_ear1, ear2 = "Moonshade Earring" })
+        { neck = "Fotia Gorget", ear1 = "Crep. Earring", ear2 = "Moonshade Earring" })
 
     sets.precast.WS['Savage Blade'] = {
         -- main = "Burtgang",
@@ -490,14 +436,14 @@ function init_gear_sets()
         hands = "Nyame Gauntlets",
         -- ring1 = "Cornelia's Ring",
         -- ring2 = "Gelatinous Ring +1",
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
     sets.precast.WS['Savage Blade'].Acc = set_combine(sets.precast.WS['Savage Blade'], {
         neck = "Null Loop",
-        ear1 = gear.acc_ear1,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         waist = "Null Belt",
     })
@@ -517,18 +463,18 @@ function init_gear_sets()
         neck = "Rep. Plat. Medal",
         ear1 = "Ishvara Earring",
         ear2 = "Moonshade Earring",
-        body = gear.valorous_wsd_body,
-        hands = gear.odyssean_wsd_hands,
-        ring1 = gear.ws_ring1,
-        ring2 = gear.ws_ring2,
-        back = gear.ws_back,
+        body = "Nyame Mail",
+        hands = "Nyame Gauntlets",
+        ring1 = "Sroda Ring",
+        ring2 = gear.tvr_ring,
+        back = gear.fastcast_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
     sets.precast.WS['Knights of Round'].Acc = set_combine(sets.precast.WS['Knights of Round'], {
         neck = "Null Loop",
-        ear1 = gear.acc_ear1,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         waist = "Null Belt",
     })
@@ -549,13 +495,13 @@ function init_gear_sets()
         ammo = "Aurgelmir Orb +1",
         head = "Flam. Zucchetto +2",
         neck = "Erra Pendant",
-        ear1 = gear.macc_ear1,
-        ear2 = gear.macc_ear2,
+        ear1 = "Crep. Earring",
+        ear2 = "Alabaster Earring",
         body = "Flamma Korazin +2",
         hands = "Flam. Manopolas +2",
         ring1 = "Murky Ring",
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        back = gear.ws_back,
+        back = gear.fastcast_jse_back,
         waist = "Null Belt",
         legs = "Flamma Dirs +2",
         feet = "Flam. Gambieras +2"
@@ -604,26 +550,26 @@ function init_gear_sets()
         -- head = "Loess Barbuta +1",
         neck = "Moonlight Necklace",
         -- ear1 = "Trux Earring",
-        ear2 = gear.cryptic_earring,
+        ear2 = "Cryptic Earring",
         body = gear.souv_body,
-        hands = gear.souv_hands,
+        hands = gear.souv_hands_c,
         -- ring1 = "Apeile Ring +1",
         -- ring2 = "Apeile Ring",
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         -- waist = "Creed Baudrier",
         legs = gear.souv_legs, -- Souv. Diechlings +1
         feet = gear.af3_feet, -- Chev. Sabatons +3
     }
     sets.precast.WS['Atonement'].Acc = set_combine(sets.precast.WS['Atonement'], {
         neck = "Null Loop",
-        ear1 = gear.acc_ear1,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
     })
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear1 = "Cessance Earring", ear2 = "Brutal Earring", }
-    sets.MaxTP['Aeolian Edge'] = { ear2 = gear.macc_ear2 }
-    sets.AccMaxTP = { ear1 = gear.acc_ear1, ear2 = "Telos Earring" }
+    sets.MaxTP['Aeolian Edge'] = { ear2 = "Alabaster Earring" }
+    sets.AccMaxTP = { ear1 = "Crep. Earring", ear2 = "Telos Earring" }
 
 
     --------------------------------------
@@ -655,7 +601,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         -- ring1 = "Apeile Ring +1",
         ring2 = "Murky Ring", -- Defending Ring
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
@@ -673,7 +619,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         -- ring1 = "Apeile Ring +1",
         ring2 = "Murky Ring", -- Defending Ring
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
@@ -683,15 +629,15 @@ function init_gear_sets()
         main = "Sakpata's Sword",
         sub = "Priwen",
         ammo = "Staunch Tathlum +1",
-        head = gear.enmity_head,
-        neck = gear.dt_neck,
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
+        head = "Nyame Helm",
+        neck = "Loricate Torque +1",
+        ear1 = "Etiolation Earring",
+        ear2 = "Sanare Earring",
         body = gear.af1_body,
-        hands = gear.souv_hands,
-        ring1 = gear.dt_ring1,
+        hands = gear.souv_hands_c,
+        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
+        back = gear.rudianos_enmity_block_back,
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
         feet = gear.souv_feet
@@ -709,7 +655,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shadow Ring",
-        back = gear.tank_back,
+        back = gear.rudianos_enmity_block_back,
         waist = "Carrier's Sash",
         legs = "Sakpata's Cuisses",
         feet = "Sakpata's Leggings"
@@ -760,7 +706,7 @@ function init_gear_sets()
         -- ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
-        hands = gear.souv_hands,
+        hands = gear.souv_hands_c,
         -- ring1 = "Gelatinous Ring +1",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Moonlight Cape",
@@ -769,7 +715,7 @@ function init_gear_sets()
         feet = gear.souv_feet,
     }
 
-    sets.Cure_Received = { hands = gear.souv_hands, feet = gear.souv_feet }
+    sets.Cure_Received = { hands = gear.souv_hands_c, feet = gear.souv_feet }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
     sets.Enhancing_Received = {}
 
@@ -793,7 +739,7 @@ function init_gear_sets()
         -- hands = "Eschite Gauntlets",
         -- ring1 = "Fortified Ring",
         -- ring2 = "Gelatinous Ring +1",
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         -- waist = "Asklepian Belt",
         legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -814,7 +760,7 @@ function init_gear_sets()
         ear1 = "Mimir Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         -- body = { name = "Odyss. Chestplate", augments = { 'Phalanx +5' } },
-        hands = gear.souv_hands,
+        hands = gear.souv_hands_c,
         -- ring1 = "Gelatinous Ring +1",
         ring2 = "Murky Ring",
         back = "Weard Mantle",
@@ -831,7 +777,7 @@ function init_gear_sets()
         ear1 = gear.jse_ear2, -- Chev. Earring +1
         ear2 = "Mimir Earring",
         body = gear.af3_body, -- Chev. Cuirass +3
-        hands = gear.souv_hands,
+        hands = gear.souv_hands_c,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Murky Ring",
         back = "Weard Mantle",
@@ -841,7 +787,7 @@ function init_gear_sets()
     }
     sets.Phalanx_Received = {
         main = "Sakpata's Sword",
-        hands = gear.souv_hands,
+        hands = gear.souv_hands_c,
         back = gear.phalanx_jse_back,
         legs = "Sakpata's Cuisses",
         feet = gear.souv_feet
@@ -853,36 +799,36 @@ function init_gear_sets()
     sets.resting = {
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.idle_neck,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
         body = "Adamantite Armor",
-        hands = gear.souv_hands,
+        hands = gear.souv_hands_c,
         ring1 = "Murky Ring",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
+        back = gear.rudianos_enmity_block_back,
         waist = "Eschan Stone",
-        legs = gear.sulevia_legs,
+        legs = "Nyame Flanchard",
         feet = gear.af2_feet
     }
 
     -- Idle sets
     sets.idle = {
         main = "Sakpata's Sword",
-        sub = gear.srivatsa,
+        sub = "Srivatsa",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
-        neck = gear.idle_neck,
+        neck = "Loricate Torque +1",
         ear1 = "Etiolation Earring",
         ear2 = "Ethereal Earring",
         body = "Adamantite Armor",
-        hands = gear.enhancing_hands,
+        hands = "Nyame Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.tank_back,
+        back = gear.rudianos_enmity_block_back,
         waist = "Flume Belt +1",
-        legs = gear.carmine_legs,
-        feet = gear.carmine_feet
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.idle.PDT = {
@@ -909,18 +855,18 @@ function init_gear_sets()
     }
 
     sets.idle.Block = {
-        main = gear.deacon_sword,
+        main = "Sakpata's Sword",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
-        neck = gear.block_neck,
-        ear1 = gear.block_ear1,
-        ear2 = gear.block_ear2,
+        neck = "Loricate Torque +1",
+        ear1 = "Ethereal Earring",
+        ear2 = "Sanare Earring",
         body = "Sakpata's Plate",
-        hands = gear.souv_block_hands,
-        ring1 = gear.dt_ring1,
+        hands = gear.souv_hands_d,
+        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
+        back = gear.rudianos_enmity_block_back,
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
         feet = gear.souv_feet
@@ -938,7 +884,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         -- ring1 = "Gelatinous Ring +1",
         ring2 = "Purity Ring",
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Carrier's Sash",
         legs = "Sakpata's Cuisses",
         feet = "Sakpata's Leggings"
@@ -950,13 +896,13 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
         neck = "Warder's Charm +1",
-        ear1 = gear.block_ear1,
-        ear2 = gear.block_ear2,
+        ear1 = "Ethereal Earring",
+        ear2 = "Sanare Earring",
         body = "Sakpata's Plate",
-        hands = gear.souv_block_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = gear.dt_ring2,
-        back = gear.tank_back,
+        hands = gear.souv_hands_d,
+        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
+        ring2 = "Shadow Ring",
+        back = gear.rudianos_enmity_block_back,
         waist = "Flume Belt +1",
         legs = gear.af3_legs,
         feet = gear.souv_feet
@@ -999,7 +945,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Plat. Mog. Belt",
         -- legs = "Carmine Cuisses +1",
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -1017,7 +963,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Plat. Mog. Belt",
         -- legs = "Carmine Cuisses +1",
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -1027,7 +973,7 @@ function init_gear_sets()
 
     sets.latent_refresh = { waist = "Eschan Stone" }
     sets.latent_refresh_grip = { sub = "Sacro Bulwark" }
-    sets.latent_regen = { ring1 = gear.enmity_ring1, ring2 = gear.enmity_ring2 }
+    sets.latent_regen = { ring1 = { name = "Moonlight Ring", bag = "Wardrobe" }, ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" } }
     sets.DayIdle = {}
     sets.NightIdle = {}
 
@@ -1039,22 +985,22 @@ function init_gear_sets()
     sets.Knockback = {}
     sets.MP = {
         head = gear.af3_head,
-        neck = gear.idle_neck,
+        neck = "Loricate Torque +1",
         hands = "Nyame Gauntlets",
         ear2 = "Ethereal Earring",
         ring2 = "Mephitas's Ring +1",
         waist = "Flume Belt +1",
-        feet = gear.rev_leggings_fallback
+        feet = "Nyame Sollerets"
     }
     sets.passive.AbsorbMP = {
         head = gear.af3_head,
-        neck = gear.idle_neck,
+        neck = "Loricate Torque +1",
         ear2 = "Ethereal Earring",
         waist = "Flume Belt +1",
-        feet = gear.rev_leggings_fallback
+        feet = "Nyame Sollerets"
     }
     sets.MP_Knockback = {}
-    sets.Twilight = { head = gear.reraise_head, body = gear.reraise_body }
+    sets.Twilight = { head = "Nyame Helm", body = "Adamantite Armor" }
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 
     -- Weapons sets
@@ -1072,14 +1018,14 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
-        neck = gear.block_neck,
-        ear1 = gear.block_ear1,
-        ear2 = gear.block_ear2,
+        neck = "Loricate Torque +1",
+        ear1 = "Ethereal Earring",
+        ear2 = "Sanare Earring",
         body = "Sakpata's Plate",
-        hands = gear.souv_block_hands,
+        hands = gear.souv_hands_d,
         ring1 = "Murky Ring",
-        ring2 = gear.dt_ring2,
-        back = gear.tank_back,
+        ring2 = "Shadow Ring",
+        back = gear.rudianos_enmity_block_back,
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
         feet = gear.souv_feet
@@ -1099,7 +1045,7 @@ function init_gear_sets()
         body = "Adamantite Armor",
         hands = "Nyame Gauntlets",
         ring1 = "Purity Ring",
-        ring2 = gear.dt_ring2,
+        ring2 = "Shadow Ring",
         back = gear.fastcast_jse_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
@@ -1125,7 +1071,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Sailfi Belt +1",
         legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = "Sakpata's Leggings"
@@ -1137,16 +1083,16 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Flam. Zucchetto +2",
         neck = "Null Loop",
-        ear1 = gear.acc_ear1,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
-        body = gear.valorous_wsd_body,
+        body = "Nyame Mail",
         hands = "Sakpata's Gauntlets",
-        ring1 = gear.tp_ring1,
-        ring2 = gear.tp_ring2,
-        back = gear.ws_back,
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = gear.fastcast_jse_back,
         waist = "Sailfi Belt +1",
-        legs = gear.carmine_legs,
-        feet = gear.sulevia_feet
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     }
 
     sets.engaged.XP = {
@@ -1197,13 +1143,13 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head,
         neck = "Loricate Torque +1",
-        ear1 = gear.block_ear1,
-        ear2 = gear.block_ear2,
+        ear1 = "Ethereal Earring",
+        ear2 = "Sanare Earring",
         body = "Sakpata's Plate",
-        hands = gear.souv_block_hands,
+        hands = gear.souv_hands_d,
         ring1 = "Murky Ring",
-        ring2 = gear.dt_ring2,
-        back = gear.tank_back,
+        ring2 = "Shadow Ring",
+        back = gear.rudianos_enmity_block_back,
         waist = "Flume Belt +1",
         legs = gear.af3_legs,
         feet = gear.souv_feet
@@ -1214,13 +1160,13 @@ function init_gear_sets()
         neck = "Rep. Plat. Medal",
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
-        body = gear.valorous_wsd_body,
+        body = "Nyame Mail",
         hands = "Sakpata's Gauntlets",
-        ring2 = gear.tp_ring2,
-        back = gear.ws_back,
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
+        back = gear.fastcast_jse_back,
         waist = "Sailfi Belt +1",
-        legs = gear.sulevia_legs,
-        feet = gear.sulevia_feet
+        legs = "Nyame Flanchard",
+        feet = "Nyame Sollerets"
     })
 
     sets.engaged.DDTank = {
@@ -1232,7 +1178,7 @@ function init_gear_sets()
         body = "Sakpata's Plate",
         hands = "Sakpata's Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = gear.tp_ring2,
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.phalanx_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Sakpata's Cuisses",
@@ -1243,12 +1189,12 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Sakpata's Helm",
         neck = "Loricate Torque +1",
-        ear1 = gear.acc_ear1,
+        ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Sakpata's Plate",
         hands = "Sakpata's Gauntlets",
         ring1 = "Murky Ring",
-        ring2 = gear.tp_ring2,
+        ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = gear.phalanx_jse_back,
         waist = "Sailfi Belt +1",
         legs = "Sakpata's Cuisses",
@@ -1261,15 +1207,15 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
-        ear1 = gear.block_ear2,
+        ear1 = "Sanare Earring",
         ear2 = "Etiolation Earring",
         body = gear.af1_body,
         hands = "Sakpata's Gauntlets",
         ring1 = "Murky Ring",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
+        back = gear.rudianos_enmity_block_back,
         waist = "Flume Belt +1",
-        legs = gear.odyssean_fc_legs,
+        legs = "Nyame Flanchard",
         feet = gear.af2_feet
     }
 
@@ -1294,7 +1240,7 @@ end
 
 local function add_priwen_when_reprisal(baseSet)
     if buffactive['Reprisal'] and sets.buff.Reprisal and not (state.CombatForm and state.CombatForm.value == 'DW') then
-        if baseSet and baseSet.sub == gear.srivatsa then
+        if baseSet and baseSet.sub == "Srivatsa" then
             return baseSet
         end
 

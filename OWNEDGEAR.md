@@ -482,7 +482,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Srivatsa",
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.srivatsa",
           "data/Kalali/Kalali_Pld_Gear.lua:sub",
           "data/Kalali-PLD.lua:sets.shields.Srivatsa"
         ]
@@ -1251,7 +1250,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Cor_Gear.lua:body",
           "data/Kalali/Kalali_Geo_Gear.lua:body",
           "data/Kalali/Kalali_Pld_Gear.lua:body",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.reraise_body",
           "data/Kalali/Kalali_Pup_Gear.lua:body",
           "data/Kalali/Kalali_Rdm_Gear.lua:body",
           "data/Kalali/Kalali_Sch_Gear.lua:body",
@@ -1743,8 +1741,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "Potency of \"Cure\" effect received +15%"
         ],
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_c",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands"
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_c"
         ]
       },
       {
@@ -1755,8 +1752,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "Phys. dmg. taken -4"
         ],
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_d",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_block_hands"
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.souv_hands_d"
         ]
       },
       {
@@ -2300,7 +2296,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:feet",
           "data/Kalali/Kalali_Sch_Gear.lua:feet",
           "data/Kalali/Kalali_Smn_Gear.lua:feet",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.rev_leggings_fallback",
+          "data/Kalali/Kalali_Pld_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_feet"
@@ -2490,7 +2486,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Moonlight Necklace",
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.enmity_neck",
           "data/Kalali/Kalali_Pld_Gear.lua:neck"
         ]
       },
@@ -3206,8 +3201,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_enmity_block_back",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.enmity_jse_back",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.tank_back"
+          "data/Kalali/Kalali_Pld_Gear.lua:back"
         ]
       },
       {
@@ -3380,9 +3374,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Chev. Earring +1",
         "copies": 1,
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:ear2",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.enmity_ear2",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.jse_ear2"
+          "data/Kalali/Kalali_Pld_Gear.lua:ear1",
+          "data/Kalali/Kalali_Pld_Gear.lua:ear2"
         ]
       },
       {
@@ -3408,7 +3401,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Cryptic Earring",
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.cryptic_earring",
+          "data/Kalali/Kalali_Pld_Gear.lua:ear2",
           "user-confirmed:pld-new-gear"
         ]
       },
@@ -4027,7 +4020,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:gear.shadow_ring",
           "data/Kalali/Kalali_Brd_Gear.lua:ring2",
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.dt_ring2",
           "data/Kalali/Kalali_Pld_Gear.lua:ring2",
           "data/Kalali/Kalali_Rdm_Gear.lua:ring2",
           "data/Kalali/Kalali_Sch_Gear.lua:gear.shadow_ring",
