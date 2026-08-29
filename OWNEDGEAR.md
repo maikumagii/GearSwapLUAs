@@ -1265,7 +1265,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Rev. Surcoat +3",
+        "name": "Rev. Surcoat +4",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af1_body"
         ]

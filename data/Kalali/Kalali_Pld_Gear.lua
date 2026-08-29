@@ -69,7 +69,6 @@ function character_user_job_setup()
         regal_gauntlets = "Regal Gauntlets",                 -- 6
         rev_coronet_3 = "Rev. Coronet +3",                   -- 1
         rev_leggings_3 = "Rev. Leggings +3",                 -- 1
-        rev_surcoat_4 = "Rev. Surcoat +4",                   -- 4
         sacro_gorget = "Sacro Gorget",                       -- 2
         sapience_orb = "Sapience Orb",                       -- 6
         shab_cuirass_1 = "Shab. Cuirass +1",                 -- 2
@@ -80,7 +79,7 @@ function character_user_job_setup()
 
     -- Artifact Gear
     gear.af1_head = "" -- Rev. Coronet +3
-    gear.af1_body = "Rev. Surcoat +3"
+    gear.af1_body = "Rev. Surcoat +4"
     gear.af1_hands = ""
     gear.af1_legs = ""
     gear.af1_feet = "" -- Rev. Leggings +3
@@ -267,22 +266,6 @@ function init_gear_sets()
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' }, priority = 4 }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
-    sets.Enmity.DT = {
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = gear.dt_neck,
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = gear.af1_body,
-        hands = gear.souv_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
-        legs = gear.souv_legs,
-        feet = gear.souv_feet
-    }
-
     -- Precast sets to enhance JAs
     sets.precast.JA['Invincible'] = {
         legs = gear.af2_legs,
@@ -307,20 +290,10 @@ function init_gear_sets()
         body = gear.af2_body,
     }
 
-    sets.precast.JA['Invincible'].DT = sets.precast.JA['Invincible']
-    sets.precast.JA['Holy Circle'].DT = sets.precast.JA['Holy Circle']
-    sets.precast.JA['Sentinel'].DT = sets.precast.JA['Sentinel']
-    sets.precast.JA['Rampart'].DT = sets.precast.JA['Rampart']
-    sets.precast.JA['Fealty'].DT = sets.precast.JA['Fealty']
-    sets.precast.JA['Divine Emblem'].DT = sets.precast.JA['Divine Emblem']
-    sets.precast.JA['Cover'].DT = sets.precast.JA['Cover']
-
     -- add mnd for Chivalry
     sets.precast.JA['Chivalry'] = {
         hands = gear.af2_hands,
     }
-
-    sets.precast.JA['Chivalry'].DT = sets.precast.JA['Chivalry']
 
     sets.precast.JA['Shield Bash'] = {
         sub = "Aegis",
@@ -335,15 +308,6 @@ function init_gear_sets()
     sets.precast.JA['Defender'] = sets.Enmity
     sets.precast.JA['Berserk'] = sets.Enmity
     sets.precast.JA['Aggressor'] = sets.Enmity
-
-    sets.precast.JA['Shield Bash'].DT = sets.precast.JA['Shield Bash']
-    sets.precast.JA['Provoke'].DT = sets.Enmity.DT
-    sets.precast.JA['Warcry'].DT = sets.Enmity.DT
-    sets.precast.JA['Palisade'].DT = sets.Enmity.DT
-    sets.precast.JA['Intervene'].DT = sets.Enmity.DT
-    sets.precast.JA['Defender'].DT = sets.Enmity.DT
-    sets.precast.JA['Berserk'].DT = sets.Enmity.DT
-    sets.precast.JA['Aggressor'].DT = sets.Enmity.DT
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {
@@ -424,29 +388,6 @@ function init_gear_sets()
         feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
 
-    sets.precast.FC.DT = {
-        -- main = "Burtgang",
-        sub = "Duban",
-        -- ammo = { name = "Sapience Orb", priority = 10 },
-        head = { name = "Carmine Mask +1", priority = 3 },
-        -- neck = { name = "Orunmila's Torque", priority = 5 },
-        ear1 = { name = "Enchntr. Earring +1", priority = 1 },
-        ear2 = { name = "Loquac. Earring", priority = 2 },
-        body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
-        -- hands = { name = "Leyline Gloves", priority = 6 },
-        ring1 = "Kishar Ring",
-        ring2 = { name = "Prolix Ring", priority = 7 },
-        back = {
-            name = "Rudianos's Mantle",
-            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
-                'Chance of successful block +5', },
-            priority = 12,
-        },
-        waist = { name = "Plat. Mog. Belt", priority = 8 },
-        legs = { name = "Sworn Brais", priority = 11 },
-        feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
-    }
-
     sets.precast.FC['Enhancing Magic'] = {
         -- main = "Burtgang",
         sub = "Duban",
@@ -469,8 +410,6 @@ function init_gear_sets()
         legs = { name = "Sworn Brais", priority = 11 },
         feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
-    sets.precast.FC['Enhancing Magic'].DT = sets.precast.FC['Enhancing Magic']
-
     sets.precast.FC.Cure = {
         -- main = "Burtgang",
         sub = "Duban",
@@ -510,22 +449,6 @@ function init_gear_sets()
         waist = "Fotia Belt",
         legs = gear.sulevia_legs,
         feet = gear.sulevia_feet
-    }
-
-    sets.precast.WS.DT = {
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = "Loricate Torque +1",
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = gear.af1_body,
-        hands = gear.souv_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
-        legs = gear.souv_legs,
-        feet = gear.souv_feet
     }
 
     sets.precast.WS.Acc = {
@@ -708,7 +631,6 @@ function init_gear_sets()
     --------------------------------------
 
     sets.midcast.FastRecast = sets.precast.FC
-    sets.midcast.FastRecast.DT = sets.precast.FC.DT
 
     sets.midcast.Flash = sets.Enmity
     sets.midcast.Flash.SIRD = sets.Enmity.SIRD
@@ -755,24 +677,6 @@ function init_gear_sets()
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
-    }
-
-    sets.midcast.Cure.DT = {
-        main = gear.deacon_sword,
-        sub = gear.srivatsa,
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = "Loricate Torque +1",
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = gear.af1_body,
-        hands = gear.souv_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
-        legs = gear.souv_legs,
-        feet = gear.souv_feet
     }
 
     sets.midcast.Reprisal = {
@@ -847,24 +751,6 @@ function init_gear_sets()
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
 
-    sets.Self_Healing.DT = {
-        main = gear.deacon_sword,
-        sub = gear.srivatsa,
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = "Loricate Torque +1",
-        ear1 = gear.dt_ear1,
-        ear2 = gear.dt_ear2,
-        body = gear.af1_body,
-        hands = gear.souv_hands,
-        ring1 = gear.dt_ring1,
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.tank_back,
-        waist = "Flume Belt +1",
-        legs = gear.souv_legs,
-        feet = gear.souv_feet
-    }
-
     sets.HPCure = {
         -- main = "Burtgang",
         sub = "Duban",
@@ -903,7 +789,7 @@ function init_gear_sets()
         -- neck = "Unmoving Collar +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
-        body = gear.af1_body, -- Rev. Surcoat +3
+        body = gear.af1_body, -- Rev. Surcoat +4
         -- hands = "Eschite Gauntlets",
         -- ring1 = "Fortified Ring",
         -- ring2 = "Gelatinous Ring +1",
@@ -953,8 +839,6 @@ function init_gear_sets()
         legs = "Sakpata's Cuisses",
         -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
     }
-    sets.midcast.Phalanx.DT = sets.midcast.Phalanx.SIRD
-
     sets.Phalanx_Received = {
         main = "Sakpata's Sword",
         hands = gear.souv_hands,
