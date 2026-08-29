@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 463,
+  "total_slot_entries": 467,
   "slots": {
     "main": [
       {
@@ -2303,6 +2303,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Odyssean Greaves",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:feet",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
         "name": "Pumm. Calligae +4",
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:feet",
@@ -3718,6 +3725,22 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     ],
     "ring": [
       {
+        "name": "Apeile Ring",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ring2",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
+        "name": "Apeile Ring +1",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ring1",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
         "name": "Archon Ring",
         "copies": 1,
         "sources": [
@@ -3835,6 +3858,15 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Rdm_Gear.lua:ring2",
           "data/Kalali/Kalali_Sch_Gear.lua:ring1",
           "data/Kalali/Kalali_Smn_Gear.lua:ring2"
+        ]
+      },
+      {
+        "name": "Gelatinous Ring +1",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ring1",
+          "data/Kalali/Kalali_Pld_Gear.lua:ring2",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {

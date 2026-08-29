@@ -39,8 +39,6 @@ function character_user_job_setup()
 
     -- Guide missing gear
     gear.guide_missing = {
-        apeile_ring = "Apeile Ring",                         -- 2
-        apeile_ring_1 = "Apeile Ring +1",                    -- 5
         asklepian_belt = "Asklepian Belt",                   -- 3
         baetyl_pendant = "Baetyl Pendant",                   -- 1
         blenmots_ring_1 = "Blenmot's Ring +1",               -- 1
@@ -54,7 +52,6 @@ function character_user_job_setup()
         eschite_gauntlets = "Eschite Gauntlets",             -- 1
         fenian_ring = "Fenian Ring",                         -- 1
         fortified_ring = "Fortified Ring",                   -- 4
-        gelatinous_ring_1 = "Gelatinous Ring +1",            -- 10
         jumalik_helm = "Jumalik Helm",                       -- 1
         jumalik_mail = "Jumalik Mail",                       -- 2
         leyline_gloves = "Leyline Gloves",                   -- 4
@@ -63,7 +60,6 @@ function character_user_job_setup()
         melic_torque = "Melic Torque",                       -- 1
         odnowa_earring_1 = "Odnowa Earring +1",              -- 4
         odyss_chestplate = "Odyss. Chestplate",              -- 1, Phalanx +5
-        odyssean_greaves = "Odyssean Greaves",               -- 6, Phalanx +5; SIRD +11 only via DM
         odyssean_helm = "Odyssean Helm",                     -- 1, Phalanx +5
         orunmilas_torque = "Orunmila's Torque",              -- 4
         regal_gauntlets = "Regal Gauntlets",                 -- 6
@@ -168,8 +164,8 @@ function init_gear_sets()
             augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
             priority = 13
         },
-        -- ring1 = { name = "Apeile Ring +1", priority = 6 },
-        -- ring2 = { name = "Apeile Ring", priority = 5 },
+        ring1 = { name = "Apeile Ring +1", priority = 6 },
+        ring2 = { name = "Apeile Ring", priority = 5 },
         back = {
             name = "Rudianos's Mantle",
             augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
@@ -199,8 +195,8 @@ function init_gear_sets()
             augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
             priority = 13
         },
-        -- ring1 = { name = "Apeile Ring +1", priority = 6 },
-        -- ring2 = { name = "Gelatinous Ring +1", priority = 5 },
+        ring1 = { name = "Apeile Ring +1", priority = 6 },
+        ring2 = { name = "Gelatinous Ring +1", priority = 5 },
         back = {
             name = "Rudianos's Mantle",
             augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
@@ -209,7 +205,7 @@ function init_gear_sets()
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
         legs = { name = "Founder's Hose", priority = 2 },
-        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' }, priority = 4 }, -- Native SIRD+20; SIRD+11 only via DM
+        feet = { name = "Odyssean Greaves", priority = 4 }, -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
 
     -- Precast sets to enhance JAs
@@ -435,7 +431,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         -- ring1 = "Cornelia's Ring",
-        -- ring2 = "Gelatinous Ring +1",
+        ring2 = "Gelatinous Ring +1",
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
@@ -553,8 +549,8 @@ function init_gear_sets()
         ear2 = "Cryptic Earring",
         body = gear.souv_body,
         hands = gear.souv_hands_c,
-        -- ring1 = "Apeile Ring +1",
-        -- ring2 = "Apeile Ring",
+        ring1 = "Apeile Ring +1",
+        ring2 = "Apeile Ring",
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         -- waist = "Creed Baudrier",
         legs = gear.souv_legs, -- Souv. Diechlings +1
@@ -599,12 +595,12 @@ function init_gear_sets()
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         -- hands = "Regal Gauntlets",
-        -- ring1 = "Apeile Ring +1",
+        ring1 = "Apeile Ring +1",
         ring2 = "Murky Ring", -- Defending Ring
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
-        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
+        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
 
     sets.midcast.Cure.SIRD = {
@@ -617,12 +613,12 @@ function init_gear_sets()
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         -- hands = "Regal Gauntlets",
-        -- ring1 = "Apeile Ring +1",
+        ring1 = "Apeile Ring +1",
         ring2 = "Murky Ring", -- Defending Ring
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
-        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
+        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
 
     sets.midcast.Reprisal = {
@@ -671,12 +667,12 @@ function init_gear_sets()
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         -- hands = "Regal Gauntlets",
-        -- ring1 = "Gelatinous Ring +1",
+        ring1 = "Gelatinous Ring +1",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
         legs = "Founder's Hose",
-        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
+        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
 
     sets.Self_Healing.SIRD = {
@@ -689,12 +685,12 @@ function init_gear_sets()
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         -- hands = "Regal Gauntlets",
-        -- ring1 = "Gelatinous Ring +1",
+        ring1 = "Gelatinous Ring +1",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
         legs = "Founder's Hose",
-        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
+        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
 
     sets.HPCure = {
@@ -707,7 +703,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         hands = gear.souv_hands_c,
-        -- ring1 = "Gelatinous Ring +1",
+        ring1 = "Gelatinous Ring +1",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
@@ -738,7 +734,7 @@ function init_gear_sets()
         body = gear.af1_body, -- Rev. Surcoat +4
         -- hands = "Eschite Gauntlets",
         -- ring1 = "Fortified Ring",
-        -- ring2 = "Gelatinous Ring +1",
+        ring2 = "Gelatinous Ring +1",
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         -- waist = "Asklepian Belt",
         legs = gear.af3_legs, -- Chev. Cuisses +3
@@ -761,7 +757,7 @@ function init_gear_sets()
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         -- body = { name = "Odyss. Chestplate", augments = { 'Phalanx +5' } },
         hands = gear.souv_hands_c,
-        -- ring1 = "Gelatinous Ring +1",
+        ring1 = "Gelatinous Ring +1",
         ring2 = "Murky Ring",
         back = "Weard Mantle",
         waist = "Flume Belt +1",
@@ -783,7 +779,7 @@ function init_gear_sets()
         back = "Weard Mantle",
         waist = "Audumbla Sash",
         legs = "Sakpata's Cuisses",
-        -- feet = { name = "Odyssean Greaves", augments = { 'Phalanx +5' } }, -- Native SIRD+20; SIRD+11 only via DM
+        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
     sets.Phalanx_Received = {
         main = "Sakpata's Sword",
@@ -842,7 +838,7 @@ function init_gear_sets()
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         -- ring1 = { name = "Fortified Ring", priority = 5 },
-        -- ring2 = { name = "Gelatinous Ring +1", priority = 4 },
+        ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
             name = "Rudianos's Mantle",
             augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
@@ -882,7 +878,7 @@ function init_gear_sets()
         ear2 = "Eabani Earring",
         body = "Sakpata's Plate",
         hands = "Sakpata's Gauntlets",
-        -- ring1 = "Gelatinous Ring +1",
+        ring1 = "Gelatinous Ring +1",
         ring2 = "Purity Ring",
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Carrier's Sash",
@@ -921,7 +917,7 @@ function init_gear_sets()
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         -- ring1 = { name = "Fortified Ring", priority = 5 },
-        -- ring2 = { name = "Gelatinous Ring +1", priority = 4 },
+        ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
             name = "Rudianos's Mantle",
             augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
@@ -1106,7 +1102,7 @@ function init_gear_sets()
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         -- ring1 = { name = "Fortified Ring", priority = 5 },
-        -- ring2 = { name = "Gelatinous Ring +1", priority = 4 },
+        ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
             name = "Rudianos's Mantle",
             augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
