@@ -374,6 +374,7 @@ function init_gear_sets()
         legs = { name = "Sworn Brais", priority = 11 },
         feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
+    sets.precast.FC.Cure.DT = sets.precast.FC.Cure
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
@@ -620,6 +621,7 @@ function init_gear_sets()
         legs = "Founder's Hose",
         feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
+    sets.midcast.Cure.DT = sets.midcast.Cure
 
     sets.midcast.Reprisal = {
         main = "Sakpata's Sword",
@@ -692,6 +694,7 @@ function init_gear_sets()
         legs = "Founder's Hose",
         feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
     }
+    sets.Self_Healing.DT = sets.Self_Healing
 
     sets.HPCure = {
         -- main = "Burtgang",
