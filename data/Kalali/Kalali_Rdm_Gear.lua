@@ -496,13 +496,12 @@ function init_gear_sets()
     sets.precast.WS['Black Halo'].HighBuff = set_combine(sets.precast.WS['Black Halo'], {
         ammo = "Crepuscular Pebble",
         neck = gear.jse_neck,
-        body = "Bunzi's Robe",
         hands = gear.af1_hands,
         ring2 = gear.tvr_ring
     })
     sets.precast.WS['Black Halo'].HighBuffAcc = set_combine(sets.precast.WS['Black Halo'].HighBuff, {
         neck = "Null Loop",
-        ear1 = "Telos Earring",
+        ear1 = "Regal Earring",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         waist = "Null Belt"
     })
@@ -1554,7 +1553,7 @@ function init_gear_sets()
     sets.engaged = {
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
-        neck = "Null Loop",
+        neck = "Anu Torque",
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
@@ -1618,7 +1617,7 @@ function init_gear_sets()
     sets.engaged.DW = {
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
-        neck = "Null Loop",
+        neck = "Anu Torque",
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
         body = "Malignance Tabard",
