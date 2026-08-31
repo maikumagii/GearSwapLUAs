@@ -85,9 +85,6 @@ function character_user_job_setup()
         -- Mythic
         burtgang = "Burtgang",                               -- 22
 
-        -- Mission / reward
-        cornelias_ring = "Cornelia's Ring",                  -- 3
-
         -- BCNM
         fenian_ring = "Fenian Ring",                         -- 1
 
@@ -454,7 +451,7 @@ function init_gear_sets()
         ear2 = "Thrud Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        -- ring1 = "Cornelia's Ring",
+        ring1 = gear.tvr_ring, -- Cornelia's Ring alternative
         ring2 = "Gelatinous Ring +1",
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Sailfi Belt +1",
@@ -538,7 +535,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Murky Ring", -- Defending Ring
-        -- ring2 = "Cornelia's Ring",
+        ring2 = gear.tvr_ring, -- Cornelia's Ring alternative
         back = "Moonlight Cape",
         waist = "Orpheus's Sash",
         legs = "Nyame Flanchard",
@@ -555,7 +552,7 @@ function init_gear_sets()
         -- ear2 = "Crematio Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
-        -- ring1 = "Cornelia's Ring",
+        ring1 = gear.tvr_ring, -- Cornelia's Ring alternative
         ring2 = "Murky Ring", -- Defending Ring
         back = "Moonlight Cape",
         waist = "Orpheus's Sash",
