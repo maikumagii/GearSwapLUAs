@@ -163,6 +163,11 @@ function init_gear_sets()
     }
     sets.precast.JA['Maintenance'] = { ammo = "Automat. Oil +3" }
 
+    sets.precast.Waltz = {
+        body = "Passion Jacket"
+    }
+    sets.precast.Waltz['Healing Waltz'] = {}
+
     sets.precast.JA.Maneuver = {
         main = "Midnights",
         neck = gear.buffoons_collar,
@@ -286,6 +291,9 @@ function init_gear_sets()
     sets.midcast['Dia II'] = set_combine(sets.midcast.FastRecast, sets.TreasureHunter)
     sets.midcast.Bio = set_combine(sets.midcast.FastRecast, sets.TreasureHunter)
     sets.midcast['Bio II'] = set_combine(sets.midcast.FastRecast, sets.TreasureHunter)
+    sets.midcast.Utsusemi = set_combine(sets.midcast.FastRecast, {
+        body = "Passion Jacket"
+    })
 
     sets.midcast['Dark Magic'] = {
         ammo = "Pemphredo Tathlum",

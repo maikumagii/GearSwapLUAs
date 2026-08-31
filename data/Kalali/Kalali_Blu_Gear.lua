@@ -52,7 +52,6 @@ function character_user_job_setup()
     gear.acuity_belt = ""
     gear.null_masque = ""
     gear.luminary_sash = "Null Belt"
-    gear.genmei_shield = ""
 
     autows = 'Expiacion'
 
@@ -93,6 +92,7 @@ function init_gear_sets()
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {
+        body = "Passion Jacket",
         legs = "Dashing Subligar"
     }
     sets.precast.Waltz['Healing Waltz'] = {}
@@ -213,6 +213,9 @@ function init_gear_sets()
 
     -- Midcast Sets
     sets.midcast.FastRecast = set_combine(sets.precast.FC, {})
+    sets.midcast.Utsusemi = set_combine(sets.midcast.FastRecast, {
+        body = "Passion Jacket"
+    })
 
     sets.midcast['Blue Magic'] = {}
 
@@ -425,7 +428,7 @@ function init_gear_sets()
 
     sets.idle.PDT = {
         main = "Sakpata's Sword",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
@@ -444,7 +447,7 @@ function init_gear_sets()
     -- Defense sets
     sets.defense.PDT = {
         main = "Sakpata's Sword",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Loricate Torque +1",
@@ -462,7 +465,7 @@ function init_gear_sets()
 
     sets.defense.MDT = {
         main = "Sakpata's Sword",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Warder's Charm +1",
@@ -480,7 +483,7 @@ function init_gear_sets()
 
     sets.defense.MEVA = {
         main = "Sakpata's Sword",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
         neck = "Warder's Charm +1",

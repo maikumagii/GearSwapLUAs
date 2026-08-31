@@ -56,7 +56,6 @@ function character_user_job_setup()
     -- List of gear I want, could be BiS. When I get the item, can replace it here
     -- Actually important
     gear.aeneas = "Naegling"
-    gear.genmei_shield = "Ammurapi Shield"
     gear.linos_fc = "Daurdabla"
     gear.baetyl_pendant = gear.jse_neck
     --  3  Baetyl Pendant                FC +4%, MAB +13
@@ -100,11 +99,11 @@ function init_gear_sets()
     --------------------------------------
 
     -- Weapons sets
-    --sets.weapons.Aeneas = { main = "Aeneas", sub = gear.genmei_shield }
+    --sets.weapons.Aeneas = { main = "Aeneas", sub = "Genmei Shield" }
     --sets.weapons.DualWeapons = { main = "Aeneas", sub = gear.tp_bonus_dagger }
     sets.weapons.DualNaegling = { main = "Naegling", sub = gear.tp_bonus_dagger }
     sets.weapons.DualCarn = { main = "Carnwenhan", sub = "Gleti's Knife" }
-    sets.weapons.Naegling = { main = "Naegling", sub = gear.genmei_shield }
+    sets.weapons.Naegling = { main = "Naegling", sub = "Genmei Shield" }
     --sets.weapons.DualTauret = { main = "Tauret", sub = "Gleti's Knife" }
     --sets.weapons.DualAeolian = { main = "Tauret", sub = "Malevolence" }
 
@@ -133,7 +132,7 @@ function init_gear_sets()
 
     sets.precast.FC.DT = {
         main = "Kali",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
         ammo = "Impatiens",
         head = "Bunzi's Hat",
         neck = "Voltsurge Torque",
@@ -155,12 +154,12 @@ function init_gear_sets()
 
     sets.precast.FC.Dispelga = set_combine(sets.precast.FC, {
         main = "Daybreak",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
     })
 
     sets.precast.FC.BardSong = {
         main = "Kali",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
         range = gear.linos_fc,
         ammo = empty,
         head = gear.af3_head,
@@ -366,7 +365,7 @@ function init_gear_sets()
     -- For song buffs (duration and AF3 set bonus)
     sets.midcast.SongEffect = {
         main = "Carnwenhan",
-        sub = gear.genmei_shield,
+        sub = "Genmei Shield",
         range = "Gjallarhorn",
         ammo = empty,
         head = gear.af3_head,

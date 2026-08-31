@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 467,
+  "total_slot_entries": 469,
   "slots": {
     "main": [
       {
@@ -320,7 +320,6 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Ammurapi Shield",
         "sources": [
-          "data/Kalali/Kalali_Brd_Gear.lua:gear.genmei_shield",
           "data/Kalali/Kalali_Brd_Gear.lua:sub",
           "data/Kalali/Kalali_Geo_Gear.lua:sub",
           "data/Kalali/Kalali_Rdm_Gear.lua:gear.filler_shield",
@@ -376,6 +375,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Egeking",
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:sub"
+        ]
+      },
+      {
+        "name": "Genmei Shield",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:sub",
+          "data/Kalali/Kalali_Brd_Gear.lua:sub"
         ]
       },
       {
@@ -1173,6 +1179,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Bunzi's Robe",
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:body"
+        ]
+      },
+      {
+        "name": "Passion Jacket",
+        "sources": [
+          "data/Kalali/Kalali_Blu_Gear.lua:body",
+          "data/Kalali/Kalali_Cor_Gear.lua:body",
+          "data/Kalali/Kalali_Pup_Gear.lua:body"
         ]
       },
       {

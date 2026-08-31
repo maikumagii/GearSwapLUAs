@@ -237,6 +237,7 @@ function init_gear_sets()
 
     -- Waltz set (chr and vit)
     sets.precast.Waltz = {
+        body = "Passion Jacket",
         legs = "Dashing Subligar"
     }
     sets.precast.Waltz['Healing Waltz'] = {}
@@ -484,7 +485,9 @@ function init_gear_sets()
     sets.Cure_Received = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
 
-    sets.midcast.Utsusemi = sets.midcast.FastRecast
+    sets.midcast.Utsusemi = set_combine(sets.midcast.FastRecast, {
+        body = "Passion Jacket"
+    })
 
     -- Ranged gear
     sets.midcast.RA = { --ADD
