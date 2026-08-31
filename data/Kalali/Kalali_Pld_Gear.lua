@@ -39,36 +39,61 @@ function character_user_job_setup()
 
     -- Guide missing gear
     gear.guide_missing = {
-        asklepian_belt = "Asklepian Belt",                   -- 3
-        baetyl_pendant = "Baetyl Pendant",                   -- 1
-        burtgang = "Burtgang",                               -- 22
-        carmine_cuisses_1 = "Carmine Cuisses +1",            -- 2
-        coatl_gorget_1 = "Coatl Gorget +1",                  -- 2
-        cornelias_ring = "Cornelia's Ring",                  -- 3
-        creed_baudrier = "Creed Baudrier",                   -- 3
+        -- UNM / Unity Wanted
+        loess_barbuta_1 = "Loess Barbuta +1",                -- 3
+        odnowa_earring_1 = "Odnowa Earring +1",              -- 4
+
+        -- HTBF
         crematio_earring = "Crematio Earring",               -- 1
         crepuscular_mail = "Crepuscular Mail",               -- 1
+        sacro_gorget = "Sacro Gorget",                       -- 2
+        trux_earring = "Trux Earring",                       -- 3
+
+        -- Domain Invasion
+        tuisto_earring = "Tuisto Earring",                   -- 6
+
+        -- Geas Fete / Escha-Reisenjima
+        asklepian_belt = "Asklepian Belt",                   -- 3
+        baetyl_pendant = "Baetyl Pendant",                   -- 1
+        carmine_cuisses_1 = "Carmine Cuisses +1",            -- 2
         eschite_gauntlets = "Eschite Gauntlets",             -- 1
-        fenian_ring = "Fenian Ring",                         -- 1
         fortified_ring = "Fortified Ring",                   -- 4
+        melic_torque = "Melic Torque",                       -- 1
+        odyss_chestplate = "Odyss. Chestplate",              -- 1, Phalanx +5
+        odyssean_helm = "Odyssean Helm",                     -- 1, Phalanx +5
+        sapience_orb = "Sapience Orb",                       -- 6
+
+        -- Sinister Reign
         jumalik_helm = "Jumalik Helm",                       -- 1
         jumalik_mail = "Jumalik Mail",                       -- 2
         leyline_gloves = "Leyline Gloves",                   -- 4
-        loess_barbuta_1 = "Loess Barbuta +1",                -- 3
         malevolence = "Malevolence",                         -- 2
-        melic_torque = "Melic Torque",                       -- 1
-        odnowa_earring_1 = "Odnowa Earring +1",              -- 4
-        odyss_chestplate = "Odyss. Chestplate",              -- 1, Phalanx +5
-        odyssean_helm = "Odyssean Helm",                     -- 1, Phalanx +5
-        orunmilas_torque = "Orunmila's Torque",              -- 4
+
+        -- Omen
         regal_gauntlets = "Regal Gauntlets",                 -- 6
+
+        -- Meeble Burrows
+        orunmilas_torque = "Orunmila's Torque",              -- 4
+
+        -- Abyssea
+        creed_baudrier = "Creed Baudrier",                   -- 3
+
+        -- JSE reforging
         rev_coronet_3 = "Rev. Coronet +3",                   -- 1
         rev_leggings_3 = "Rev. Leggings +3",                 -- 1
-        sacro_gorget = "Sacro Gorget",                       -- 2
-        sapience_orb = "Sapience Orb",                       -- 6
+
+        -- Mythic
+        burtgang = "Burtgang",                               -- 22
+
+        -- Mission / reward
+        cornelias_ring = "Cornelia's Ring",                  -- 3
+
+        -- BCNM
+        fenian_ring = "Fenian Ring",                         -- 1
+
+        -- Crafted / AH / older-content pieces
+        coatl_gorget_1 = "Coatl Gorget +1",                  -- 2
         shab_cuirass_1 = "Shab. Cuirass +1",                 -- 2
-        trux_earring = "Trux Earring",                       -- 3
-        tuisto_earring = "Tuisto Earring",                   -- 6
     }
 
     -- Artifact Gear
