@@ -17,7 +17,7 @@ sets.midcast.Item['Hallowed Water'] = {}
 sets.midcast.Item['Holy Water'] = {
     neck = "Nicander's Necklace",
     ring1 = "Purity Ring",
-    ring2 = "Blenmot's Ring"
+    ring2 = "Blenmot's Ring +1"
 }
 
 -- TP Bonus Magian Weapons

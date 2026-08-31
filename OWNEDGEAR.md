@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 469,
+  "total_slot_entries": 470,
   "slots": {
     "main": [
       {
@@ -2447,6 +2447,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Unmoving Collar +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:neck"
+        ]
+      },
+      {
         "name": "Erra Pendant",
         "sources": [
           "data/Kalali/Kalali_Geo_Gear.lua:neck",
@@ -3765,10 +3771,11 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Blenmot's Ring",
+        "name": "Blenmot's Ring +1",
         "copies": 1,
         "sources": [
-          "data/Kalali/Kalali-Items.lua:ring2"
+          "data/Kalali/Kalali-Items.lua:ring2",
+          "data/Kalali/Kalali_Pld_Gear.lua:ring2"
         ]
       },
       {

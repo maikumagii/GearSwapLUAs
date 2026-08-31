@@ -41,7 +41,6 @@ function character_user_job_setup()
     gear.guide_missing = {
         asklepian_belt = "Asklepian Belt",                   -- 3
         baetyl_pendant = "Baetyl Pendant",                   -- 1
-        blenmots_ring_1 = "Blenmot's Ring +1",               -- 1
         burtgang = "Burtgang",                               -- 22
         carmine_cuisses_1 = "Carmine Cuisses +1",            -- 2
         coatl_gorget_1 = "Coatl Gorget +1",                  -- 2
@@ -70,7 +69,6 @@ function character_user_job_setup()
         shab_cuirass_1 = "Shab. Cuirass +1",                 -- 2
         trux_earring = "Trux Earring",                       -- 3
         tuisto_earring = "Tuisto Earring",                   -- 6
-        unmoving_collar_1 = "Unmoving Collar +1",            -- 4
     }
 
     -- Artifact Gear
@@ -664,7 +662,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        -- neck = "Unmoving Collar +1",
+        neck = "Unmoving Collar +1",
         -- ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
@@ -682,7 +680,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        -- neck = "Unmoving Collar +1",
+        neck = "Unmoving Collar +1",
         -- ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
@@ -701,7 +699,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        -- neck = "Unmoving Collar +1",
+        neck = "Unmoving Collar +1",
         -- ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
@@ -731,7 +729,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         -- head = "Jumalik Helm",
-        -- neck = "Unmoving Collar +1",
+        neck = "Unmoving Collar +1",
         ear1 = "Etiolation Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.af1_body, -- Rev. Surcoat +4
@@ -1063,7 +1061,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Aurgelmir Orb +1",
         head = "Hjarrandi Helm",
-        -- neck = "Unmoving Collar +1",
+        neck = "Unmoving Collar +1",
         ear1 = "Crep. Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         -- body = "Crepuscular Mail",
@@ -1229,7 +1227,7 @@ function init_gear_sets()
     sets.buff.Doom = {
         neck = "Nicander's Necklace",
         ring1 = "Purity Ring",
-        -- ring2 = "Blenmot's Ring +1",
+        ring2 = "Blenmot's Ring +1",
         waist = "Gishdubar Sash"
     }
     sets.buff.Sleep = { neck = "Loricate Torque +1" }
