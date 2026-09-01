@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 470,
+  "total_slot_entries": 472,
   "slots": {
     "main": [
       {
@@ -1021,6 +1021,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Smn_Gear.lua:head",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_head",
           "data/Kalali/Kalali_War_Gear.lua:head"
+        ]
+      },
+      {
+        "name": "Odyssean Helm",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:head"
         ]
       },
       {
@@ -2319,6 +2325,8 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Odyssean Greaves",
         "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.odyssean_greaves_cure",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.odyssean_greaves_phalanx",
           "data/Kalali/Kalali_Pld_Gear.lua:feet",
           "user-confirmed:pld-new-gear"
         ]
@@ -3857,6 +3865,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Blu_Gear.lua:ring1",
           "data/Kalali/Kalali_Blu_Gear.lua:ring2",
           "data/Kalali/Kalali_Pup_Gear.lua:ring2"
+        ]
+      },
+      {
+        "name": "Fortified Ring",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ring2"
         ]
       },
       {

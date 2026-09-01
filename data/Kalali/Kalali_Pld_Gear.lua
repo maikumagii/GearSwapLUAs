@@ -57,10 +57,9 @@ function character_user_job_setup()
         baetyl_pendant = "Baetyl Pendant",                   -- 1
         carmine_cuisses_1 = "Carmine Cuisses +1",            -- 2
         eschite_gauntlets = "Eschite Gauntlets",             -- 1
-        fortified_ring = "Fortified Ring",                   -- 4
+        fortified_ring = "Fortified Ring",                   -- 3
         melic_torque = "Melic Torque",                       -- 1
         odyss_chestplate = "Odyss. Chestplate",              -- 1, Phalanx +5
-        odyssean_helm = "Odyssean Helm",                     -- 1, Phalanx +5
         sapience_orb = "Sapience Orb",                       -- 6
 
         -- Sinister Reign
@@ -139,6 +138,8 @@ function character_user_job_setup()
         name = "Souveran Schuhs +1",
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
     }
+    gear.odyssean_greaves_cure = "Odyssean Greaves"
+    gear.odyssean_greaves_phalanx = "Odyssean Greaves"
 
     -- Additional local binds
     send_command('bind !` gs c SubJobEnmity')
@@ -225,7 +226,7 @@ function init_gear_sets()
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
         legs = { name = "Founder's Hose", priority = 2 },
-        feet = { name = "Odyssean Greaves", priority = 4 }, -- Guide target includes Phalanx +5; using owned pair for native SIRD
+        feet = gear.odyssean_greaves_phalanx, -- Native SIRD; Phalanx augment pair if this set catches Phalanx II.
     }
 
     -- Precast sets to enhance JAs
@@ -621,7 +622,7 @@ function init_gear_sets()
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
-        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
+        feet = gear.odyssean_greaves_cure,
     }
 
     sets.midcast.Cure.SIRD = {
@@ -639,7 +640,7 @@ function init_gear_sets()
         back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
-        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
+        feet = gear.odyssean_greaves_cure,
     }
     sets.midcast.Cure.DT = sets.midcast.Cure
 
@@ -694,7 +695,7 @@ function init_gear_sets()
         back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
         legs = "Founder's Hose",
-        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
+        feet = gear.odyssean_greaves_cure,
     }
 
     sets.Self_Healing.SIRD = {
@@ -712,7 +713,7 @@ function init_gear_sets()
         back = "Moonlight Cape",
         waist = "Plat. Mog. Belt",
         legs = "Founder's Hose",
-        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
+        feet = gear.odyssean_greaves_cure,
     }
     sets.Self_Healing.DT = sets.Self_Healing
 
@@ -771,24 +772,24 @@ function init_gear_sets()
     sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
 
     sets.midcast.Phalanx = {
-        -- main = "Burtgang",
-        sub = "Duban",
-        ammo = "Aurgelmir Orb +1",
-        -- head = { name = "Odyssean Helm", augments = { 'Phalanx +5' } },
-        -- neck = "Melic Torque",
+        main = "Sakpata's Sword",
+        sub = "Priwen",
+        ammo = "Crepuscular Pebble",
+        head = "Odyssean Helm",
+        neck = "Hoxne Torque",
         ear1 = "Mimir Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
-        -- body = { name = "Odyss. Chestplate", augments = { 'Phalanx +5' } },
+        body = "Sworn Platemail",
         hands = gear.souv_hands_c,
-        ring1 = "Gelatinous Ring +1",
-        ring2 = "Murky Ring",
-        back = "Weard Mantle",
+        ring1 = "Murky Ring",
+        ring2 = "Fortified Ring",
+        back = gear.phalanx_jse_back,
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
         feet = gear.souv_feet,
     }
-    sets.midcast.Phalanx.SIRD = {
-        -- main = "Burtgang",
+    sets.midcast.Phalanx.SIRD = set_combine(sets.midcast.Phalanx, {
+        main = "Burtgang",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
@@ -796,14 +797,11 @@ function init_gear_sets()
         ear1 = gear.jse_ear2, -- Chev. Earring +1
         ear2 = "Mimir Earring",
         body = gear.af3_body, -- Chev. Cuirass +3
-        hands = gear.souv_hands_c,
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Murky Ring",
-        back = "Weard Mantle",
         waist = "Audumbla Sash",
-        legs = "Sakpata's Cuisses",
-        feet = "Odyssean Greaves", -- Guide target includes Phalanx +5; using owned pair for native SIRD
-    }
+        feet = gear.odyssean_greaves_phalanx,
+    })
     sets.Phalanx_Received = {
         main = "Sakpata's Sword",
         hands = gear.souv_hands_c,
