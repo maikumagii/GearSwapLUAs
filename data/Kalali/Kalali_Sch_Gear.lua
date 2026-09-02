@@ -373,26 +373,99 @@ function init_gear_sets()
         legs = gear.af3_legs,
         feet = gear.af3_feet
     }
+    -- Skill check using base 434 in Light Arts / 364 in Dark Arts:
+    -- Hoxne Torque +30, Pedagogy Gown +3 +19, and two Stikini Ring +1s +16 = +65.
+    -- This gives 499 in Light Arts and 429 in Dark Arts. Add Mimir Earring (+10) for 509 Light Arts;
+    -- Dark Arts would still be 439 and needs a separate skill-heavy set to reach 500.
 
-    sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'],
-        { main = "Musa", head = gear.af3_head, back = "Bookworm's Cape" })
+    sets.midcast.Regen = set_combine(sets.midcast['Enhancing Magic'], {
+        main = "Musa",
+        head = gear.af3_head,
+        -- body = { name = "Telchine Chas.", augments = { 'Enh. Mag. eff. dur. +10' } },
+        back = "Bookworm's Cape",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
 
 
-    sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], { head = "Amalric Coif +1" })
+    sets.midcast.Refresh = set_combine(sets.midcast['Enhancing Magic'], {
+        head = "Amalric Coif +1",
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
+    -- If Refresh potency is not needed, uncomment duration pieces here.
 
-    sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'],
-        { head = "Amalric Coif +1", waist = "Emphatikos Rope" })
+    sets.midcast.Haste = set_combine(sets.midcast['Enhancing Magic'], {
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
 
-    sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {})
+    sets.midcast.Aquaveil = set_combine(sets.midcast['Enhancing Magic'], {
+        head = "Amalric Coif +1",
+        waist = "Emphatikos Rope",
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
+    -- After interrupt-down needs are capped, uncomment duration pieces here.
 
-    sets.midcast.Storm = set_combine(sets.midcast['Enhancing Magic'], {})
-    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {})
-    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], { neck = "Nodens Gorget" })
+    sets.midcast.BarElement = set_combine(sets.precast.FC['Enhancing Magic'], {
+        main = "Musa",
+        head = gear.enhancing_duration_head,
+        neck = "Hoxne Torque",
+        ear1 = "Mimir Earring",
+        body = gear.af2_body,
+        ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
+        waist = "Embla Sash",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
+    -- This reaches 509 in Light Arts; Dark Arts still needs +61 skill.
 
-    sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
+    sets.midcast.Storm = set_combine(sets.midcast['Enhancing Magic'], {
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
+    -- Keep Pedagogy Gown +3 over Telchine body for non-Regen enhancing duration.
+    sets.midcast.Adloquium = set_combine(sets.midcast['Enhancing Magic'], {
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
+    sets.midcast.Phalanx = set_combine(sets.midcast['Enhancing Magic'], {
+        ear1 = "Mimir Earring",
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
+    -- With Mimir Earring, this reaches 509 in Light Arts; Dark Arts still needs +61 skill.
+    sets.midcast.Stoneskin = set_combine(sets.midcast['Enhancing Magic'], {
+        neck = "Nodens Gorget",
+        ear1 = "Mimir Earring",
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
+    -- Nodens replaces Hoxne, so this is 479 in Light Arts with Mimir; use Hoxne if 500 skill matters more.
+
+    sets.midcast.Protect = set_combine(sets.midcast['Enhancing Magic'], {
+        ring2 = "Sheltered Ring",
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
     sets.midcast.Protectra = sets.midcast.Protect
 
-    sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], { ring2 = "Sheltered Ring" })
+    sets.midcast.Shell = set_combine(sets.midcast['Enhancing Magic'], {
+        ring2 = "Sheltered Ring",
+        main = "Musa",
+        -- legs = { name = "Telchine Braconi", augments = { 'Enh. Mag. eff. dur. +10' } },
+        -- feet = { name = "Telchine Pigaches", augments = { 'Enh. Mag. eff. dur. +10' } },
+    })
     sets.midcast.Shellra = sets.midcast.Shell
 
 
