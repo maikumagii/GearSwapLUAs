@@ -27,7 +27,19 @@ function character_user_job_setup()
     gear.linos_dex_wsd = gear.linos_chr_wsd                                                                                      -- Rudra's Storm
     gear.linos_int_wsd = gear.linos_chr_wsd                                                                                      -- Aeolian Edge
     gear.linos_fc = gear.linos_chr_wsd
+    -- BRD DD TP augment targets.
+    -- Linos: Snowslit Acc/Atk+15 or Acc+20, Dusktip QA+3, Leafslit/Leaftip Store TP+4 or DA+3.
     gear.linos_tp = { name = "Linos", augments = { 'Accuracy+19', '"Store TP"+4', 'Quadruple Attack +3%' } }
+    gear.telchine_tp_legs = "Volte Tights"
+    --  1  Telchine Braconi              Acc+20 or Acc/Atk+15, Store TP+6, DEX+10; base Double Attack+3%.
+    gear.telchine_tp_feet = "Nyame Sollerets"
+    --  2  Telchine Pigaches             Acc+10, Store TP+6, DEX+10; pure TP option over Nyame when defense is safe.
+    gear.chironic_tp_head = "Aya. Zucchetto +2"
+    --  3  Chironic Hat                  Domain/Reisenjima target; chase Acc/Atk plus TA/STP/QA/Haste rolls.
+    gear.chironic_tp_hands = "Bunzi's Gloves"
+    --  5  Chironic Gloves               Domain/Reisenjima target; only beats Bunzi with excellent multiattack/STP.
+    gear.chironic_tp_feet = "Nyame Sollerets"
+    --  4  Chironic Slippers             Domain/Reisenjima target; best first Chironic DD TP augment chase.
     -- JSE Weapon/Neck/Earring
     gear.jse_ear2 = "Fili Earring +1"
     gear.jse_neck = "Bard's Charm +2"
@@ -606,114 +618,114 @@ function init_gear_sets()
 
     sets.engaged = {
         range = gear.linos_tp,
-        head = "Aya. Zucchetto +2",
+        head = gear.chironic_tp_head,
         neck = "Bard's Charm +2",
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves",
+        hands = gear.chironic_tp_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Windbuffet Belt +1",
-        legs = "Volte Tights",
-        feet = "Nyame Sollerets"
+        legs = gear.telchine_tp_legs,
+        feet = gear.telchine_tp_feet
     }
 
     sets.engaged = {
         range = gear.linos_tp,
-        head = "Aya. Zucchetto +2",
+        head = gear.chironic_tp_head,
         neck = "Bard's Charm +2",
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves",
+        hands = gear.chironic_tp_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Volte Tights",
-        feet = "Nyame Sollerets"
+        legs = gear.telchine_tp_legs,
+        feet = gear.telchine_tp_feet
     }
 
     sets.engaged.Acc = {
         range = gear.linos_tp,
-        head = "Aya. Zucchetto +2",
+        head = gear.chironic_tp_head,
         neck = "Bard's Charm +2",
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves",
+        hands = gear.chironic_tp_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Volte Tights",
-        feet = "Nyame Sollerets"
+        legs = gear.telchine_tp_legs,
+        feet = gear.telchine_tp_feet
     }
 
     sets.engaged.DW = {
         range = gear.linos_tp,
-        head = "Aya. Zucchetto +2",
+        head = gear.chironic_tp_head,
         neck = "Bard's Charm +2",
         ear1 = "Eabani Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves",
+        hands = gear.chironic_tp_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Reiki Yotai",
-        legs = "Volte Tights",
-        feet = "Nyame Sollerets"
+        legs = gear.telchine_tp_legs,
+        feet = gear.telchine_tp_feet
     }
 
     sets.engaged.DW.DT = {
         range = gear.linos_tp,
-        head = "Aya. Zucchetto +2",
+        head = gear.chironic_tp_head,
         neck = "Bard's Charm +2",
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves",
+        hands = gear.chironic_tp_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Volte Tights",
-        feet = "Nyame Sollerets"
+        legs = gear.telchine_tp_legs,
+        feet = gear.telchine_tp_feet
     }
 
     sets.engaged.DW.Acc = {
         range = gear.linos_tp,
-        head = "Aya. Zucchetto +2",
+        head = gear.chironic_tp_head,
         neck = "Bard's Charm +2",
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves",
+        hands = gear.chironic_tp_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Volte Tights",
-        feet = "Nyame Sollerets"
+        legs = gear.telchine_tp_legs,
+        feet = gear.telchine_tp_feet
     }
 
     sets.engaged.DW.Acc.DT = {
         range = gear.linos_tp,
-        head = "Aya. Zucchetto +2",
+        head = gear.chironic_tp_head,
         neck = "Bard's Charm +2",
         ear1 = "Cessance Earring",
         ear2 = "Telos Earring",
         body = "Ayanmo Corazza +2",
-        hands = "Bunzi's Gloves",
+        hands = gear.chironic_tp_hands,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = "Null Shawl",
         waist = "Null Belt",
-        legs = "Volte Tights",
-        feet = "Nyame Sollerets"
+        legs = gear.telchine_tp_legs,
+        feet = gear.telchine_tp_feet
     }
 end
 

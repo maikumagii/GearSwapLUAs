@@ -55,8 +55,6 @@ function character_user_job_setup()
         asklepian_belt = "Asklepian Belt",                   -- 3
         eschite_gauntlets = "Eschite Gauntlets",             -- 1
         fortified_ring = "Fortified Ring",                   -- 4
-        melic_torque = "Melic Torque",                       -- 1
-        odyss_chestplate = "Odyss. Chestplate",              -- 1, Phalanx +5
         sapience_orb = "Sapience Orb",                       -- 6
 
         -- Sinister Reign
@@ -139,8 +137,10 @@ function character_user_job_setup()
         name = "Souveran Schuhs +1",
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
     }
-    gear.odyssean_greaves_cure = "Odyssean Greaves"
-    gear.odyssean_greaves_phalanx = "Odyssean Greaves"
+    gear.odyssean_helm_phalanx = "Odyssean Helm"         -- Target augment: Phalanx +5
+    gear.odyssean_greaves_cure = "Odyssean Greaves"      -- Target augment: Cure potency +5%
+    gear.odyssean_greaves_phalanx = "Odyssean Greaves"   -- Target augment: Phalanx +5
+    gear.odyssean_greaves_enmity = "Odyssean Greaves"    -- Target augment: Enmity +5
 
     -- Additional local binds
     send_command('bind !` gs c SubJobEnmity')
@@ -227,7 +227,7 @@ function init_gear_sets()
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
         legs = { name = "Founder's Hose", priority = 2 },
-        feet = gear.odyssean_greaves_phalanx, -- Native SIRD; Phalanx augment pair if this set catches Phalanx II.
+        feet = gear.odyssean_greaves_enmity,
     }
 
     -- Precast sets to enhance JAs
@@ -768,7 +768,7 @@ function init_gear_sets()
         main = "Sakpata's Sword",
         sub = "Priwen",
         ammo = "Crepuscular Pebble",
-        head = "Odyssean Helm",
+        head = gear.odyssean_helm_phalanx,
         neck = "Hoxne Torque",
         ear1 = "Mimir Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
