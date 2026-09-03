@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 474,
+  "total_slot_entries": 476,
   "slots": {
     "main": [
       {
@@ -2691,6 +2691,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Creed Baudrier",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:waist",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
         "name": "Chaac Belt",
         "sources": [
           "data/Kalali/Kalali-Items.lua:waist"
@@ -3705,6 +3712,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Sch_Gear.lua:ear2",
           "data/Kalali/Kalali_Smn_Gear.lua:ear2",
           "data/Kalali/Kalali_War_Gear.lua:ear1"
+        ]
+      },
+      {
+        "name": "Odnowa Earring +1",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ear1",
+          "data/Kalali/Kalali_Pld_Gear.lua:ear2",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {

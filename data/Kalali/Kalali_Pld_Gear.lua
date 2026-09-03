@@ -53,7 +53,6 @@ function character_user_job_setup()
     gear.guide_missing = {
         -- UNM / Unity Wanted
         loess_barbuta_1 = "Loess Barbuta +1",                -- 3
-        odnowa_earring_1 = "Odnowa Earring +1",              -- 5
 
         -- HTBF
         crepuscular_mail = "Crepuscular Mail",               -- 1
@@ -80,9 +79,6 @@ function character_user_job_setup()
 
         -- Meeble Burrows
         orunmilas_torque = "Orunmila's Torque",              -- 4
-
-        -- Abyssea
-        creed_baudrier = "Creed Baudrier",                   -- 3
 
         -- JSE reforging
         rev_coronet_3 = "Rev. Coronet +3",                   -- 1
@@ -203,7 +199,7 @@ function init_gear_sets()
                 'Phys. dmg. taken-10%', },
             priority = 3,
         },
-        -- waist = { name = "Creed Baudrier", priority = 9 },
+        waist = { name = "Creed Baudrier", priority = 9 },
         legs = {
             name = "Souv. Diechlings +1",
             augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
@@ -218,7 +214,7 @@ function init_gear_sets()
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         -- head = { name = "Loess Barbuta +1", priority = 11 },
         neck = { name = "Moonlight Necklace", priority = 7 },
-        -- ear1 = { name = "Odnowa Earring +1", priority = 12 },
+        ear1 = { name = "Odnowa Earring +1", priority = 12 },
         -- ear2 = { name = "Trux Earring", priority = 10 },
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = {
@@ -234,7 +230,7 @@ function init_gear_sets()
                 'Phys. dmg. taken-10%', },
             priority = 3,
         },
-        -- waist = { name = "Creed Baudrier", priority = 9 },
+        waist = { name = "Creed Baudrier", priority = 9 },
         legs = { name = "Founder's Hose", priority = 2 },
         feet = gear.odyssean_greaves_enmity,
     }
@@ -568,7 +564,7 @@ function init_gear_sets()
         ring1 = "Apeile Ring +1",
         ring2 = "Apeile Ring",
         back = gear.rudianos_enmity_back, -- Rudianos's Mantle
-        -- waist = "Creed Baudrier",
+        waist = "Creed Baudrier",
         legs = gear.souv_legs, -- Souv. Diechlings +1
         feet = gear.af3_feet, -- Chev. Sabatons +3
     }
@@ -788,8 +784,8 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Moonlight Necklace",
-        ear1 = gear.jse_ear2, -- Chev. Earring +1
-        ear2 = "Mimir Earring",
+        ear1 = "Mimir Earring",
+        ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.af3_body, -- Chev. Cuirass +3
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Murky Ring",
@@ -831,9 +827,8 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.af3_head, -- Chev. Armet +3
         neck = "Kgt. Beads +2",
-        ear1 = gear.jse_ear2, -- Chev. Earring +1
-        -- ear2 = "Odnowa Earring +1",
-        ear2 = "Ethereal Earring",
+        ear1 = "Odnowa Earring +1",
+        ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = "Adamantite Armor",
         hands = gear.af3_hands, -- Chev. Gauntlets +3
         -- ring1 = "Fortified Ring",
@@ -851,8 +846,8 @@ function init_gear_sets()
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         neck = { name = "Kgt. Beads +2", priority = 10 },
-        ear1 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
-        -- ear2 = { name = "Odnowa Earring +1", priority = 11 },
+        ear1 = { name = "Odnowa Earring +1", priority = 11 },
+        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         -- ring1 = { name = "Fortified Ring", priority = 5 },
@@ -930,7 +925,7 @@ function init_gear_sets()
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         neck = { name = "Kgt. Beads +2", priority = 10 },
-        -- ear1 = { name = "Odnowa Earring +1", priority = 11 },
+        ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
@@ -1115,7 +1110,7 @@ function init_gear_sets()
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         neck = { name = "Kgt. Beads +2", priority = 10 },
-        -- ear1 = { name = "Odnowa Earring +1", priority = 11 },
+        ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
