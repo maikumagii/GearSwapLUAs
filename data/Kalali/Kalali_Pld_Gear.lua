@@ -24,17 +24,29 @@ function character_user_job_setup()
 
     state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP', 'Twilight' }
 
-    gear.rudianos_enmity_block_back = {
+    gear.rudianos_enmity_back = {
         name = "Rudianos's Mantle",
-        augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
-            'Chance of successful block +5', }
+        augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+            'Phys. dmg. taken-10%', }
+    }
+    gear.rudianos_fc_back = {
+        name = "Rudianos's Mantle",
+        augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }
+    }
+    gear.rudianos_cure_back = {
+        name = "Rudianos's Mantle",
+        augments = { 'MND+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10',
+            '"Cure" potency +10%', 'Spell interruption rate down-10%' }
+    }
+    gear.rudianos_str_wsd_back = {
+        name = "Rudianos's Mantle",
+        augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%',
+            'Damage taken-5%' }
     }
     gear.phalanx_jse_back = {
         name = "Weard Mantle",
         augments = { 'VIT+4', 'DEX+2', 'Phalanx +5' }
     }
-    gear.fastcast_jse_back = "Null Shawl"              -- Rudianos's Mantle: INT+20, Eva./MEVA, Fast Cast+10
-    gear.enmity_jse_back = gear.rudianos_enmity_block_back
     gear.jse_ear2 = "Chev. Earring +1"
 
     -- Guide missing gear
@@ -64,12 +76,6 @@ function character_user_job_setup()
 
         -- Omen
         regal_gauntlets = "Regal Gauntlets",                 -- 6
-
-        -- Ambuscade
-        rudianos_idle_back = "Rudianos's Mantle",            -- 1, VIT+20, Eva./MEVA+20, Mag. Eva+10, Enmity+10, PDT-10
-        rudianos_fc_back = "Rudianos's Mantle",              -- 3, HP+60, Eva./MEVA+20, HP+20, Fast Cast+10
-        rudianos_cure_back = "Rudianos's Mantle",            -- 2, MND+20, Eva./MEVA+20, Mag. Eva+10, Cure potency+10, SIRD-10
-        rudianos_str_wsd_back = "Rudianos's Mantle",         -- 2, STR+30, Acc/Atk+20, WSD+10, DT-5
 
         -- Meeble Burrows
         orunmilas_torque = "Orunmila's Torque",              -- 4
@@ -138,9 +144,15 @@ function character_user_job_setup()
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
     }
     gear.odyssean_helm_phalanx = "Odyssean Helm"         -- Target augment: Phalanx +5
-    gear.odyssean_greaves_cure = "Odyssean Greaves"      -- Target augment: Cure potency +5%
-    gear.odyssean_greaves_phalanx = "Odyssean Greaves"   -- Target augment: Phalanx +5
-    gear.odyssean_greaves_enmity = "Odyssean Greaves"    -- Target augment: Enmity +5
+    gear.odyssean_greaves_cure = {
+        name = "Odyssean Greaves",
+        augments = { 'MND+8', 'Mag. Acc.+6', '"Cure" potency +5%' }
+    }
+    gear.odyssean_greaves_enmity = {
+        name = "Odyssean Greaves",
+        augments = { 'MND+7', 'Mag. Acc.+24', '"Mag. Atk. Bns."+9', 'Enmity+8' }
+    }
+    gear.odyssean_greaves_phalanx = gear.odyssean_greaves_enmity -- Target augment: Phalanx +5
 
     -- Additional local binds
     send_command('bind !` gs c SubJobEnmity')
@@ -190,8 +202,8 @@ function init_gear_sets()
         ring2 = { name = "Apeile Ring", priority = 5 },
         back = {
             name = "Rudianos's Mantle",
-            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
-                'Chance of successful block +5', },
+            augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Phys. dmg. taken-10%', },
             priority = 3,
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
@@ -221,8 +233,8 @@ function init_gear_sets()
         ring2 = { name = "Gelatinous Ring +1", priority = 5 },
         back = {
             name = "Rudianos's Mantle",
-            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
-                'Chance of successful block +5', },
+            augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Phys. dmg. taken-10%', },
             priority = 3,
         },
         -- waist = { name = "Creed Baudrier", priority = 9 },
@@ -284,7 +296,7 @@ function init_gear_sets()
         hands = "Nyame Gauntlets",
         ring1 = "Menelaus's Ring",
         ring2 = "Naji's Loop",
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Gishdubar Sash",
         legs = "Dashing Subligar",
         feet = "Nyame Sollerets"
@@ -303,7 +315,7 @@ function init_gear_sets()
         hands = "Flam. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.fastcast_jse_back,
+        back = "Null Shawl",
         waist = "Null Belt",
         legs = "Flamma Dirs +2",
         feet = "Flam. Gambieras +2"
@@ -319,7 +331,7 @@ function init_gear_sets()
         hands = "Flam. Manopolas +2",
         ring1 = "Murky Ring",
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        back = gear.fastcast_jse_back,
+        back = "Null Shawl",
         waist = "Null Belt",
         legs = "Flamma Dirs +2",
         feet = "Flam. Gambieras +2"
@@ -341,8 +353,7 @@ function init_gear_sets()
         -- hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
-        -- back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
-        back = gear.fastcast_jse_back,
+        back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
         feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
@@ -360,8 +371,7 @@ function init_gear_sets()
         -- hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
-        -- back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
-        back = gear.fastcast_jse_back,
+        back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
         feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
@@ -378,8 +388,7 @@ function init_gear_sets()
         -- hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
-        -- back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
-        back = gear.fastcast_jse_back,
+        back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
         feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
@@ -398,7 +407,7 @@ function init_gear_sets()
         hands = "Nyame Gauntlets",
         ring1 = "Sroda Ring",
         ring2 = gear.tvr_ring,
-        back = gear.fastcast_jse_back,
+        back = gear.rudianos_str_wsd_back,
         waist = "Fotia Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -414,7 +423,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.fastcast_jse_back,
+        back = gear.rudianos_str_wsd_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -443,8 +452,7 @@ function init_gear_sets()
         hands = "Nyame Gauntlets",
         ring1 = gear.tvr_ring, -- Cornelia's Ring alternative
         ring2 = "Gelatinous Ring +1",
-        -- back = { name = "Rudianos's Mantle", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', 'Damage taken-5%' } },
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_str_wsd_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -475,8 +483,7 @@ function init_gear_sets()
         hands = "Nyame Gauntlets",
         ring1 = "Sroda Ring",
         ring2 = gear.tvr_ring,
-        -- back = { name = "Rudianos's Mantle", augments = { 'STR+20', 'Accuracy+20 Attack+20', 'STR+10', 'Weapon skill damage +10%', 'Damage taken-5%' } },
-        back = gear.fastcast_jse_back,
+        back = gear.rudianos_str_wsd_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -510,7 +517,7 @@ function init_gear_sets()
         hands = "Flam. Manopolas +2",
         ring1 = "Murky Ring",
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        back = gear.fastcast_jse_back,
+        back = "Null Shawl",
         waist = "Null Belt",
         legs = "Flamma Dirs +2",
         feet = "Flam. Gambieras +2"
@@ -564,7 +571,7 @@ function init_gear_sets()
         hands = gear.souv_hands_c,
         ring1 = "Apeile Ring +1",
         ring2 = "Apeile Ring",
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_back, -- Rudianos's Mantle
         -- waist = "Creed Baudrier",
         legs = gear.souv_legs, -- Souv. Diechlings +1
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -610,8 +617,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         ring1 = "Apeile Ring +1",
         ring2 = "Murky Ring", -- Defending Ring
-        -- back = { name = "Rudianos's Mantle", augments = { 'MND+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', '"Cure" potency +10%', 'Spell interruption rate down-10%' } },
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_cure_back,
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
         feet = gear.odyssean_greaves_cure,
@@ -629,8 +635,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         ring1 = "Apeile Ring +1",
         ring2 = "Murky Ring", -- Defending Ring
-        -- back = { name = "Rudianos's Mantle", augments = { 'MND+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', '"Cure" potency +10%', 'Spell interruption rate down-10%' } },
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_cure_back,
         waist = "Audumbla Sash",
         legs = "Founder's Hose",
         feet = gear.odyssean_greaves_cure,
@@ -649,7 +654,7 @@ function init_gear_sets()
         hands = gear.souv_hands_c,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
         feet = gear.souv_feet
@@ -667,7 +672,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = "Murky Ring",
         ring2 = "Shadow Ring",
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Carrier's Sash",
         legs = "Sakpata's Cuisses",
         feet = "Sakpata's Leggings"
@@ -752,7 +757,7 @@ function init_gear_sets()
         -- hands = "Eschite Gauntlets",
         -- ring1 = "Fortified Ring",
         ring2 = "Gelatinous Ring +1",
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_back,
         -- waist = "Asklepian Belt",
         legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -816,7 +821,7 @@ function init_gear_sets()
         hands = gear.souv_hands_c,
         ring1 = "Murky Ring",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Eschan Stone",
         legs = "Nyame Flanchard",
         feet = gear.af2_feet
@@ -838,8 +843,7 @@ function init_gear_sets()
         -- ring1 = "Fortified Ring",
         ring1 = "Murky Ring",
         ring2 = "Gelatinous Ring +1",
-        -- back = { name = "Rudianos's Mantle", augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10', 'Phys. dmg. taken-10%' } },
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Null Belt",
         legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -859,8 +863,8 @@ function init_gear_sets()
         ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
             name = "Rudianos's Mantle",
-            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
-                'Chance of successful block +5', },
+            augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Phys. dmg. taken-10%', },
             priority = 3,
         },
         waist = { name = "Null Belt", priority = 7 },
@@ -880,7 +884,7 @@ function init_gear_sets()
         hands = gear.souv_hands_d,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
         feet = gear.souv_feet
@@ -898,7 +902,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = "Gelatinous Ring +1",
         ring2 = "Purity Ring",
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_back,
         waist = "Carrier's Sash",
         legs = "Sakpata's Cuisses",
         feet = "Sakpata's Leggings"
@@ -916,7 +920,7 @@ function init_gear_sets()
         hands = gear.souv_hands_d,
         ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
         ring2 = "Shadow Ring",
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Flume Belt +1",
         legs = gear.af3_legs,
         feet = gear.souv_feet
@@ -938,8 +942,8 @@ function init_gear_sets()
         ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
             name = "Rudianos's Mantle",
-            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
-                'Chance of successful block +5', },
+            augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Phys. dmg. taken-10%', },
             priority = 3,
         },
         -- waist = { name = "Asklepian Belt", priority = 7 },
@@ -959,7 +963,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_back,
         waist = "Plat. Mog. Belt",
         legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -977,7 +981,7 @@ function init_gear_sets()
         -- hands = "Regal Gauntlets",
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_back,
         waist = "Plat. Mog. Belt",
         legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = gear.af3_feet, -- Chev. Sabatons +3
@@ -1039,7 +1043,7 @@ function init_gear_sets()
         hands = gear.souv_hands_d,
         ring1 = "Murky Ring",
         ring2 = "Shadow Ring",
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
         feet = gear.souv_feet
@@ -1060,7 +1064,7 @@ function init_gear_sets()
         hands = "Nyame Gauntlets",
         ring1 = "Purity Ring",
         ring2 = "Shadow Ring",
-        back = gear.fastcast_jse_back,
+        back = gear.rudianos_enmity_back,
         waist = "Null Belt",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -1085,7 +1089,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_block_back, -- Rudianos's Mantle
+        back = gear.rudianos_enmity_back,
         waist = "Sailfi Belt +1",
         legs = gear.af3_legs, -- Chev. Cuisses +3
         feet = "Sakpata's Leggings"
@@ -1103,7 +1107,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.fastcast_jse_back,
+        back = "Null Shawl",
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -1123,8 +1127,8 @@ function init_gear_sets()
         ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
             name = "Rudianos's Mantle",
-            augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
-                'Chance of successful block +5', },
+            augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Phys. dmg. taken-10%', },
             priority = 3,
         },
         -- waist = { name = "Asklepian Belt", priority = 7 },
@@ -1163,7 +1167,7 @@ function init_gear_sets()
         hands = gear.souv_hands_d,
         ring1 = "Murky Ring",
         ring2 = "Shadow Ring",
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Flume Belt +1",
         legs = gear.af3_legs,
         feet = gear.souv_feet
@@ -1177,7 +1181,7 @@ function init_gear_sets()
         body = "Nyame Mail",
         hands = "Sakpata's Gauntlets",
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.fastcast_jse_back,
+        back = "Null Shawl",
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -1227,7 +1231,7 @@ function init_gear_sets()
         hands = "Sakpata's Gauntlets",
         ring1 = "Murky Ring",
         ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_block_back,
+        back = gear.rudianos_enmity_back,
         waist = "Flume Belt +1",
         legs = "Nyame Flanchard",
         feet = gear.af2_feet

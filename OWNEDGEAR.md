@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 472,
+  "total_slot_entries": 476,
   "slots": {
     "main": [
       {
@@ -2324,8 +2324,27 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       },
       {
         "name": "Odyssean Greaves",
+        "augments": [
+          "MND+8",
+          "Mag. Acc.+6",
+          "\"Cure\" potency +5%"
+        ],
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.odyssean_greaves_cure",
+          "data/Kalali/Kalali_Pld_Gear.lua:feet",
+          "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
+        "name": "Odyssean Greaves",
+        "augments": [
+          "MND+7",
+          "Mag. Acc.+24",
+          "\"Mag. Atk. Bns.\"+9",
+          "Enmity+8"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.odyssean_greaves_enmity",
           "data/Kalali/Kalali_Pld_Gear.lua:gear.odyssean_greaves_phalanx",
           "data/Kalali/Kalali_Pld_Gear.lua:feet",
           "user-confirmed:pld-new-gear"
@@ -3082,8 +3101,10 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Intarabus's Cape",
         "augments": [
-          "Mag. Acc+8/Mag. Dmg.+8",
-          "\"Fast Cast\"+10"
+          "CHR+20",
+          "Mag. Acc.+10",
+          "\"Fast Cast\"+10%",
+          "Mag. Acc.+20/Mag. Dmg.+20"
         ],
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:back",
@@ -3228,14 +3249,55 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Rudianos's Mantle",
         "augments": [
-          "HP+60",
+          "VIT+20",
           "Eva.+20 /Mag. Eva.+20",
           "Mag. Evasion+10",
           "Enmity+10",
-          "Chance of successful block +5"
+          "Phys. dmg. taken-10%"
         ],
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_enmity_block_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_enmity_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:back"
+        ]
+      },
+      {
+        "name": "Rudianos's Mantle",
+        "augments": [
+          "HP+60",
+          "Eva.+20 /Mag. Eva.+20",
+          "HP+20",
+          "\"Fast Cast\"+10"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_fc_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:back"
+        ]
+      },
+      {
+        "name": "Rudianos's Mantle",
+        "augments": [
+          "MND+20",
+          "Eva.+20 /Mag. Eva.+20",
+          "Mag. Evasion+10",
+          "\"Cure\" potency +10%",
+          "Spell interruption rate down-10%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_cure_back",
+          "data/Kalali/Kalali_Pld_Gear.lua:back"
+        ]
+      },
+      {
+        "name": "Rudianos's Mantle",
+        "augments": [
+          "STR+20",
+          "Accuracy+20 Attack+20",
+          "STR+10",
+          "Weapon skill damage +10%",
+          "Damage taken-5%"
+        ],
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.rudianos_str_wsd_back",
           "data/Kalali/Kalali_Pld_Gear.lua:back"
         ]
       },

@@ -19,8 +19,7 @@ function character_user_job_setup()
     gear.melee_chr_wsd_back = gear.melee_str_wsd_back
     gear.melee_dex_wsd_back = gear.melee_str_wsd_back
     gear.melee_int_wsd_back = gear.melee_str_wsd_back
-    gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'Mag. Acc+8/Mag. Dmg.+8', '"Fast Cast"+10', } }
-    --gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'CHR+20', 'Mag. Acc+20 /Mag. Dmg.+20', 'Mag. Acc.+10', '"Fast Cast"+10', 'Damage taken-5%', } }
+    gear.magic_jse_back = { name = "Intarabus's Cape", augments = { 'CHR+20', 'Mag. Acc.+10', '"Fast Cast"+10%', 'Mag. Acc.+20/Mag. Dmg.+20', } }
 
     gear.linos_str_wsd = { name = "Linos", augments = { 'STR+8', 'Attack+15', 'Weapon skill damage +2%' } } -- Savage Blade
     gear.linos_chr_wsd = { name = "Linos", augments = { 'CHR+8', 'Attack+20', 'Weapon skill damage +3%' } } -- Mordant Rime
