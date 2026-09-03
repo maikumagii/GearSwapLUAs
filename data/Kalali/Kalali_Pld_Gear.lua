@@ -67,6 +67,7 @@ function character_user_job_setup()
         asklepian_belt = "Asklepian Belt",                   -- 3
         eschite_gauntlets = "Eschite Gauntlets",             -- 1
         fortified_ring = "Fortified Ring",                   -- 4
+        odyssean_helm = "Odyssean Helm",                     -- 1, Phalanx +5
         sapience_orb = "Sapience Orb",                       -- 6
 
         -- Sinister Reign
@@ -89,9 +90,6 @@ function character_user_job_setup()
 
         -- Mythic
         burtgang = "Burtgang",                               -- 23
-
-        -- BCNM
-        fenian_ring = "Fenian Ring",                         -- 1
 
         -- Crafted / AH / older-content pieces
         shab_cuirass_1 = "Shab. Cuirass +1",                 -- 2
@@ -143,7 +141,6 @@ function character_user_job_setup()
         name = "Souveran Schuhs +1",
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
     }
-    gear.odyssean_helm_phalanx = "Odyssean Helm"         -- Target augment: Phalanx +5
     gear.odyssean_greaves_cure = {
         name = "Odyssean Greaves",
         augments = { 'MND+8', 'Mag. Acc.+6', '"Cure" potency +5%' }
@@ -275,7 +272,6 @@ function init_gear_sets()
         sub = "Aegis",
         ear1 = "Knightly Earring",
         hands = gear.af2_hands,
-        -- ring1 = "Fenian Ring",
     }
     sets.precast.JA['Provoke'] = sets.Enmity
     sets.precast.JA['Warcry'] = sets.Enmity
@@ -773,14 +769,14 @@ function init_gear_sets()
         main = "Sakpata's Sword",
         sub = "Priwen",
         ammo = "Crepuscular Pebble",
-        head = gear.odyssean_helm_phalanx,
+        -- head = "Odyssean Helm", -- Target augment: Phalanx +5
         neck = "Hoxne Torque",
         ear1 = "Mimir Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = "Sworn Platemail",
         hands = gear.souv_hands_c,
         ring1 = "Murky Ring",
-        ring2 = "Fortified Ring",
+        -- ring2 = "Fortified Ring",
         back = gear.phalanx_jse_back,
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
@@ -1280,21 +1276,25 @@ function job_customize_defense_set(defenseSet)
     return add_priwen_when_reprisal(defenseSet)
 end
 
+function user_job_lockstyle()
+    windower.chat.input('/lockstyleset 188')
+end
+
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
     -- Default macro set/book
     if player.sub_job == 'NIN' then
-        set_macro_page(1, 19)
+        set_macro_page(19, 1)
     elseif player.sub_job == 'RUN' then
-        set_macro_page(1, 19)
+        set_macro_page(19, 1)
     elseif player.sub_job == 'RDM' then
-        set_macro_page(1, 19)
+        set_macro_page(19, 1)
     elseif player.sub_job == 'BLU' then
-        set_macro_page(1, 19)
+        set_macro_page(19, 1)
     elseif player.sub_job == 'DNC' then
-        set_macro_page(1, 19)
+        set_macro_page(19, 1)
     else
-        set_macro_page(1, 19) --War/Etc
+        set_macro_page(19, 1) --War/Etc
     end
 end
 
