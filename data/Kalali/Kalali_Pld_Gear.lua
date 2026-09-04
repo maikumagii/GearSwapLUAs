@@ -51,8 +51,6 @@ function character_user_job_setup()
 
     -- Guide missing gear
     gear.guide_missing = {
-        -- UNM / Unity Wanted
-
         -- HTBF
         crepuscular_mail = "Crepuscular Mail",               -- 1
         trux_earring = "Trux Earring",                       -- 3
@@ -175,7 +173,7 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         -- ammo = { name = "Sapience Orb", priority = 8 },
-        head = { name = "Loess Barbuta", priority = 11 }, -- Guide target: Loess Barbuta +1
+        head = { name = "Loess Barbuta +1", priority = 11 },
         neck = { name = "Moonlight Necklace", priority = 7 },
         -- ear1 = { name = "Trux Earring", priority = 10 },
         ear2 = { name = "Cryptic Earring", priority = 12 },
@@ -210,7 +208,7 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
-        head = { name = "Loess Barbuta", priority = 11 }, -- Guide target: Loess Barbuta +1
+        head = { name = "Loess Barbuta +1", priority = 11 },
         neck = { name = "Moonlight Necklace", priority = 7 },
         ear1 = { name = "Odnowa Earring +1", priority = 12 },
         -- ear2 = { name = "Trux Earring", priority = 10 },
@@ -553,7 +551,7 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         -- ammo = "Sapience Orb",
-        head = "Loess Barbuta", -- Guide target: Loess Barbuta +1
+        head = "Loess Barbuta +1",
         neck = "Moonlight Necklace",
         -- ear1 = "Trux Earring",
         ear2 = "Cryptic Earring",

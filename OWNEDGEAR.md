@@ -991,7 +991,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Loess Barbuta",
+        "name": "Loess Barbuta +1",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:head",
           "user-confirmed:pld-new-gear"
