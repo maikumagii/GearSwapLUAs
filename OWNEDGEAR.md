@@ -38,9 +38,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 478,
+  "total_slot_entries": 479,
   "slots": {
     "main": [
+      {
+        "name": "Brilliance",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.burtgang",
+          "user-confirmed:pld-burtgang-substitute"
+        ]
+      },
       {
         "name": "Bunzi's Rod",
         "sources": [
