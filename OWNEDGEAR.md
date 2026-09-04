@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 476,
+  "total_slot_entries": 478,
   "slots": {
     "main": [
       {
@@ -988,6 +988,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Blu_Gear.lua:head",
           "data/Kalali/Kalali_Cor_Gear.lua:head",
           "data/Kalali/Kalali_Rdm_Gear.lua:head"
+        ]
+      },
+      {
+        "name": "Loess Barbuta",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:head",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {
@@ -2535,6 +2542,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Moonlight Necklace",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:neck"
+        ]
+      },
+      {
+        "name": "Sacro Gorget",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:neck",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {

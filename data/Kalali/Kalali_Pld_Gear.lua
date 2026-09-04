@@ -52,11 +52,9 @@ function character_user_job_setup()
     -- Guide missing gear
     gear.guide_missing = {
         -- UNM / Unity Wanted
-        loess_barbuta_1 = "Loess Barbuta +1",                -- 3
 
         -- HTBF
         crepuscular_mail = "Crepuscular Mail",               -- 1
-        sacro_gorget = "Sacro Gorget",                       -- 2
         trux_earring = "Trux Earring",                       -- 3
 
         -- Domain Invasion
@@ -177,7 +175,7 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         -- ammo = { name = "Sapience Orb", priority = 8 },
-        -- head = { name = "Loess Barbuta +1", priority = 11 },
+        head = { name = "Loess Barbuta", priority = 11 }, -- Guide target: Loess Barbuta +1
         neck = { name = "Moonlight Necklace", priority = 7 },
         -- ear1 = { name = "Trux Earring", priority = 10 },
         ear2 = { name = "Cryptic Earring", priority = 12 },
@@ -212,7 +210,7 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
-        -- head = { name = "Loess Barbuta +1", priority = 11 },
+        head = { name = "Loess Barbuta", priority = 11 }, -- Guide target: Loess Barbuta +1
         neck = { name = "Moonlight Necklace", priority = 7 },
         ear1 = { name = "Odnowa Earring +1", priority = 12 },
         -- ear2 = { name = "Trux Earring", priority = 10 },
@@ -555,7 +553,7 @@ function init_gear_sets()
         -- main = "Burtgang",
         sub = "Duban",
         -- ammo = "Sapience Orb",
-        -- head = "Loess Barbuta +1",
+        head = "Loess Barbuta", -- Guide target: Loess Barbuta +1
         neck = "Moonlight Necklace",
         -- ear1 = "Trux Earring",
         ear2 = "Cryptic Earring",
@@ -602,7 +600,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        -- neck = "Sacro Gorget",
+        neck = "Sacro Gorget",
         -- ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
@@ -620,7 +618,7 @@ function init_gear_sets()
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
-        -- neck = "Sacro Gorget",
+        neck = "Sacro Gorget",
         -- ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
