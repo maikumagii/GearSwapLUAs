@@ -10,7 +10,7 @@ function character_user_job_setup()
     state.ResistDefenseMode:options('MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
     state.Weapons:options('None', 'ExcaliburDuban', 'ExcaliburAegis', 'ExcaliburBlurred', 'NaeglingDuban',
-        'NaeglingAegis', 'BurtgangDuban', 'BurtgangAegis')
+        'NaeglingAegis', 'BurtgangDuban', 'BurtgangAegis', 'BurtgangSrivatsa')
 
     autows_list = {
         ExcaliburDuban = 'Knights of Round',
@@ -20,6 +20,7 @@ function character_user_job_setup()
         NaeglingAegis = 'Savage Blade',
         BurtgangDuban = 'Atonement',
         BurtgangAegis = 'Atonement',
+        BurtgangSrivatsa = 'Atonement',
     }
 
     state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP', 'Twilight' }
@@ -53,7 +54,6 @@ function character_user_job_setup()
     gear.burtgang = "Brilliance"                           -- Burtgang
     gear.sapience_orb = "Staunch Tathlum +1"                -- Sapience Orb
     gear.trux_earring = "Knightly Earring"                 -- Trux Earring
-    gear.tuisto_earring = "Odnowa Earring +1"              -- Tuisto Earring
     gear.asklepian_belt = "Plat. Mog. Belt"                -- Asklepian Belt
     gear.eschite_gauntlets = {
         name = "Souv. Handsch. +1",
@@ -61,20 +61,17 @@ function character_user_job_setup()
     }                                                       -- Eschite Gauntlets
     gear.fortified_ring = "Moonlight Ring"                 -- Fortified Ring
     gear.odyssean_helm = "Nyame Helm"                      -- Odyssean Helm, target augment: Phalanx +5
-    gear.jumalik_helm = "Chev. Armet +1"                   -- Jumalik Helm
+    gear.jumalik_helm = "Chev. Armet +2"                   -- Jumalik Helm
     gear.leyline_gloves = {
         name = "Souv. Handsch. +1",
         augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
         priority = 6
     }                                                       -- Leyline Gloves
     gear.malevolence = "Sakpata's Sword"                   -- Malevolence
-    gear.regal_gauntlets = {
-        name = "Souv. Handsch. +1",
-        augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' }
-    }                                                       -- Regal Gauntlets
+    gear.regal_gauntlets = gear.af2_hands                  -- Regal Gauntlets
     gear.orunmilas_torque = "Moonlight Necklace"           -- Orunmila's Torque
-    gear.rev_coronet_3 = "Chev. Armet +1"                  -- Rev. Coronet +3
-    gear.rev_leggings_3 = "Chev. Sabatons +1"              -- Rev. Leggings +3
+    gear.rev_coronet_3 = "Chev. Armet +2"                  -- Rev. Coronet +3
+    gear.rev_leggings_3 = "Chev. Sabatons +3"              -- Rev. Leggings +3
     gear.crepuscular_mail = "Sakpata's Plate"              -- Crepuscular Mail
     gear.shab_cuirass_1 = "Rev. Surcoat +4"                -- Shab. Cuirass +1
 
@@ -94,11 +91,11 @@ function character_user_job_setup()
 
 
     -- Empy Gear
-    gear.af3_head = "Chev. Armet +1"
-    gear.af3_body = "Chev. Cuirass +1"
-    gear.af3_hands = "Chev. Gauntlets +1"
-    gear.af3_legs = "Chev. Cuisses +1"
-    gear.af3_feet = "Chev. Sabatons +1"
+    gear.af3_head = "Chev. Armet +2"
+    gear.af3_body = "Chev. Cuirass +3"
+    gear.af3_hands = "Chev. Gauntlets +2"
+    gear.af3_legs = "Chev. Cuisses +2"
+    gear.af3_feet = "Chev. Sabatons +3"
 
     gear.souv_head = {
         name = "Souv. Schaller +1",
@@ -425,7 +422,7 @@ function init_gear_sets()
         ammo = "Crepuscular Pebble",
         head = "Nyame Helm",
         neck = "Kgt. Beads +2",
-        ear1 = gear.tuisto_earring, -- Tuisto Earring
+        ear1 = "Tuisto Earring",
         ear2 = "Thrud Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
@@ -590,7 +587,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Sacro Gorget",
-        ear1 = gear.tuisto_earring, -- Tuisto Earring
+        ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
@@ -608,7 +605,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Sacro Gorget",
-        ear1 = gear.tuisto_earring, -- Tuisto Earring
+        ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
@@ -663,7 +660,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Unmoving Collar +1",
-        ear1 = gear.tuisto_earring, -- Tuisto Earring
+        ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
@@ -681,7 +678,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Unmoving Collar +1",
-        ear1 = gear.tuisto_earring, -- Tuisto Earring
+        ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
@@ -700,7 +697,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = gear.souv_head,
         neck = "Unmoving Collar +1",
-        ear1 = gear.tuisto_earring, -- Tuisto Earring
+        ear1 = "Tuisto Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
         body = gear.souv_body,
         hands = gear.souv_hands_c,
@@ -872,7 +869,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1",
         head = "Sakpata's Helm",
         neck = "Moonlight Necklace",
-        ear1 = gear.tuisto_earring, -- Tuisto Earring
+        ear1 = "Tuisto Earring",
         ear2 = "Eabani Earring",
         body = "Sakpata's Plate",
         hands = "Sakpata's Gauntlets",
@@ -1005,6 +1002,7 @@ function init_gear_sets()
     sets.weapons.NaeglingAegis = { main = "Naegling", sub = "Aegis" }
     sets.weapons.BurtgangDuban = { main = gear.burtgang, sub = "Duban" } -- Burtgang
     sets.weapons.BurtgangAegis = { main = gear.burtgang, sub = "Aegis" } -- Burtgang
+    sets.weapons.BurtgangSrivatsa = { main = gear.burtgang, sub = "Srivatsa" } -- Burtgang
     sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword }
 
     sets.defense.Block = {

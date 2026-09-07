@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 479,
+  "total_slot_entries": 480,
   "slots": {
     "main": [
       {
@@ -918,7 +918,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Armet +1",
+        "name": "Chev. Armet +2",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_head",
           "user-confirmed:pld-chev-armor-1"
@@ -1312,7 +1312,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Cuirass +1",
+        "name": "Chev. Cuirass +3",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_body",
           "user-confirmed:pld-chev-armor-1"
@@ -1581,7 +1581,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Gauntlets +1",
+        "name": "Chev. Gauntlets +2",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_hands",
           "user-confirmed:pld-chev-armor-1"
@@ -1881,7 +1881,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Cuisses +1",
+        "name": "Chev. Cuisses +2",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_legs",
           "user-confirmed:pld-chev-armor-1"
@@ -2192,7 +2192,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Sabatons +1",
+        "name": "Chev. Sabatons +3",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_feet",
           "user-confirmed:pld-chev-armor-1"
@@ -3775,6 +3775,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Sch_Gear.lua:ear2",
           "data/Kalali/Kalali_Smn_Gear.lua:ear2",
           "data/Kalali/Kalali_War_Gear.lua:ear2"
+        ]
+      },
+      {
+        "name": "Tuisto Earring",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:ear1",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {
