@@ -38,13 +38,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 480,
+  "total_slot_entries": 481,
   "slots": {
     "main": [
       {
         "name": "Brilliance",
         "sources": [
-          "data/Kalali/Kalali_Pld_Gear.lua:gear.burtgang",
           "user-confirmed:pld-burtgang-substitute"
         ]
       },
@@ -57,6 +56,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Geo_Gear.lua:main",
           "data/Kalali/Kalali_Rdm_Gear.lua:main",
           "data/Kalali/Kalali_Sch_Gear.lua:main"
+        ]
+      },
+      {
+        "name": "Burtgang",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:main",
+          "user-confirmed:pld-burtgang"
         ]
       },
       {
@@ -918,10 +924,10 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Armet +2",
+        "name": "Chev. Armet +3",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_head",
-          "user-confirmed:pld-chev-armor-1"
+          "user-confirmed:pld-chev-armet-3"
         ]
       },
       {
