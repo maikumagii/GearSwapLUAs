@@ -1587,7 +1587,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Gauntlets +2",
+        "name": "Chev. Gauntlets +3",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_hands",
           "user-confirmed:pld-chev-armor-1"
@@ -1887,7 +1887,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Cuisses +2",
+        "name": "Chev. Cuisses +3",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af3_legs",
           "user-confirmed:pld-chev-armor-1"

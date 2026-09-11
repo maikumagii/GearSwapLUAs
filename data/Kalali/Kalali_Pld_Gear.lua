@@ -69,8 +69,6 @@ function character_user_job_setup()
     gear.malevolence = "Sakpata's Sword"                   -- Malevolence
     gear.regal_gauntlets = gear.af2_hands                  -- Regal Gauntlets
     gear.orunmilas_torque = "Moonlight Necklace"           -- Orunmila's Torque
-    gear.rev_coronet_3 = "Chev. Armet +3"                  -- Rev. Coronet +3
-    gear.rev_leggings_3 = "Chev. Sabatons +3"              -- Rev. Leggings +3
     gear.crepuscular_mail = "Sakpata's Plate"              -- Crepuscular Mail
     gear.shab_cuirass_1 = "Rev. Surcoat +4"                -- Shab. Cuirass +1
 
@@ -92,8 +90,8 @@ function character_user_job_setup()
     -- Empy Gear
     gear.af3_head = "Chev. Armet +3"
     gear.af3_body = "Chev. Cuirass +3"
-    gear.af3_hands = "Chev. Gauntlets +2"
-    gear.af3_legs = "Chev. Cuisses +2"
+    gear.af3_hands = "Chev. Gauntlets +3"
+    gear.af3_legs = "Chev. Cuisses +3"
     gear.af3_feet = "Chev. Sabatons +3"
 
     gear.souv_head = {
@@ -223,7 +221,7 @@ function init_gear_sets()
         legs = gear.af2_legs,
     }
     sets.precast.JA['Holy Circle'] = {
-        feet = gear.rev_leggings_3, -- Rev. Leggings +3
+        feet = gear.af1_feet, -- Rev. Leggings +3
     }
     sets.precast.JA['Sentinel'] = {
         feet = gear.af2_feet,
@@ -238,7 +236,7 @@ function init_gear_sets()
         feet = gear.af3_feet, -- Chev. Sabatons +3
     }
     sets.precast.JA['Cover'] = {
-        head = gear.rev_coronet_3, -- Rev. Coronet +3
+        head = gear.af1_head, -- Rev. Coronet +3
         body = gear.af2_body,
     }
 
@@ -761,6 +759,7 @@ function init_gear_sets()
         legs = "Sakpata's Cuisses",
         feet = gear.souv_feet,
     }
+
     sets.midcast.Phalanx.SIRD = set_combine(sets.midcast.Phalanx, {
         main = "Burtgang",
         sub = "Duban",
@@ -775,8 +774,12 @@ function init_gear_sets()
         waist = "Audumbla Sash",
         feet = gear.odyssean_greaves_phalanx,
     })
+
     sets.Phalanx_Received = {
         main = "Sakpata's Sword",
+        sub = "Priwen",
+        --head
+        --body
         hands = gear.souv_hands_c,
         back = gear.phalanx_jse_back,
         legs = "Sakpata's Cuisses",
@@ -984,13 +987,17 @@ function init_gear_sets()
     }
     sets.passive.AbsorbMP = {
         head = gear.af3_head,
-        neck = "Loricate Torque +1",
+        neck = "Warder's Charm +1",
         ear2 = "Ethereal Earring",
         waist = "Flume Belt +1",
+        -- feet = gear.af1_feet, -- Rev. Leggings +3; not yet owned
         feet = "Nyame Sollerets"
     }
     sets.MP_Knockback = {}
-    sets.Twilight = { head = "Nyame Helm", body = "Adamantite Armor" }
+    sets.Twilight = {
+        --head = "Nyame Helm",
+        --body = "Adamantite Armor",
+    }
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 
     -- Weapons sets
