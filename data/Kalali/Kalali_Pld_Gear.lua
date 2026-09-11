@@ -1136,21 +1136,21 @@ function init_gear_sets()
     sets.engaged.DW.Acc = {}
 
     sets.engaged.Tank = {
-        main = "Sakpata's Sword",
+        main = "Burtgang",
         sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.af3_head,
-        neck = "Loricate Torque +1",
-        ear1 = "Ethereal Earring",
-        ear2 = "Sanare Earring",
-        body = "Sakpata's Plate",
-        hands = gear.souv_hands_d,
-        ring1 = "Murky Ring",
-        ring2 = "Shadow Ring",
+        ammo = "Aurgelmir Orb +1",
+        head = "Hjarrandi Helm",
+        neck = "Unmoving Collar +1",
+        ear1 = "Crep. Earring",
+        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        body = gear.crepuscular_mail, -- Crepuscular Mail
+        hands = "Sakpata's Gauntlets",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
         back = gear.rudianos_enmity_back,
-        waist = "Flume Belt +1",
-        legs = gear.af3_legs,
-        feet = gear.souv_feet
+        waist = "Sailfi Belt +1",
+        legs = gear.af3_legs, -- Chev. Cuisses +3
+        feet = "Sakpata's Leggings"
     }
 
     sets.engaged.Tp = set_combine(sets.engaged.Tank, {
