@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 481,
+  "total_slot_entries": 482,
   "slots": {
     "main": [
       {
@@ -2369,6 +2369,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_War_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.af1_feet"
+        ]
+      },
+      {
+        "name": "Rev. Leggings +2",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.af1_feet",
+          "data/Kalali/Kalali_Pld_Gear.lua:feet",
+          "user-confirmed:pld-new-gear"
         ]
       },
       {

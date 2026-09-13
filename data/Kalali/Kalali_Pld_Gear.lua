@@ -9,15 +9,12 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT', 'MDT_Reraise')
     state.ResistDefenseMode:options('MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
-    state.Weapons:options('None', 'ExcaliburDuban', 'ExcaliburAegis', 'ExcaliburBlurred', 'NaeglingDuban',
-        'NaeglingAegis', 'BurtgangDuban', 'BurtgangAegis', 'BurtgangSrivatsa')
+    state.Weapons:options('BurtgangDuban', 'None', 'ExcaliburDuban', 'ExcaliburAegis',
+        'BurtgangAegis', 'BurtgangSrivatsa')
 
     autows_list = {
         ExcaliburDuban = 'Knights of Round',
         ExcaliburAegis = 'Knights of Round',
-        ExcaliburBlurred = 'Knights of Round',
-        NaeglingDuban = 'Savage Blade',
-        NaeglingAegis = 'Savage Blade',
         BurtgangDuban = 'Atonement',
         BurtgangAegis = 'Atonement',
         BurtgangSrivatsa = 'Atonement',
@@ -77,7 +74,7 @@ function character_user_job_setup()
     gear.af1_body = "Rev. Surcoat +4"
     gear.af1_hands = ""
     gear.af1_legs = ""
-    gear.af1_feet = "" -- Rev. Leggings +3
+    gear.af1_feet = "Rev. Leggings +2"
 
     -- Relic Gear
     gear.af2_head = "Cab. Coronet +3"
@@ -221,7 +218,7 @@ function init_gear_sets()
         legs = gear.af2_legs,
     }
     sets.precast.JA['Holy Circle'] = {
-        feet = gear.af1_feet, -- Rev. Leggings +3
+        feet = gear.af1_feet,
     }
     sets.precast.JA['Sentinel'] = {
         feet = gear.af2_feet,
@@ -436,14 +433,6 @@ function init_gear_sets()
         ear2 = "Telos Earring",
         waist = "Null Belt",
     })
-    sets.precast.WS['Savage Blade'].ExcaliburBlurred = set_combine(sets.precast.WS['Savage Blade'], {
-        main = "Excalibur",
-        sub = "Blurred Shield +1",
-    })
-    sets.precast.WS['Savage Blade'].ExcaliburBlurredAcc = set_combine(sets.precast.WS['Savage Blade'].Acc, {
-        main = "Excalibur",
-        sub = "Blurred Shield +1",
-    })
 
     -- Excalibur's unique weaponskill.
     sets.precast.WS['Knights of Round'] = {
@@ -467,18 +456,8 @@ function init_gear_sets()
         ear2 = "Telos Earring",
         waist = "Null Belt",
     })
-    sets.precast.WS['Knights of Round'].ExcaliburBlurred = set_combine(sets.precast.WS['Knights of Round'], {
-        main = "Excalibur",
-        sub = "Blurred Shield +1",
-    })
-    sets.precast.WS['Knights of Round'].ExcaliburBlurredAcc = set_combine(sets.precast.WS['Knights of Round'].Acc, {
-        main = "Excalibur",
-        sub = "Blurred Shield +1",
-    })
     sets.precast.WS['Knights of the Round'] = sets.precast.WS['Knights of Round']
     sets.precast.WS['Knights of the Round'].Acc = sets.precast.WS['Knights of Round'].Acc
-    sets.precast.WS['Knights of the Round'].ExcaliburBlurred = sets.precast.WS['Knights of Round'].ExcaliburBlurred
-    sets.precast.WS['Knights of the Round'].ExcaliburBlurredAcc = sets.precast.WS['Knights of Round'].ExcaliburBlurredAcc
 
     sets.precast.WS['Flat Blade'] = {
         ammo = "Aurgelmir Orb +1",
@@ -990,8 +969,7 @@ function init_gear_sets()
         neck = "Warder's Charm +1",
         ear2 = "Ethereal Earring",
         waist = "Flume Belt +1",
-        -- feet = gear.af1_feet, -- Rev. Leggings +3; not yet owned
-        feet = "Nyame Sollerets"
+        feet = gear.af1_feet
     }
     sets.MP_Knockback = {}
     sets.Twilight = {
@@ -1003,13 +981,9 @@ function init_gear_sets()
     -- Weapons sets
     sets.weapons.ExcaliburDuban = { main = "Excalibur", sub = "Duban" }
     sets.weapons.ExcaliburAegis = { main = "Excalibur", sub = "Aegis" }
-    sets.weapons.ExcaliburBlurred = { main = "Excalibur", sub = "Blurred Shield +1" }
-    sets.weapons.NaeglingDuban = { main = "Naegling", sub = "Duban" }
-    sets.weapons.NaeglingAegis = { main = "Naegling", sub = "Aegis" }
     sets.weapons.BurtgangDuban = { main = "Burtgang", sub = "Duban" }
     sets.weapons.BurtgangAegis = { main = "Burtgang", sub = "Aegis" }
     sets.weapons.BurtgangSrivatsa = { main = "Burtgang", sub = "Srivatsa" }
-    sets.weapons.DualWeapons = { main = "Naegling", sub = gear.tp_bonus_sword }
 
     sets.defense.Block = {
         main = "Sakpata's Sword",
@@ -1115,21 +1089,6 @@ function init_gear_sets()
         legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
         feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
-
-    sets.engaged.ExcaliburBlurred = set_combine(sets.engaged, {
-        main = "Excalibur",
-        sub = "Blurred Shield +1",
-        body = "Flamma Korazin +2",
-        hands = "Flam. Manopolas +2",
-        legs = "Flamma Dirs +2",
-    })
-    sets.engaged.ExcaliburBlurred.Acc = set_combine(sets.engaged.Acc, {
-        main = "Excalibur",
-        sub = "Blurred Shield +1",
-        body = "Flamma Korazin +2",
-        hands = "Flam. Manopolas +2",
-        legs = "Flamma Dirs +2",
-    })
 
     sets.engaged.DW = {}
 
