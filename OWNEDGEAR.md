@@ -2372,7 +2372,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Rev. Leggings +2",
+        "name": "Rev. Leggings +4",
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:gear.af1_feet",
           "data/Kalali/Kalali_Pld_Gear.lua:feet",

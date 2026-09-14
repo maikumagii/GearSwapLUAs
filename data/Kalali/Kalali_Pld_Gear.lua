@@ -74,7 +74,7 @@ function character_user_job_setup()
     gear.af1_body = "Rev. Surcoat +4"
     gear.af1_hands = ""
     gear.af1_legs = ""
-    gear.af1_feet = "Rev. Leggings +2"
+    gear.af1_feet = "Rev. Leggings +4"
 
     -- Relic Gear
     gear.af2_head = "Cab. Coronet +3"
