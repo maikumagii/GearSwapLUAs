@@ -1040,8 +1040,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Sch_Gear.lua:head",
           "data/Kalali/Kalali_Smn_Gear.lua:head",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_head",
-          "data/Kalali/Kalali_War_Gear.lua:head"
-        ]
+          "data/Kalali/Kalali_War_Gear.lua:head",
+          "user-confirmed:nyame-path-b-r20"
+        ],
+        "augment_path": "B",
+        "augment_rank": 20,
+        "augment_rank_note": "User-confirmed Path B, rank 20."
       },
       {
         "name": "Pedagogy Mortar. +3",
@@ -1406,8 +1410,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Sch_Gear.lua:body",
           "data/Kalali/Kalali_Smn_Gear.lua:body",
           "data/Kalali/Kalali_War_Gear.lua:body",
-          "data/Kalali/Kalali_War_Gear.lua:gear.nyame_body"
-        ]
+          "data/Kalali/Kalali_War_Gear.lua:gear.nyame_body",
+          "user-confirmed:nyame-path-b-r20"
+        ],
+        "augment_path": "B",
+        "augment_rank": 20,
+        "augment_rank_note": "User-confirmed Path B, rank 20."
       },
       {
         "name": "Pedagogy Gown +3",
@@ -1743,8 +1751,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Sch_Gear.lua:hands",
           "data/Kalali/Kalali_Smn_Gear.lua:hands",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_hands",
-          "data/Kalali/Kalali_War_Gear.lua:hands"
-        ]
+          "data/Kalali/Kalali_War_Gear.lua:hands",
+          "user-confirmed:nyame-path-b-r20"
+        ],
+        "augment_path": "B",
+        "augment_rank": 20,
+        "augment_rank_note": "User-confirmed Path B, rank 20."
       },
       {
         "name": "Pedagogy Bracers +3",
@@ -2041,8 +2053,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Smn_Gear.lua:legs",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_legs",
           "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_legs",
-          "data/Kalali/Kalali_War_Gear.lua:legs"
-        ]
+          "data/Kalali/Kalali_War_Gear.lua:legs",
+          "user-confirmed:nyame-path-b-r20"
+        ],
+        "augment_path": "B",
+        "augment_rank": 20,
+        "augment_rank_note": "User-confirmed Path B, rank 20."
       },
       {
         "name": "Pedagogy Pants +3",
@@ -2333,8 +2349,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Pld_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:feet",
           "data/Kalali/Kalali_War_Gear.lua:gear.nyame_feet",
-          "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_feet"
-        ]
+          "data/Kalali/Kalali_War_Gear.lua:gear.sakpatas_feet",
+          "user-confirmed:nyame-path-b-r20"
+        ],
+        "augment_path": "B",
+        "augment_rank": 20,
+        "augment_rank_note": "User-confirmed Path B, rank 20."
       },
       {
         "name": "Odyssean Greaves",

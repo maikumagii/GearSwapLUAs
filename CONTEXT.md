@@ -94,6 +94,11 @@ This keeps sets runnable today while documenting future upgrades.
 
 ## Endgame Set Philosophy
 
+User-confirmed exception for the DRG/DRK/DNC starter sets: prioritize TP performance over tank-level
+defenses while working toward better gear. The user accepts reduced damage reduction in normal engaged
+sets. In particular, use full Flamma +2 for DRG's default TP armor and keep Nyame in explicit defensive
+variants; do not restore Nyame to the default solely to reach the DT cap.
+
 Current Kalali gear sets are generally built for endgame content, where some defensive capability is expected even in
 damage-oriented sets. Treat default engaged/TP sets as hybrid sets unless the file or user explicitly says a set is a
 glass-cannon/farm/fodder option. When improving DPS, do not strip defensive value such as DT, magic evasion, accuracy,
