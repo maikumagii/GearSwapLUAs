@@ -9,18 +9,23 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
-    state.Weapons:options('None', 'Naegling')
+    state.Weapons:options('None', 'Loxotic', 'Lycurgos', 'Naegling', 'CrepuscularScythe')
     state.WeaponSets:options('Default')
-    weapon_sets = { Default = { 'None', 'Naegling' } }
+    weapon_sets = { Default = { 'None', 'Loxotic', 'Lycurgos', 'Naegling', 'CrepuscularScythe' } }
     default_weapons = 'Naegling'
-    autows_list = { Naegling = 'Savage Blade' }
+    autows_list = {
+        Loxotic = 'Judgment',
+        Lycurgos = 'Steel Cyclone',
+        Naegling = 'Savage Blade',
+        CrepuscularScythe = 'Cross Reaper'
+    }
     autows = 'Savage Blade'
     state.ExtraMeleeMode = M { ['description'] = 'Extra Melee Mode', 'None' }
     state.Passive = M { ['description'] = 'Passive Mode', 'None', 'MP' }
     state.CastingMode:options('Normal', 'Resistant')
     state.DrainSwapWeaponMode = M { 'Never', 'Always', '300', '1000' }
 
-    -- No great sword or scythe is listed in OWNEDGEAR. Naegling is the starter.
+    -- Naegling remains the default; the other owned weapons are selectable modes.
     -- Montante +1 / Anguta / Liberator / Misanthropy remain future weapons.
     gear.af1_head = '' -- Ignominy Burgeonet: Souleater.
     gear.af1_feet = '' -- Ignominy Sollerets: Arcane Circle.
@@ -126,9 +131,17 @@ function init_gear_sets()
     sets.precast.WS.Proc = set_combine(sets.idle.PDT, {})
     sets.MaxTP = { ear1 = "Ishvara Earring" }
     sets.AccMaxTP = { ear1 = "Cessance Earring" }
-    sets.weapons.Naegling = { main = "Naegling", sub = "Blurred Shield +1" }
+    -- Su2 requires 100 spent DRK job points. Reload after unlocking it to use Blurred Shield +1.
+    local drk_jp = player.job_points and player.job_points.drk
+    local melee_shield = drk_jp and (drk_jp.jp_spent or 0) >= 100 and "Blurred Shield +1" or "Regis"
+    sets.weapons.Loxotic = { main = "Loxotic Mace +1", sub = melee_shield }
+    sets.weapons.Lycurgos = { main = "Lycurgos", sub = "Utu Grip" }
+    sets.weapons.Naegling = { main = "Naegling", sub = melee_shield }
+    sets.weapons.CrepuscularScythe = { main = "Crepuscular Scythe", sub = "Utu Grip" }
     sets.DrainWeapon = {} -- No owned Drain weapon; preserve current melee weapons/TP.
     sets.AbsorbWeapon = {}
+    -- Select CrepuscularScythe before casting for its Dread Spikes bonus.
+    -- Keep automatic weapon swaps empty so casting with another weapon does not lose TP.
     sets.DreadWeapon = {}
     sets.passive.MP = { ear2 = "Ethereal Earring", waist = "Flume Belt +1" }
 
@@ -242,6 +255,8 @@ function init_gear_sets()
     })
 
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Judgment'] = set_combine(sets.precast.WS, {})
+    sets.precast.WS['Steel Cyclone'] = set_combine(sets.precast.WS, { ring2 = "Niqmaddu Ring" })
     sets.precast.WS['Torcleaver'] = set_combine(sets.precast.WS, { ring2 = "Niqmaddu Ring" })
     sets.precast.WS['Catastrophe'] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Cross Reaper'] = set_combine(sets.precast.WS, {})
@@ -257,7 +272,7 @@ function init_gear_sets()
         waist = "Fotia Belt"
     })
     sets.precast.WS['Entropy'] = set_combine(sets.precast.WS['Resolution'], { ring2 = "Metamor. Ring +1" })
-    -- Scythe / great sword sets remain ready for an owned weapon to be added later.
+    -- Great sword sets remain ready for an owned weapon to be added later.
     sets.precast.WS['Sanguine Blade'] = set_combine(sets.precast.WS, {
         ammo = "Pemphredo Tathlum",
         head = "Pixie Hairpin +1",

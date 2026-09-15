@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 482,
+  "total_slot_entries": 485,
   "slots": {
     "main": [
       {
@@ -83,6 +83,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Geo_Gear.lua:main",
           "data/Kalali/Kalali_Rdm_Gear.lua:main",
           "data/Kalali/Kalali_Sch_Gear.lua:main"
+        ]
+      },
+      {
+        "name": "Crepuscular Scythe",
+        "sources": [
+          "data/Kalali/Kalali_Drk_Gear.lua:main",
+          "user-confirmed:drk-weapon-modes"
         ]
       },
       {
@@ -193,7 +200,16 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Loxotic Mace +1",
         "sources": [
-          "data/Kalali/Kalali_War_Gear.lua:main"
+          "data/Kalali/Kalali_War_Gear.lua:main",
+          "data/Kalali/Kalali_Drk_Gear.lua:main",
+          "user-confirmed:drk-weapon-modes"
+        ]
+      },
+      {
+        "name": "Lycurgos",
+        "sources": [
+          "data/Kalali/Kalali_Drk_Gear.lua:main",
+          "user-confirmed:drk-weapon-modes"
         ]
       },
       {
@@ -246,7 +262,9 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Brd_Gear.lua:main",
           "data/Kalali/Kalali_Cor_Gear.lua:main",
           "data/Kalali/Kalali_Rdm_Gear.lua:main",
-          "data/Kalali/Kalali_War_Gear.lua:main"
+          "data/Kalali/Kalali_War_Gear.lua:main",
+          "data/Kalali/Kalali_Drk_Gear.lua:main",
+          "user-confirmed:drk-weapon-modes"
         ]
       },
       {
@@ -416,6 +434,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Flametongue",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:sub"
+        ]
+      },
+      {
+        "name": "Regis",
+        "sources": [
+          "data/Kalali/Kalali_Drg_Gear.lua:sub",
+          "data/Kalali/Kalali_Drk_Gear.lua:sub",
+          "user-confirmed:regis-starter-shield"
         ]
       },
       {

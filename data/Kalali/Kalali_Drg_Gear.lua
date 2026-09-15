@@ -9,11 +9,11 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
-    state.Weapons:options('None', 'ShiningOne')
+    state.Weapons:options('None', 'ShiningOne', 'Naegling')
     state.WeaponSets:options('Default')
-    weapon_sets = { Default = { 'None', 'ShiningOne' } }
+    weapon_sets = { Default = { 'None', 'ShiningOne', 'Naegling' } }
     default_weapons = 'ShiningOne'
-    autows_list = { ShiningOne = 'Impulse Drive' }
+    autows_list = { ShiningOne = 'Impulse Drive', Naegling = 'Savage Blade' }
     autows = 'Impulse Drive'
     state.ExtraMeleeMode = M { ['description'] = 'Extra Melee Mode', 'None' }
     state.Passive = M { ['description'] = 'Passive Mode', 'None', 'MP' }
@@ -130,6 +130,7 @@ function init_gear_sets()
     sets.AccMaxTP = { ear1 = "Cessance Earring" }
     -- Weapons: Shining One supplies Impulse Drive even before the quest WS is learned.
     sets.weapons.ShiningOne = { main = "Shining One", sub = "Utu Grip" }
+    sets.weapons.Naegling = { main = "Naegling", sub = "Regis" }
     sets.passive.MP = { ear2 = "Ethereal Earring", waist = "Flume Belt +1" }
 
     sets.precast.FC = set_combine(sets.precast.FC, { head = { name = "Carmine Mask +1", augments = { 'Path:D' } } })
