@@ -8,9 +8,9 @@ function character_user_job_setup()
     state.PhysicalDefenseMode:options('PDT', 'PDT_Reraise')
     state.MagicalDefenseMode:options('MDT', 'MDT_Reraise')
     state.ResistDefenseMode:options('MEVA')
-    state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal')
+    state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal', 'Refresh')
     state.Weapons:options('BurtgangDuban', 'None', 'ExcaliburDuban', 'ExcaliburAegis',
-        'BurtgangAegis', 'BurtgangSrivatsa')
+        'BurtgangAegis', 'BurtgangSrivatsa', 'LevanteDuban')
 
     autows_list = {
         ExcaliburDuban = 'Knights of Round',
@@ -18,6 +18,7 @@ function character_user_job_setup()
         BurtgangDuban = 'Atonement',
         BurtgangAegis = 'Atonement',
         BurtgangSrivatsa = 'Atonement',
+        LevanteDuban = 'Aeolian Edge',
     }
 
     state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP', 'Twilight' }
@@ -58,12 +59,7 @@ function character_user_job_setup()
     gear.fortified_ring = "Moonlight Ring"                 -- Fortified Ring
     gear.odyssean_helm = "Nyame Helm"                      -- Odyssean Helm, target augment: Phalanx +5
     gear.jumalik_helm = "Chev. Armet +3"                   -- Jumalik Helm
-    gear.leyline_gloves = {
-        name = "Souv. Handsch. +1",
-        augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
-        priority = 6
-    }                                                       -- Leyline Gloves
-    gear.malevolence = "Sakpata's Sword"                   -- Malevolence
+    gear.malevolence = "Levante Dagger"                   -- Malevolence
     gear.regal_gauntlets = gear.af2_hands                  -- Regal Gauntlets
     gear.orunmilas_torque = "Moonlight Necklace"           -- Orunmila's Torque
     gear.crepuscular_mail = "Sakpata's Plate"              -- Crepuscular Mail
@@ -320,7 +316,7 @@ function init_gear_sets()
         ear1 = { name = "Enchntr. Earring +1", priority = 1 },
         ear2 = { name = "Loquac. Earring", priority = 2 },
         body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
-        hands = gear.leyline_gloves, -- Leyline Gloves
+        hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
         back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
@@ -338,7 +334,7 @@ function init_gear_sets()
         ear1 = { name = "Enchntr. Earring +1", priority = 1 },
         ear2 = { name = "Loquac. Earring", priority = 2 },
         body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
-        hands = gear.leyline_gloves, -- Leyline Gloves
+        hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
         back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
@@ -355,7 +351,7 @@ function init_gear_sets()
         ear1 = { name = "Enchntr. Earring +1", priority = 1 },
         ear2 = { name = "Loquac. Earring", priority = 2 },
         body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
-        hands = gear.leyline_gloves, -- Leyline Gloves
+        hands = { name = "Leyline Gloves", priority = 6 },
         ring1 = "Kishar Ring",
         ring2 = { name = "Prolix Ring", priority = 7 },
         back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
@@ -913,7 +909,7 @@ function init_gear_sets()
         neck = "Kgt. Beads +2",
         ear1 = "Etiolation Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +1
-        body = gear.af1_body, -- Rev. Surcoat +4
+        body = "Jumalik Mail",
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
@@ -984,6 +980,7 @@ function init_gear_sets()
     sets.weapons.BurtgangDuban = { main = "Burtgang", sub = "Duban" }
     sets.weapons.BurtgangAegis = { main = "Burtgang", sub = "Aegis" }
     sets.weapons.BurtgangSrivatsa = { main = "Burtgang", sub = "Srivatsa" }
+    sets.weapons.LevanteDuban = { main = "Levante Dagger", sub = "Duban" }
 
     sets.defense.Block = {
         main = "Sakpata's Sword",

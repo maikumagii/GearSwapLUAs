@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 485,
+  "total_slot_entries": 488,
   "slots": {
     "main": [
       {
@@ -195,6 +195,13 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Cor_Gear.lua:gear.jse_main_stp",
           "data/Kalali/Kalali_Cor_Gear.lua:main"
+        ]
+      },
+      {
+        "name": "Levante Dagger",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:gear.malevolence",
+          "data/Kalali/Kalali_Pld_Gear.lua:main"
         ]
       },
       {
@@ -1363,6 +1370,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Jumalik Mail",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:body"
+        ]
+      },
+      {
         "name": "Kaykaus Bliaut +1",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:body",
@@ -1715,6 +1728,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:gear.af3_hands",
           "data/Kalali/Kalali_Rdm_Gear.lua:hands"
+        ]
+      },
+      {
+        "name": "Leyline Gloves",
+        "sources": [
+          "data/Kalali/Kalali_Pld_Gear.lua:hands"
         ]
       },
       {
