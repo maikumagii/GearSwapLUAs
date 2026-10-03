@@ -2,7 +2,7 @@ function character_user_job_setup()
     -- Options: Override default values
     state.OffenseMode:options('Normal', 'Acc', 'HighBuff')
     state.HybridMode:options('Normal', 'DT')
-    state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc')
+    state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc', 'HighBuff', 'HighBuffAcc')
     state.CastingMode:options('Normal', 'FullMacc')
     state.IdleMode:options('Normal', 'PDT')
     state.PhysicalDefenseMode:options('PDT')
@@ -143,8 +143,8 @@ function init_gear_sets()
     sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
         ammo = "Crepuscular Pebble",
         hands = "Gleti's Gauntlets",
-        --waist = "Kentarch Belt +1",
-        ring2 = "Sroda Ring"
+        ring1 = "Sroda Ring",
+        ring2 = gear.tvr_ring
     })
 
     sets.precast.WS.DT = set_combine(sets.precast.WS, {})
@@ -167,13 +167,13 @@ function init_gear_sets()
     })
 
     sets.precast.WS['Requiescat'].HighBuff = set_combine(sets.precast.WS.HighBuff, {
-        head = gear.null_masque,
+        head = "Nyame Helm",
         neck = "Fotia Gorget",
         ear1 = "Brutal Earring",
         ear2 = gear.regal_earring,
         body = "Gleti's Cuirass",
         ring1 = "Metamor. Ring +1",
-        ring2 = "Sroda Ring",
+        ring2 = gear.tvr_ring,
         waist = "Fotia Belt",
         legs = "Gleti's Breeches"
     })
@@ -206,6 +206,34 @@ function init_gear_sets()
         feet = gear.af3_feet
     }
     sets.precast.WS['Sanguine Blade'].DT = set_combine(sets.precast.WS.DT, { back = gear.int_wsd_jse_back })
+
+    -- Accuracy overlays retain the selected HighBuff armor and damage gear.
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ear2 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Requiescat'].HighBuffAcc = set_combine(sets.precast.WS['Requiescat'].HighBuff, {
+        neck = "Null Loop",
+        ear2 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ear2 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Expiacion'].HighBuffAcc = set_combine(sets.precast.WS['Expiacion'].HighBuff, {
+        neck = "Null Loop",
+        ear2 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Sanguine Blade'].HighBuff = set_combine(sets.precast.WS['Sanguine Blade'], {})
+    sets.precast.WS['Sanguine Blade'].HighBuffAcc = set_combine(sets.precast.WS['Sanguine Blade'], {})
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear1 = "Cessance Earring", ear2 = "Brutal Earring" }

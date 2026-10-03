@@ -1,6 +1,6 @@
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'Acc')
-    state.WeaponskillMode:options('Normal', 'Acc', 'Proc')
+    state.WeaponskillMode:options('Normal', 'Acc', 'Proc', 'HighBuff', 'HighBuffAcc')
     state.HybridMode:options('Normal', 'DT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
@@ -258,6 +258,83 @@ function init_gear_sets()
         ring1 = gear.niqmaddu_ring,
     })
     sets.precast.WS["Ukko's Fury"].Acc = set_combine(sets.precast.WS["Ukko's Fury"], ws_acc_overrides)
+
+    -- HighBuff: attack-capped physical WS; preserve WS stats, WSD and TP bonus.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        legs = gear.af3_legs,
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Upheaval'].HighBuff = set_combine(sets.precast.WS['Upheaval'], {
+        ammo = "Crepuscular Pebble",
+        ear2 = gear.jse_ear2,
+        ring1 = "Niqmaddu Ring",
+    })
+    sets.precast.WS['Upheaval'].HighBuffAcc = set_combine(sets.precast.WS['Upheaval'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], {
+        ammo = "Crepuscular Pebble",
+        legs = gear.af3_legs,
+    })
+    sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Impulse Drive'].HighBuff = set_combine(sets.precast.WS['Impulse Drive'], {
+        ammo = "Crepuscular Pebble",
+        legs = gear.af3_legs,
+    })
+    sets.precast.WS['Impulse Drive'].HighBuffAcc = set_combine(sets.precast.WS['Impulse Drive'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Black Halo'].HighBuff = set_combine(sets.precast.WS['Black Halo'], {
+        ammo = "Crepuscular Pebble",
+        legs = gear.af3_legs,
+    })
+    sets.precast.WS['Black Halo'].HighBuffAcc = set_combine(sets.precast.WS['Black Halo'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Judgment'].HighBuff = set_combine(sets.precast.WS['Judgment'], {
+        ammo = "Crepuscular Pebble",
+        legs = gear.af3_legs,
+    })
+    sets.precast.WS['Judgment'].HighBuffAcc = set_combine(sets.precast.WS['Judgment'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Resolution'].HighBuff = set_combine(sets.precast.WS['Resolution'], {
+        ammo = "Crepuscular Pebble",
+        legs = gear.af3_legs,
+        hands = "Sakpata's Gauntlets",
+    })
+    sets.precast.WS['Resolution'].HighBuffAcc = set_combine(sets.precast.WS['Resolution'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS["Ukko's Fury"].HighBuff = set_combine(sets.precast.WS["Ukko's Fury"], {
+        ammo = "Crepuscular Pebble",
+        legs = gear.af3_legs,
+        hands = "Sakpata's Gauntlets",
+    })
+    sets.precast.WS["Ukko's Fury"].HighBuffAcc = set_combine(sets.precast.WS["Ukko's Fury"].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
 
     sets.MaxTP = { ear1 = "Schere Earring", ear2 = gear.jse_ear2 }
     sets.AccMaxTP = { ear1 = "Telos Earring", ear2 = gear.jse_ear2 }

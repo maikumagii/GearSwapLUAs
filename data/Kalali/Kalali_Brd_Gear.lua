@@ -1,6 +1,7 @@
 function character_user_job_setup()
     -- Options: Override default values
     state.OffenseMode:options('Normal', 'Acc')
+    state.WeaponskillMode:options('Match', 'Acc', 'HighBuff', 'HighBuffAcc', 'Proc')
     state.HybridMode:options('Normal', 'DT')
     state.CastingMode:options('Normal', 'Resistant', 'AoE')
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
@@ -331,6 +332,58 @@ function init_gear_sets()
     }
 
 
+
+    -- HighBuff: attack-capped physical WS; preserve WS stats, WSD and TP bonus.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS["Rudra's Storm"].HighBuff = set_combine(sets.precast.WS["Rudra's Storm"], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS["Rudra's Storm"].HighBuffAcc = set_combine(sets.precast.WS["Rudra's Storm"].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Ruthless Stroke'].HighBuff = set_combine(sets.precast.WS['Ruthless Stroke'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Ruthless Stroke'].HighBuffAcc = set_combine(sets.precast.WS['Ruthless Stroke'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Mordant Rime'].HighBuff = set_combine(sets.precast.WS['Mordant Rime'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Mordant Rime'].HighBuffAcc = set_combine(sets.precast.WS['Mordant Rime'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    -- Magical/hybrid damage and debuff landing retain their dedicated gear.
+    sets.precast.WS['Aeolian Edge'].HighBuff = set_combine(sets.precast.WS['Aeolian Edge'], {})
+    sets.precast.WS['Aeolian Edge'].HighBuffAcc = set_combine(sets.precast.WS['Aeolian Edge'], {})
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = {

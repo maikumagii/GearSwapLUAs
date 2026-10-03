@@ -2,7 +2,7 @@
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'Acc')
     state.RangedMode:options('Normal', 'Acc')
-    state.WeaponskillMode:options('Match', 'Acc', 'Proc')
+    state.WeaponskillMode:options('Match', 'Acc', 'Proc', 'HighBuff', 'HighBuffAcc')
     state.CastingMode:options('Normal', 'Fodder', 'Proc')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
     state.HybridMode:options('Normal', 'DT')
@@ -451,6 +451,52 @@ function init_gear_sets()
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     })
+
+    -- HighBuff: attack-capped physical WS; preserve WS stats, WSD and TP bonus.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+        neck = "Rep. Plat. Medal",
+        waist = "Sailfi Belt +1",
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ring1 = gear.regal_ring,
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+        neck = "Rep. Plat. Medal",
+    })
+    sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ring1 = gear.regal_ring,
+        waist = "Null Belt",
+    })
+    -- Keep Last Stand's bullet and fTP bonuses; replace WSD ring with owned PDL.
+    sets.precast.WS['Last Stand'].HighBuff = set_combine(sets.precast.WS['Last Stand'], {
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Last Stand'].HighBuffAcc = set_combine(sets.precast.WS['Last Stand'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Crep. Earring",
+        ring1 = gear.regal_ring,
+        waist = "Null Belt",
+    })
+    -- Magical/hybrid damage and debuff landing retain their dedicated gear.
+    sets.precast.WS['Aeolian Edge'].HighBuff = set_combine(sets.precast.WS['Aeolian Edge'], {})
+    sets.precast.WS['Aeolian Edge'].HighBuffAcc = set_combine(sets.precast.WS['Aeolian Edge'], {})
+    sets.precast.WS['Leaden Salute'].HighBuff = set_combine(sets.precast.WS['Leaden Salute'], {})
+    sets.precast.WS['Leaden Salute'].HighBuffAcc = set_combine(sets.precast.WS['Leaden Salute'].Acc, {})
+    sets.precast.WS['Wildfire'].HighBuff = set_combine(sets.precast.WS['Wildfire'], {})
+    sets.precast.WS['Wildfire'].HighBuffAcc = set_combine(sets.precast.WS['Wildfire'].Acc, {})
+    sets.precast.WS['Hot Shot'].HighBuff = set_combine(sets.precast.WS['Hot Shot'], {})
+    sets.precast.WS['Hot Shot'].HighBuffAcc = set_combine(sets.precast.WS['Hot Shot'].Acc, {})
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = {}

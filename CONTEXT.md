@@ -214,6 +214,19 @@ If adding a weapon mode, also check:
 - `autows_list`.
 - Any engaged set variant with the same mode name, if applicable.
 
+## HighBuff Weaponskill Sets
+
+Active physical damage jobs use selectable `HighBuff` and `HighBuffAcc` WS modes.
+`HighBuff` assumes attack is capped for the target; it is a manual selection, not a buff-count detector.
+Use RDM's WS-specific overlays as the pattern, with owned PDL gear, relevant WS stats,
+WSD, multihit/critical gear, and TP bonus appropriate to the actual weaponskill.
+Preserve ranged ammunition and useful fTP accessories. Keep magical/hybrid and debuff WS
+on dedicated sets instead of applying physical PDL swaps indiscriminately.
+`HighBuffAcc` starts from that WS's HighBuff set and restores accuracy as needed.
+Write each HighBuff/HighBuffAcc weaponskill assignment explicitly; the user does not want
+loops generating these variants. Do not apply these modes to caster or tank files solely
+for consistency, or activate jobs in UnusedJobs without a request.
+
 ## Set Naming Patterns
 
 Use existing Sel/GearSwap naming conventions:

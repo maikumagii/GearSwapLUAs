@@ -3,7 +3,7 @@
 -- Only recorded augments are selected. Empty JSE aliases are acquisition hooks.
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder')
-    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'HighBuff', 'Proc')
+    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'HighBuff', 'Proc', 'HighBuffAcc')
     state.HybridMode:options('Normal', 'PDT', 'MDT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
@@ -263,14 +263,83 @@ function init_gear_sets()
             ws.Fodder = set_combine(base, {})
         end
     end
-    -- Use HighBuff for physical WS when attack support reaches the damage limit.
-    -- Keep Moonshade/normal left-ear choices and put the PDL earring in the right ear.
-    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Impulse Drive'].HighBuff = set_combine(sets.precast.WS['Impulse Drive'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Stardiver'].HighBuff = set_combine(sets.precast.WS['Stardiver'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Drakesbane'].HighBuff = set_combine(sets.precast.WS['Drakesbane'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Sonic Thrust'].HighBuff = set_combine(sets.precast.WS['Sonic Thrust'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], { ear2 = gear.jse_ear2 })
+    -- HighBuff: attack-capped physical WS; preserve WS stats, WSD and TP bonus.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+        ear2 = gear.jse_ear2,
+        body = "Gleti's Cuirass",
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Impulse Drive'].HighBuff = set_combine(sets.precast.WS['Impulse Drive'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+        ear2 = gear.jse_ear2,
+        body = "Gleti's Cuirass",
+    })
+    sets.precast.WS['Impulse Drive'].HighBuffAcc = set_combine(sets.precast.WS['Impulse Drive'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Stardiver'].HighBuff = set_combine(sets.precast.WS['Stardiver'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Niqmaddu Ring",
+        body = "Gleti's Cuirass",
+        hands = "Gleti's Gauntlets",
+        legs = "Gleti's Breeches",
+        ear2 = gear.jse_ear2,
+    })
+    sets.precast.WS['Stardiver'].HighBuffAcc = set_combine(sets.precast.WS['Stardiver'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Drakesbane'].HighBuff = set_combine(sets.precast.WS['Drakesbane'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Niqmaddu Ring",
+        body = "Gleti's Cuirass",
+        hands = "Gleti's Gauntlets",
+        legs = "Gleti's Breeches",
+        ear2 = gear.jse_ear2,
+    })
+    sets.precast.WS['Drakesbane'].HighBuffAcc = set_combine(sets.precast.WS['Drakesbane'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Sonic Thrust'].HighBuff = set_combine(sets.precast.WS['Sonic Thrust'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+        ear2 = gear.jse_ear2,
+        body = "Gleti's Cuirass",
+    })
+    sets.precast.WS['Sonic Thrust'].HighBuffAcc = set_combine(sets.precast.WS['Sonic Thrust'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+        ear2 = gear.jse_ear2,
+        body = "Gleti's Cuirass",
+    })
+    sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
 
 end
 

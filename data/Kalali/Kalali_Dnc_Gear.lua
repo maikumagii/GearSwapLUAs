@@ -3,7 +3,7 @@
 -- Only recorded augments are selected. Empty JSE aliases are acquisition hooks.
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder')
-    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'HighBuff', 'Proc')
+    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'HighBuff', 'Proc', 'HighBuffAcc')
     state.HybridMode:options('Normal', 'PDT', 'MDT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
@@ -324,17 +324,95 @@ function init_gear_sets()
     sets.precast.WS['Aeolian Edge'].FullAcc = set_combine(sets.precast.WS['Aeolian Edge'].Acc, {
         ear2 = "Enchntr. Earring +1"
     })
-    -- Use HighBuff for physical WS when attack support reaches the damage limit.
-    -- Keep Moonshade/normal left-ear choices and put the PDL earring in the right ear.
-    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Ruthless Stroke'].HighBuff = set_combine(sets.precast.WS['Ruthless Stroke'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS["Rudra's Storm"].HighBuff = set_combine(sets.precast.WS["Rudra's Storm"], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Shark Bite'].HighBuff = set_combine(sets.precast.WS['Shark Bite'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Evisceration'].HighBuff = set_combine(sets.precast.WS['Evisceration'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Pyrrhic Kleos'].HighBuff = set_combine(sets.precast.WS['Pyrrhic Kleos'], { ear2 = gear.jse_ear2 })
-    sets.precast.WS['Dancing Edge'].HighBuff = set_combine(sets.precast.WS['Dancing Edge'], { ear2 = gear.jse_ear2 })
-    -- Physical damage limit does not benefit magical Aeolian Edge.
+    -- HighBuff: attack-capped physical WS; preserve WS stats, WSD and TP bonus.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ear2 = gear.jse_ear2,
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Ruthless Stroke'].HighBuff = set_combine(sets.precast.WS['Ruthless Stroke'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ear2 = gear.jse_ear2,
+        body = "Gleti's Cuirass",
+    })
+    sets.precast.WS['Ruthless Stroke'].HighBuffAcc = set_combine(sets.precast.WS['Ruthless Stroke'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS["Rudra's Storm"].HighBuff = set_combine(sets.precast.WS["Rudra's Storm"], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ear2 = gear.jse_ear2,
+        body = "Gleti's Cuirass",
+    })
+    sets.precast.WS["Rudra's Storm"].HighBuffAcc = set_combine(sets.precast.WS["Rudra's Storm"].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Shark Bite'].HighBuff = set_combine(sets.precast.WS['Shark Bite'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ear2 = gear.jse_ear2,
+        body = "Gleti's Cuirass",
+    })
+    sets.precast.WS['Shark Bite'].HighBuffAcc = set_combine(sets.precast.WS['Shark Bite'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Evisceration'].HighBuff = set_combine(sets.precast.WS['Evisceration'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        body = "Gleti's Cuirass",
+        hands = "Gleti's Gauntlets",
+        legs = "Gleti's Breeches",
+        ear1 = "Sherida Earring",
+        ear2 = gear.jse_ear2,
+    })
+    sets.precast.WS['Evisceration'].HighBuffAcc = set_combine(sets.precast.WS['Evisceration'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Pyrrhic Kleos'].HighBuff = set_combine(sets.precast.WS['Pyrrhic Kleos'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        body = "Gleti's Cuirass",
+        hands = "Gleti's Gauntlets",
+        legs = "Gleti's Breeches",
+        ear1 = "Sherida Earring",
+        ear2 = gear.jse_ear2,
+    })
+    sets.precast.WS['Pyrrhic Kleos'].HighBuffAcc = set_combine(sets.precast.WS['Pyrrhic Kleos'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Dancing Edge'].HighBuff = set_combine(sets.precast.WS['Dancing Edge'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        body = "Gleti's Cuirass",
+        hands = "Gleti's Gauntlets",
+        legs = "Gleti's Breeches",
+        ear1 = "Sherida Earring",
+        ear2 = gear.jse_ear2,
+    })
+    sets.precast.WS['Dancing Edge'].HighBuffAcc = set_combine(sets.precast.WS['Dancing Edge'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    -- Magical/hybrid damage and debuff landing retain their dedicated gear.
     sets.precast.WS['Aeolian Edge'].HighBuff = set_combine(sets.precast.WS['Aeolian Edge'], {})
+    sets.precast.WS['Aeolian Edge'].HighBuffAcc = set_combine(sets.precast.WS['Aeolian Edge'].Acc, {})
 
 end
 

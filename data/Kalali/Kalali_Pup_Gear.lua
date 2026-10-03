@@ -2,7 +2,7 @@
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'Acc', 'FullAcc', 'Fodder')
     state.HybridMode:options('Pet', 'DT', 'Normal')
-    state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc', 'Fodder')
+    state.WeaponskillMode:options('Match', 'Normal', 'Acc', 'FullAcc', 'Fodder', 'HighBuff', 'HighBuffAcc')
     state.PhysicalDefenseMode:options('PDT')
     state.IdleMode:options('Normal', 'PDT')
     state.Weapons:options('None', 'Kaja', 'Denouements', 'Midnights', 'Pitre', 'PetWeapons')
@@ -272,6 +272,147 @@ function init_gear_sets()
     sets.precast.WS['Shoulder Tackle'].Acc = set_combine(sets.precast.WS.Acc, {})
     sets.precast.WS['Shoulder Tackle'].FullAcc = set_combine(sets.precast.WS.FullAcc, {})
     sets.precast.WS['Shoulder Tackle'].Fodder = set_combine(sets.precast.WS.Fodder, {})
+
+    -- HighBuff: attack-capped physical WS; preserve WS stats, WSD and TP bonus.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+        hands = "Malignance Gloves",
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Victory Smite'].HighBuff = set_combine(sets.precast.WS['Victory Smite'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+        hands = "Malignance Gloves",
+    })
+    sets.precast.WS['Victory Smite'].HighBuffAcc = set_combine(sets.precast.WS['Victory Smite'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Stringing Pummel'].HighBuff = set_combine(sets.precast.WS['Stringing Pummel'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+        hands = "Malignance Gloves",
+    })
+    sets.precast.WS['Stringing Pummel'].HighBuffAcc = set_combine(sets.precast.WS['Stringing Pummel'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Shijin Spiral'].HighBuff = set_combine(sets.precast.WS['Shijin Spiral'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+        hands = "Malignance Gloves",
+        legs = "Malignance Tights",
+    })
+    sets.precast.WS['Shijin Spiral'].HighBuffAcc = set_combine(sets.precast.WS['Shijin Spiral'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Asuran Fists'].HighBuff = set_combine(sets.precast.WS['Asuran Fists'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+        hands = "Malignance Gloves",
+    })
+    sets.precast.WS['Asuran Fists'].HighBuffAcc = set_combine(sets.precast.WS['Asuran Fists'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Dragon Kick'].HighBuff = set_combine(sets.precast.WS['Dragon Kick'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Dragon Kick'].HighBuffAcc = set_combine(sets.precast.WS['Dragon Kick'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Tornado Kick'].HighBuff = set_combine(sets.precast.WS['Tornado Kick'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Tornado Kick'].HighBuffAcc = set_combine(sets.precast.WS['Tornado Kick'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Raging Fists'].HighBuff = set_combine(sets.precast.WS['Raging Fists'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Raging Fists'].HighBuffAcc = set_combine(sets.precast.WS['Raging Fists'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Howling Fist'].HighBuff = set_combine(sets.precast.WS['Howling Fist'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Howling Fist'].HighBuffAcc = set_combine(sets.precast.WS['Howling Fist'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Backhand Blow'].HighBuff = set_combine(sets.precast.WS['Backhand Blow'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Backhand Blow'].HighBuffAcc = set_combine(sets.precast.WS['Backhand Blow'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Spinning Attack'].HighBuff = set_combine(sets.precast.WS['Spinning Attack'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+        hands = "Malignance Gloves",
+    })
+    sets.precast.WS['Spinning Attack'].HighBuffAcc = set_combine(sets.precast.WS['Spinning Attack'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Shoulder Tackle'].HighBuff = set_combine(sets.precast.WS['Shoulder Tackle'], {
+        ammo = "Crepuscular Pebble",
+        neck = "Fotia Gorget",
+        waist = "Fotia Belt",
+        ring2 = "Ephramad's Ring",
+    })
+    sets.precast.WS['Shoulder Tackle'].HighBuffAcc = set_combine(sets.precast.WS['Shoulder Tackle'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
 
     sets.MaxTP = { ear1 = "Schere Earring" }
     sets.AccMaxTP = { ear1 = "Telos Earring", ear2 = gear.jse_ear2 }

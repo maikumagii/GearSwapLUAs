@@ -3,7 +3,7 @@
 -- Only recorded augments are selected. Empty JSE aliases are acquisition hooks.
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder')
-    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'Proc')
+    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'Proc', 'HighBuff', 'HighBuffAcc')
     state.HybridMode:options('Normal', 'PDT', 'MDT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
@@ -350,6 +350,108 @@ function init_gear_sets()
     for _, name in ipairs({ 'Sanguine Blade', 'Infernal Scythe' }) do
         sets.precast.WS[name].FullAcc = set_combine(sets.precast.WS[name].Acc, { ear2 = "Malignance Earring" })
     end
+    -- HighBuff: attack-capped physical WS; preserve WS stats, WSD and TP bonus.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS.HighBuffAcc = set_combine(sets.precast.WS.HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Judgment'].HighBuff = set_combine(sets.precast.WS['Judgment'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS['Judgment'].HighBuffAcc = set_combine(sets.precast.WS['Judgment'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Steel Cyclone'].HighBuff = set_combine(sets.precast.WS['Steel Cyclone'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS['Steel Cyclone'].HighBuffAcc = set_combine(sets.precast.WS['Steel Cyclone'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Torcleaver'].HighBuff = set_combine(sets.precast.WS['Torcleaver'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Niqmaddu Ring",
+    })
+    sets.precast.WS['Torcleaver'].HighBuffAcc = set_combine(sets.precast.WS['Torcleaver'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Catastrophe'].HighBuff = set_combine(sets.precast.WS['Catastrophe'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS['Catastrophe'].HighBuffAcc = set_combine(sets.precast.WS['Catastrophe'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Cross Reaper'].HighBuff = set_combine(sets.precast.WS['Cross Reaper'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+    })
+    sets.precast.WS['Cross Reaper'].HighBuffAcc = set_combine(sets.precast.WS['Cross Reaper'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Resolution'].HighBuff = set_combine(sets.precast.WS['Resolution'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        ring1 = "Sroda Ring",
+        legs = "Sakpata's Cuisses",
+    })
+    sets.precast.WS['Resolution'].HighBuffAcc = set_combine(sets.precast.WS['Resolution'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    sets.precast.WS['Entropy'].HighBuff = set_combine(sets.precast.WS['Entropy'], {
+        ammo = "Crepuscular Pebble",
+        ring2 = "Ephramad's Ring",
+        legs = "Sakpata's Cuisses",
+    })
+    sets.precast.WS['Entropy'].HighBuffAcc = set_combine(sets.precast.WS['Entropy'].HighBuff, {
+        neck = "Null Loop",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt",
+    })
+    -- Magical/hybrid damage and debuff landing retain their dedicated gear.
+    sets.precast.WS['Armor Break'].HighBuff = set_combine(sets.precast.WS['Armor Break'], {})
+    sets.precast.WS['Armor Break'].HighBuffAcc = set_combine(sets.precast.WS['Armor Break'].FullAcc, {})
+    sets.precast.WS['Full Break'].HighBuff = set_combine(sets.precast.WS['Full Break'], {})
+    sets.precast.WS['Full Break'].HighBuffAcc = set_combine(sets.precast.WS['Full Break'].FullAcc, {})
+    sets.precast.WS['Sanguine Blade'].HighBuff = set_combine(sets.precast.WS['Sanguine Blade'], {})
+    sets.precast.WS['Sanguine Blade'].HighBuffAcc = set_combine(sets.precast.WS['Sanguine Blade'].Acc, {})
+    sets.precast.WS['Infernal Scythe'].HighBuff = set_combine(sets.precast.WS['Infernal Scythe'], {})
+    sets.precast.WS['Infernal Scythe'].HighBuffAcc = set_combine(sets.precast.WS['Infernal Scythe'].Acc, {})
+
 end
 
 -- Select default macro book on initial load or subjob change.
