@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 488,
+  "total_slot_entries": 489,
   "slots": {
     "main": [
       {
@@ -254,6 +254,14 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Telopanos Staff",
         "sources": [
           "data/Kalali/Kalali_Sch_Gear.lua:main"
+        ]
+      },
+      {
+        "name": "Mpu Gandring",
+        "sources": [
+          "data/Kalali/Kalali_Brd_Gear.lua:main",
+          "data/Kalali/Kalali_Rdm_Gear.lua:main",
+          "user-confirmed:mpu-gandring-stage-3"
         ]
       },
       {

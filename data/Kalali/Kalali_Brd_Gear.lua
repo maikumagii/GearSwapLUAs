@@ -4,12 +4,12 @@ function character_user_job_setup()
     state.HybridMode:options('Normal', 'DT')
     state.CastingMode:options('Normal', 'Resistant', 'AoE')
     state.IdleMode:options('Normal', 'NoRefresh', 'DT')
-    state.Weapons:options('None', 'Naegling', --[[ 'Aeneas', 'DualWeapons',]] 'DualNaegling',
+    state.Weapons:options('None', 'Naegling', 'Prime', 'DualPrime', 'DualPrimeTP', --[[ 'Aeneas', 'DualWeapons',]] 'DualNaegling',
         'DualCarn' --[[,'DualTauret', 'DualAeolian']])
     state.WeaponSets:options('Default', 'Dual')
     weapon_sets = {
-        ['Default'] = { 'None', 'Naegling' },
-        ['Dual'] = { 'DualNaegling', 'DualCarn' },
+        ['Default'] = { 'None', 'Naegling', 'Prime' },
+        ['Dual'] = { 'DualNaegling', 'DualCarn', 'DualPrime', 'DualPrimeTP' },
     }
     default_weapons = 'Naegling'
     default_dual_weapons = 'DualNaegling'
@@ -110,6 +110,10 @@ function init_gear_sets()
     --------------------------------------
 
     -- Weapons sets
+    -- Stage 3: Ruthless Stroke and Prime aftermath are available only in Sortie.
+    sets.weapons.Prime = { main = "Mpu Gandring", sub = "Genmei Shield" }
+    sets.weapons.DualPrime = { main = "Mpu Gandring", sub = "Gleti's Knife" }
+    sets.weapons.DualPrimeTP = { main = "Mpu Gandring", sub = gear.tp_bonus_dagger }
     --sets.weapons.Aeneas = { main = "Aeneas", sub = "Genmei Shield" }
     --sets.weapons.DualWeapons = { main = "Aeneas", sub = gear.tp_bonus_dagger }
     sets.weapons.DualNaegling = { main = "Naegling", sub = gear.tp_bonus_dagger }
@@ -281,6 +285,18 @@ function init_gear_sets()
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
     }
+
+    -- Four hits, 25% DEX / 25% AGI; WSD favors the high-fTP first hit.
+    -- Reuse the owned STR cape and Linos until dedicated DEX pieces are available.
+    sets.precast.WS['Ruthless Stroke'] = set_combine(sets.precast.WS["Rudra's Storm"], {
+        range = gear.linos_str_wsd,
+        body = "Nyame Mail",
+        back = gear.melee_dex_wsd_back
+    })
+    sets.precast.WS['Ruthless Stroke'].Acc = set_combine(sets.precast.WS['Ruthless Stroke'], {
+        ear2 = "Telos Earring",
+        waist = "Null Belt"
+    })
 
     sets.precast.WS['Mordant Rime'] = {
         range = gear.linos_chr_wsd,
@@ -734,6 +750,10 @@ function select_default_macro_book()
 end
 
 autows_list = {
+    -- Stage 3: use these AutoWS selections in Sortie only.
+    ['Prime'] = 'Ruthless Stroke',
+    ['DualPrime'] = 'Ruthless Stroke',
+    ['DualPrimeTP'] = 'Ruthless Stroke',
     ['Naegling'] = 'Savage Blade',
     ['Aeneas'] = "Rudra's Storm",
     ['DualWeapons'] = "Rudra's Storm",

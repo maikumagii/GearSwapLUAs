@@ -1,3 +1,5 @@
+include('Kalali_Rdm_Offhand.lua')
+
 function character_user_job_setup()
     -- Options: Override default values
     state.OffenseMode:options('Normal', 'Acc')
@@ -10,17 +12,16 @@ function character_user_job_setup()
     state.ResistDefenseMode:options('MEVA')
     state.BuffWeaponsMode = M { 'Always', 'Never' }
     state.AutoBuffMode = M { ['description'] = 'Auto Buff Mode', 'Off', 'Auto', 'AutoMelee', 'AutoMage' }
-    state.Weapons:options('None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly',]] 'DualNaegling',
-        'DualNaeglingAcc', 'DualExcaliburTP', 'DualMaxentius', 'DualCrocea', 'DualCroceaTP', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']],
-        'DualEnspellOnly' --[[,'DualProcSword']])
-    state.WeaponSets:options('Default', 'Dual' --[[,'Proc','Dynamis']])
-
+    state.OffhandMode = M { ['description'] = 'Offhand Mode', 'Auto', 'TP' }
+    state.Weapons:options('None', 'Naegling', 'Maxentius', 'Crocea', 'Prime',
+        'DualNaegling', 'DualExcalibur', 'DualMaxentius', 'DualCrocea', 'DualPrime')
+    state.WeaponSets:options('Default', 'Dual')
     weapon_sets = {
-        ['Default'] = { 'None', 'Naegling', 'Maxentius', 'Crocea', --[['Tauret', 'EnspellOnly']] },
-        ['Dual'] = { 'DualNaegling', 'DualNaeglingAcc', 'DualExcaliburTP', 'DualCrocea', 'DualCroceaTP', 'DualMaxentius', 'DualMaxentiusAcc' --[[,'DualPrime', 'DualAeolian']], 'DualEnspellOnly' },
-        --[[['Dynamis'] = {'DualCroceaSavageBlade','DualCrocea','DualTauretCrocea','DualAeolian'},
-		['Proc'] = {'ProcSword','ProcDagger','DualProcSword','DualProcDagger'},]]
+        ['Default'] = { 'None', 'Naegling', 'Maxentius', 'Crocea', 'Prime' },
+        ['Dual'] = { 'DualNaegling', 'DualExcalibur', 'DualCrocea', 'DualMaxentius', 'DualPrime' },
     }
+
+    configure_rdm_manual_weapons()
 
     default_weapons = 'Crocea'
     default_dual_weapons = 'DualCrocea'
@@ -31,16 +32,15 @@ function character_user_job_setup()
         ['Crocea'] = 'Sanguine Blade',
         ['Tauret'] = 'Aeolian Edge',
         ['DualNaegling'] = 'Savage Blade',
-        ['DualNaeglingAcc'] = 'Savage Blade',
-        ['DualExcaliburTP'] = 'Knights of Round',
+        ['DualExcalibur'] = 'Knights of Round',
         ['DualMaxentius'] = 'Black Halo',
-        ['DualMaxentiusAcc'] = 'Black Halo',
         ['DualEvisceration'] = 'Evisceration',
         ['DualCrocea'] = 'Sanguine Blade',
-        ['DualCroceaTP'] = 'Savage Blade',
         ['DualClubs'] = 'Black Halo',
         ['DualAeolian'] = 'Aeolian Edge',
-        ['DualPrime'] = 'Exenterator',
+        -- Stage 3: use these AutoWS selections in Sortie only.
+        ['Prime'] = 'Ruthless Stroke',
+        ['DualPrime'] = 'Ruthless Stroke',
         ['DualCroceaSavageBlade'] = "Savage Blade",
         ['CroceaDaybreak'] = "Seraph Blade",
         ["DualTauretCrocea"] = "Aeolian Edge"
@@ -170,15 +170,14 @@ function init_gear_sets()
     --sets.weapons.Tauret = { main = "Tauret", sub = "Ammurapi Shield", range = empty }
     --sets.weapons.EnspellOnly = { main = "Qutrub Knife", sub = "Sacro Bulwark", range = "Ullr", ammo = empty }
 
-    sets.weapons.DualNaegling = { main = "Naegling", sub = gear.tp_bonus_sword, range = empty }
-    sets.weapons.DualNaeglingAcc = { main = "Naegling", sub = "Gleti's Knife", range = empty }
-    sets.weapons.DualExcaliburTP = { main = "Excalibur", sub = gear.tp_bonus_sword, range = empty }
-    --sets.weapons.DualPrime = {main="Mpu Gandring",sub="Gleti's Knife",range=empty}
+    sets.weapons.DualNaegling = { main = "Naegling", sub = "Gleti's Knife", range = empty }
+    sets.weapons.DualExcalibur = { main = "Excalibur", sub = "Gleti's Knife", range = empty }
+    -- Stage 3: Ruthless Stroke and Prime aftermath are available only in Sortie.
+    sets.weapons.Prime = { main = "Mpu Gandring", sub = "Ammurapi Shield", range = empty }
+    sets.weapons.DualPrime = { main = "Mpu Gandring", sub = "Gleti's Knife", range = empty }
     sets.weapons.DualCrocea = { main = "Crocea Mors", sub = "Daybreak", range = empty }
-    sets.weapons.DualCroceaTP = { main = "Crocea Mors", sub = gear.tp_bonus_sword, range = empty }
     --sets.weapons.DualAeolian = { main = "Tauret", sub = "Maxentius", range = empty }
-    sets.weapons.DualMaxentius = { main = "Maxentius", sub = gear.tp_bonus_sword, range = empty }
-    sets.weapons.DualMaxentiusAcc = { main = "Maxentius", sub = "Gleti's Knife", range = empty }
+    sets.weapons.DualMaxentius = { main = "Maxentius", sub = "Gleti's Knife", range = empty }
     sets.weapons.DualEnspellOnly = { main = "Crocea Mors", sub = "Ammurapi Shield", range = "Ullr", ammo = empty }
 
 
@@ -425,6 +424,31 @@ function init_gear_sets()
         ring2 = gear.tvr_ring
     })
     sets.precast.WS['Savage Blade'].HighBuffAcc = set_combine(sets.precast.WS['Savage Blade'].HighBuff, {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
+        waist = "Null Belt"
+    })
+
+    -- Four hits, 25% DEX / 25% AGI; WSD favors the high-fTP first hit.
+    -- Keep the owned STR WSD cape until a dedicated DEX WSD cape is available.
+    sets.precast.WS['Ruthless Stroke'] = set_combine(sets.precast.WS['Savage Blade'], {
+        head = "Nyame Helm",
+        hands = "Nyame Gauntlets",
+        ring1 = "Ilabrat Ring",
+        feet = "Nyame Sollerets"
+    })
+    sets.precast.WS['Ruthless Stroke'].Acc = set_combine(sets.precast.WS['Ruthless Stroke'], {
+        neck = "Null Loop",
+        ear1 = "Telos Earring",
+        waist = "Null Belt"
+    })
+    sets.precast.WS['Ruthless Stroke'].HighBuff = set_combine(sets.precast.WS['Ruthless Stroke'], {
+        ammo = "Crepuscular Pebble",
+        neck = gear.jse_neck,
+        ring2 = gear.tvr_ring
+    })
+    sets.precast.WS['Ruthless Stroke'].HighBuffAcc = set_combine(sets.precast.WS['Ruthless Stroke'].HighBuff, {
         neck = "Null Loop",
         ear1 = "Telos Earring",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
