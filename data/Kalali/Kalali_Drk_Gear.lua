@@ -131,12 +131,10 @@ function init_gear_sets()
     sets.precast.WS.Proc = set_combine(sets.idle.PDT, {})
     sets.MaxTP = { ear1 = "Ishvara Earring" }
     sets.AccMaxTP = { ear1 = "Cessance Earring" }
-    -- Su2 requires 100 spent DRK job points. Reload after unlocking it to use Blurred Shield +1.
-    local drk_jp = player.job_points and player.job_points.drk
-    local melee_shield = drk_jp and (drk_jp.jp_spent or 0) >= 100 and "Blurred Shield +1" or "Regis"
-    sets.weapons.Loxotic = { main = "Loxotic Mace +1", sub = melee_shield }
+    -- Su2 unlocked: use the owned Blurred Shield +1 for one-handed melee.
+    sets.weapons.Loxotic = { main = "Loxotic Mace +1", sub = "Blurred Shield +1" }
     sets.weapons.Lycurgos = { main = "Lycurgos", sub = "Utu Grip" }
-    sets.weapons.Naegling = { main = "Naegling", sub = melee_shield }
+    sets.weapons.Naegling = { main = "Naegling", sub = "Blurred Shield +1" }
     sets.weapons.CrepuscularScythe = { main = "Crepuscular Scythe", sub = "Utu Grip" }
     sets.DrainWeapon = {} -- No owned Drain weapon; preserve current melee weapons/TP.
     sets.AbsorbWeapon = {}
