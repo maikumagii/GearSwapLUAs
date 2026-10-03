@@ -256,6 +256,19 @@ function init_gear_sets()
 
     sets.precast.WS['Savage Blade'] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Judgment'] = set_combine(sets.precast.WS, {})
+    -- Lycurgos debuff WS: favor accuracy / magic accuracy over damage.
+    -- Moonshade extends TP-scaled debuff duration; keep the current weapon equipped.
+    sets.precast.WS['Armor Break'] = set_combine(sets.midcast['Dark Magic'], {
+        neck = "Null Loop",
+        ear1 = "Moonshade Earring",
+        ear2 = "Telos Earring"
+    })
+    sets.precast.WS['Full Break'] = set_combine(sets.precast.WS['Armor Break'], {})
+    sets.MaxTP['Armor Break'] = { ear1 = "Enchntr. Earring +1" }
+    sets.AccMaxTP['Armor Break'] = { ear1 = "Enchntr. Earring +1" }
+    sets.MaxTP['Full Break'] = { ear1 = "Enchntr. Earring +1" }
+    sets.AccMaxTP['Full Break'] = { ear1 = "Enchntr. Earring +1" }
+
     sets.precast.WS['Steel Cyclone'] = set_combine(sets.precast.WS, { ring2 = "Niqmaddu Ring" })
     sets.precast.WS['Torcleaver'] = set_combine(sets.precast.WS, { ring2 = "Niqmaddu Ring" })
     sets.precast.WS['Catastrophe'] = set_combine(sets.precast.WS, {})

@@ -9,12 +9,15 @@ function character_user_job_setup()
     state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
     state.IdleMode:options('Normal', 'PDT', 'Refresh')
-    state.Weapons:options('None', 'Tauret', 'RudraTPBonus')
+    state.Weapons:options('None', 'Tauret', 'RudraTPBonus', 'DualPrime', 'DualPrimeTP')
     state.WeaponSets:options('Default')
-    weapon_sets = { Default = { 'None', 'Tauret', 'RudraTPBonus' } }
+    weapon_sets = { Default = { 'None', 'Tauret', 'RudraTPBonus', 'DualPrime', 'DualPrimeTP' } }
     default_weapons = 'Tauret'
     default_dual_weapons = 'Tauret'
     autows_list = { Tauret = 'Evisceration', RudraTPBonus = "Rudra's Storm" }
+    -- Stage 3: Ruthless Stroke / Prime aftermath are available only in Sortie.
+    autows_list.DualPrime = 'Ruthless Stroke'
+    autows_list.DualPrimeTP = 'Ruthless Stroke'
     autows = 'Evisceration'
     state.ExtraMeleeMode = M {
         ['description'] = 'Extra Melee Mode',
@@ -140,6 +143,9 @@ function init_gear_sets()
     sets.precast.WS.Proc = set_combine(sets.idle.PDT, {})
     sets.MaxTP = { ear1 = "Telos Earring" }
     sets.AccMaxTP = { ear1 = "Cessance Earring" }
+    -- Mpu Gandring stage 3: use another dagger WS outside Sortie.
+    sets.weapons.DualPrime = { main = "Mpu Gandring", sub = "Gleti's Knife" }
+    sets.weapons.DualPrimeTP = { main = "Mpu Gandring", sub = gear.tp_bonus_dagger }
     sets.weapons.Tauret = { main = "Tauret", sub = "Gleti's Knife" }
     -- Optional TP-bonus offhand: lower offhand accuracy and no Gleti Waltz bonus.
     sets.weapons.RudraTPBonus = { main = "Tauret", sub = gear.tp_bonus_dagger }
@@ -184,6 +190,14 @@ function init_gear_sets()
         waist = "Sailfi Belt +1",
         feet = gear.herculean_ta_feet
     })
+
+    -- Ruthless Stroke: favor WSD for the high-fTP first hit, with DEX / AGI stats.
+    -- Existing accuracy-variant generation below also covers this set.
+    sets.precast.WS['Ruthless Stroke'] = set_combine(sets.precast.WS, {
+        ring2 = "Ilabrat Ring"
+    })
+    sets.MaxTP['Ruthless Stroke'] = { ear1 = "Telos Earring" }
+    sets.AccMaxTP['Ruthless Stroke'] = { ear1 = "Cessance Earring" }
 
     sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, {})
     sets.precast.WS['Shark Bite'] = set_combine(sets.precast.WS, {})

@@ -260,6 +260,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Mpu Gandring",
         "sources": [
           "data/Kalali/Kalali_Brd_Gear.lua:main",
+          "data/Kalali/Kalali_Dnc_Gear.lua:main",
           "data/Kalali/Kalali_Rdm_Gear.lua:main",
           "user-confirmed:mpu-gandring-stage-3"
         ]
