@@ -3,7 +3,7 @@
 -- Only recorded augments are selected. Empty JSE aliases are acquisition hooks.
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder')
-    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'Proc')
+    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'HighBuff', 'Proc')
     state.HybridMode:options('Normal', 'PDT', 'MDT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
@@ -26,6 +26,9 @@ function character_user_job_setup()
         'DWEarrings',
         'DWMax'
     }
+
+    -- Sortie earring effects require the right ear. Random augment rolls are unrecorded.
+    gear.jse_ear2 = "Macu. Earring +1"
 
     -- No Senuna's Mantle is listed: combat sets use Null Shawl directly.
     gear.jse_back = '' -- Senuna's Mantle: Samba duration (acquire separately).
@@ -281,7 +284,7 @@ function init_gear_sets()
     sets.precast.Flourish3['Climactic Flourish'] = { head = gear.af3_head }
     sets.buff['Climactic Flourish'] = { head = gear.af3_head }
     sets.buff['Saber Dance'] = { legs = gear.af2_legs }
-    sets.Skillchain = { hands = gear.af3_hands }
+    sets.Skillchain = { hands = gear.af3_hands, ear2 = gear.jse_ear2 }
     sets.ExtraRegen = {
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
@@ -321,6 +324,18 @@ function init_gear_sets()
     sets.precast.WS['Aeolian Edge'].FullAcc = set_combine(sets.precast.WS['Aeolian Edge'].Acc, {
         ear2 = "Enchntr. Earring +1"
     })
+    -- Use HighBuff for physical WS when attack support reaches the damage limit.
+    -- Keep Moonshade/normal left-ear choices and put the PDL earring in the right ear.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Ruthless Stroke'].HighBuff = set_combine(sets.precast.WS['Ruthless Stroke'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS["Rudra's Storm"].HighBuff = set_combine(sets.precast.WS["Rudra's Storm"], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Shark Bite'].HighBuff = set_combine(sets.precast.WS['Shark Bite'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Evisceration'].HighBuff = set_combine(sets.precast.WS['Evisceration'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Pyrrhic Kleos'].HighBuff = set_combine(sets.precast.WS['Pyrrhic Kleos'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Dancing Edge'].HighBuff = set_combine(sets.precast.WS['Dancing Edge'], { ear2 = gear.jse_ear2 })
+    -- Physical damage limit does not benefit magical Aeolian Edge.
+    sets.precast.WS['Aeolian Edge'].HighBuff = set_combine(sets.precast.WS['Aeolian Edge'], {})
+
 end
 
 -- Select default macro book on initial load or subjob change.

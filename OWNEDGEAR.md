@@ -38,7 +38,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     "ear",
     "ring"
   ],
-  "total_slot_entries": 489,
+  "total_slot_entries": 491,
   "slots": {
     "main": [
       {
@@ -3776,6 +3776,15 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
+        "name": "Macu. Earring +1",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Dnc_Gear.lua:gear.jse_ear2",
+          "data/Kalali/Kalali_Dnc_Gear.lua:ear2",
+          "user-confirmed:dnc-sortie-earring-1"
+        ]
+      },
+      {
         "name": "Malignance Earring",
         "copies": 1,
         "sources": [
@@ -3829,6 +3838,15 @@ Machine-oriented owned gear index for future GearSwap Lua work.
           "data/Kalali/Kalali_Pld_Gear.lua:ear1",
           "data/Kalali/Kalali_Pld_Gear.lua:ear2",
           "user-confirmed:pld-new-gear"
+        ]
+      },
+      {
+        "name": "Pel. Earring +1",
+        "copies": 1,
+        "sources": [
+          "data/Kalali/Kalali_Drg_Gear.lua:gear.jse_ear2",
+          "data/Kalali/Kalali_Drg_Gear.lua:ear2",
+          "user-confirmed:drg-sortie-earring-1"
         ]
       },
       {

@@ -3,7 +3,7 @@
 -- Only recorded augments are selected. Empty JSE aliases are acquisition hooks.
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder')
-    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'Proc')
+    state.WeaponskillMode:options('Match', 'Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder', 'HighBuff', 'Proc')
     state.HybridMode:options('Normal', 'PDT', 'MDT')
     state.PhysicalDefenseMode:options('PDT')
     state.MagicalDefenseMode:options('MDT')
@@ -17,6 +17,9 @@ function character_user_job_setup()
     autows = 'Impulse Drive'
     state.ExtraMeleeMode = M { ['description'] = 'Extra Melee Mode', 'None' }
     state.Passive = M { ['description'] = 'Passive Mode', 'None', 'MP' }
+
+    -- Sortie earring effects require the right ear. Random augment rolls are unrecorded.
+    gear.jse_ear2 = "Pel. Earring +1"
 
     -- Missing JSE: fill these only with the actual owned job piece.
     gear.af1_head = '' -- Vishap Armet: Spirit Link and healing-breath trigger.
@@ -156,7 +159,7 @@ function init_gear_sets()
         head = "Flam. Zucchetto +2",
         neck = "Null Loop",
         ear1 = "Alabaster Earring",
-        ear2 = "Sherida Earring",
+        ear2 = gear.jse_ear2,
         body = "Flamma Korazin +2",
         hands = "Flam. Manopolas +2",
         ring1 = "Murky Ring",
@@ -167,7 +170,7 @@ function init_gear_sets()
         feet = "Flam. Gambieras +2"
     }
     sets.engaged.SomeAcc = set_combine(sets.engaged, {})
-    sets.engaged.Acc = set_combine(sets.engaged, { ear2 = "Telos Earring" })
+    sets.engaged.Acc = set_combine(sets.engaged, {}) -- Retain Alabaster haste and wyvern level.
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, { ammo = "Staunch Tathlum +1" })
     -- Explicit offensive option: Flamma Store TP / multiattack with Gleti critical rate.
     sets.engaged.Fodder = set_combine(sets.engaged, {
@@ -214,7 +217,7 @@ function init_gear_sets()
     sets.precast.JA['Restoring Breath'] = { back = gear.jse_back }
     sets.precast.JA['Smiting Breath'] = { back = gear.jse_back }
     -- Healing-breath potency gear is missing. Gleti hands protect the wyvern.
-    sets.HealingBreath = { head = gear.af3_head, hands = "Gleti's Gauntlets", back = gear.jse_back }
+    sets.HealingBreath = { head = gear.af3_head, hands = "Gleti's Gauntlets", back = gear.jse_back, ear2 = gear.jse_ear2 }
     sets.SmitingBreath = {
         ammo = "Staunch Tathlum +1",
         head = "Nyame Helm",
@@ -224,7 +227,7 @@ function init_gear_sets()
         feet = "Nyame Sollerets",
         neck = "Adad Amulet",
         ear1 = "Alabaster Earring",
-        ear2 = "Crep. Earring",
+        ear2 = gear.jse_ear2,
         ring1 = "Murky Ring",
         back = gear.jse_back,
         waist = "Incarnation Sash"
@@ -260,6 +263,15 @@ function init_gear_sets()
             ws.Fodder = set_combine(base, {})
         end
     end
+    -- Use HighBuff for physical WS when attack support reaches the damage limit.
+    -- Keep Moonshade/normal left-ear choices and put the PDL earring in the right ear.
+    sets.precast.WS.HighBuff = set_combine(sets.precast.WS, { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Impulse Drive'].HighBuff = set_combine(sets.precast.WS['Impulse Drive'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Stardiver'].HighBuff = set_combine(sets.precast.WS['Stardiver'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Drakesbane'].HighBuff = set_combine(sets.precast.WS['Drakesbane'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Sonic Thrust'].HighBuff = set_combine(sets.precast.WS['Sonic Thrust'], { ear2 = gear.jse_ear2 })
+    sets.precast.WS['Savage Blade'].HighBuff = set_combine(sets.precast.WS['Savage Blade'], { ear2 = gear.jse_ear2 })
+
 end
 
 -- Select default macro book on initial load or subjob change.
