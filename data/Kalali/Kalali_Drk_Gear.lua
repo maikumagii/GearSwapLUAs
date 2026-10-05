@@ -143,6 +143,7 @@ function init_gear_sets()
     sets.DreadWeapon = {}
     sets.passive.MP = { ear2 = "Ethereal Earring", waist = "Flume Belt +1" }
 
+    -- DRK mastered: owned Sworn armor is usable for casting and Dread Spikes.
     sets.precast.FC = set_combine(sets.precast.FC, {
         head = { name = "Carmine Mask +1", augments = { 'Path:D' } },
         body = "Sworn Platemail",

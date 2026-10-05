@@ -97,6 +97,9 @@ This keeps sets runnable today while documenting future upgrades.
 User confirmed DRK, DRG, and DNC reached Su2 on 2026-10-02. DRK may use the owned
 Blurred Shield +1 in its Naegling and Loxotic weapon sets without a job-point fallback.
 
+User confirmed DRK is mastered on 2026-10-05. Its owned Sworn armor is now usable;
+keep the existing Sworn Fast Cast, Stun, and Dread Spikes swaps enabled.
+
 User-confirmed exception for the DRG/DRK/DNC starter sets: prioritize TP performance over tank-level
 defenses while working toward better gear. The user accepts reduced damage reduction in normal engaged
 sets. In particular, use full Flamma +2 for DRG's default TP armor and keep Nyame in explicit defensive
