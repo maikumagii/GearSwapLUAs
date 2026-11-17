@@ -46,7 +46,7 @@ function character_user_job_setup()
         name = "Weard Mantle",
         augments = { 'VIT+4', 'DEX+2', 'Phalanx +5' }
     }
-    gear.jse_ear2 = "Chev. Earring +1"
+    gear.jse_ear2 = "Chev. Earring +2"
 
     -- Missing guide gear aliases. Each alias is named for the guide target and points at an owned substitute.
     gear.sapience_orb = "Staunch Tathlum +1"                -- Sapience Orb
@@ -560,7 +560,7 @@ function init_gear_sets()
         head = gear.souv_head,
         neck = "Sacro Gorget",
         ear1 = "Tuisto Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = "Apeile Ring +1",
@@ -578,7 +578,7 @@ function init_gear_sets()
         head = gear.souv_head,
         neck = "Sacro Gorget",
         ear1 = "Tuisto Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = "Apeile Ring +1",
@@ -633,7 +633,7 @@ function init_gear_sets()
         head = gear.souv_head,
         neck = "Unmoving Collar +1",
         ear1 = "Tuisto Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = "Gelatinous Ring +1",
@@ -651,7 +651,7 @@ function init_gear_sets()
         head = gear.souv_head,
         neck = "Unmoving Collar +1",
         ear1 = "Tuisto Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.souv_body,
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = "Gelatinous Ring +1",
@@ -670,7 +670,7 @@ function init_gear_sets()
         head = gear.souv_head,
         neck = "Unmoving Collar +1",
         ear1 = "Tuisto Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.souv_body,
         hands = gear.souv_hands_c,
         ring1 = "Gelatinous Ring +1",
@@ -700,7 +700,7 @@ function init_gear_sets()
         head = gear.jumalik_helm, -- Jumalik Helm
         neck = "Unmoving Collar +1",
         ear1 = "Etiolation Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.af1_body, -- Rev. Surcoat +4
         hands = gear.eschite_gauntlets, -- Eschite Gauntlets
         ring1 = gear.fortified_ring, -- Fortified Ring
@@ -724,8 +724,8 @@ function init_gear_sets()
         head = gear.odyssean_helm, -- Odyssean Helm, target augment: Phalanx +5
         neck = "Hoxne Torque",
         ear1 = "Mimir Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
-        body = "Sworn Platemail",
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
+        body = "Sworn Platemail", -- R24: Phalanx received +3
         hands = gear.souv_hands_c,
         ring1 = "Murky Ring",
         ring2 = gear.fortified_ring, -- Fortified Ring
@@ -742,7 +742,7 @@ function init_gear_sets()
         head = gear.souv_head,
         neck = "Moonlight Necklace",
         ear1 = "Mimir Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.af3_body, -- Chev. Cuirass +3
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
         ring2 = "Murky Ring",
@@ -754,7 +754,7 @@ function init_gear_sets()
         main = "Sakpata's Sword",
         sub = "Priwen",
         --head
-        --body
+        body = "Sworn Platemail", -- R24: Phalanx received +3
         hands = gear.souv_hands_c,
         back = gear.phalanx_jse_back,
         legs = "Sakpata's Cuisses",
@@ -788,7 +788,7 @@ function init_gear_sets()
         head = gear.af3_head, -- Chev. Armet +3
         neck = "Kgt. Beads +2",
         ear1 = "Odnowa Earring +1",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = "Adamantite Armor",
         hands = gear.af3_hands, -- Chev. Gauntlets +3
         ring1 = gear.fortified_ring, -- Fortified Ring
@@ -806,7 +806,7 @@ function init_gear_sets()
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = "Odnowa Earring +1", priority = 11 },
-        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
+        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +2
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         ring1 = { name = gear.fortified_ring, priority = 5 }, -- Fortified Ring
@@ -885,7 +885,7 @@ function init_gear_sets()
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = "Odnowa Earring +1", priority = 11 },
-        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
+        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +2
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         ring1 = { name = gear.fortified_ring, priority = 5 }, -- Fortified Ring
@@ -908,7 +908,7 @@ function init_gear_sets()
         head = gear.af3_head, -- Chev. Armet +3
         neck = "Kgt. Beads +2",
         ear1 = "Etiolation Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = "Jumalik Mail",
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -926,7 +926,7 @@ function init_gear_sets()
         head = gear.af3_head, -- Chev. Armet +3
         neck = "Kgt. Beads +2",
         ear1 = "Etiolation Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.af1_body, -- Rev. Surcoat +4
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
@@ -1035,7 +1035,7 @@ function init_gear_sets()
         head = "Hjarrandi Helm",
         neck = "Unmoving Collar +1",
         ear1 = "Crep. Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.crepuscular_mail, -- Crepuscular Mail
         hands = "Sakpata's Gauntlets",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
@@ -1071,7 +1071,7 @@ function init_gear_sets()
         head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
         neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = "Odnowa Earring +1", priority = 11 },
-        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +1
+        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +2
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         ring1 = { name = gear.fortified_ring, priority = 5 }, -- Fortified Ring
@@ -1098,7 +1098,7 @@ function init_gear_sets()
         head = "Hjarrandi Helm",
         neck = "Unmoving Collar +1",
         ear1 = "Crep. Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +1
+        ear2 = gear.jse_ear2, -- Chev. Earring +2
         body = gear.crepuscular_mail, -- Crepuscular Mail
         hands = "Sakpata's Gauntlets",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
@@ -1114,7 +1114,7 @@ function init_gear_sets()
         neck = "Rep. Plat. Medal",
         ear1 = "Cessance Earring",
         ear2 = "Brutal Earring",
-        body = "Nyame Mail",
+        body = "Sworn Platemail", -- R24: TA+5%; retains DT-9% and Haste+3%
         hands = "Sakpata's Gauntlets",
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
         back = "Null Shawl",

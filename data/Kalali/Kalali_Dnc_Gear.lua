@@ -29,6 +29,7 @@ function character_user_job_setup()
 
     -- Sortie earring effects require the right ear. Random augment rolls are unrecorded.
     gear.jse_ear2 = "Macu. Earring +1"
+    gear.jse_neck = "Etoile Gorget +2" -- Rank 25: fully augmented.
 
     -- No Senuna's Mantle is listed: combat sets use Null Shawl directly.
     gear.jse_back = '' -- Senuna's Mantle: Samba duration (acquire separately).
@@ -116,7 +117,7 @@ function init_gear_sets()
     })
     sets.midcast.Curaga = set_combine(sets.midcast.Cure, {})
     sets.precast.Waltz = set_combine(sets.idle.PDT, {
-        neck = "Unmoving Collar +1",
+        neck = gear.jse_neck,
         ear1 = "Enchntr. Earring +1",
         ear2 = "Tuisto Earring",
         legs = "Dashing Subligar"

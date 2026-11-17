@@ -1514,8 +1514,11 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Sworn Platemail",
         "sources": [
           "data/Kalali/Kalali_Blu_Gear.lua:body",
+          "data/Kalali/Kalali_Pld_Gear.lua:body",
           "data/Kalali/Kalali_Rdm_Gear.lua:body"
-        ]
+        ],
+        "augment_rank": 24,
+        "augment_rank_note": "User-confirmed rank 24. Accuracy+24, Mag. Acc.+24, Triple Attack+5%, Phalanx received +3."
       },
       {
         "name": "Viti. Tabard +3",
@@ -2498,6 +2501,17 @@ Machine-oriented owned gear index for future GearSwap Lua work.
     ],
     "neck": [
       {
+        "name": "Etoile Gorget +2",
+        "copies": 1,
+        "rank": 25,
+        "sources": [
+          "data/Kalali/Kalali_Dnc_Gear.lua:gear.jse_neck",
+          "data/Kalali/Kalali_Dnc_Gear.lua:neck",
+          "user-confirmed:dnc-new-gear",
+          "user-confirmed:dnc-gorget-capped-augments"
+        ]
+      },
+      {
         "name": "Adad Amulet",
         "sources": [
           "data/Kalali/Kalali_Pup_Gear.lua:neck",
@@ -2973,6 +2987,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
       {
         "name": "Reiki Yotai",
         "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:waist",
           "data/Kalali/Kalali_Blu_Gear.lua:waist",
           "data/Kalali/Kalali_Brd_Gear.lua:waist",
           "data/Kalali/Kalali_Cor_Gear.lua:waist"
@@ -3436,12 +3451,12 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "augments": [
           "DEX+20",
           "Accuracy+20 Attack+20",
-          "\"Dual Wield\"+10",
+          "\"Store TP\"+10",
           "Phys. dmg. taken-10%"
         ],
         "sources": [
           "data/Kalali/Kalali_Rdm_Gear.lua:back",
-          "data/Kalali/Kalali_Rdm_Gear.lua:gear.dw_jse_back"
+          "data/Kalali/Kalali_Rdm_Gear.lua:gear.tp_jse_back"
         ]
       },
       {
@@ -3578,7 +3593,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         ]
       },
       {
-        "name": "Chev. Earring +1",
+        "name": "Chev. Earring +2",
         "copies": 1,
         "sources": [
           "data/Kalali/Kalali_Pld_Gear.lua:ear1",
@@ -3627,6 +3642,7 @@ Machine-oriented owned gear index for future GearSwap Lua work.
         "name": "Eabani Earring",
         "copies": 1,
         "sources": [
+          "data/Kalali/Kalali_Rdm_Gear.lua:ear1",
           "data/Kalali/Kalali_Blu_Gear.lua:ear2",
           "data/Kalali/Kalali_Brd_Gear.lua:ear1",
           "data/Kalali/Kalali_Cor_Gear.lua:ear2"

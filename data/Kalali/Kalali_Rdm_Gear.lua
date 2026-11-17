@@ -54,7 +54,7 @@ function character_user_job_setup()
     gear.magical_mnd_wsd_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+10', 'Weapon skill damage +10%' } }
     --gear.int_wsd_jse_back = {name="Sucellos's Cape",augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','INT+10','Weapon skill damage +10%','Damage taken-5%',}}
     gear.nuke_jse_back = { name = "Sucellos's Cape", augments = { 'INT+20', 'Mag. Acc+20/Mag. Dmg.+20', '"Mag. Atk. Bns."+10', 'Phys. dmg. taken-10%', } }      --TODO
-    gear.dw_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', --[[ 'Accuracy+10',]] '"Dual Wield"+10', 'Phys. dmg. taken-10%' } }
+    gear.tp_jse_back = { name = "Sucellos's Cape", augments = { 'DEX+20', 'Accuracy+20 Attack+20', --[[ 'Accuracy+10',]] '"Store TP"+10', 'Phys. dmg. taken-10%' } }
     gear.cure_jse_back = { name = "Sucellos's Cape", augments = { 'MND+20', 'Mag. Acc+20/Mag. Dmg.+20', 'MND+9', '"Fast Cast"+10%', 'Phys. dmg. taken-10%', } } --TODO
     
     gear.ghostfyre_enhancing_skill_cape = { name = "Ghostfyre Cape", augments = { 'Mag. Acc.+9', 'Enfb.mag. skill +6', 'Enha.mag. skill +10', 'Enh. Mag. eff. dur. +11' } }
@@ -62,7 +62,12 @@ function character_user_job_setup()
     gear.absorb_tp_recast_jse_back = gear.cure_jse_back
 
     -- Unimplemented Ambuscade Capes with redirects to capes I do have
-    gear.enspell_jse_back = gear.dw_jse_back
+    gear.enspell_jse_back = gear.tp_jse_back
+    -- Full Sworn TP targets: enable each replacement once its R30 augments are confirmed.
+    gear.sworn_tp_head = "Malignance Chapeau" -- Sworn Crown R30: TA+6%, Phalanx+4.
+    gear.sworn_tp_hands = "Malignance Gloves" -- Sworn Gauntlets R30: TA+7%, Phalanx+5; not yet confirmed owned.
+    gear.sworn_tp_legs = "Malignance Tights" -- Sworn Brais R30: TA+6%, Phalanx+4.
+    gear.sworn_tp_feet = "Malignance Boots" -- Sworn Sabatons R30: TA+7%, Phalanx+5.
     gear.mnd_enfeebling_jse_back = gear.magical_mnd_wsd_jse_back
     gear.int_enfeebling_jse_back = gear.nuke_jse_back
     gear.int_wsd_jse_back = gear.nuke_jse_back
@@ -776,6 +781,14 @@ function init_gear_sets()
     }
 
     sets.midcast.Refresh = { head = "Amalric Coif +1", body = gear.af1_body, legs = gear.af3_legs }
+    sets.midcast.Refresh.Duration = {
+        head = gear.telchine_enhancing_duration_head,
+        body = gear.af2_body,
+    }
+    sets.midcast.Refresh.ComposureDuration = {
+        head = gear.af3_head,
+        body = gear.af3_body,
+    }
     sets.midcast.Aquaveil = {
         head = "Amalric Coif +1",
         hands = "Regal Cuffs",
@@ -798,6 +811,7 @@ function init_gear_sets()
     sets.Cure_Received = { waist = "Gishdubar Sash" }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
     sets.Self_Phalanx = {
+        body = "Sworn Platemail", -- R24: Phalanx received +3
         main = "Sakpata's Sword" --[[,
         head = "Taeon Chapeau",
         body = "Taeon Tabard",
@@ -808,6 +822,7 @@ function init_gear_sets()
         ammo = "Staunch Tathlum +1"]]
     }
     sets.Self_Phalanx.DW = { main = "Sakpata's Sword", sub = "Egeking" }
+    sets.Phalanx_Received = { body = "Sworn Platemail" } -- R24: Phalanx received +3
 
     sets.midcast['Enfeebling Magic'] = {
         main = "Bunzi's Rod",
@@ -1573,6 +1588,9 @@ function init_gear_sets()
     -- EG: sets.Dagger.Accuracy.Evasion
 
     -- Normal melee group
+    -- Sworn Platemail R24: TA+5%, Enspell+10; same DT-9% as Malignance.
+    -- Normal melee favors its added damage despite a small TP-rate loss with Crocea.
+    -- Acc/DT variants retain Malignance's STP+11 and extra Haste+1%.
 
     sets.engaged = {
         ammo = "Coiste Bodhar",
@@ -1580,7 +1598,7 @@ function init_gear_sets()
         neck = "Anu Torque",
         ear1 = "Crep. Earring",
         ear2 = "Telos Earring",
-        body = "Malignance Tabard",
+        body = "Sworn Platemail",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
@@ -1638,34 +1656,38 @@ function init_gear_sets()
         feet = "Malignance Boots"
     }
 
+    -- Capped magic haste, no Samba: /NIN DW+25 + Reiki+7 + Eabani+4 = DW+36.
+    -- The former DW+10 cape is now STP+10; Alabaster supplies Haste+5% even at R0.
+    -- HoxneMode (gs c toggle HoxneMode) overrides/locks ammo and range across all actions.
+    -- Aurgelmir is the passive ammo target for the finished high-TA set.
     sets.engaged.DW = {
-        ammo = "Coiste Bodhar",
-        head = "Malignance Chapeau",
+        ammo = "Aurgelmir Orb +1",
+        head = gear.sworn_tp_head,
         neck = "Anu Torque",
-        ear1 = "Crep. Earring",
-        ear2 = "Telos Earring",
-        body = "Malignance Tabard",
-        hands = "Malignance Gloves",
+        ear1 = "Eabani Earring",
+        ear2 = "Alabaster Earring",
+        body = "Sworn Platemail",
+        hands = gear.sworn_tp_hands,
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
-        waist = "Windbuffet Belt +1",
-        legs = "Malignance Tights",
-        feet = "Malignance Boots"
+        back = gear.tp_jse_back,
+        waist = "Reiki Yotai",
+        legs = gear.sworn_tp_legs,
+        feet = gear.sworn_tp_feet
     }
 
     sets.engaged.DW.Acc = {
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = "Crep. Earring",
-        ear2 = "Telos Earring",
+        ear1 = "Eabani Earring",
+        ear2 = "Alabaster Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
-        waist = "Null Belt",
+        back = gear.tp_jse_back,
+        waist = "Reiki Yotai",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -1674,14 +1696,14 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = "Sherida Earring",
-        ear2 = "Dedition Earring",
+        ear1 = "Eabani Earring",
+        ear2 = "Alabaster Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Murky Ring",
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
-        waist = "Windbuffet Belt +1",
+        back = gear.tp_jse_back,
+        waist = "Reiki Yotai",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -1690,14 +1712,14 @@ function init_gear_sets()
         ammo = "Coiste Bodhar",
         head = "Malignance Chapeau",
         neck = "Null Loop",
-        ear1 = "Crep. Earring",
-        ear2 = "Telos Earring",
+        ear1 = "Eabani Earring",
+        ear2 = "Alabaster Earring",
         body = "Malignance Tabard",
         hands = "Malignance Gloves",
         ring1 = "Murky Ring",
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
-        waist = "Null Belt",
+        back = gear.tp_jse_back,
+        waist = "Reiki Yotai",
         legs = "Malignance Tights",
         feet = "Malignance Boots"
     }
@@ -1713,7 +1735,7 @@ function init_gear_sets()
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
+        back = gear.tp_jse_back,
         waist = "Orpheus's Sash",
         legs = "Malignance Tights",
         -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
@@ -1731,7 +1753,7 @@ function init_gear_sets()
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
+        back = gear.tp_jse_back,
         waist = "Orpheus's Sash",
         legs = "Malignance Tights",
         -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
@@ -1766,7 +1788,7 @@ function init_gear_sets()
         hands = "Aya. Manopolas +2",
         ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
         ring2 = { name = "Chirich Ring +1", bag = "Wardrobe 2" },
-        back = gear.dw_jse_back,
+        back = gear.tp_jse_back,
         waist = "Orpheus's Sash",
         legs = "Malignance Tights",
         -- legs = "Sworn Brais", TOO MUCH DMG, NO LONGER 0
@@ -1781,6 +1803,19 @@ function select_default_macro_book()
         set_macro_page(2, 4)
     else
         set_macro_page(1, 4)
+    end
+end
+
+-- Apply after the shared Refresh potency and defense layers. Other duration gear
+-- and the self-target Gishdubar Sash have already been selected by the framework.
+function extra_user_post_midcast(spell, spellMap, eventArgs)
+    if spell.english == 'Refresh III'
+        and (state.IdleMode.value == 'Aminon' or state.CastingMode.value == 'OccultAcumen') then
+        if buffactive.Composure and spell.target.type == 'PLAYER' then
+            equip(sets.midcast.Refresh.ComposureDuration)
+        else
+            equip(sets.midcast.Refresh.Duration)
+        end
     end
 end
 
