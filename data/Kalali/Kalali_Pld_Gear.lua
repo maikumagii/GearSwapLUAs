@@ -5,8 +5,8 @@ function character_user_job_setup()
     state.WeaponskillMode:options('Match', 'Normal', 'Acc')
     state.CastingMode:options('SIRD', 'Normal')
     state.Passive:options('None', 'AbsorbMP')
-    state.PhysicalDefenseMode:options('PDT', 'PDT_Reraise')
-    state.MagicalDefenseMode:options('MDT', 'MDT_Reraise')
+    state.PhysicalDefenseMode:options('PDT')
+    state.MagicalDefenseMode:options('MDT')
     state.ResistDefenseMode:options('MEVA')
     state.IdleMode:options('Tank', 'Kiting', 'PDT', 'Block', 'MDT', 'Normal', 'Refresh')
     state.Weapons:options('BurtgangDuban', 'None', 'ExcaliburDuban', 'ExcaliburAegis',
@@ -21,7 +21,7 @@ function character_user_job_setup()
         LevanteDuban = 'Aeolian Edge',
     }
 
-    state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP', 'Twilight' }
+    state.ExtraDefenseMode = M { ['description'] = 'Extra Defense Mode', 'None', 'MP' }
 
     gear.rudianos_enmity_back = {
         name = "Rudianos's Mantle",
@@ -50,7 +50,7 @@ function character_user_job_setup()
 
     -- Missing guide gear aliases. Each alias is named for the guide target and points at an owned substitute.
     gear.sapience_orb = "Staunch Tathlum +1"                -- Sapience Orb
-    gear.trux_earring = "Knightly Earring"                 -- Trux Earring
+    gear.trux_earring = "Odnowa Earring +1"                -- Trux Earring
     gear.asklepian_belt = "Plat. Mog. Belt"                -- Asklepian Belt
     gear.eschite_gauntlets = {
         name = "Souv. Handsch. +1",
@@ -61,7 +61,7 @@ function character_user_job_setup()
     gear.jumalik_helm = "Chev. Armet +3"                   -- Jumalik Helm
     gear.malevolence = "Levante Dagger"                   -- Malevolence
     gear.regal_gauntlets = gear.af2_hands                  -- Regal Gauntlets
-    gear.orunmilas_torque = "Moonlight Necklace"           -- Orunmila's Torque
+    gear.orunmilas_torque = "Voltsurge Torque"             -- Orunmila's Torque
     gear.crepuscular_mail = "Sakpata's Plate"              -- Crepuscular Mail
     gear.shab_cuirass_1 = "Rev. Surcoat +4"                -- Shab. Cuirass +1
 
@@ -188,13 +188,13 @@ function init_gear_sets()
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
         head = { name = "Loess Barbuta +1", priority = 11 },
         neck = { name = "Moonlight Necklace", priority = 7 },
-        ear1 = { name = "Odnowa Earring +1", priority = 12 },
+        ear1 = { name = "Tuisto Earring", priority = 12 },
         ear2 = { name = gear.trux_earring, priority = 10 }, -- Trux Earring
         body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
         hands = {
             name = "Souv. Handsch. +1",
             augments = { 'HP+105', 'Enmity+9', 'Potency of "Cure" effect received +15%' },
-            priority = 13
+            priority = 14
         },
         ring1 = { name = "Apeile Ring +1", priority = 6 },
         ring2 = { name = "Gelatinous Ring +1", priority = 5 },
@@ -210,39 +210,41 @@ function init_gear_sets()
     }
 
     -- Precast sets to enhance JAs
-    sets.precast.JA['Invincible'] = {
+    -- Guide JAs Sets: build on the Full Enmity set and swap in only the JA-enhancing piece.
+    sets.precast.JA['Invincible'] = set_combine(sets.Enmity, {
         legs = gear.af2_legs,
-    }
-    sets.precast.JA['Holy Circle'] = {
+    })
+    sets.precast.JA['Holy Circle'] = set_combine(sets.Enmity, {
         feet = gear.af1_feet,
-    }
-    sets.precast.JA['Sentinel'] = {
+    })
+    sets.precast.JA['Sentinel'] = set_combine(sets.Enmity, {
         feet = gear.af2_feet,
-    }
-    sets.precast.JA['Rampart'] = {
+    })
+    sets.precast.JA['Rampart'] = set_combine(sets.Enmity, {
         head = gear.af2_head,
-    }
-    sets.precast.JA['Fealty'] = {
+    })
+    sets.precast.JA['Fealty'] = set_combine(sets.Enmity, {
         body = gear.af2_body,
-    }
-    sets.precast.JA['Divine Emblem'] = {
+    })
+    sets.precast.JA['Divine Emblem'] = set_combine(sets.Enmity, {
         feet = gear.af3_feet, -- Chev. Sabatons +3
-    }
-    sets.precast.JA['Cover'] = {
-        head = gear.af1_head, -- Rev. Coronet +3
+    })
+    sets.precast.JA['Cover'] = set_combine(sets.Enmity, {
+        -- Rev. Coronet +3; keep the Enmity head until the AF1 head is owned.
+        head = gear.af1_head ~= "" and gear.af1_head or sets.Enmity.head,
         body = gear.af2_body,
-    }
+    })
 
     -- add mnd for Chivalry
     sets.precast.JA['Chivalry'] = {
         hands = gear.af2_hands,
     }
 
-    sets.precast.JA['Shield Bash'] = {
+    sets.precast.JA['Shield Bash'] = set_combine(sets.Enmity, {
         sub = "Aegis",
         ear1 = "Knightly Earring",
         hands = gear.af2_hands,
-    }
+    })
     sets.precast.JA['Provoke'] = sets.Enmity
     sets.precast.JA['Warcry'] = sets.Enmity
     sets.precast.JA['Palisade'] = sets.Enmity
@@ -317,49 +319,13 @@ function init_gear_sets()
         ear2 = { name = "Loquac. Earring", priority = 2 },
         body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
         hands = { name = "Leyline Gloves", priority = 6 },
-        ring1 = "Kishar Ring",
-        ring2 = { name = "Prolix Ring", priority = 7 },
+        ring1 = { name = "Kishar Ring", priority = 7 },
+        ring2 = { name = "Prolix Ring", priority = 4 },
         back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
         waist = { name = "Plat. Mog. Belt", priority = 8 },
         legs = { name = "Sworn Brais", priority = 11 },
         feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
     }
-
-    sets.precast.FC['Enhancing Magic'] = {
-        main = "Burtgang",
-        sub = "Duban",
-        ammo = { name = gear.sapience_orb, priority = 10 }, -- Sapience Orb
-        head = { name = "Carmine Mask +1", priority = 3 },
-        neck = { name = gear.orunmilas_torque, priority = 5 }, -- Orunmila's Torque
-        ear1 = { name = "Enchntr. Earring +1", priority = 1 },
-        ear2 = { name = "Loquac. Earring", priority = 2 },
-        body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
-        hands = { name = "Leyline Gloves", priority = 6 },
-        ring1 = "Kishar Ring",
-        ring2 = { name = "Prolix Ring", priority = 7 },
-        back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
-        waist = { name = "Plat. Mog. Belt", priority = 8 },
-        legs = { name = "Sworn Brais", priority = 11 },
-        feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
-    }
-    sets.precast.FC.Cure = {
-        main = "Burtgang",
-        sub = "Duban",
-        ammo = { name = gear.sapience_orb, priority = 10 }, -- Sapience Orb
-        head = { name = "Carmine Mask +1", priority = 3 },
-        neck = { name = gear.orunmilas_torque, priority = 5 }, -- Orunmila's Torque
-        ear1 = { name = "Enchntr. Earring +1", priority = 1 },
-        ear2 = { name = "Loquac. Earring", priority = 2 },
-        body = { name = gear.af1_body, priority = 13 }, -- Rev. Surcoat +4
-        hands = { name = "Leyline Gloves", priority = 6 },
-        ring1 = "Kishar Ring",
-        ring2 = { name = "Prolix Ring", priority = 7 },
-        back = { name = "Rudianos's Mantle", augments = { 'HP+60', 'Eva.+20 /Mag. Eva.+20', 'HP+20', '"Fast Cast"+10' }, priority = 12 },
-        waist = { name = "Plat. Mog. Belt", priority = 8 },
-        legs = { name = "Sworn Brais", priority = 11 },
-        feet = { name = gear.af3_feet, priority = 9 }, -- Chev. Sabatons +3
-    }
-    sets.precast.FC.Cure.DT = sets.precast.FC.Cure
 
     -- Weaponskill sets
     -- Default set for any weaponskill that isn't any more specifically defined
@@ -399,11 +365,6 @@ function init_gear_sets()
     sets.precast.WS['Requiescat'] = set_combine(sets.precast.WS,
         { neck = "Fotia Gorget", ear1 = "Brutal Earring", ear2 = "Moonshade Earring" })
     sets.precast.WS['Requiescat'].Acc = set_combine(sets.precast.WS.Acc,
-        { neck = "Fotia Gorget", ear1 = "Crep. Earring", ear2 = "Moonshade Earring" })
-
-    sets.precast.WS['Chant du Cygne'] = set_combine(sets.precast.WS,
-        { neck = "Fotia Gorget", ear1 = "Brutal Earring", ear2 = "Moonshade Earring" })
-    sets.precast.WS['Chant du Cygne'].Acc = set_combine(sets.precast.WS.Acc,
         { neck = "Fotia Gorget", ear1 = "Crep. Earring", ear2 = "Moonshade Earring" })
 
     sets.precast.WS['Savage Blade'] = {
@@ -507,23 +468,8 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.precast.WS['Atonement'] = {
-        main = "Burtgang",
-        sub = "Duban",
-        ammo = gear.sapience_orb, -- Sapience Orb
-        head = "Loess Barbuta +1",
-        neck = "Moonlight Necklace",
-        ear1 = gear.trux_earring, -- Trux Earring
-        ear2 = "Cryptic Earring",
-        body = gear.souv_body,
-        hands = gear.souv_hands_c,
-        ring1 = "Apeile Ring +1",
-        ring2 = "Apeile Ring",
-        back = gear.rudianos_enmity_back, -- Rudianos's Mantle
-        waist = "Creed Baudrier",
-        legs = gear.souv_legs, -- Souv. Diechlings +1
-        feet = gear.af3_feet, -- Chev. Sabatons +3
-    }
+    -- Guide ATONEMENT reuses the Full Enmity set.
+    sets.precast.WS['Atonement'] = set_combine(sets.Enmity, {})
     sets.precast.WS['Atonement'].Acc = set_combine(sets.precast.WS['Atonement'], {
         neck = "Null Loop",
         ear1 = "Crep. Earring",
@@ -532,7 +478,6 @@ function init_gear_sets()
 
     -- Swap to these on Moonshade using WS if at 3000 TP
     sets.MaxTP = { ear1 = "Cessance Earring", ear2 = "Brutal Earring", }
-    sets.MaxTP['Aeolian Edge'] = { ear2 = "Alabaster Earring" }
     sets.AccMaxTP = { ear1 = "Crep. Earring", ear2 = "Telos Earring" }
 
 
@@ -571,23 +516,6 @@ function init_gear_sets()
         feet = gear.odyssean_greaves_cure,
     }
 
-    sets.midcast.Cure.SIRD = {
-        main = "Burtgang",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = "Sacro Gorget",
-        ear1 = "Tuisto Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +2
-        body = gear.souv_body,
-        hands = gear.regal_gauntlets, -- Regal Gauntlets
-        ring1 = "Apeile Ring +1",
-        ring2 = "Murky Ring", -- Defending Ring
-        back = gear.rudianos_cure_back,
-        waist = "Audumbla Sash",
-        legs = "Founder's Hose",
-        feet = gear.odyssean_greaves_cure,
-    }
     sets.midcast.Cure.DT = sets.midcast.Cure
 
     sets.midcast.Reprisal = {
@@ -644,23 +572,6 @@ function init_gear_sets()
         feet = gear.odyssean_greaves_cure,
     }
 
-    sets.Self_Healing.SIRD = {
-        main = "Burtgang",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.souv_head,
-        neck = "Unmoving Collar +1",
-        ear1 = "Tuisto Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +2
-        body = gear.souv_body,
-        hands = gear.regal_gauntlets, -- Regal Gauntlets
-        ring1 = "Gelatinous Ring +1",
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = "Moonlight Cape",
-        waist = "Plat. Mog. Belt",
-        legs = "Founder's Hose",
-        feet = gear.odyssean_greaves_cure,
-    }
     sets.Self_Healing.DT = sets.Self_Healing
 
     sets.HPCure = {
@@ -683,32 +594,28 @@ function init_gear_sets()
 
     sets.Cure_Received = { hands = gear.souv_hands_c, feet = gear.souv_feet }
     sets.Self_Refresh = { waist = "Gishdubar Sash" }
-    sets.Enhancing_Received = {}
 
     sets.midcast['Enhancing Magic'] = {
         body = gear.shab_cuirass_1, -- Shab. Cuirass +1
     }
 
-    sets.midcast['Enhancing Magic'].SIRD = {
-        body = gear.shab_cuirass_1, -- Shab. Cuirass +1
-    }
-
+    -- Guide ENLIGHT II SIRD set.
     sets.midcast.Enlight = {
         main = "Burtgang",
         sub = "Duban",
         ammo = "Staunch Tathlum +1",
         head = gear.jumalik_helm, -- Jumalik Helm
-        neck = "Unmoving Collar +1",
-        ear1 = "Etiolation Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +2
+        neck = "Moonlight Necklace",
+        ear1 = "Knightly Earring",
+        ear2 = "Odnowa Earring +1",
         body = gear.af1_body, -- Rev. Surcoat +4
         hands = gear.eschite_gauntlets, -- Eschite Gauntlets
-        ring1 = gear.fortified_ring, -- Fortified Ring
+        ring1 = "Murky Ring", -- Defending Ring
         ring2 = "Gelatinous Ring +1",
-        back = gear.rudianos_enmity_back,
+        back = "Moonlight Cape",
         waist = gear.asklepian_belt, -- Asklepian Belt
-        legs = gear.af3_legs, -- Chev. Cuisses +3
-        feet = gear.af3_feet, -- Chev. Sabatons +3
+        legs = "Founder's Hose",
+        feet = gear.odyssean_greaves_enmity,
     }
     sets.midcast['Enlight II'] = sets.midcast.Enlight
 
@@ -728,7 +635,7 @@ function init_gear_sets()
         body = "Sworn Platemail", -- R24: Phalanx received +3
         hands = gear.souv_hands_c,
         ring1 = "Murky Ring",
-        ring2 = gear.fortified_ring, -- Fortified Ring
+        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" }, -- Enhancing skill toward the guide's 415 target
         back = gear.phalanx_jse_back,
         waist = "Flume Belt +1",
         legs = "Sakpata's Cuisses",
@@ -781,24 +688,31 @@ function init_gear_sets()
     }
 
     -- Idle sets
+    -- Guide Top-Tier Idle, Pure Mitigation. Priorities follow the guide's HP Management idle entry.
     sets.idle = {
         main = "Burtgang",
         sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.af3_head, -- Chev. Armet +3
-        neck = "Kgt. Beads +2",
-        ear1 = "Odnowa Earring +1",
-        ear2 = gear.jse_ear2, -- Chev. Earring +2
-        body = "Adamantite Armor",
-        hands = gear.af3_hands, -- Chev. Gauntlets +3
-        ring1 = gear.fortified_ring, -- Fortified Ring
-        ring2 = "Gelatinous Ring +1",
-        back = gear.rudianos_enmity_back,
-        waist = "Null Belt",
-        legs = gear.af3_legs, -- Chev. Cuisses +3
-        feet = gear.af3_feet, -- Chev. Sabatons +3
+        ammo = { name = "Staunch Tathlum +1", priority = 8 },
+        head = { name = gear.af3_head, priority = 12 }, -- Chev. Armet +3
+        neck = { name = "Kgt. Beads +2", priority = 10 },
+        ear1 = { name = "Odnowa Earring +1", priority = 11 },
+        ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +2
+        body = { name = "Adamantite Armor", priority = 13 },
+        hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
+        ring1 = { name = gear.fortified_ring, priority = 5 }, -- Fortified Ring
+        ring2 = { name = "Gelatinous Ring +1", priority = 4 },
+        back = {
+            name = "Rudianos's Mantle",
+            augments = { 'VIT+20', 'Eva.+20 /Mag. Eva.+20', 'Mag. Evasion+10', 'Enmity+10',
+                'Phys. dmg. taken-10%', },
+            priority = 3,
+        },
+        waist = { name = "Null Belt", priority = 7 },
+        legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
+        feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
 
+    -- Guide IDLE XP set (full Chevalier); also used as sets.defense.PDT.
     sets.idle.PDT = {
         main = "Burtgang",
         sub = "Duban",
@@ -858,27 +772,8 @@ function init_gear_sets()
         feet = "Sakpata's Leggings"
     }
 
+    -- Guide Top-Tier Idle, Mixed Global. Default idle mode.
     sets.idle.Tank = {
-        main = "Sakpata's Sword",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.af3_head,
-        neck = "Warder's Charm +1",
-        ear1 = "Ethereal Earring",
-        ear2 = "Sanare Earring",
-        body = "Sakpata's Plate",
-        hands = gear.souv_hands_d,
-        ring1 = { name = "Moonlight Ring", bag = "Wardrobe" },
-        ring2 = "Shadow Ring",
-        back = gear.rudianos_enmity_back,
-        waist = "Flume Belt +1",
-        legs = gear.af3_legs,
-        feet = gear.souv_feet
-    }
-
-    sets.idle.Kiting = { ring2 = "Shneddick Ring" }
-
-    sets.idle.XP = {
         main = "Burtgang",
         sub = "Duban",
         ammo = { name = "Staunch Tathlum +1", priority = 8 },
@@ -886,8 +781,8 @@ function init_gear_sets()
         neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +2
-        body = { name = gear.af3_body, priority = 13 }, -- Chev. Cuirass +3
-        hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
+        body = { name = "Sakpata's Plate", priority = 13 },
+        hands = { name = "Sakpata's Gauntlets", priority = 2 },
         ring1 = { name = gear.fortified_ring, priority = 5 }, -- Fortified Ring
         ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
@@ -896,10 +791,12 @@ function init_gear_sets()
                 'Phys. dmg. taken-10%', },
             priority = 3,
         },
-        waist = { name = gear.asklepian_belt, priority = 7 }, -- Asklepian Belt
+        waist = { name = "Carrier's Sash", priority = 7 },
         legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
-        feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
+        feet = { name = "Sakpata's Leggings", priority = 1 },
     }
+
+    sets.idle.Kiting = set_combine(sets.idle, { ring2 = "Shneddick Ring" })
 
     sets.idle.Refresh = {
         main = "Burtgang",
@@ -919,6 +816,7 @@ function init_gear_sets()
         feet = gear.af3_feet, -- Chev. Sabatons +3
     }
 
+    -- Guide IDLE REFRESH / TOWN. No ring2 so Sel's town Kiting overlay keeps Shneddick Ring.
     sets.idle.Town = {
         main = "Burtgang",
         sub = "Duban",
@@ -927,30 +825,25 @@ function init_gear_sets()
         neck = "Kgt. Beads +2",
         ear1 = "Etiolation Earring",
         ear2 = gear.jse_ear2, -- Chev. Earring +2
-        body = gear.af1_body, -- Rev. Surcoat +4
+        body = "Jumalik Mail",
         hands = gear.regal_gauntlets, -- Regal Gauntlets
         ring1 = { name = "Stikini Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Stikini Ring +1", bag = "Wardrobe 2" },
         back = gear.rudianos_enmity_back,
         waist = "Plat. Mog. Belt",
-        legs = gear.af3_legs, -- Chev. Cuisses +3
+        legs = gear.af3_legs, -- Chev. Cuisses +3, Carmine Cuisses +1 target
         feet = gear.af3_feet, -- Chev. Sabatons +3
     }
 
     sets.Kiting = { ring2 = "Shneddick Ring" }
 
     sets.latent_refresh = { waist = "Eschan Stone" }
-    sets.latent_refresh_grip = { sub = "Sacro Bulwark" }
     sets.latent_regen = { ring1 = { name = "Moonlight Ring", bag = "Wardrobe" }, ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" } }
-    sets.DayIdle = {}
-    sets.NightIdle = {}
 
     --------------------------------------
     -- Defense sets
     --------------------------------------
 
     -- Extra defense sets.  Apply these on top of melee or defense sets.
-    sets.Knockback = {}
     sets.MP = {
         head = gear.af3_head,
         neck = "Loricate Torque +1",
@@ -967,11 +860,6 @@ function init_gear_sets()
         waist = "Flume Belt +1",
         feet = gear.af1_feet
     }
-    sets.MP_Knockback = {}
-    sets.Twilight = {
-        --head = "Nyame Helm",
-        --body = "Adamantite Armor",
-    }
     sets.TreasureHunter = set_combine(sets.TreasureHunter, {})
 
     -- Weapons sets
@@ -981,24 +869,6 @@ function init_gear_sets()
     sets.weapons.BurtgangAegis = { main = "Burtgang", sub = "Aegis" }
     sets.weapons.BurtgangSrivatsa = { main = "Burtgang", sub = "Srivatsa" }
     sets.weapons.LevanteDuban = { main = "Levante Dagger", sub = "Duban" }
-
-    sets.defense.Block = {
-        main = "Sakpata's Sword",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = gear.af3_head,
-        neck = "Loricate Torque +1",
-        ear1 = "Ethereal Earring",
-        ear2 = "Sanare Earring",
-        body = "Sakpata's Plate",
-        hands = gear.souv_hands_d,
-        ring1 = "Murky Ring",
-        ring2 = "Shadow Ring",
-        back = gear.rudianos_enmity_back,
-        waist = "Flume Belt +1",
-        legs = "Sakpata's Cuisses",
-        feet = gear.souv_feet
-    }
 
     sets.defense.PDT = sets.idle.PDT
     sets.defense.MDT = sets.idle.MDT
@@ -1021,13 +891,11 @@ function init_gear_sets()
         feet = "Nyame Sollerets"
     }
 
-    sets.defense.PDT_Reraise = set_combine(sets.defense.PDT, sets.Twilight)
-    sets.defense.MDT_Reraise = set_combine(sets.defense.MDT, sets.Twilight)
-
     --------------------------------------
     -- Engaged sets
     --------------------------------------
 
+    -- Guide ENGAGED PDT.
     sets.engaged = {
         main = "Burtgang",
         sub = "Duban",
@@ -1087,27 +955,8 @@ function init_gear_sets()
         feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
 
-    sets.engaged.DW = {}
-
-    sets.engaged.DW.Acc = {}
-
-    sets.engaged.Tank = {
-        main = "Burtgang",
-        sub = "Duban",
-        ammo = "Aurgelmir Orb +1",
-        head = "Hjarrandi Helm",
-        neck = "Unmoving Collar +1",
-        ear1 = "Crep. Earring",
-        ear2 = gear.jse_ear2, -- Chev. Earring +2
-        body = gear.crepuscular_mail, -- Crepuscular Mail
-        hands = "Sakpata's Gauntlets",
-        ring1 = { name = "Chirich Ring +1", bag = "Wardrobe" },
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_back,
-        waist = "Sailfi Belt +1",
-        legs = gear.af3_legs, -- Chev. Cuisses +3
-        feet = "Sakpata's Leggings"
-    }
+    -- Guide ENGAGED PDT; Tank hybrid mode uses the same set.
+    sets.engaged.Tank = set_combine(sets.engaged, {})
 
     sets.engaged.Tp = set_combine(sets.engaged.Tank, {
         ammo = "Coiste Bodhar",
@@ -1155,28 +1004,7 @@ function init_gear_sets()
         feet = "Sakpata's Leggings"
     }
 
-    sets.engaged.NoShellTank = {
-        main = "Sakpata's Sword",
-        sub = "Duban",
-        ammo = "Staunch Tathlum +1",
-        head = "Nyame Helm",
-        neck = "Loricate Torque +1",
-        ear1 = "Sanare Earring",
-        ear2 = "Etiolation Earring",
-        body = gear.af1_body,
-        hands = "Sakpata's Gauntlets",
-        ring1 = "Murky Ring",
-        ring2 = { name = "Moonlight Ring", bag = "Wardrobe 2" },
-        back = gear.rudianos_enmity_back,
-        waist = "Flume Belt +1",
-        legs = "Nyame Flanchard",
-        feet = gear.af2_feet
-    }
-
-    sets.Reraise = sets.Twilight
     sets.engaged.Acc.Tank = sets.engaged.Tank
-    sets.engaged.Reraise = set_combine(sets.engaged.Tank, sets.Reraise)
-    sets.engaged.Acc.Reraise = set_combine(sets.engaged.Acc.Tank, sets.Reraise)
 
     --------------------------------------
     -- Custom buff sets
