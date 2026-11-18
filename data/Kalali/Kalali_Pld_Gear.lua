@@ -688,7 +688,7 @@ function init_gear_sets()
     }
 
     -- Idle sets
-    -- Guide Top-Tier Idle, Pure Mitigation. Priorities follow the guide's HP Management idle entry.
+    -- Guide Top-Tier Idle, Mixed Global (more magic evasion and status resistance). 'Normal' idle mode.
     sets.idle = {
         main = "Burtgang",
         sub = "Duban",
@@ -697,8 +697,8 @@ function init_gear_sets()
         neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +2
-        body = { name = "Adamantite Armor", priority = 13 },
-        hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
+        body = { name = "Sakpata's Plate", priority = 13 },
+        hands = { name = "Sakpata's Gauntlets", priority = 2 },
         ring1 = { name = gear.fortified_ring, priority = 5 }, -- Fortified Ring
         ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
@@ -707,9 +707,9 @@ function init_gear_sets()
                 'Phys. dmg. taken-10%', },
             priority = 3,
         },
-        waist = { name = "Null Belt", priority = 7 },
+        waist = { name = "Carrier's Sash", priority = 7 },
         legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
-        feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
+        feet = { name = "Sakpata's Leggings", priority = 1 },
     }
 
     -- Guide IDLE XP set (full Chevalier); also used as sets.defense.PDT.
@@ -772,7 +772,8 @@ function init_gear_sets()
         feet = "Sakpata's Leggings"
     }
 
-    -- Guide Top-Tier Idle, Mixed Global. Default idle mode.
+    -- Guide Top-Tier Idle, Pure Mitigation: most DEF, VIT and MDB. Default idle mode, and the engaged
+    -- 'Tank' hybrid mode. Priorities follow the guide's HP Management idle entry.
     sets.idle.Tank = {
         main = "Burtgang",
         sub = "Duban",
@@ -781,8 +782,8 @@ function init_gear_sets()
         neck = { name = "Kgt. Beads +2", priority = 10 },
         ear1 = { name = "Odnowa Earring +1", priority = 11 },
         ear2 = { name = gear.jse_ear2, priority = 6 }, -- Chev. Earring +2
-        body = { name = "Sakpata's Plate", priority = 13 },
-        hands = { name = "Sakpata's Gauntlets", priority = 2 },
+        body = { name = "Adamantite Armor", priority = 13 },
+        hands = { name = gear.af3_hands, priority = 2 }, -- Chev. Gauntlets +3
         ring1 = { name = gear.fortified_ring, priority = 5 }, -- Fortified Ring
         ring2 = { name = "Gelatinous Ring +1", priority = 4 },
         back = {
@@ -791,12 +792,12 @@ function init_gear_sets()
                 'Phys. dmg. taken-10%', },
             priority = 3,
         },
-        waist = { name = "Carrier's Sash", priority = 7 },
+        waist = { name = "Null Belt", priority = 7 },
         legs = { name = gear.af3_legs, priority = 9 }, -- Chev. Cuisses +3
-        feet = { name = "Sakpata's Leggings", priority = 1 },
+        feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
 
-    sets.idle.Kiting = set_combine(sets.idle, { ring2 = "Shneddick Ring" })
+    sets.idle.Kiting = set_combine(sets.idle.Tank, { ring2 = "Shneddick Ring" })
 
     sets.idle.Refresh = {
         main = "Burtgang",
@@ -955,10 +956,10 @@ function init_gear_sets()
         feet = { name = gear.af3_feet, priority = 1 }, -- Chev. Sabatons +3
     }
 
-    -- Guide ENGAGED PDT; Tank hybrid mode uses the same set.
-    sets.engaged.Tank = set_combine(sets.engaged, {})
+    -- Max mitigation while engaged: same as the Pure Mitigation idle. 'Normal' hybrid mode keeps the guide's ENGAGED PDT.
+    sets.engaged.Tank = set_combine(sets.idle.Tank, {})
 
-    sets.engaged.Tp = set_combine(sets.engaged.Tank, {
+    sets.engaged.Tp = set_combine(sets.engaged, {
         ammo = "Coiste Bodhar",
         neck = "Rep. Plat. Medal",
         ear1 = "Cessance Earring",
