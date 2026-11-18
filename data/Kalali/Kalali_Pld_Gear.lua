@@ -485,6 +485,24 @@ function init_gear_sets()
     -- Midcast sets
     --------------------------------------
 
+    -- SIRD notes (guide target: 102%+ Spell Interruption Rate Down, counting 5/5 SIRD merits = 10%)
+    -- How Sel applies it: CastingMode defaults to 'SIRD', but Sel only swaps to a spell's `.SIRD` child set
+    -- while in_combat (after an action on a live mob, until ~6s after no battle target). Out of combat the
+    -- base set is used, which is what the guide wants for between-pull Phalanx potency.
+    -- Sets that carry SIRD today:
+    --   sets.Enmity.SIRD         Flash/Stun/Dark/Blue in combat, Cocoon. Guide SIRD Enmity: 105%.
+    --   sets.midcast.Phalanx.SIRD                                   Guide Phalanx SIRD: 109%.
+    --   sets.midcast.Cure        Already the guide's SIRD set (Cure Others: 111%).
+    --   sets.Self_Healing        Already the guide's SIRD set (Cure Self: 101%).
+    --   sets.midcast.Enlight     Guide Enlight II SIRD: 110%, but it needs Eschite Gauntlets and Jumalik Helm.
+    -- No SIRD set yet (base set is used in combat): Enhancing Magic (Crusade, Protect, Shell),
+    -- Reprisal, Stoneskin, and FastRecast spells (Raise, Holy, Banish). Add a `.SIRD` child to any of these
+    -- once you have spare pieces, for example:
+    --   sets.midcast['Enhancing Magic'].SIRD = set_combine(sets.Enmity.SIRD, { body = gear.shab_cuirass_1 })
+    --   sets.midcast.Reprisal.SIRD = set_combine(sets.midcast.Reprisal, { ... })
+    -- Owned SIRD pieces not used in any set yet (verify PLD can equip): Evanescence Ring, Halasz Earring,
+    -- Emphatikos Rope. Guide SIRD alternates not owned: Magnetic Earring, Moonbeam Necklace.
+
     sets.midcast.FastRecast = sets.precast.FC
 
     sets.midcast.Flash = sets.Enmity
@@ -599,7 +617,8 @@ function init_gear_sets()
         body = gear.shab_cuirass_1, -- Shab. Cuirass +1
     }
 
-    -- Guide ENLIGHT II SIRD set.
+    -- Guide ENLIGHT II SIRD set (110% SIRD in the guide). The Eschite Gauntlets and Jumalik Helm stand-ins
+    -- carry less SIRD, so this likely sits under 102% until those two are owned.
     sets.midcast.Enlight = {
         main = "Burtgang",
         sub = "Duban",
