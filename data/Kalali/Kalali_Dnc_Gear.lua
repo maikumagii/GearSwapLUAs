@@ -1,5 +1,4 @@
--- Starter sets rebuilt from OWNEDGEAR.md; job/slot flags and base stats verified
--- against Windower/Resources resources_data/items.lua and item_descriptions.lua.
+-- Sets use OWNEDGEAR.md plus the newly acquired DNC pieces recorded below.
 -- Only recorded augments are selected. Empty JSE aliases are acquisition hooks.
 function character_user_job_setup()
     state.OffenseMode:options('Normal', 'SomeAcc', 'Acc', 'FullAcc', 'Fodder')
@@ -13,7 +12,7 @@ function character_user_job_setup()
     state.WeaponSets:options('Default')
     weapon_sets = { Default = { 'None', 'Tauret', 'RudraTPBonus', 'DualPrime', 'DualPrimeTP' } }
     default_weapons = 'Tauret'
-    default_dual_weapons = 'Tauret'
+    default_dual_weapons = 'DualPrimeTP'
     autows_list = { Tauret = 'Evisceration', RudraTPBonus = "Rudra's Storm" }
     -- Stage 3: Ruthless Stroke / Prime aftermath are available only in Sortie.
     autows_list.DualPrime = 'Ruthless Stroke'
@@ -31,18 +30,27 @@ function character_user_job_setup()
     gear.jse_ear2 = "Macu. Earring +1"
     gear.jse_neck = "Etoile Gorget +2" -- Rank 25: fully augmented.
 
-    -- No Senuna's Mantle is listed: combat sets use Null Shawl directly.
-    gear.jse_back = '' -- Senuna's Mantle: Samba duration (acquire separately).
-    gear.reverse_flourish_back = '' -- Toetapper Mantle with Reverse Flourish augment.
-    gear.af1_head = '' -- Maxixi Tiara: Samba.
-    gear.af1_feet = '' -- Maxixi Toe Shoes: Jig.
-    gear.af2_head = '' -- Horos Tiara: Trance.
-    gear.af2_body = '' -- Horos Casaque: No Foot Rise.
-    gear.af2_legs = '' -- Horos Tights: Jig / Saber Dance.
-    gear.af2_feet = '' -- Horos Toe Shoes: Step accuracy.
-    gear.af3_head = '' -- Maculele Tiara: Climactic Flourish.
-    gear.af3_body = '' -- Maculele Casaque: Striking Flourish.
-    gear.af3_hands = '' -- Maculele Bangles: Reverse Flourish / skillchain bonus.
+    -- Owned WSD cape; retain Null Shawl for TP rather than assuming a second cape.
+    gear.jse_back = { name = "Senuna's Mantle", augments = { 'DEX+20', 'Accuracy+20 Attack+20', 'Weapon skill damage +10%', } }
+    gear.reverse_flourish_back = 'Toetapper Mantle' -- Reverse Flourish augment amount is unrecorded.
+
+    gear.af1_head = ''                   -- Maxixi Tiara: Samba.
+    gear.af1_body = ''
+    gear.af1_hands = ''
+    gear.af1_legs = ''
+    gear.af1_feet = ''              -- Maxixi Toe Shoes: Jig.
+
+    gear.af2_head = 'Horos Tiara +2' -- Horos Tiara: Trance.
+    gear.af2_body = 'Horos Casaque +1'   -- Horos Casaque: No Foot Rise.
+    gear.af2_hands = ''
+    gear.af2_legs = 'Horos Tights +3' -- Horos Tights: Jig / Saber Dance.
+    gear.af2_feet = 'Horos T. Shoes +2'              -- Horos Toe Shoes: Step accuracy / TP cost.
+
+    gear.af3_head = 'Maculele Tiara +1'              -- Maculele Tiara: Climactic Flourish.
+    gear.af3_body = 'Maculele Casaque' -- Maculele Casaque: Striking Flourish.
+    gear.af3_hands = 'Maculele Bangles'             -- Maculele Bangles: Reverse Flourish / skillchain bonus.
+    gear.af3_legs = 'Maculele Tights'
+    gear.af3_feet = 'Maculele Toe Shoes'
     -- Aeneas / Taming Sari are future weapons, not owned entries.
 
     send_command('bind @` gs c step')
@@ -128,14 +136,14 @@ function init_gear_sets()
     sets.precast.WS = {
         ammo = "Oshasha's Treatise",
         head = "Nyame Helm",
-        neck = "Rep. Plat. Medal",
+        neck = gear.jse_neck,
         ear1 = "Moonshade Earring",
         ear2 = "Ishvara Earring",
         body = "Nyame Mail",
         hands = "Nyame Gauntlets",
         ring1 = "Epaminondas's Ring",
         ring2 = "Ephramad's Ring",
-        back = "Null Shawl",
+        back = gear.jse_back,
         waist = "Sailfi Belt +1",
         legs = "Nyame Flanchard",
         feet = "Nyame Sollerets"
@@ -186,6 +194,7 @@ function init_gear_sets()
     sets.engaged.Acc = set_combine(sets.engaged, {})
     sets.engaged.FullAcc = set_combine(sets.engaged.Acc, { ammo = "Staunch Tathlum +1" })
     sets.engaged.Fodder = set_combine(sets.engaged, {
+        neck = gear.jse_neck,
         head = "Adhemar Bonnet +1",
         body = "Adhemar Jacket +1",
         hands = "Adhemar Wrist. +1",
@@ -203,8 +212,10 @@ function init_gear_sets()
     sets.MaxTP['Ruthless Stroke'] = { ear1 = "Telos Earring" }
     sets.AccMaxTP['Ruthless Stroke'] = { ear1 = "Cessance Earring" }
 
-    sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, {})
-    sets.precast.WS['Shark Bite'] = set_combine(sets.precast.WS, {})
+    -- Horos +3 has 10 WSD, 45 accuracy and 64 attack versus R20 Nyame's
+    -- 9 WSD, 40 accuracy and 55 attack. Keep Nyame for Ruthless Stroke's AGI.
+    sets.precast.WS["Rudra's Storm"] = set_combine(sets.precast.WS, { legs = gear.af2_legs })
+    sets.precast.WS['Shark Bite'] = set_combine(sets.precast.WS, { legs = gear.af2_legs })
     sets.precast.WS['Evisceration'] = set_combine(sets.precast.WS, {
         ammo = "Aurgelmir Orb +1",
         head = "Adhemar Bonnet +1",
@@ -244,18 +255,26 @@ function init_gear_sets()
     sets.MaxTP['Dancing Edge'] = {}
     sets.AccMaxTP['Dancing Edge'] = {}
 
-    -- Waltz potency from Passion Jacket / Dashing Subligar; Gleti's Knife adds
-    -- another 10% when already equipped. Do not swap weapons and lose TP to cure.
+    -- 51% Waltz potency (50% cap): head 13, body 13, neck 10, hands 10, back 5.
+    -- Cap without Gleti's Knife, keeping Nyame's CHR and defenses in the leg slot.
+    -- Do not swap weapons and lose TP to cure.
     sets.precast.Waltz = set_combine(sets.precast.Waltz, {
+        head = gear.af2_head,
         body = "Passion Jacket",
         hands = "Gleti's Gauntlets",
+        legs = "Nyame Flanchard",
         feet = "Nyame Sollerets",
+        back = gear.reverse_flourish_back,
         waist = "Chaac Belt"
     })
     sets.precast.Waltz['Healing Waltz'] = {}
     sets.Self_Waltz = {} -- Asklepian Ring is not owned.
     sets.precast.Step = set_combine(sets.engaged.Acc, { ammo = "Aurgelmir Orb +1", waist = "Null Belt" })
     sets.precast.Step = set_combine(sets.precast.Step, { feet = gear.af2_feet ~= '' and gear.af2_feet or nil })
+    sets.precast.Step['Feather Step'] = set_combine(sets.precast.Step, { feet = gear.af3_feet })
+    -- The shared job setup runs before these sets exist. Keep its conservative
+    -- 100-TP Step budget: Feather Step uses Maculele shoes, without Horos's discount.
+    step_feet_reduction = 0
     sets.Enmity = set_combine(sets.idle.PDT, {
         neck = "Unmoving Collar +1",
         ear1 = "Cryptic Earring",
@@ -415,6 +434,24 @@ function init_gear_sets()
     sets.precast.WS['Aeolian Edge'].HighBuff = set_combine(sets.precast.WS['Aeolian Edge'], {})
     sets.precast.WS['Aeolian Edge'].HighBuffAcc = set_combine(sets.precast.WS['Aeolian Edge'].Acc, {})
 
+end
+
+-- The shared DNC hook uses a >3200 effective-TP threshold. Replace Moonshade
+-- only when TP still caps after removing its 250 bonus, including Fusetto +2.
+function user_job_post_precast(spell, spellMap, eventArgs)
+    if spell.type ~= 'WeaponSkill' or state.WeaponskillMode.value == 'Proc' then return end
+
+    local ws = standardize_set(get_precast_set(spell, spellMap))
+    local slot = ws.ear1 == 'Moonshade Earring' and 'ear1'
+        or ws.ear2 == 'Moonshade Earring' and 'ear2'
+    if not slot then return end
+
+    if get_effective_player_tp(spell, ws) - 250 >= 3000 then
+        local replacements = check_ws_acc():contains('Acc') and sets.AccMaxTP or sets.MaxTP
+        if replacements then equip(replacements[spell.english] or replacements) end
+    else
+        equip({ [slot] = 'Moonshade Earring' })
+    end
 end
 
 -- Select default macro book on initial load or subjob change.
