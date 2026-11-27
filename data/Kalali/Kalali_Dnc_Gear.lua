@@ -47,10 +47,10 @@ function character_user_job_setup()
     gear.af2_feet = 'Horos T. Shoes +2'              -- Horos Toe Shoes: Step accuracy / TP cost.
 
     gear.af3_head = 'Maculele Tiara +1'              -- Maculele Tiara: Climactic Flourish.
-    gear.af3_body = 'Maculele Casaque' -- Maculele Casaque: Striking Flourish.
-    gear.af3_hands = 'Maculele Bangles'             -- Maculele Bangles: Reverse Flourish / skillchain bonus.
-    gear.af3_legs = 'Maculele Tights'
-    gear.af3_feet = 'Maculele Toe Shoes'
+    gear.af3_body = 'Maculele Casaque +1' -- Maculele Casaque: Striking Flourish.
+    gear.af3_hands = 'Maculele Bangles +1'             -- Maculele Bangles: Reverse Flourish / skillchain bonus.
+    gear.af3_legs = 'Maculele Tights +1'
+    gear.af3_feet = 'Maculele Toe Shoes +1'
     -- Aeneas / Taming Sari are future weapons, not owned entries.
 
     send_command('bind @` gs c step')
