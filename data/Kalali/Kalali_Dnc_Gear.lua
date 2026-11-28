@@ -456,16 +456,10 @@ end
 
 -- Select default macro book on initial load or subjob change.
 function select_default_macro_book()
-    -- Default macro set/book
-    if player.sub_job == 'WAR' then
-        set_macro_page(10, 9)
-    elseif player.sub_job == 'NIN' then
-        set_macro_page(1, 9)
-    elseif player.sub_job == 'SAM' then
-        set_macro_page(9, 9)
-    elseif player.sub_job == 'THF' then
-        set_macro_page(8, 9)
-    else
-        set_macro_page(10, 9)
-    end
+    -- Default macro set/book: page 1 of book 1 for every subjob.
+    set_macro_page(1, 1)
+end
+
+function user_job_lockstyle()
+    windower.chat.input('/lockstyleset 190')
 end
