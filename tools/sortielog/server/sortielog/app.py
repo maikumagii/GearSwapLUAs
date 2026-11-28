@@ -24,7 +24,6 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 
 from .analysis import analyze, parse_tp_bonus
-from .model import parse_weapon_dmg
 from .schema import normalize
 from .store import Store
 
@@ -88,14 +87,13 @@ class UdpIngest(asyncio.DatagramProtocol):
         self.store.insert([normalize(obj)], name)
 
 
-def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff=None, weapon_dmg=None):
+def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff=None):
     db_path = db_path or os.environ.get("SORTIELOG_DB", "/data/sortielog.db")
     udp_port = int(os.environ.get("SORTIELOG_UDP_PORT", "0")) if udp_port is None else udp_port
     if keys is None:
         keys = parse_keys(os.environ.get("SORTIELOG_KEYS", ""), os.environ.get("SORTIELOG_TOKEN", ""))
     tp_bonus = parse_tp_bonus(os.environ.get("SORTIELOG_TP_BONUS", "")) if tp_bonus is None else tp_bonus
     level_diff = float(os.environ.get("SORTIELOG_LEVEL_DIFF", "0") or 0) if level_diff is None else level_diff
-    weapon_dmg = parse_weapon_dmg(os.environ.get("SORTIELOG_WEAPON_DMG", "")) if weapon_dmg is None else weapon_dmg
     auth = Auth(keys)
 
     @asynccontextmanager
@@ -177,11 +175,11 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
         target, session, uploader, minutes = args
         since = time.time() - minutes * 60 if minutes else None
         rows = store.query(ANALYSIS_KINDS, target, session, since, uploader=uploader)
-        result = analyze(rows, tp_bonus, level_diff, weapon_dmg)
+        result = analyze(rows, tp_bonus, level_diff)
         result["rows"] = len(rows)
         result["computed_at"] = time.time()
         with cache_lock:
-            cache[key] = (store.count(), time.time(), result)
+            cache[key] = ((store.count(), store.revision()), time.time(), result)
             running.discard(key)
         return result
 
@@ -193,7 +191,8 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
         key = repr(args)
         with cache_lock:
             entry = cache.get(key)
-            stale = entry is None or entry[0] != store.count() or (minutes and time.time() - entry[1] > 30)
+            stale = (entry is None or entry[0] != (store.count(), store.revision())
+                     or (minutes and time.time() - entry[1] > 30))
             start_background = entry is not None and stale and key not in running and time.time() - entry[1] > 15
             if start_background:
                 running.add(key)

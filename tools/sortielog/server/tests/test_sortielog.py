@@ -155,3 +155,29 @@ def test_store_migrates_old_database(tmp_path):
     rows = store.query(kinds=["melee"])
     assert rows[0]["attack"] == 3456 and rows[0]["weapon"] == "Club"
     assert store.count() == 2
+
+
+def test_admin_set_weapon_and_revision(tmp_path):
+    from sortielog.admin import main as admin
+    from sortielog.store import Store
+    path = str(tmp_path / "w.db")
+    store = Store(path)
+    rows = [normalize({"kind": "melee", "is_me": 1, "actor": "Kalali", "session": "s1", "seq": i, "t": 100 + i,
+                       "damage": 200}) for i in range(5)]
+    rows.append(normalize({"kind": "melee", "is_me": 0, "actor": "Friend", "session": "s1", "seq": 99, "t": 100, "damage": 1}))
+    rows.append(normalize({"kind": "melee", "is_me": 1, "actor": "Kalali", "session": "s1", "seq": 50, "t": 101,
+                           "damage": 200, "main_dmg": 99}))
+    store.insert(rows, "kalali")
+    assert store.set_weapon(actor="kalali", main_dmg=130, sub_dmg=38, dry_run=True) == {"main": 5, "sub": 6}
+    assert store.revision() == 0
+    assert store.set_weapon(actor="kalali", main_dmg=130, sub_dmg=38, main_weapon="Mandau") == {"main": 5, "sub": 6}
+    assert store.revision() == 1
+    assert store.set_weapon(actor="kalali", main_dmg=130) == {"main": 0}
+    assert store.revision() == 1                           # no-op doesn't force a refit
+    by_seq = {r["seq"]: r for r in store.query(kinds=["melee"])}
+    assert by_seq[0]["main_dmg"] == 130 and by_seq[0]["main_weapon"] == "Mandau" and by_seq[0]["sub_dmg"] == 38
+    assert by_seq[50]["main_dmg"] == 99                    # existing DMG kept without --overwrite
+    assert by_seq[99]["main_dmg"] is None                  # someone else's row untouched
+    store.close()
+    assert admin(["--db", path, "set-weapon", "--player", "Kalali", "--main-dmg", "125", "--overwrite"]) == 0
+    assert Store(path).query(kinds=["melee"])[0]["main_dmg"] == 125

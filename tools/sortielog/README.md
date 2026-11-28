@@ -52,7 +52,8 @@ Player (Windows PC or Steam Deck)              Cloudflare                     Ra
 //slog http on
 //slog status
 ```
-`//slog status` should show `http on -> http://sortie.eventmoogle.com | key set`. After a fight,
+`//slog status` should show `http on -> http://sortie.eventmoogle.com | key set`, and a line
+with your main and off-hand weapons and their DMG. After a fight,
 it should show `sent` going up and `ok`. Settings are saved, so next time only
 `//lua load sortielog` is needed. To load it automatically, add `lua load sortielog` to
 `Windower/scripts/init.txt`.
@@ -125,7 +126,8 @@ Use `//slog flag aria` / `//slog flag sv_aria` for those.
 Each row records: time, session and row number, zone, kind (`ws`, `melee`, `ranged`, misses,
 `party_action`, `status_on`/`status_off`, `flag`, `note`), actor and target, WS, damage, crit,
 hand, your TP when you sent the WS, job, buffs, statuses seen on the target, flags, WS Wall
-features, main-hand Attack, Accuracy and weapon type.
+features, main-hand Attack, Accuracy, weapon type, and main/off-hand weapon names and DMG
+(base item DMG; augments like DMG+10 show up in the fitted fSTR instead).
 
 ### Updating
 Replace `SortieLog.lua` with the new one and type `//lua reload sortielog`. Your settings
@@ -165,6 +167,24 @@ docker compose logs -f
 | `SORTIELOG_KEYS` | `name:key` pairs, one per player. Generate a key with `openssl rand -hex 24` (keep keys to letters and digits) |
 | `SORTIELOG_TP_BONUS` | Optional TP bonus per WS for fTP normalization, e.g. `Black Halo=250` |
 | `SORTIELOG_LEVEL_DIFF` | Level correction for DEF/EVA: monster level minus yours (0 = off) |
+
+### Maintenance commands
+
+Run these inside the container from the `server` folder:
+
+```bash
+docker compose exec sortielog python -m sortielog.admin weapons
+```
+Shows each session's rows and whether they have weapon DMG.
+
+```bash
+docker compose exec sortielog python -m sortielog.admin set-weapon --player Kalali --main-dmg 130 --sub-dmg 38 --dry-run
+```
+Fills in weapon DMG for rows uploaded without it. Drop `--dry-run` to apply it. By default
+it only changes rows with no DMG yet. Narrow it with `--session <id>` or
+`--from "2026-11-28 20:15" --to "2026-11-28 21:00"` (Pi local time) if you used other weapons
+at other times, and add `--main-name Mandau` to record the name too. `--overwrite` replaces
+DMG already present. The dashboard refits on its next refresh.
 
 After changing keys, run `docker compose up -d`. The data lives in the
 `sortielog-data` volume. To back it up: `docker compose cp sortielog:/data ./backup`.
@@ -289,9 +309,12 @@ to fill up.
   - **Each debuff's measured effect**, for example "Box Step lv6: −14%".
   - **Right now:** DEF under the debuffs at your latest hit, your Attack, the Attack ÷ DEF
     ratio, its pDIF range, and the Attack you'd need for the pDIF cap.
-- **Weapon DMG (optional but recommended):** set `SORTIELOG_WEAPON_DMG=Kalali:Dagger=130`
-  (main hand). Base damage is then held to DMG + a plausible fSTR, which settles the cases
-  where the damage spread alone fits two different ratios. The fitted fSTR is shown.
+- **Weapon DMG:** some damage spreads fit two different ratios equally well, and knowing the
+  weapon's DMG decides between them. The addon (0.4.0 and later) logs the main- and off-hand
+  weapon and DMG on every row, so this is automatic, even if you swap weapons mid-fight:
+  base damage = that hit's DMG + one fitted fSTR. For rows from older addons, record it with
+  the `set-weapon` command below. Without DMG, base damage is only held to a generous range
+  for the weapon type, and the dashboard says "ambiguous" when two DEF values still fit.
 - **Evasion:** every main- and off-hand swing, each with that hand's Accuracy and hit cap
   (99% main 1H/H2H, 95% off hand and 2H). If you're hit-capped everywhere, only an upper
   bound can be given. Off-hand misses usually pin it down.

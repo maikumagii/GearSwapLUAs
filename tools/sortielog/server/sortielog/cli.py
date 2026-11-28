@@ -4,7 +4,6 @@ import argparse
 import csv
 
 from .analysis import analyze, parse_tp_bonus
-from .model import parse_weapon_dmg
 from .schema import normalize
 
 
@@ -26,13 +25,19 @@ def main(argv=None):
     parser.add_argument("--target", help="only this monster name")
     parser.add_argument("--tp-bonus", default="", help='e.g. "Black Halo=250,Savage Blade=250"')
     parser.add_argument("--level-diff", type=float, default=0, help="monster level minus yours, for level correction")
-    parser.add_argument("--weapon-dmg", default="", help='e.g. "Kalali:Dagger=131" to anchor base damage')
+    parser.add_argument("--main-dmg", type=float, help="main weapon DMG for rows that don't have it")
+    parser.add_argument("--sub-dmg", type=float, help="off-hand weapon DMG for rows that don't have it")
     args = parser.parse_args(argv)
 
     rows = load_rows(args.csv)
     if args.target:
         rows = [r for r in rows if r.get("target") == args.target]
-    result = analyze(rows, parse_tp_bonus(args.tp_bonus), args.level_diff, parse_weapon_dmg(args.weapon_dmg))
+    for row in rows:
+        if args.main_dmg and row.get("is_me") and row.get("main_dmg") is None:
+            row["main_dmg"] = args.main_dmg
+        if args.sub_dmg and row.get("is_me") and row.get("sub_dmg") is None:
+            row["sub_dmg"] = args.sub_dmg
+    result = analyze(rows, parse_tp_bonus(args.tp_bonus), args.level_diff)
 
     print(f"{'player':12} {'target':20} {'ws':16} {'wall':>4} {'basis':14} {'n':>4} {'99999':>5} {'p10':>9} {'p50':>9} {'p90':>9} {'spread':>7}  verdict / attack check")
     for g in result["ws"]:
@@ -68,7 +73,8 @@ def main(argv=None):
               + (f", {f['double_damage_pct']:.0f}% double damage" if f.get("double_damage_pct", 0) > 1 else "")
               + (f", base includes {', '.join(f['folded'])}" if f.get("folded") else "")
               + (f", base damage {f['base_damage']:.0f}" if f.get("base_damage") else "")
-              + (f" (DMG {f['weapon_dmg']:.0f} + fSTR {f['fstr']:+.0f})" if f.get("fstr") is not None else ""))
+              + (f" (DMG {f['weapon_dmg']:.0f} + fSTR {f['fstr']:+.0f})" if f.get("fstr") is not None
+                 else " (weapon DMG not recorded)" if f.get("base_damage") else ""))
         for e in f.get("effects", []):
             span = f" ({e['low']:+.1f}..{e['high']:+.1f})" if e.get("low") is not None else ""
             print(f"    {e['tag']:28} DEF {e['pct']:+.1f}%{span}  [{e['hits']} hits]")

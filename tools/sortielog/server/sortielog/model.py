@@ -197,35 +197,23 @@ BAD_FIT_P = 0.01
 
 PDIF_CAP = {"1h": 3.25, "h2h": 3.5, "gkt": 3.5, "2h": 3.75, "scythe": 4.0}   # non-crit, no PDL gear
 
-
-def base_damage_range(weapon_dmg):
-    """Plausible base damage (weapon DMG + fSTR) when the weapon's DMG is known. fSTR depends on
-    the target's unknown VIT, so this allows a generous fSTR band rather than one value."""
-    if not weapon_dmg:
-        return None
-    return weapon_dmg * 0.85, weapon_dmg * 1.25 + 8
-
-
-def parse_weapon_dmg(text):
-    """'Kalali:Dagger=131, Sword=165' -> {('kalali', 'dagger'): 131, (None, 'sword'): 165}"""
-    out = {}
-    for part in (text or "").split(","):
-        if "=" not in part:
-            continue
-        left, value = part.split("=", 1)
-        player, _, weapon = left.strip().rpartition(":")
-        try:
-            out[(player.strip().lower() or None, weapon.strip().lower())] = float(value)
-        except ValueError:
-            continue
-    return out
+# Plausible base damage (weapon DMG + fSTR) per weapon type, used when rows don't say which
+# weapon was equipped. Deliberately generous; it only rules out impossible readings (like a
+# dagger hitting for base 225), which is what makes some damage spreads ambiguous.
+TYPE_BASE_RANGE = {
+    "Dagger": (60, 190), "Sword": (80, 240), "Club": (80, 240), "Axe": (90, 250), "Katana": (80, 230),
+    "Hand-to-Hand": (20, 260), "Great Katana": (120, 330), "Great Sword": (140, 400),
+    "Great Axe": (140, 420), "Polearm": (140, 400), "Scythe": (140, 420), "Staff": (90, 330),
+}
+# fSTR range allowed when each hit's weapon DMG is known (base damage = DMG + fSTR).
+FSTR_RANGE = (-20.0, 40.0)
 
 
-def fit_defense_one(samples, level_diff=0, b_range=None):
+def fit_defense_one(samples, level_diff=0, weapon=None):
     """Fits, then refits without the worst segment that doesn't fit (up to 3 times), so one
     segment with an unseen debuff can't drag the base and make good segments look bad."""
     excluded = []
-    fit = _fit_defense_core(samples, level_diff, b_range)
+    fit = _fit_defense_core(samples, level_diff, weapon)
     for _ in range(MAX_EXCLUDED_SEGMENTS):
         if fit.get("status") != "estimate":
             break
@@ -243,7 +231,7 @@ def fit_defense_one(samples, level_diff=0, b_range=None):
         best = None
         for candidate in candidates:
             remaining = [s for s in samples if _label(s["tags"] - set(fit["folded"])) != candidate["context"]]
-            refit = _fit_defense_core(remaining, level_diff, b_range)
+            refit = _fit_defense_core(remaining, level_diff, weapon)
             if refit.get("status") != "estimate":
                 continue
             good = sum(1 for c in refit["contexts"] if c["fit_p"] is not None and c["fit_p"] >= BAD_FIT_P)
@@ -261,29 +249,49 @@ def fit_defense_one(samples, level_diff=0, b_range=None):
     return fit
 
 
-def _fit_defense_core(samples, level_diff=0, b_range=None):
-    """samples: dicts with damage, attack, tags (frozenset)."""
+def _fit_defense_core(samples, level_diff=0, weapon=None):
+    """samples: dicts with damage, attack, tags (frozenset) and dmg (weapon DMG or None).
+
+    With every hit's weapon DMG known, base damage per hit is DMG + fSTR (one fitted fSTR), so
+    weapon swaps are handled. Otherwise one base damage is fitted, held to the weapon type's
+    plausible range."""
     kept, folded, params, dropped = _select_tags(samples, lambda s: s["tags"])
     if len(kept) < MIN_DEF_HITS:
         return {"status": "need more hits", "n": len(kept), "dropped": dropped, "folded": folded}
+    use_dmg = all(s.get("dmg") for s in kept)
+    b_range = None if use_dmg else TYPE_BASE_RANGE.get(weapon)
     correction = 0.05 * level_diff
     index = {t: i for i, t in enumerate(params)}
-    data = [(s["damage"], s["attack"], [index[t] for t in s["tags"] if t in index]) for s in kept]
-    uniform = OUTLIER_SHARE / (max(d for d, _, _ in data) * 1.3)
-
+    data = [(s["damage"], s["attack"], [index[t] for t in s["tags"] if t in index], s.get("dmg") or 0.0)
+            for s in kept]
+    uniform = OUTLIER_SHARE / (max(d[0] for d in data) * 1.3)
+    min_dmg = min(d[3] for d in data)
+    dmgs = sorted(d[3] for d in data)
+    typical_dmg = dmgs[len(dmgs) // 2]
     n_tags = len(params)
 
+    def base_of(theta, dmg):
+        return dmg + theta[0] if use_dmg else math.exp(theta[0])
+
     def nll(theta):
-        log_b, log_def = theta[0], theta[1]
-        base = math.exp(log_b)
+        log_def = theta[1]
         mix = _mix(theta[2 + n_tags], theta[3 + n_tags])
         total = 0.0
-        if b_range:   # weapon DMG known: keep base damage within DMG + plausible fSTR
-            if base < b_range[0]:
+        if use_dmg:
+            if min_dmg + theta[0] <= 1:
+                return 1e12
+            if theta[0] < FSTR_RANGE[0]:
+                total += 1e3 * ((FSTR_RANGE[0] - theta[0]) / 5) ** 2
+            elif theta[0] > FSTR_RANGE[1]:
+                total += 1e3 * ((theta[0] - FSTR_RANGE[1]) / 5) ** 2
+        elif b_range:
+            log_b = theta[0]
+            if log_b < math.log(b_range[0]):
                 total += 1e4 * (math.log(b_range[0]) - log_b) ** 2
-            elif base > b_range[1]:
+            elif log_b > math.log(b_range[1]):
                 total += 1e4 * (log_b - math.log(b_range[1])) ** 2
-        for damage, attack, tag_ids in data:
+        for damage, attack, tag_ids, dmg in data:
+            base = base_of(theta, dmg)
             defense = math.exp(log_def + sum(theta[2 + k] for k in tag_ids))
             lower, upper = _bounds(attack / defense - correction)
             density = sum(q * _pdif_density(damage / (m * base), lower, upper) / (m * base)
@@ -291,49 +299,54 @@ def _fit_defense_core(samples, level_diff=0, b_range=None):
             total -= math.log((1 - OUTLIER_SHARE) * density + uniform)
         return total
 
-    damages = sorted(d for d, _, _ in data)
-    median_damage = damages[len(damages) // 4]   # lower quartile: mostly x1 hits
-    median_attack = sorted(a for _, a, _ in data)[len(data) // 2]
+    damages = sorted(d[0] for d in data)
+    low_damage = damages[len(damages) // 4]   # lower quartile: mostly x1 hits
+    median_attack = sorted(d[1] for d in data)[len(data) // 2]
+    step0 = (8.0, 3.0, 1.0) if use_dmg else (0.15, 0.05, 0.02)
     # The likelihood has local dips (the damage spread can fit two different ratios), so search
     # from many ratios and both a low and a high double-damage share, then polish the best three.
     candidates = []
     for ratio in (0.55, 0.75, 0.95, 1.15, 1.35, 1.6, 1.9, 2.3, 2.8, 3.4):
         lower, upper = _bounds(ratio)
-        base_start = median_damage / ((lower + upper) / 2 * 1.025)
-        if b_range:
-            base_start = min(max(base_start, b_range[0]), b_range[1])
+        base_start = low_damage / ((lower + upper) / 2 * 1.025)
+        if use_dmg:
+            first = min(max(base_start - typical_dmg, FSTR_RANGE[0]), FSTR_RANGE[1])
+        else:
+            if b_range:
+                base_start = min(max(base_start, b_range[0]), b_range[1])
+            first = math.log(base_start)
         for double in (-2.0, -0.8):
-            start = [math.log(base_start),
-                     math.log(median_attack / (ratio + correction))] + [0.0] * len(params) + [double, -4.0]
-            candidates.append(nelder_mead(nll, start, [0.15, 0.15] + [0.1] * len(params) + [0.5, 0.5], iters=250))
+            start = [first, math.log(median_attack / (ratio + correction))] + [0.0] * n_tags + [double, -4.0]
+            candidates.append(nelder_mead(nll, start, [step0[0], 0.15] + [0.1] * n_tags + [0.5, 0.5], iters=250))
     candidates.sort(key=lambda c: c[1])
-    polished = [nelder_mead(nll, point, [0.05, 0.05] + [0.05] * len(params) + [0.3, 0.3], iters=700)
+    polished = [nelder_mead(nll, point, [step0[1], 0.05] + [0.05] * n_tags + [0.3, 0.3], iters=700)
                 for point, _ in candidates[:3]]
     point, value = min(polished, key=lambda c: c[1])
-    point, value = nelder_mead(nll, point, [0.02, 0.02] + [0.02] * len(params) + [0.1, 0.1], iters=400)
+    point, value = nelder_mead(nll, point, [step0[2], 0.02] + [0.02] * n_tags + [0.1, 0.1], iters=400)
     # A clearly different DEF that fits about as well means the spread alone can't decide.
     alternatives = []
     for other, other_value in sorted(polished + candidates[3:8], key=lambda c: c[1]):
         if other_value - value < 2.0 and abs(other[1] - point[1]) > math.log(1.15):
             if all(abs(other[1] - math.log(a["def"])) > math.log(1.05) for a in alternatives):
-                alternatives.append({"def": math.exp(other[1]), "base_damage": math.exp(other[0]),
+                alternatives.append({"def": math.exp(other[1]), "base_damage": base_of(other, typical_dmg),
                                      "nll_gap": other_value - value})
     mix = _mix(point[2 + n_tags], point[3 + n_tags])
     # Uncertainties with the x2/x3 frequencies held at their fit (a share fitted to ~0 sits on
     # a boundary and would make the full Hessian singular).
     fixed_tail = point[2 + n_tags:]
-    ses = standard_errors(lambda core: nll(list(core) + fixed_tail), point[:2 + n_tags], [2e-2] * (2 + n_tags))
+    ses = standard_errors(lambda core: nll(list(core) + fixed_tail), point[:2 + n_tags],
+                          [0.5 if use_dmg else 2e-2] + [2e-2] * (1 + n_tags))
 
     log_def, se = point[1], ses[1]
     base_def = math.exp(log_def)
-    ratios = sorted(a / math.exp(log_def + sum(point[2 + k] for k in t)) - correction for _, a, t in data)
+    ratios = sorted(d[1] / math.exp(log_def + sum(point[2 + k] for k in d[2])) - correction for d in data)
     median_ratio = ratios[len(ratios) // 2]
 
     effects = []
     for tag, k in index.items():
         theta, se_k = point[2 + k], ses[2 + k]
         effects.append({
-            "tag": tag, "hits": sum(1 for _, _, t in data if k in t),
+            "tag": tag, "hits": sum(1 for d in data if k in d[2]),
             "pct": (math.exp(theta) - 1) * 100,
             "low": (math.exp(theta - Z90 * se_k) - 1) * 100 if se_k else None,
             "high": (math.exp(theta + Z90 * se_k) - 1) * 100 if se_k else None,
@@ -341,19 +354,19 @@ def _fit_defense_core(samples, level_diff=0, b_range=None):
 
     contexts = []
     by_context = defaultdict(list)
-    for (damage, attack, tag_ids), s in zip(data, kept):
-        by_context[_label(s["tags"] - set(folded))].append((damage, attack, tag_ids))
-    base = math.exp(point[0])
+    for item, s in zip(data, kept):
+        by_context[_label(s["tags"] - set(folded))].append(item)
     for label, items in sorted(by_context.items(), key=lambda kv: -len(kv[1])):
         defense = math.exp(log_def + sum(point[2 + k] for k in items[0][2]))
         pits = []
-        for damage, attack, _ in items:
+        for damage, attack, _, dmg in items:
+            base = base_of(point, dmg)
             lower, upper = _bounds(attack / defense - correction)
             pits.append(sum(q * _pdif_cdf(damage / (m * base), lower, upper) for q, m in zip(mix, MULTIPLIERS)))
         p = ks_p(pits)
         contexts.append({
             "context": label, "n": len(items), "predicted_def": defense,
-            "attack": sorted(a for _, a, _ in items)[len(items) // 2],
+            "attack": sorted(d[1] for d in items)[len(items) // 2],
             "fit_p": p, "check": None if p is None else ("fits" if p >= 0.01 else "doesn't fit"),
         })
 
@@ -363,7 +376,9 @@ def _fit_defense_core(samples, level_diff=0, b_range=None):
         "low": math.exp(log_def - Z90 * se) if se else None,
         "high": math.exp(log_def + Z90 * se) if se else None,
         "se_log": se, "confidence": _within_5pct(se),
-        "base_damage": base, "median_ratio": median_ratio,
+        "base_damage": base_of(point, typical_dmg), "median_ratio": median_ratio,
+        "weapon_dmg": typical_dmg if use_dmg else None, "fstr": point[0] if use_dmg else None,
+        "base_range": b_range,
         "double_damage_pct": mix[1] * 100, "triple_damage_pct": mix[2] * 100,
         "effects": effects, "contexts": contexts, "nll": value, "alternatives": alternatives,
     }
@@ -392,7 +407,9 @@ def current_state(fit, samples, level_diff, weapon_class):
     return state
 
 
-def fit_defense(rows, level_diff=0, weapon_dmg=None):
+def fit_defense(rows, level_diff=0):
+    """One fit per player, target and weapon type. Hits with and without weapon DMG on the row
+    are fitted separately (the DMG ones as DMG + fSTR, the others within the type's range)."""
     groups = defaultdict(list)
     for row in rows:
         if (row.get("kind") != "melee" or not row.get("is_me") or row.get("crit")
@@ -402,23 +419,22 @@ def fit_defense(rows, level_diff=0, weapon_dmg=None):
         hand = row.get("hand") or 0
         if not (hand == 0 or (weapon == "Hand-to-Hand" and hand == 1)):
             continue
-        key = (row.get("actor") or row.get("uploader") or "?", row.get("target") or "?", weapon)
+        dmg = row.get("main_dmg")
+        key = (row.get("actor") or row.get("uploader") or "?", row.get("target") or "?", weapon, bool(dmg))
         groups[key].append({"damage": float(row["damage"]), "attack": float(row["attack"]),
-                            "tags": relevant_tags(row, DEF_PATTERNS), "t": row.get("t") or 0})
+                            "tags": relevant_tags(row, DEF_PATTERNS), "t": row.get("t") or 0,
+                            "dmg": float(dmg) if dmg else None})
     out = []
-    weapon_dmg = weapon_dmg or {}
-    for (player, target, weapon), samples in sorted(groups.items()):
-        dmg = weapon_dmg.get((player.lower(), weapon.lower())) or weapon_dmg.get((None, weapon.lower()))
-        fit = fit_defense_one(samples, level_diff, base_damage_range(dmg)) or {}
-        fit.update(player=player, target=target, weapon=weapon, weapon_dmg=dmg)
+    for (player, target, weapon, has_dmg), samples in sorted(groups.items()):
+        fit = fit_defense_one(samples, level_diff, weapon) or {}
+        fit.update(player=player, target=target, weapon=weapon, dmg_known=has_dmg)
         weapon_class = WEAPON_CLASS.get(weapon, "1h")
         cap = RATIO_CAP.get(weapon_class, 3.625)
-        if fit.get("status") == "estimate" and fit.get("alternatives") and not dmg:
+        if fit.get("status") == "estimate" and fit.get("alternatives"):
             others = ", ".join(f"{a['def']:,.0f}" for a in fit["alternatives"])
-            fit["status"] = f"ambiguous: DEF {others} fits about as well; set weapon DMG to decide"
+            fit["status"] = (f"ambiguous: DEF {others} fits about as well; "
+                             "record weapon DMG (sortielog.admin set-weapon) to decide")
         if fit.get("status") == "estimate" or (fit.get("status", "").startswith("ambiguous")):
-            if dmg:
-                fit["fstr"] = fit["base_damage"] - dmg
             fit["now"] = current_state(fit, samples, level_diff, weapon_class)
             if fit["median_ratio"] >= cap:
                 attack = sorted(s["attack"] for s in samples)[len(samples) // 2]

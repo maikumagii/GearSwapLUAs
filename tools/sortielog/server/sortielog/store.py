@@ -32,6 +32,9 @@ class Store:
             self._conn.execute("CREATE INDEX IF NOT EXISTS events_kind_target ON events(kind, target)")
             # Retried uploads resend rows; (uploader, session, seq) identifies a row. NULL seq is never deduped.
             self._conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS events_dedupe ON events(uploader, session, seq)")
+            # Bumped whenever stored rows are edited (not just added), so cached analyses refresh.
+            self._conn.execute("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value INTEGER)")
+            self._conn.execute("INSERT OR IGNORE INTO meta (key, value) VALUES ('revision', 0)")
             self._conn.commit()
         self.rejected = 0
 
@@ -96,6 +99,44 @@ class Store:
             params.append(session)
         with self._lock:
             return [r[0] for r in self._conn.execute(sql + f" ORDER BY {column}", params).fetchall()]
+
+    def revision(self):
+        with self._lock:
+            return self._conn.execute("SELECT value FROM meta WHERE key = 'revision'").fetchone()[0]
+
+    def set_weapon(self, actor=None, uploader=None, session=None, since=None, until=None,
+                   main_dmg=None, sub_dmg=None, main_weapon=None, sub_weapon=None, overwrite=False, dry_run=False):
+        """Sets weapon DMG (and optionally names) on your own rows matching the filters. Without
+        overwrite only rows with no DMG yet for that hand change. Returns {hand: rows changed}."""
+        clauses, params = ["is_me = 1"], []
+        for column, value in (("actor", actor), ("uploader", uploader), ("session", session)):
+            if value:
+                clauses.append(f"{column} = ? COLLATE NOCASE")
+                params.append(value)
+        if since is not None:
+            clauses.append("t >= ?")
+            params.append(since)
+        if until is not None:
+            clauses.append("t < ?")
+            params.append(until)
+        where = " AND ".join(clauses)
+        changed = {}
+        with self._lock:
+            for hand, dmg, name in (("main", main_dmg, main_weapon), ("sub", sub_dmg, sub_weapon)):
+                if dmg is None:
+                    continue
+                condition = where if overwrite else f"{where} AND {hand}_dmg IS NULL"
+                if dry_run:
+                    changed[hand] = self._conn.execute(f"SELECT COUNT(*) FROM events WHERE {condition}", params).fetchone()[0]
+                    continue
+                cursor = self._conn.execute(
+                    f"UPDATE events SET {hand}_dmg = ?, {hand}_weapon = COALESCE(?, {hand}_weapon) WHERE {condition}",
+                    [dmg, name] + params)
+                changed[hand] = cursor.rowcount
+            if not dry_run and any(changed.values()):
+                self._conn.execute("UPDATE meta SET value = value + 1 WHERE key = 'revision'")
+                self._conn.commit()
+        return changed
 
     def count(self):
         with self._lock:

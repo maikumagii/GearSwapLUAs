@@ -113,10 +113,30 @@ def test_current_state_and_attack_for_cap():
     assert row["now"]["player"] == "Kalali" and row["now"]["context"] == "Box Step lv5"
 
 
-def test_weapon_dmg_anchor_reports_fstr_and_parses_settings():
-    from sortielog.model import parse_weapon_dmg
-    assert parse_weapon_dmg("Kalali:Dagger=131, Sword=165,bad") == {("kalali", "dagger"): 131.0, (None, "sword"): 165.0}
-    rows = hits(300, 1120, [1650, 1760], base=150, seed=15)
-    (fit,) = fit_defense(rows, weapon_dmg={("kalali", "dagger"): 131.0})
-    assert fit["weapon_dmg"] == 131.0 and abs(fit["fstr"] - 19) < 8
+def test_per_row_weapon_dmg_fits_fstr_across_a_weapon_swap():
+    rows = hits(200, 1120, [1650, 1760], base=150, seed=15)                   # 130 DMG + fSTR 20
+    rows += hits(200, 1120, [1650, 1760], base=120, seed=16, t0=1000)         # swap to a 100 DMG dagger
+    for r in rows[:200]:
+        r["main_dmg"] = 130
+    for r in rows[200:]:
+        r["main_dmg"] = 100
+    (fit,) = fit_defense(rows)
+    assert fit["dmg_known"] and abs(fit["fstr"] - 20) < 6
     assert abs(fit["base_def"] - 1120) / 1120 < 0.05
+
+
+def test_rows_with_and_without_dmg_are_fitted_separately():
+    rows = hits(150, 1120, [1650, 1760], base=150, seed=17)
+    for r in rows[:75]:
+        r["main_dmg"] = 130
+    fits = fit_defense(rows)
+    assert sorted(f["dmg_known"] for f in fits) == [False, True]
+
+
+def test_type_range_rules_out_impossible_base_damage():
+    from sortielog.model import TYPE_BASE_RANGE
+    rows = hits(300, 1120, [1650, 1760], base=150, double=0.2, seed=18)
+    (fit,) = fit_defense(rows)
+    low, high = TYPE_BASE_RANGE["Dagger"]
+    assert low <= fit["base_damage"] <= high
+    assert all(low <= a["base_damage"] <= high + 1 for a in fit["alternatives"])

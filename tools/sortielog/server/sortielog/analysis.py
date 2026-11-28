@@ -125,7 +125,7 @@ def _attack_sensitivity(samples):
     }
 
 
-def analyze(rows, tp_bonus=None, level_diff=0, weapon_dmg=None):
+def analyze(rows, tp_bonus=None, level_diff=0):
     """rows: iterable of normalized dicts. Returns WS and melee group summaries."""
     tp_bonus = tp_bonus or {}
     ws_groups = defaultdict(lambda: {"values": [], "samples": [], "capped_hits": 0})
@@ -173,7 +173,7 @@ def analyze(rows, tp_bonus=None, level_diff=0, weapon_dmg=None):
         melee_out.append(entry)
 
     rows, filled = fill_accuracy(rows)
-    def_fits = fit_defense(rows, level_diff, weapon_dmg)
+    def_fits = fit_defense(rows, level_diff)
     eva_fits = fit_evasion(rows, level_diff)
     return {
         "ws": ws_out,

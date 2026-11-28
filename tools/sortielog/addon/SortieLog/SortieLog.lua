@@ -27,7 +27,7 @@ Commands (//slog ...):
 
 _addon.name = 'SortieLog'
 _addon.author = 'Kalali'
-_addon.version = '0.3.0'
+_addon.version = '0.4.0'
 _addon.commands = { 'slog', 'sortielog' }
 
 local config = require('config')
@@ -35,11 +35,12 @@ local res = require('resources')
 local packets = require('packets')
 local socket = require('socket')
 
-local SCHEMA_VERSION = 3
+local SCHEMA_VERSION = 4
 local COLUMNS = {
     'v', 't', 'session', 'seq', 'zone', 'kind', 'actor', 'actor_id', 'is_me', 'target', 'target_id',
     'target_hpp', 'ws', 'damage', 'crit', 'hand', 'msg', 'tp', 'job', 'buffs', 'mob_status',
     'flags', 'wall_same', 'wall_distinct', 'detail', 'attack', 'accuracy', 'acc_sub', 'weapon',
+    'main_weapon', 'main_dmg', 'sub_weapon', 'sub_dmg',
 }
 
 local defaults = {
@@ -84,6 +85,8 @@ local state = {
     accuracy = nil,      -- main/sub Accuracy from /checkparam or //slog acc
     acc_sub = nil,
     weapon = nil,        -- main weapon skill type, e.g. 'Club', 'Great Sword'
+    main_weapon = nil, main_dmg = nil,   -- equipped weapons and their base DMG (item data;
+    sub_weapon = nil, sub_dmg = nil,     -- augments such as DMG+10 aren't included)
     session = nil,
     seq = 0,             -- per-session row counter; the server dedupes on (uploader, session, seq)
     file = nil,
@@ -509,6 +512,8 @@ local function base_row(kind, actor_id, actor_name, mob)
         row.accuracy = state.accuracy
         row.acc_sub = state.acc_sub
         row.weapon = state.weapon
+        row.main_weapon, row.main_dmg = state.main_weapon, state.main_dmg
+        row.sub_weapon, row.sub_dmg = state.sub_weapon, state.sub_dmg
     end
     return row
 end
@@ -769,16 +774,29 @@ end
 -- Stats: Attack (0x061), weapon type, Accuracy (/checkparam)
 -------------------------------------------------------------------------------
 
+local function equipped(equipment, slot)
+    local index = equipment and equipment[slot]
+    if not index or index == 0 then return nil end
+    local item = windower.ffxi.get_items(equipment[slot .. '_bag'], index)
+    return item and item.id and res.items[item.id]
+end
+
 local function refresh_weapon()
     local equipment = windower.ffxi.get_items('equipment')
-    if not equipment or not equipment.main or equipment.main == 0 then
-        state.weapon = 'Hand-to-Hand'
-        return
+    local main, sub = equipped(equipment, 'main'), equipped(equipment, 'sub')
+    if not main then
+        state.weapon, state.main_weapon, state.main_dmg = 'Hand-to-Hand', nil, nil
+    else
+        local skill = main.skill and res.skills[main.skill]
+        state.weapon = skill and skill.en or nil
+        state.main_weapon, state.main_dmg = main.en, main.damage
     end
-    local item = windower.ffxi.get_items(equipment.main_bag, equipment.main)
-    local info = item and item.id and res.items[item.id]
-    local skill = info and info.skill and res.skills[info.skill]
-    state.weapon = skill and skill.en or nil
+    -- Only a weapon in the sub slot counts (not a shield or grip).
+    if sub and sub.damage and sub.damage > 0 then
+        state.sub_weapon, state.sub_dmg = sub.en, sub.damage
+    else
+        state.sub_weapon, state.sub_dmg = nil, nil
+    end
 end
 
 local function handle_char_stats(data)
@@ -1089,6 +1107,8 @@ local function show_status()
     say(('attack %s | accuracy %s / %s | weapon %s | autocheck %s | %d states measured'):format(
         tostring(state.attack), tostring(state.accuracy or 'unknown for this state'), tostring(state.acc_sub),
         tostring(state.weapon), settings.autocheck and 'on' or 'off', cached))
+    say(('main %s (DMG %s) | sub %s (DMG %s)'):format(tostring(state.main_weapon), tostring(state.main_dmg),
+        tostring(state.sub_weapon), tostring(state.sub_dmg)))
     say('debuffs on target: ' .. (function()
         local target = windower.ffxi.get_mob_by_target and windower.ffxi.get_mob_by_target('t')
         local labels = target and tag_labels(target.id) or ''
