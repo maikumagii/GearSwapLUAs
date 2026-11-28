@@ -9,6 +9,7 @@ services:
   sortielog:
     build: .
     image: sortielog:latest
+    pull_policy: build   # built from this folder; never pulled from a registry
     restart: unless-stopped
     environment:
       SORTIELOG_KEYS: ${SORTIELOG_KEYS:-}            # player:key,player2:key2
