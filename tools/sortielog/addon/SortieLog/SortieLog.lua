@@ -14,13 +14,14 @@ Commands (//slog ...):
   flag <name> [on|off]        Manual context flags (frailty, aria, sv_aria, ...).
   flags                       List active flags.  "flag clear" removes all.
   note <text>                 Write a free-text note row.
+  acc <main> [sub]            Set Accuracy by hand (normally read from /checkparam).
   new                         Start a new session/CSV file.
   test                        Send a test row.
 ]]
 
 _addon.name = 'SortieLog'
 _addon.author = 'Kalali'
-_addon.version = '0.1.0'
+_addon.version = '0.2.0'
 _addon.commands = { 'slog', 'sortielog' }
 
 local config = require('config')
@@ -28,11 +29,11 @@ local res = require('resources')
 local packets = require('packets')
 local socket = require('socket')
 
-local SCHEMA_VERSION = 2
+local SCHEMA_VERSION = 3
 local COLUMNS = {
     'v', 't', 'session', 'seq', 'zone', 'kind', 'actor', 'actor_id', 'is_me', 'target', 'target_id',
     'target_hpp', 'ws', 'damage', 'crit', 'hand', 'msg', 'tp', 'job', 'buffs', 'mob_status',
-    'flags', 'wall_same', 'wall_distinct', 'detail',
+    'flags', 'wall_same', 'wall_distinct', 'detail', 'attack', 'accuracy', 'acc_sub', 'weapon',
 }
 
 local defaults = {
@@ -61,6 +62,10 @@ local state = {
     mob_status = {},     -- [mob_id] = { [status name] = true }
     ws_history = {},     -- [mob_id] = { ws names, most recent last }
     flags = {},          -- [flag] = true
+    attack = nil,        -- main-hand Attack from the 0x061 status packet
+    accuracy = nil,      -- main/sub Accuracy from /checkparam or //slog acc
+    acc_sub = nil,
+    weapon = nil,        -- main weapon skill type, e.g. 'Club', 'Great Sword'
     session = nil,
     seq = 0,             -- per-session row counter; the server dedupes on (uploader, session, seq)
     file = nil,
@@ -257,6 +262,10 @@ local function base_row(kind, actor_id, actor_name, mob)
         local ctx = player_context()
         row.job = ctx.job
         row.buffs = ctx.buffs
+        row.attack = state.attack
+        row.accuracy = state.accuracy
+        row.acc_sub = state.acc_sub
+        row.weapon = state.weapon
     end
     return row
 end
@@ -446,6 +455,60 @@ local function handle_action_message(actor_id, target_id, message_id, param_1)
 end
 
 -------------------------------------------------------------------------------
+-- Stats: Attack (0x061), weapon type, Accuracy (/checkparam)
+-------------------------------------------------------------------------------
+
+local function refresh_weapon()
+    local equipment = windower.ffxi.get_items('equipment')
+    if not equipment or not equipment.main or equipment.main == 0 then
+        state.weapon = 'Hand-to-Hand'
+        return
+    end
+    local item = windower.ffxi.get_items(equipment.main_bag, equipment.main)
+    local info = item and item.id and res.items[item.id]
+    local skill = info and info.skill and res.skills[info.skill]
+    state.weapon = skill and skill.en or nil
+end
+
+local function handle_char_stats(data)
+    local packet = packets.parse('incoming', data)
+    if packet and packet.Attack then
+        state.attack = packet.Attack
+    end
+    refresh_weapon()
+end
+
+-- Pulls main/sub Accuracy out of /checkparam output, skipping ranged and magic accuracy.
+local function parse_accuracy(text)
+    local lower = text:lower():gsub(',', '')
+    local found = {}
+    local start = 1
+    while true do
+        local s, e = lower:find('accuracy', start, true)
+        if not s then break end
+        local before = lower:sub(math.max(1, s - 8), s - 1)
+        if not before:find('ranged', 1, true) and not before:find('magic', 1, true) then
+            local number = lower:match('^%D-(%d+)', e + 1)
+            if number then found[#found + 1] = tonumber(number) end
+        end
+        start = e + 1
+    end
+    return found[1], found[2]
+end
+
+local function handle_incoming_text(text)
+    if not text or not text:lower():find('accuracy', 1, true) then return end
+    local player = windower.ffxi.get_player()
+    if not player or not text:find(player.name, 1, true) then return end
+    local main, sub = parse_accuracy(text)
+    if not main then return end
+    state.accuracy = main
+    if sub then state.acc_sub = sub end
+    windower.add_to_chat(207, ('SortieLog: accuracy main %d%s (from /checkparam)'):format(
+        main, sub and (' sub ' .. sub) or ''))
+end
+
+-------------------------------------------------------------------------------
 -- Events
 -------------------------------------------------------------------------------
 
@@ -473,6 +536,17 @@ windower.register_event('outgoing chunk', function(id, data)
     end
 end)
 
+windower.register_event('incoming chunk', function(id, data)
+    if id ~= 0x061 then return end
+    local ok, err = pcall(handle_char_stats, data)
+    if not ok then report_error(err) end
+end)
+
+windower.register_event('incoming text', function(original)
+    local ok, err = pcall(handle_incoming_text, original)
+    if not ok then report_error(err) end
+end)
+
 windower.register_event('zone change', function()
     state.mob_status = {}
     state.ws_history = {}
@@ -482,6 +556,7 @@ end)
 windower.register_event('load', 'login', function()
     resolve_host()
     refresh_party(true)
+    pcall(refresh_weapon)
     if not state.session then open_session() end
 end)
 
@@ -501,6 +576,8 @@ local function show_status()
         tostring(settings.udp.host), settings.udp.port, settings.log_party and 'on' or 'off',
         settings.only_targets == '' and 'all' or settings.only_targets))
     say('flags: ' .. (names_from_set(state.flags) ~= '' and names_from_set(state.flags) or 'none'))
+    say(('attack %s | accuracy %s / %s | weapon %s'):format(tostring(state.attack), tostring(state.accuracy),
+        tostring(state.acc_sub), tostring(state.weapon)))
 end
 
 windower.register_event('addon command', function(command, ...)
@@ -539,6 +616,10 @@ windower.register_event('addon command', function(command, ...)
         row.detail = names_from_set(state.flags)
         emit(row)
         say('flags: ' .. (row.detail ~= '' and row.detail or 'none'))
+    elseif command == 'acc' and tonumber(args[1]) then
+        state.accuracy = tonumber(args[1])
+        state.acc_sub = tonumber(args[2]) or state.acc_sub
+        say(('accuracy main %d%s'):format(state.accuracy, state.acc_sub and (' sub ' .. state.acc_sub) or ''))
     elseif command == 'flags' then
         say('flags: ' .. (names_from_set(state.flags) ~= '' and names_from_set(state.flags) or 'none'))
     elseif command == 'note' then
@@ -555,6 +636,6 @@ windower.register_event('addon command', function(command, ...)
         emit(row)
         say('test row written' .. (settings.udp.enabled and (' and sent to ' .. tostring(state.ip)) or ''))
     else
-        say('commands: status, udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
+        say('commands: status, acc <main> [sub], udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
     end
 end)

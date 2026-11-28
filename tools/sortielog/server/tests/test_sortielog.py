@@ -139,3 +139,19 @@ def test_open_ingest_without_keys(tmp_path):
     with TestClient(app) as client:
         assert client.post("/ingest", json={"kind": "note", "session": "s"}).json() == {"accepted": 1}
         assert client.get("/api/uploaders").json() == ["anonymous"]
+
+
+def test_store_migrates_old_database(tmp_path):
+    import sqlite3
+    from sortielog.store import Store
+    path = str(tmp_path / "old.db")
+    old = sqlite3.connect(path)
+    old.execute('CREATE TABLE events (id INTEGER PRIMARY KEY, received REAL, uploader TEXT, "kind" TEXT, "session" TEXT, "seq" INTEGER)')
+    old.execute("INSERT INTO events (kind, session, seq) VALUES ('note', 's', 1)")
+    old.commit()
+    old.close()
+    store = Store(path)
+    assert store.insert([normalize({"kind": "melee", "session": "s", "seq": 2, "attack": 3456, "weapon": "Club"})], "kalali") == 1
+    rows = store.query(kinds=["melee"])
+    assert rows[0]["attack"] == 3456 and rows[0]["weapon"] == "Club"
+    assert store.count() == 2

@@ -3,12 +3,12 @@
 COLUMNS = [
     "v", "t", "session", "seq", "zone", "kind", "actor", "actor_id", "is_me", "target", "target_id",
     "target_hpp", "ws", "damage", "crit", "hand", "msg", "tp", "job", "buffs", "mob_status",
-    "flags", "wall_same", "wall_distinct", "detail",
+    "flags", "wall_same", "wall_distinct", "detail", "attack", "accuracy", "acc_sub", "weapon",
 ]
 
 INT_FIELDS = {
     "v", "seq", "actor_id", "is_me", "target_id", "target_hpp", "damage", "crit", "hand", "msg", "tp",
-    "wall_same", "wall_distinct",
+    "wall_same", "wall_distinct", "attack", "accuracy", "acc_sub",
 }
 FLOAT_FIELDS = {"t"}
 

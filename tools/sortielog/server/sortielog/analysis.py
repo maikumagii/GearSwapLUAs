@@ -9,6 +9,8 @@ is attack sensitivity: if damage rises with more attack buffs, you are not cappe
 from collections import defaultdict
 from statistics import median
 
+from .aggregate import fit_level_diff, summarize_targets
+from .estimate import estimate_defense, estimate_evasion
 from .schema import split_list
 
 DAMAGE_CAP = 99999
@@ -124,12 +126,13 @@ def _attack_sensitivity(samples):
     }
 
 
-def analyze(rows, tp_bonus=None):
+def analyze(rows, tp_bonus=None, level_diff=0):
     """rows: iterable of normalized dicts. Returns WS and melee group summaries."""
     tp_bonus = tp_bonus or {}
     ws_groups = defaultdict(lambda: {"values": [], "samples": [], "capped_hits": 0})
     melee_groups = defaultdict(list)
 
+    rows = list(rows)
     for row in rows:
         kind, damage = row.get("kind"), row.get("damage")
         if not row.get("is_me") or not damage or damage <= 0:
@@ -170,4 +173,14 @@ def analyze(rows, tp_bonus=None):
         entry.update(spread_stats(values))
         melee_out.append(entry)
 
-    return {"ws": ws_out, "melee": melee_out}
+    defense = estimate_defense(rows, level_diff)
+    evasion = estimate_evasion(rows, level_diff)
+    return {
+        "ws": ws_out,
+        "melee": melee_out,
+        "targets": summarize_targets(defense, evasion),
+        "defense": defense,
+        "evasion": evasion,
+        "level_diff": level_diff,
+        "level_fit": fit_level_diff(defense, level_diff),
+    }

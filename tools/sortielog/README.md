@@ -39,6 +39,7 @@ Player PC                                   Cloudflare                     Raspb
 | `//slog flag <name> [on\|off]` | Context the game doesn't report: `frailty`, `aria`, `sv_aria`, `fury`… |
 | `//slog flag clear` / `//slog flags` | Clear or list flags |
 | `//slog note <text>` | Free-text marker row (e.g. `//slog note Aminon pull 2`) |
+| `//slog acc <main> [sub]` | Set Accuracy by hand (normally picked up from `/checkparam`) |
 | `//slog new` | Start a new session/CSV |
 | `//slog udp on\|off`, `//slog host <ip> [port]`, `//slog token <key>` | Optional LAN-only UDP push (see below) |
 
@@ -46,7 +47,14 @@ Each row records: time, session and a row number, zone, kind (`ws`, `melee`, `ra
 misses, `party_action`, `status_on`/`status_off`, `flag`, `note`), actor and target, WS,
 damage, crit, hand, your TP when you sent the WS, job, your buffs, statuses seen landing on
 the target, your flags, and WS Wall features (`wall_same` = how many of the last 6 WS on
-that target were the same WS).
+that target were the same WS). It also records your main-hand Attack, read automatically from
+the game's status packet (`0x061`) whenever gear or buffs change, your Accuracy, and your
+main weapon type.
+
+**Accuracy for the evasion estimate:** after buffs are up and you're in your TP set, run
+`/checkparam <me>`. The addon reads the Accuracy numbers from the chat output and confirms
+with "SortieLog: accuracy main … sub …". If it doesn't confirm, use `//slog acc <main> [sub]`.
+Run it again whenever your accuracy changes noticeably, since rows are grouped by that value.
 
 ## 2. Forwarder (every player)
 
@@ -82,6 +90,7 @@ docker compose logs -f
 | `SORTIELOG_BIND` | `127.0.0.1` (default) = tunnel only; `0.0.0.0` also opens it on the LAN |
 | `SORTIELOG_KEYS` | `name:key` pairs, one per player. Generate a key with `openssl rand -hex 24` |
 | `SORTIELOG_TP_BONUS` | Optional TP bonus per WS for fTP normalization, e.g. `Black Halo=250` |
+| `SORTIELOG_LEVEL_DIFF` | Level correction for DEF/EVA: monster level minus yours (0 = off) |
 
 After changing keys, run `docker compose up -d`. The data lives in the
 `sortielog-data` volume. To back it up: `docker compose cp sortielog:/data ./backup`.
@@ -192,6 +201,45 @@ python -m sortielog.cli /path/to/Windower/addons/SortieLog/data/logs/*.csv --tar
   Chaos Roll, Berserk, …). A gain of 3% or more means below the cap.
 - The **melee table** reflects each player's TP set, not their WS set.
 
+### Effective DEF and evasion
+
+Both come from your own main-hand melee and are "effective", meaning measured with the
+debuffs listed in the row (Dia, steps, Frailty flag, …). Rows are grouped by player, boss,
+Attack or Accuracy, and debuffs, and need about 30 hits or swings.
+
+- **DEF:** below the pDIF cap, non-crit damage is uniform between a lower and an upper pDIF
+  bound that depend only on Attack ÷ DEF (BG-Wiki PDIF), times the 1.00–1.05 randomizer.
+  The p90/p10 spread therefore pins the ratio, and DEF = Attack ÷ ratio, with a bootstrap
+  90% range. At the pDIF cap (spread ≤ 1.06) only **DEF ≤ Attack ÷ cap ratio** can be shown
+  (1H 3.625, H2H/GKT 3.875, 2H 4.125, Scythe 4.375). "Close to cap" rows run low, because
+  the weapon cap may be trimming the top of the range.
+- **Evasion:** hit rate = 75% + (ACC − EVA) ÷ 2, floored at 20% and capped at 99% (1H main
+  hand, H2H) or 95% (2H, off hand). With a 90% range on the hit rate, EVA = ACC − 2 × (hit% − 75).
+  If the range reaches the cap, you're hit-capped and only **EVA ≤ value** can be shown. To
+  pin EVA down, swing in a lower-accuracy TP set for a while.
+- **Level correction:** BG-Wiki's formulas subtract 0.05 from the ratio and 2% from hit
+  rate per level above you, but Sortie isn't on its list of zones with or without
+  correction. It's off by default. Set `SORTIELOG_LEVEL_DIFF`, or run the CLI with
+  `--level-diff 26`, to compare. Whichever setting gives consistent DEF across your
+  different Attack values is probably right.
+- **Per-target summary:** for each boss and debuff state, all group estimates are combined,
+  weighting the tighter ones more. It shows a 90% range and **"±5% conf."**, the chance the
+  true value is within 5% of the estimate. Capped groups add upper bounds, and "close to cap"
+  groups add lower bounds. If the estimate breaks a bound, the status says *conflict*.
+- **Checking incoming data:** each group is compared with all the *other* groups for the same
+  boss and debuff state. The **Check** column says *consistent*, *suspicious* (z ≥ 2) or
+  *outlier* (z ≥ 3). Outliers are removed worst-first and left out of the summary, so one bad
+  group can't get good ones flagged. An outlier means the data disagrees, not which side is
+  wrong. Usual causes: an unlogged debuff (use `//slog flag`), stale Accuracy (re-run
+  `/checkparam`), a boss phase change, or the wrong level-correction setting.
+- **Level-correction fit:** level correction changes DEF by a different amount at each
+  Attack value, so groups at clearly different Attack (5% or more apart) only agree under
+  the right setting. The dashboard shows the best-fitting level difference with a 90%
+  plausible range, and says when the data clearly prefers a different setting from yours.
+  EVA's correction is a constant offset, so it can't be fitted this way.
+- **Base DEF** (without debuffs) isn't estimated. Compare groups with and without a debuff
+  to see its effect.
+
 ## Caveats
 
 - Thresholds are heuristics. Multi-attack procs on the first WS hit add some spread on their
@@ -200,5 +248,7 @@ python -m sortielog.cli /path/to/Windower/addons/SortieLog/data/logs/*.csv --tar
 - Geo bubbles, Aria and Soul Voice don't appear as target debuffs, so use `//slog flag`.
 - TP bonus gear isn't visible to the addon. Set `SORTIELOG_TP_BONUS` if your WS sets use
   Moonshade or TP-bonus weapons.
+- Attack comes from the status packet and Accuracy from `/checkparam`. Neither has been
+  checked in game yet, so confirm `//slog status` shows sensible values.
 - Not tested in game yet. Check the first real CSV before trusting the dashboard.
 - Everyone with dashboard access sees every player's character names and damage.

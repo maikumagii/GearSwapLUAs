@@ -28,7 +28,7 @@ from .store import Store
 
 log = logging.getLogger("sortielog")
 STATIC = Path(__file__).parent / "static"
-ANALYSIS_KINDS = ["ws", "melee"]
+ANALYSIS_KINDS = ["ws", "melee", "melee_miss"]
 MAX_BODY = 5_000_000
 
 
@@ -86,12 +86,13 @@ class UdpIngest(asyncio.DatagramProtocol):
         self.store.insert([normalize(obj)], name)
 
 
-def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None):
+def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff=None):
     db_path = db_path or os.environ.get("SORTIELOG_DB", "/data/sortielog.db")
     udp_port = int(os.environ.get("SORTIELOG_UDP_PORT", "0")) if udp_port is None else udp_port
     if keys is None:
         keys = parse_keys(os.environ.get("SORTIELOG_KEYS", ""), os.environ.get("SORTIELOG_TOKEN", ""))
     tp_bonus = parse_tp_bonus(os.environ.get("SORTIELOG_TP_BONUS", "")) if tp_bonus is None else tp_bonus
+    level_diff = float(os.environ.get("SORTIELOG_LEVEL_DIFF", "0") or 0) if level_diff is None else level_diff
     auth = Auth(keys)
 
     @asynccontextmanager
@@ -167,7 +168,7 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None):
                  uploader: str | None = None, minutes: float | None = None):
         since = time.time() - minutes * 60 if minutes else None
         rows = request.app.state.store.query(ANALYSIS_KINDS, target, session, since, uploader=uploader)
-        result = analyze(rows, tp_bonus)
+        result = analyze(rows, tp_bonus, level_diff)
         result["rows"] = len(rows)
         return result
 

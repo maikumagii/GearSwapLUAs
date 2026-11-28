@@ -24,6 +24,10 @@ class Store:
             columns = ", ".join(f'"{c}" {_sql_type(c)}' for c in COLUMNS)
             self._conn.execute(
                 f"CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, received REAL, uploader TEXT, {columns})")
+            existing = {r[1] for r in self._conn.execute("PRAGMA table_info(events)")}
+            for column in COLUMNS:   # databases from older versions lack newer columns
+                if column not in existing:
+                    self._conn.execute(f'ALTER TABLE events ADD COLUMN "{column}" {_sql_type(column)}')
             self._conn.execute("CREATE INDEX IF NOT EXISTS events_session ON events(session)")
             self._conn.execute("CREATE INDEX IF NOT EXISTS events_kind_target ON events(kind, target)")
             # Retried uploads resend rows; (uploader, session, seq) identifies a row. NULL seq is never deduped.

@@ -14,6 +14,7 @@ services:
     environment:
       SORTIELOG_KEYS: ${SORTIELOG_KEYS:-}            # player:key,player2:key2
       SORTIELOG_TP_BONUS: ${SORTIELOG_TP_BONUS:-}    # e.g. Black Halo=250
+      SORTIELOG_LEVEL_DIFF: ${SORTIELOG_LEVEL_DIFF:-0}  # monster level minus yours; 0 = no level correction
       SORTIELOG_UDP_PORT: "5140"
     ports:
       - "${SORTIELOG_BIND:-127.0.0.1}:${SORTIELOG_HTTP_PORT:-8090}:8080"
