@@ -394,7 +394,8 @@ function user_state_change(stateField, newValue, oldValue)
 end
 
 local user_kiting_refresh_next = 0
-local user_kiting_was_moving = false
+local user_kiting_attempts = 0
+local user_kiting_max_attempts = 3
 
 local function user_should_equip_kiting()
     return player
@@ -410,6 +411,31 @@ local function user_can_refresh_kiting()
         and not (((petWillAct or 0) + 2) > os.clock())
 end
 
+-- True when every item in sets.Kiting is already worn, in any slot.
+local function user_kiting_gear_equipped()
+    if not (player and player.equipment) then
+        return false
+    end
+
+    for _, item in pairs(sets.Kiting) do
+        local name = type(item) == 'table' and item.name or item
+        if type(name) == 'string' and name ~= '' and name ~= 'empty' then
+            local found = false
+            for _, worn in pairs(player.equipment) do
+                if worn == name then
+                    found = true
+                    break
+                end
+            end
+            if not found then
+                return false
+            end
+        end
+    end
+
+    return true
+end
+
 function user_customize_kiting_set(baseSet)
     if user_should_equip_kiting() then
         baseSet = set_combine(baseSet, sets.Kiting)
@@ -418,19 +444,33 @@ function user_customize_kiting_set(baseSet)
     return baseSet
 end
 
+-- Sel only refreshes gear on the frame movement starts, and skips it if an action is still finishing,
+-- so kiting gear could stay off until you stopped and ran again. Keep retrying (at most once a second,
+-- a few times per run) while idle and moving until the kiting gear is actually worn.
 windower.raw_register_event('prerender', function()
-    local should_equip = user_should_equip_kiting()
-
-    if should_equip and not user_kiting_was_moving and user_can_refresh_kiting() then
-        local now = os.clock()
-
-        if now > user_kiting_refresh_next then
-            user_kiting_refresh_next = now + 1
-            handle_equipping_gear(player.status)
-        end
+    if not user_should_equip_kiting() then
+        user_kiting_attempts = 0
+        return
     end
 
-    user_kiting_was_moving = moving or false
+    local now = os.clock()
+    if now <= user_kiting_refresh_next or user_kiting_attempts >= user_kiting_max_attempts then
+        return
+    end
+
+    user_kiting_refresh_next = now + 0.5
+    if not user_can_refresh_kiting() then
+        return
+    end
+
+    gearswap.refresh_globals(false)
+    if user_kiting_gear_equipped() then
+        return
+    end
+
+    user_kiting_refresh_next = now + 1
+    user_kiting_attempts = user_kiting_attempts + 1
+    handle_equipping_gear(player.status)
 end)
 
 local user_skillchain_elements = {
