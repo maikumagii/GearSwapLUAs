@@ -205,8 +205,18 @@ TYPE_BASE_RANGE = {
     "Hand-to-Hand": (20, 260), "Great Katana": (120, 330), "Great Sword": (140, 400),
     "Great Axe": (140, 420), "Polearm": (140, 400), "Scythe": (140, 420), "Staff": (90, 330),
 }
-# fSTR range allowed when each hit's weapon DMG is known (base damage = DMG + fSTR).
-FSTR_RANGE = (-20.0, 40.0)
+def fstr_range(weapon_dmg):
+    """fSTR allowed when each hit's weapon DMG is known (base damage = DMG + fSTR). FFXI caps
+    fSTR by weapon rank (about DMG / 9): roughly -rank to rank + 8. A few points of slack are
+    allowed on each side rather than trusting the exact cap formula."""
+    rank = int(weapon_dmg // 9)
+    return -(rank + 4.0), rank + 12.0
+
+# Search effort for the DEF fit (starting ratios, double-damage starts, iterations per stage).
+SEARCH_RATIOS = (0.55, 0.75, 0.95, 1.15, 1.35, 1.6, 1.9, 2.3, 2.8, 3.4)
+SEARCH_DOUBLE_STARTS = (-1.4,)
+SEARCH_ITERS = (160, 400, 250)
+SEARCH_POLISH = 2
 
 
 def fit_defense_one(samples, level_diff=0, weapon=None):
@@ -268,6 +278,7 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
     min_dmg = min(d[3] for d in data)
     dmgs = sorted(d[3] for d in data)
     typical_dmg = dmgs[len(dmgs) // 2]
+    f_range = fstr_range(typical_dmg) if use_dmg else None
     n_tags = len(params)
 
     def base_of(theta, dmg):
@@ -280,10 +291,10 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
         if use_dmg:
             if min_dmg + theta[0] <= 1:
                 return 1e12
-            if theta[0] < FSTR_RANGE[0]:
-                total += 1e3 * ((FSTR_RANGE[0] - theta[0]) / 5) ** 2
-            elif theta[0] > FSTR_RANGE[1]:
-                total += 1e3 * ((theta[0] - FSTR_RANGE[1]) / 5) ** 2
+            if theta[0] < f_range[0]:
+                total += 1e3 * ((f_range[0] - theta[0]) / 5) ** 2
+            elif theta[0] > f_range[1]:
+                total += 1e3 * ((theta[0] - f_range[1]) / 5) ** 2
         elif b_range:
             log_b = theta[0]
             if log_b < math.log(b_range[0]):
@@ -306,26 +317,37 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
     # The likelihood has local dips (the damage spread can fit two different ratios), so search
     # from many ratios and both a low and a high double-damage share, then polish the best three.
     candidates = []
-    for ratio in (0.55, 0.75, 0.95, 1.15, 1.35, 1.6, 1.9, 2.3, 2.8, 3.4):
+    for ratio in SEARCH_RATIOS:
         lower, upper = _bounds(ratio)
         base_start = low_damage / ((lower + upper) / 2 * 1.025)
         if use_dmg:
-            first = min(max(base_start - typical_dmg, FSTR_RANGE[0]), FSTR_RANGE[1])
+            first = min(max(base_start - typical_dmg, f_range[0]), f_range[1])
         else:
             if b_range:
                 base_start = min(max(base_start, b_range[0]), b_range[1])
             first = math.log(base_start)
-        for double in (-2.0, -0.8):
+        for double in SEARCH_DOUBLE_STARTS:
             start = [first, math.log(median_attack / (ratio + correction))] + [0.0] * n_tags + [double, -4.0]
-            candidates.append(nelder_mead(nll, start, [step0[0], 0.15] + [0.1] * n_tags + [0.5, 0.5], iters=250))
+            candidates.append(nelder_mead(nll, start, [step0[0], 0.15] + [0.1] * n_tags + [0.5, 0.5],
+                                          iters=SEARCH_ITERS[0]))
     candidates.sort(key=lambda c: c[1])
-    polished = [nelder_mead(nll, point, [step0[1], 0.05] + [0.05] * n_tags + [0.3, 0.3], iters=700)
-                for point, _ in candidates[:3]]
+    polished = [nelder_mead(nll, point, [step0[1], 0.05] + [0.05] * n_tags + [0.3, 0.3], iters=SEARCH_ITERS[1])
+                for point, _ in candidates[:SEARCH_POLISH]]
     point, value = min(polished, key=lambda c: c[1])
-    point, value = nelder_mead(nll, point, [step0[2], 0.02] + [0.02] * n_tags + [0.1, 0.1], iters=400)
+    point, value = nelder_mead(nll, point, [step0[2], 0.02] + [0.02] * n_tags + [0.1, 0.1], iters=SEARCH_ITERS[2])
     # A clearly different DEF that fits about as well means the spread alone can't decide.
+    def at_bound(theta):
+        # Pinned to the edge of the plausible base-damage range: its real optimum lies outside.
+        if use_dmg:
+            return min(abs(theta[0] - f_range[0]), abs(theta[0] - f_range[1])) < 1.0
+        if b_range:
+            return min(abs(theta[0] - math.log(b_range[0])), abs(theta[0] - math.log(b_range[1]))) < 0.01
+        return False
+
     alternatives = []
     for other, other_value in sorted(polished + candidates[3:8], key=lambda c: c[1]):
+        if at_bound(other):
+            continue
         if other_value - value < 2.0 and abs(other[1] - point[1]) > math.log(1.15):
             if all(abs(other[1] - math.log(a["def"])) > math.log(1.05) for a in alternatives):
                 alternatives.append({"def": math.exp(other[1]), "base_damage": base_of(other, typical_dmg),
@@ -378,7 +400,7 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
         "se_log": se, "confidence": _within_5pct(se),
         "base_damage": base_of(point, typical_dmg), "median_ratio": median_ratio,
         "weapon_dmg": typical_dmg if use_dmg else None, "fstr": point[0] if use_dmg else None,
-        "base_range": b_range,
+        "base_range": b_range, "fstr_range": f_range,
         "double_damage_pct": mix[1] * 100, "triple_damage_pct": mix[2] * 100,
         "effects": effects, "contexts": contexts, "nll": value, "alternatives": alternatives,
     }

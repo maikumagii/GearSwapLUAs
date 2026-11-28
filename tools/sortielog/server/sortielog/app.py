@@ -15,6 +15,7 @@ import io
 import json
 import logging
 import os
+import queue as queue_module
 import threading
 import time
 from contextlib import asynccontextmanager
@@ -167,40 +168,58 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
         return request.app.state.store.query(kinds, target, session, after_id=after_id, limit=min(limit, 5000),
                                              newest_first=after_id is None, uploader=uploader)
 
-    # The model fits take seconds on a Pi, so results are cached per filter. A stale result is
-    # served immediately while a background thread recomputes it; only the first request waits.
-    cache, cache_lock, running = {}, threading.Lock(), set()
+    # Model fits take tens of seconds on a Pi, so requests never compute. They return the cached
+    # result (or a "fitting" placeholder) and queue a refit; one worker thread runs fits one at a
+    # time, each filter queued at most once. Without this, every dashboard poll during the first
+    # fit started another fit and the server stopped answering anything.
+    cache, cache_lock = {}, threading.Lock()
+    queued, work = set(), queue_module.Queue()
 
-    def compute(store, key, args):
-        target, session, uploader, minutes = args
-        since = time.time() - minutes * 60 if minutes else None
-        rows = store.query(ANALYSIS_KINDS, target, session, since, uploader=uploader)
-        result = analyze(rows, tp_bonus, level_diff)
-        result["rows"] = len(rows)
-        result["computed_at"] = time.time()
-        with cache_lock:
-            cache[key] = ((store.count(), store.revision()), time.time(), result)
-            running.discard(key)
-        return result
+    def signature(store):
+        return store.count(), store.revision()
+
+    def worker(store_getter):
+        while True:
+            key, args = work.get()
+            store = store_getter()
+            target, session, uploader, minutes = args
+            try:
+                since = time.time() - minutes * 60 if minutes else None
+                rows = store.query(ANALYSIS_KINDS, target, session, since, uploader=uploader)
+                started = time.time()
+                result = analyze(rows, tp_bonus, level_diff)
+                result.update(rows=len(rows), computed_at=time.time(), fit_seconds=time.time() - started)
+            except Exception as err:   # keep serving; don't retry in a loop
+                log.exception("analysis failed")
+                result = {"status": "error", "error": str(err), "computed_at": time.time()}
+            with cache_lock:
+                cache[key] = (signature(store), time.time(), result)
+                queued.discard(key)
 
     @app.get("/api/analysis")
     def analysis(request: Request, target: str | None = None, session: str | None = None,
                  uploader: str | None = None, minutes: float | None = None):
         store = request.app.state.store
+        with cache_lock:
+            if not getattr(request.app.state, "worker", None):
+                request.app.state.worker = threading.Thread(target=worker, args=(lambda: request.app.state.store,),
+                                                            daemon=True)
+                request.app.state.worker.start()
         args = (target, session, uploader, minutes)
         key = repr(args)
+        now = time.time()
         with cache_lock:
             entry = cache.get(key)
-            stale = (entry is None or entry[0] != (store.count(), store.revision())
-                     or (minutes and time.time() - entry[1] > 30))
-            start_background = entry is not None and stale and key not in running and time.time() - entry[1] > 15
-            if start_background:
-                running.add(key)
+            stale = (entry is None or entry[0] != signature(store)
+                     or bool(minutes and now - entry[1] > 30))
+            if stale and key not in queued and (entry is None or now - entry[1] > 15):
+                queued.add(key)
+                work.put((key, args))
+            pending = len(queued)
         if entry is None:
-            return compute(store, key, args)
-        if start_background:
-            threading.Thread(target=compute, args=(store, key, args), daemon=True).start()
-        return dict(entry[2], stale=bool(stale))
+            return {"status": "fitting", "pending": pending, "targets": [], "def_fits": [], "eva_fits": [],
+                    "ws": [], "melee": [], "rows": None}
+        return dict(entry[2], stale=stale, pending=pending)
 
     @app.get("/", response_class=HTMLResponse)
     def dashboard():

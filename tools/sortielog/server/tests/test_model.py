@@ -90,8 +90,11 @@ def test_fill_accuracy_ignores_finishing_moves():
 
 
 def test_summary_per_target():
-    def_fits = fit_defense(hits(150, 1120, [1650, 1760], seed=10) + hits(150, 1120, [1650, 1760], tags="Box Step lv5",
-                                                                        effect=0.88, seed=11))
+    rows = hits(150, 1120, [1650, 1760], seed=10) + hits(150, 1120, [1650, 1760], tags="Box Step lv5",
+                                                         effect=0.88, seed=11)
+    for r in rows:
+        r["main_dmg"] = 130   # base 150 = 130 DMG + fSTR 20; without DMG this data is ambiguous
+    def_fits = fit_defense(rows)
     eva_fits = fit_evasion(swings(800, 1220, 1476, 1250, seed=12))
     (row,) = summarize(def_fits, eva_fits)
     assert row["target"] == "Locus Dire Bat"

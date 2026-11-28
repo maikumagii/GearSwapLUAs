@@ -71,6 +71,17 @@ def test_melee_groups_by_hand_and_skips_crits():
     assert [(g["hand"], g["n"]) for g in melee] == [("main", 2), ("off", 1)]
 
 
+def wait_for_analysis(client, params=None, timeout=60):
+    """Analysis is fitted in the background; poll like the dashboard does."""
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        result = client.get("/api/analysis", params=params or {}).json()
+        if result.get("status") != "fitting":
+            return result
+        time.sleep(0.05)
+    raise AssertionError("analysis never finished")
+
+
 def free_udp_port():
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.bind(("127.0.0.1", 0))
@@ -126,7 +137,7 @@ def test_http_csv_json_udp_keys_and_dedupe(tmp_path):
         assert health == {"ok": True, "events": 12, "rejected": 2}
 
         assert client.get("/api/uploaders").json() == ["friend", "kalali"]
-        mine = client.get("/api/analysis", params={"uploader": "kalali"}).json()
+        mine = wait_for_analysis(client, {"uploader": "kalali"})
         assert mine["rows"] == 7 and mine["ws"][0]["n"] == 7
         assert {s["uploader"] for s in client.get("/api/sessions").json()} == {"kalali", "friend"}
         assert client.get("/api/targets").json() == ["Aminon"]
@@ -181,3 +192,28 @@ def test_admin_set_weapon_and_revision(tmp_path):
     store.close()
     assert admin(["--db", path, "set-weapon", "--player", "Kalali", "--main-dmg", "125", "--overwrite"]) == 0
     assert Store(path).query(kinds=["melee"])[0]["main_dmg"] == 125
+
+
+def test_analysis_never_computes_in_the_request_and_fits_once(tmp_path, monkeypatch):
+    import threading
+    import sortielog.app as app_module
+    calls, release = [], threading.Event()
+
+    def slow_analyze(rows, *args):
+        calls.append(1)
+        release.wait(5)
+        return {"targets": [], "def_fits": [], "eva_fits": [], "ws": [], "melee": []}
+
+    monkeypatch.setattr(app_module, "analyze", slow_analyze)
+    app = create_app(db_path=str(tmp_path / "c.db"), udp_port=0, keys={}, tp_bonus={})
+    with TestClient(app) as client:
+        client.post("/ingest", json={"kind": "melee", "session": "s", "seq": 1, "damage": 5})
+        first = [client.get("/api/analysis").json() for _ in range(10)]   # dashboard polling mid-fit
+        assert all(r["status"] == "fitting" for r in first)
+        assert client.get("/health").json()["ok"]                       # still answering
+        release.set()
+        deadline = time.time() + 5
+        while time.time() < deadline and client.get("/api/analysis").json().get("status") == "fitting":
+            time.sleep(0.05)
+        done = client.get("/api/analysis").json()
+        assert done["rows"] == 1 and "fit_seconds" in done and len(calls) == 1

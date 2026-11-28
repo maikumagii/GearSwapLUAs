@@ -123,6 +123,14 @@ async function refresh() {
   let data;
   try { data = await (await fetch("api/analysis?" + params)).json(); }
   catch (e) { $("status").textContent = "server unreachable, retrying…"; return; }
+  if (data.status === "fitting") {
+    $("status").textContent = "fitting the model… the first fit after a restart can take a minute or two on a Pi";
+    return;
+  }
+  if (data.status === "error") {
+    $("status").textContent = `analysis failed: ${data.error} (check docker compose logs)`;
+    return;
+  }
 
   fill("targets", data.targets || [], (t) => {
     const notes = [];
@@ -192,7 +200,8 @@ async function refresh() {
   ], "No melee yet.", 9);
 
   const when = data.computed_at ? new Date(data.computed_at * 1000).toLocaleTimeString() : "";
-  $("status").textContent = `${fmt(data.rows)} rows · fitted ${when}${data.stale ? " · refitting…" : ""}`;
+  const took = data.fit_seconds != null ? ` in ${fmt(data.fit_seconds)}s` : "";
+  $("status").textContent = `${fmt(data.rows)} rows · fitted ${when}${took}${data.stale ? " · refitting…" : ""}`;
 }
 
 ["uploader", "session", "target", "minutes"].forEach((id) => $(id).addEventListener("change", () => { refreshFilters(); refresh(); }));
