@@ -10,66 +10,109 @@ the boss's DEF or a model of the debuff stack.
 - Second check: if damage rises with more attack buffs, you are not capped.
 
 ```
-Player PC                                   Cloudflare                     Raspberry Pi
-┌──────────────────────┐   HTTPS + key   ┌─────────────────┐   tunnel   ┌──────────────────────┐
-│ SortieLog addon      │                 │ sortie.<domain> │ ◀───────── │ cloudflared (host)   │
-│  └─ data/logs/*.csv  │──▶ forwarder ──▶│ Access: /ingest │  (outbound │  └▶ localhost:8090   │
-│                      │   (PowerShell)  │  bypass, rest   │   only)    │    sortielog (Docker)│
-└──────────────────────┘                 │  needs login    │            └──────────────────────┘
-                                         └─────────────────┘
+Player (Windows PC or Steam Deck)              Cloudflare                     Raspberry Pi
+┌──────────────────────────────┐   HTTP + key   ┌─────────────────┐   tunnel   ┌──────────────────────┐
+│ SortieLog addon (in Windower)│ ─────────────▶ │ sortie.<domain> │ ◀───────── │ cloudflared (host)   │
+│  ├─ live upload every 5 s    │                │                 │  (outbound │  └▶ localhost:8090   │
+│  └─ data/logs/*.csv (backup) │                └─────────────────┘   only)    │    sortielog (Docker)│
+└──────────────────────────────┘                                              └──────────────────────┘
 ```
 
-- The game never makes network calls itself. The addon only writes CSV, so it can't
-  stall the client.
-- The forwarder ships new CSV lines every 3 s, resumes after outages, and the server
-  ignores rows it already has.
-- The Pi only makes outbound connections to Cloudflare, through the cloudflared service
-  that already runs EventMoogle's tunnel: no router port forwarding and no exposed home IP.
-  It works the same from your house or a friend's.
+- **Nothing to run besides the game.** The addon uploads by itself. That works the same on a
+  Windows PC and on a Steam Deck (Windower under Proton).
+- **The game never waits on the network.** Uploads use a non-blocking socket that advances a
+  little on every rendered frame, and rows go out in batches every 5 seconds.
+- **Nothing is lost.** Every row is also written to a CSV first. Failed uploads are retried
+  with backoff, the server ignores rows it already has, and old CSVs can be uploaded later.
+- **The Pi only makes outbound connections** to Cloudflare, through the cloudflared service
+  that already runs EventMoogle's tunnel: no port forwarding and no exposed home IP.
+- **Plain HTTP:** Windower's Lua has no TLS library, so the addon sends plain HTTP to
+  Cloudflare. Your key travels unencrypted between your device and Cloudflare. The worst
+  case is someone on the same network uploading junk under your key, so ask for a new one if
+  you suspect that. The optional forwarders in section 2 use HTTPS.
 
-## 1. Addon (every player)
+## 1. Install the addon (every player)
 
-1. Copy `addon/SortieLog` to `Windower/addons/SortieLog`.
-2. In game: `//lua load sortielog` (add it to `Windower/scripts/init.txt` to autoload).
+### Get the files
+1. On the GitHub repository page, click **Code → Download ZIP**, unzip it, and open
+   `tools/sortielog/addon/`. If you don't have access to the repository, ask for a zip of the
+   `SortieLog` folder.
+2. Copy the whole **`SortieLog`** folder into Windower's `addons` folder, keeping the name exactly:
+   - **Windows:** `Windower\addons\SortieLog\SortieLog.lua`
+   - **Steam Deck:** in Desktop Mode, find your Windower folder inside the Proton prefix and
+     copy it into `addons` there. If you're not sure where Windower is, run this in Konsole:
+     ```bash
+     find ~ /run/media -type d -name addons -path '*Windower*' 2>/dev/null
+     ```
 
+### Turn it on (in game)
+```
+//lua load sortielog
+//slog token <your player key>
+//slog http on
+//slog status
+```
+`//slog status` should show `http on -> http://sortie.eventmoogle.com | key set`. After a fight,
+it should show `sent` going up and `ok`. Settings are saved, so next time only
+`//lua load sortielog` is needed. To load it automatically, add `lua load sortielog` to
+`Windower/scripts/init.txt`.
+
+If uploads fail, the addon says so once in chat ("SortieLog upload: …") and keeps retrying.
+`//slog flush` sends queued rows immediately.
+
+### Accuracy for the evasion estimate
+After buffs are up and you're in your TP set, run `/checkparam <me>`. The addon reads the
+Accuracy numbers from the chat output and confirms with "SortieLog: accuracy main … sub …".
+If it doesn't confirm, use `//slog acc <main> [sub]`. Run it again whenever your accuracy
+changes noticeably, since rows are grouped by that value. Attack is picked up automatically
+from the game's status packet whenever gear or buffs change.
+
+### During a run
+| When | Command |
+|---|---|
+| Before a run | `//slog new` (starts a fresh log) |
+| A Geo bubble, Aria or Soul Voice is up | `//slog flag frailty`, `//slog flag aria`, `//slog flag sv_aria` |
+| It drops | `//slog flag frailty off` (or `//slog flag clear`) |
+| Your accuracy changes | `/checkparam <me>` again |
+| Mark something | `//slog note Aminon pull 2` |
+
+### All commands
 | Command | What it does |
 |---|---|
-| `//slog status` | Settings and active flags |
+| `//slog status` | Settings, upload state, Attack/Accuracy/weapon, flags |
+| `//slog http on\|off` | Live upload to the server |
+| `//slog url <http://host[:port]>` | Server address (default `http://sortie.eventmoogle.com`) |
+| `//slog token <key>\|clear` | Your player key |
+| `//slog flush` | Send queued rows now |
+| `//slog acc <main> [sub]` | Set Accuracy by hand |
 | `//slog targets <name,name>` | Only log these monsters (empty = all) |
-| `//slog flag <name> [on\|off]` | Context the game doesn't report: `frailty`, `aria`, `sv_aria`, `fury`… |
-| `//slog flag clear` / `//slog flags` | Clear or list flags |
-| `//slog note <text>` | Free-text marker row (e.g. `//slog note Aminon pull 2`) |
-| `//slog acc <main> [sub]` | Set Accuracy by hand (normally picked up from `/checkparam`) |
+| `//slog flag <name> [on\|off]`, `flag clear`, `flags` | Context the game doesn't report |
+| `//slog note <text>` | Free-text marker row |
 | `//slog new` | Start a new session/CSV |
-| `//slog udp on\|off`, `//slog host <ip> [port]`, `//slog token <key>` | Optional LAN-only UDP push (see below) |
+| `//slog udp on\|off`, `//slog host <ip> [port]` | Optional LAN-only UDP push |
 
-Each row records: time, session and a row number, zone, kind (`ws`, `melee`, `ranged`,
-misses, `party_action`, `status_on`/`status_off`, `flag`, `note`), actor and target, WS,
-damage, crit, hand, your TP when you sent the WS, job, your buffs, statuses seen landing on
-the target, your flags, and WS Wall features (`wall_same` = how many of the last 6 WS on
-that target were the same WS). It also records your main-hand Attack, read automatically from
-the game's status packet (`0x061`) whenever gear or buffs change, your Accuracy, and your
-main weapon type.
+Each row records: time, session and row number, zone, kind (`ws`, `melee`, `ranged`, misses,
+`party_action`, `status_on`/`status_off`, `flag`, `note`), actor and target, WS, damage, crit,
+hand, your TP when you sent the WS, job, buffs, statuses seen on the target, flags, WS Wall
+features, main-hand Attack, Accuracy and weapon type.
 
-**Accuracy for the evasion estimate:** after buffs are up and you're in your TP set, run
-`/checkparam <me>`. The addon reads the Accuracy numbers from the chat output and confirms
-with "SortieLog: accuracy main … sub …". If it doesn't confirm, use `//slog acc <main> [sub]`.
-Run it again whenever your accuracy changes noticeably, since rows are grouped by that value.
+### Updating
+Replace `SortieLog.lua` with the new one and type `//lua reload sortielog`. Your settings
+(in `SortieLog/data/settings.xml`) and logs stay.
 
-## 2. Forwarder (every player)
+## 2. Optional: HTTPS forwarders
 
-In `Windower/addons/SortieLog/forwarder/`:
+You don't need these if `//slog http on` works. They're for HTTPS uploads, or for uploading
+old logs. Both read `SortieLog/data/logs`, use `forwarder.json` (`{"url": "https://…", "key": "…"}`)
+and keep their progress in `forwarder-state.json`. The server skips duplicates, so they can
+run alongside the live upload.
 
-1. Double-click `SortieLogForwarder.bat` once. It creates `forwarder.json` and exits.
-2. Edit `forwarder.json`:
-   ```json
-   { "url": "https://sortie.eventmoogle.com", "key": "<your player key>" }
-   ```
-3. Run `SortieLogForwarder.bat` again and leave the window open while you play.
-
-On its first run it uploads every existing log, then keeps following new rows. Its
-progress is kept in `forwarder-state.json`; delete that file to re-upload everything,
-and the server will skip the duplicates.
+- **Windows:** double-click `forwarder/SortieLogForwarder.bat` once to create
+  `forwarder.json`, fill it in, then run it again and leave the window open.
+- **Steam Deck / Linux** (native, no Proton): in Konsole, from the `forwarder` folder, run
+  `python3 sortielog_forwarder.py --once` to create and then test `forwarder.json`.
+  `bash install-steamdeck.sh` makes it a background service that keeps running in Game Mode.
+  Check it with `journalctl --user -u sortielog-forwarder -f`.
 
 ## 3. Server on the Raspberry Pi
 
@@ -88,7 +131,7 @@ docker compose logs -f
 |---|---|
 | `SORTIELOG_HTTP_PORT` | Host port the tunnel forwards to (default 8090; 8080–8082 are EventMoogle's) |
 | `SORTIELOG_BIND` | `127.0.0.1` (default) = tunnel only; `0.0.0.0` also opens it on the LAN |
-| `SORTIELOG_KEYS` | `name:key` pairs, one per player. Generate a key with `openssl rand -hex 24` |
+| `SORTIELOG_KEYS` | `name:key` pairs, one per player. Generate a key with `openssl rand -hex 24` (keep keys to letters and digits) |
 | `SORTIELOG_TP_BONUS` | Optional TP bonus per WS for fTP normalization, e.g. `Black Halo=250` |
 | `SORTIELOG_LEVEL_DIFF` | Level correction for DEF/EVA: monster level minus yours (0 = off) |
 
@@ -158,8 +201,9 @@ through Access, and the dashboard should load.
 
 1. Generate a key: `openssl rand -hex 24`.
 2. Append `,name:key` to `SORTIELOG_KEYS` in `.env`, then run `docker compose up -d`.
-3. Send them the addon folder, the URL and their key.
-4. To let them see the dashboard, add their email to the dashboard Access policy.
+3. Send them the addon folder and their key. They follow section 1: `//slog token <key>`,
+   then `//slog http on`.
+4. If you've put the dashboard behind Access, add their email to its policy.
 
 Each player's rows are tagged with their key's name, and the analysis never mixes players.
 

@@ -4,13 +4,17 @@ debuffs/buffs around each hit, so pDIF-cap status can be judged from damage spre
 
 Output:
   * CSV per session in <addon>/data/logs/<session>.csv
-  * Optional live push: one JSON object per UDP datagram to a SortieLog server.
+  * Optional live upload: batched HTTP POSTs to <url>/ingest/csv (//slog http on), or
+    one JSON object per UDP datagram on a LAN.
 
 Commands (//slog ...):
   status                      Show settings and current flags.
-  udp on|off                  Toggle live UDP push.
+  http on|off                 Live upload to the server (plain http; uses the token as your key).
+  url <http://host[:port]>    Server address for live upload.
+  flush                       Send queued rows now.
+  udp on|off                  Toggle live UDP push (LAN only).
   host <ip-or-name> [port]    Set the server address (default port 5140).
-  token <text>|clear          Shared token the server expects (optional).
+  token <key>|clear           Your player key (http upload, and UDP if the server requires it).
   flag <name> [on|off]        Manual context flags (frailty, aria, sv_aria, ...).
   flags                       List active flags.  "flag clear" removes all.
   note <text>                 Write a free-text note row.
@@ -38,7 +42,9 @@ local COLUMNS = {
 
 local defaults = {
     udp = { enabled = false, host = '192.168.1.50', port = 5140 },
-    token = '',
+    -- Live upload straight from the game. Plain http only: Windower's Lua has no TLS.
+    http = { enabled = false, url = 'http://sortie.eventmoogle.com' },
+    token = '',     -- your player key (sent as X-Token)
     csv = true,
     log_party = true,
     log_melee = true,
@@ -168,15 +174,189 @@ local function open_session()
     state.file = file
 end
 
+-------------------------------------------------------------------------------
+-- Live HTTP upload (non-blocking)
+--
+-- Rows are queued and POSTed as CSV to <url>/ingest/csv every few seconds. The socket is
+-- non-blocking and advanced a little on every rendered frame, so the game never waits on
+-- the network. Rows leave the queue only after the server answers 2xx; on failure they're
+-- retried with backoff. Everything is also in the CSV, and the server ignores duplicates.
+-------------------------------------------------------------------------------
+
+local HTTP_FLUSH_SECONDS = 5
+local HTTP_MAX_BATCH = 500
+local HTTP_MAX_QUEUE = 20000
+local HTTP_TIMEOUT = 15
+local HTTP_RESOLVE_RETRY = 300
+
+local http = {
+    queue = {},        -- CSV lines waiting for upload, oldest first
+    request = nil,     -- in-flight request state
+    target = nil,      -- { host, port, base, ip }
+    next_attempt = 0,
+    last_send = 0,
+    backoff = HTTP_FLUSH_SECONDS,
+    last_resolve = 0,
+    sent = 0,
+    status = 'idle',
+    warned = nil,
+}
+
+local function parse_http_url(url)
+    local scheme, rest = tostring(url or ''):match('^(%a+)://(.+)$')
+    if not scheme then return nil, 'url must look like http://host' end
+    if scheme:lower() ~= 'http' then
+        return nil, 'only http:// works from inside the game (Windower Lua has no TLS)'
+    end
+    local hostport, path = rest:match('^([^/]+)(.*)$')
+    local host, port = hostport:match('^(.-):(%d+)$')
+    host = host or hostport
+    return { host = host, port = tonumber(port) or 80, base = (path or ''):gsub('/+$', '') }
+end
+
+local function http_resolve()
+    http.last_resolve = socket.gettime()
+    local target, err = parse_http_url(settings.http.url)
+    if not target then
+        http.target, http.status = nil, err
+        return false
+    end
+    target.ip = socket.dns and socket.dns.toip and socket.dns.toip(target.host)   -- blocks briefly
+    if not target.ip then
+        http.target, http.status = nil, 'cannot resolve ' .. target.host
+        return false
+    end
+    http.target = target
+    return true
+end
+
+local function http_note(status, text)
+    http.status = status
+    if text and http.warned ~= status then
+        windower.add_to_chat(167, 'SortieLog upload: ' .. text)
+    end
+    http.warned = text and status or nil
+end
+
+local function http_finish(ok, detail)
+    local request = http.request
+    http.request = nil
+    if request and request.tcp then pcall(request.tcp.close, request.tcp) end
+    local now = socket.gettime()
+    if ok then
+        local rest = {}
+        for i = request.count + 1, #http.queue do rest[#rest + 1] = http.queue[i] end
+        http.queue = rest
+        http.sent = http.sent + request.count
+        http.backoff = HTTP_FLUSH_SECONDS
+        http.next_attempt = now
+        if http.warned then windower.add_to_chat(207, 'SortieLog upload: working again') end
+        http_note('ok', nil)
+    else
+        http.next_attempt = now + http.backoff
+        http.backoff = math.min(http.backoff * 2, 120)
+        http_note(detail, detail .. ' (retrying; rows are safe in the CSV)')
+        if now - http.last_resolve > HTTP_RESOLVE_RETRY then http_resolve() end
+    end
+end
+
+local function http_start()
+    local target = http.target
+    local count = math.min(#http.queue, HTTP_MAX_BATCH)
+    local lines = {}
+    for i = 1, count do lines[i] = http.queue[i] end
+    local body = table.concat(COLUMNS, ',') .. '\n' .. table.concat(lines, '\n') .. '\n'
+    local host = target.port == 80 and target.host or (target.host .. ':' .. target.port)
+    local data = ('POST %s/ingest/csv HTTP/1.1\r\nHost: %s\r\nContent-Type: text/csv; charset=utf-8\r\n'
+        .. 'X-Token: %s\r\nUser-Agent: SortieLog/%s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n'):format(
+        target.base, host, settings.token, _addon.version, #body) .. body
+    local tcp = socket.tcp()
+    tcp:settimeout(0)
+    http.request = { tcp = tcp, data = data, sent = 0, buffer = '', count = count,
+                     phase = 'connect', started = socket.gettime() }
+    http.last_send = socket.gettime()
+    local ok, err = tcp:connect(target.ip, target.port)
+    if not ok and err ~= 'timeout' and err ~= 'Operation already in progress' then
+        http_finish(false, 'connect failed: ' .. tostring(err))
+    end
+end
+
+local function http_step()
+    local request = http.request
+    if socket.gettime() - request.started > HTTP_TIMEOUT then
+        return http_finish(false, 'request timed out')
+    end
+    local tcp = request.tcp
+    if request.phase == 'connect' then
+        local _, writable = socket.select(nil, { tcp }, 0)
+        if not writable or not writable[1] then return end
+        request.phase = 'send'
+    end
+    if request.phase == 'send' then
+        local last, err, partial = tcp:send(request.data, request.sent + 1)
+        if last then
+            request.sent = last
+        elseif err == 'timeout' then
+            request.sent = partial or request.sent
+        else
+            return http_finish(false, 'send failed: ' .. tostring(err))
+        end
+        if request.sent >= #request.data then request.phase = 'receive' end
+        return
+    end
+    -- receive: only the status line matters
+    local chunk, err, partial = tcp:receive(4096)
+    request.buffer = request.buffer .. (chunk or partial or '')
+    local code = tonumber(request.buffer:match('^HTTP/%d%.%d (%d%d%d)'))
+    if code then
+        if code >= 200 and code < 300 then return http_finish(true) end
+        if code == 401 then return http_finish(false, 'server rejected the key (//slog token <key>)') end
+        return http_finish(false, 'server answered HTTP ' .. code)
+    end
+    if err and err ~= 'timeout' then
+        http_finish(false, 'connection ' .. tostring(err) .. ' before a reply')
+    end
+end
+
+local function http_poll()
+    if not settings.http.enabled then return end
+    if http.request then return http_step() end
+    if #http.queue == 0 then return end
+    local now = socket.gettime()
+    if now < http.next_attempt or now - http.last_send < HTTP_FLUSH_SECONDS then return end
+    if not http.target and (now - http.last_resolve < 30 or not http_resolve()) then
+        http.next_attempt = now + 30
+        return
+    end
+    if settings.token == '' then
+        http_note('no key', 'no key set (//slog token <key>)')
+        http.next_attempt = now + 30
+        return
+    end
+    http_start()
+end
+
+local function http_enqueue(line)
+    local queue = http.queue
+    queue[#queue + 1] = line
+    if #queue > HTTP_MAX_QUEUE then
+        local rest = {}
+        for i = #queue - HTTP_MAX_QUEUE + 1, #queue do rest[#rest + 1] = queue[i] end
+        http.queue = rest   -- oldest rows stay in the CSV only
+    end
+end
+
 local function emit(row)
     state.seq = state.seq + 1
     row.v = SCHEMA_VERSION
     row.session = state.session
     row.seq = state.seq
+    local line = csv_line(row)
     if state.file then
-        state.file:write(csv_line(row), '\n')
+        state.file:write(line, '\n')
         state.file:flush()
     end
+    if settings.http.enabled then http_enqueue(line) end
     if settings.udp.enabled and state.ip then
         pcall(udp.sendto, udp, json_encode(row), state.ip, settings.udp.port)
     end
@@ -553,8 +733,18 @@ windower.register_event('zone change', function()
     refresh_party(true)
 end)
 
+local http_error_reported = false
+windower.register_event('prerender', function()
+    local ok, err = pcall(http_poll)
+    if not ok and not http_error_reported then
+        http_error_reported = true
+        report_error(err)
+    end
+end)
+
 windower.register_event('load', 'login', function()
     resolve_host()
+    if settings.http.enabled then http_resolve() end
     refresh_party(true)
     pcall(refresh_weapon)
     if not state.session then open_session() end
@@ -575,6 +765,9 @@ local function show_status()
         tostring(state.session), settings.csv and 'on' or 'off', settings.udp.enabled and 'on' or 'off',
         tostring(settings.udp.host), settings.udp.port, settings.log_party and 'on' or 'off',
         settings.only_targets == '' and 'all' or settings.only_targets))
+    say(('http %s -> %s | key %s | queued %d | sent %d | %s'):format(
+        settings.http.enabled and 'on' or 'off', tostring(settings.http.url), settings.token == '' and 'missing' or 'set',
+        #http.queue, http.sent, tostring(http.status)))
     say('flags: ' .. (names_from_set(state.flags) ~= '' and names_from_set(state.flags) or 'none'))
     say(('attack %s | accuracy %s / %s | weapon %s'):format(tostring(state.attack), tostring(state.accuracy),
         tostring(state.acc_sub), tostring(state.weapon)))
@@ -596,6 +789,24 @@ windower.register_event('addon command', function(command, ...)
         config.save(settings)
         resolve_host()
         show_status()
+    elseif command == 'http' then
+        settings.http.enabled = (args[1] or ''):lower() == 'on'
+        config.save(settings)
+        if settings.http.enabled then http_resolve() end
+        show_status()
+    elseif command == 'url' and args[1] then
+        local target, err = parse_http_url(args[1])
+        if not target then
+            say(err)
+        else
+            settings.http.url = args[1]
+            config.save(settings)
+            http_resolve()
+            show_status()
+        end
+    elseif command == 'flush' then
+        http.next_attempt, http.last_send, http.backoff = 0, 0, HTTP_FLUSH_SECONDS
+        say(('sending %d queued rows'):format(#http.queue))
     elseif command == 'token' and args[1] then
         settings.token = args[1]:lower() == 'clear' and '' or args[1]
         config.save(settings)
@@ -636,6 +847,6 @@ windower.register_event('addon command', function(command, ...)
         emit(row)
         say('test row written' .. (settings.udp.enabled and (' and sent to ' .. tostring(state.ip)) or ''))
     else
-        say('commands: status, acc <main> [sub], udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
+        say('commands: status, http on|off, url <http://host>, token <key>|clear, flush, acc <main> [sub], udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
     end
 end)
