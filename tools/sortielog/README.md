@@ -60,20 +60,49 @@ it should show `sent` going up and `ok`. Settings are saved, so next time only
 If uploads fail, the addon says so once in chat ("SortieLog upload: …") and keeps retrying.
 `//slog flush` sends queued rows immediately.
 
-### Accuracy for the evasion estimate
-After buffs are up and you're in your TP set, run `/checkparam <me>`. The addon reads the
-Accuracy numbers from the chat output and confirms with "SortieLog: accuracy main … sub …".
-If it doesn't confirm, use `//slog acc <main> [sub]`. Run it again whenever your accuracy
-changes noticeably, since rows are grouped by that value. Attack is picked up automatically
-from the game's status packet whenever gear or buffs change.
+### Accuracy (for the evasion estimate): automatic
+Accuracy isn't in any status packet and it changes with every song, bubble, food or gear
+piece, so the addon measures it with `/checkparam` and remembers it per **buff and gear state**:
+- **When you're engaged in a combination of buffs and gear it hasn't measured yet,** it waits
+  about 3 seconds for things to settle, then runs `/checkparam <me>`. The output is hidden from
+  your chat, and it runs at most once every 20 seconds.
+- **When you return to a state it has already measured** (March drops, then comes back), the
+  remembered value is used immediately.
+- **While the current state hasn't been measured,** rows get **no** Accuracy rather than a stale
+  one, and the evasion estimate skips them.
+- **Memory resets** after 10 minutes and on zone change, because buff potencies can differ
+  between runs.
+
+`//slog checkparam` measures right now (output shown), and a `/checkparam` you type yourself
+is captured too. `//slog autocheck off` turns the automatic runs off. Attack doesn't need any
+of this: it's read from the game's status packet whenever gear or buffs change.
+
+The one gap: the same buff name at a different potency (a different bard's March, Indi-Precision
+versus an Entrusted one, a different food) looks identical, so the old value is reused until
+the 10-minute expiry.
+
+### Debuffs on the target: automatic
+Debuffs your party or alliance lands are logged with whatever affects their strength, so the
+server can work out each one's real effect later:
+
+| Tracked as | Example label | How |
+|---|---|---|
+| Spell tier | `Dia III`, `Distract III` | From the spell that landed |
+| Saboteur | `Distract III+Saboteur` | RDM used Saboteur shortly before the spell |
+| Steps | `Box Step lv3` | Daze level from the step. Expires 60 s after the last step |
+| Geo bubbles | `Geo-Frailty+Bolster`, `+BoG`, `+EA` | GEO's Geo- spell at the target. Lasts while their luopan is alive |
+| Indi auras | `Indi-Frailty+Entrust` | Assumed active for 3 minutes |
+| Light Shot | `Light Shot` | Cleared when Dia wears off |
+
+Still manual: effects that never show up as a message, such as Aria of Passion and Soul Voice.
+Use `//slog flag aria` / `//slog flag sv_aria` for those.
 
 ### During a run
 | When | Command |
 |---|---|
 | Before a run | `//slog new` (starts a fresh log) |
-| A Geo bubble, Aria or Soul Voice is up | `//slog flag frailty`, `//slog flag aria`, `//slog flag sv_aria` |
-| It drops | `//slog flag frailty off` (or `//slog flag clear`) |
-| Your accuracy changes | `/checkparam <me>` again |
+| Aria of Passion or Soul Voice is up | `//slog flag aria`, `//slog flag sv_aria` |
+| It drops | `//slog flag aria off` (or `//slog flag clear`) |
 | Mark something | `//slog note Aminon pull 2` |
 
 ### All commands
@@ -84,7 +113,9 @@ from the game's status packet whenever gear or buffs change.
 | `//slog url <http://host[:port]>` | Server address (default `http://sortie.eventmoogle.com`) |
 | `//slog token <key>\|clear` | Your player key |
 | `//slog flush` | Send queued rows now |
-| `//slog acc <main> [sub]` | Set Accuracy by hand |
+| `//slog checkparam` | Measure Accuracy now (output shown) |
+| `//slog autocheck on\|off` | Automatic hidden `/checkparam` for new buff/gear states (default on) |
+| `//slog acc <main> [sub]` | Set Accuracy by hand for the current buff/gear state |
 | `//slog targets <name,name>` | Only log these monsters (empty = all) |
 | `//slog flag <name> [on\|off]`, `flag clear`, `flags` | Context the game doesn't report |
 | `//slog note <text>` | Free-text marker row |
@@ -289,10 +320,13 @@ Attack or Accuracy, and debuffs, and need about 30 hits or swings.
 - Thresholds are heuristics. Multi-attack procs on the first WS hit add some spread on their
   own, so a capped group may read about 1.06–1.08.
 - WS Wall rules are community-tested, not official. Party WS on the target are counted in `wall_same`.
-- Geo bubbles, Aria and Soul Voice don't appear as target debuffs, so use `//slog flag`.
+- Aria and Soul Voice don't appear as messages, so use `//slog flag`. Geo bubbles, steps,
+  Saboteur and spell tiers are tracked automatically.
 - TP bonus gear isn't visible to the addon. Set `SORTIELOG_TP_BONUS` if your WS sets use
   Moonshade or TP-bonus weapons.
-- Attack comes from the status packet and Accuracy from `/checkparam`. Neither has been
-  checked in game yet, so confirm `//slog status` shows sensible values.
+- Attack comes from the status packet and Accuracy from `/checkparam` (read from its message
+  packets, or its chat text as a fallback). None of this has been checked in game yet: confirm
+  `//slog status` shows numbers, that automatic checks don't show up in chat, and that
+  `debuffs on target` lists what your party put on the boss.
 - Not tested in game yet. Check the first real CSV before trusting the dashboard.
 - Everyone with dashboard access sees every player's character names and damage.

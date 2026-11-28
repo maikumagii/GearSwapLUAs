@@ -18,14 +18,16 @@ Commands (//slog ...):
   flag <name> [on|off]        Manual context flags (frailty, aria, sv_aria, ...).
   flags                       List active flags.  "flag clear" removes all.
   note <text>                 Write a free-text note row.
-  acc <main> [sub]            Set Accuracy by hand (normally read from /checkparam).
+  checkparam                  Measure Accuracy now (/checkparam, output shown).
+  autocheck on|off            Run /checkparam automatically (hidden) for new buff/gear states.
+  acc <main> [sub]            Set Accuracy by hand for the current buff/gear state.
   new                         Start a new session/CSV file.
   test                        Send a test row.
 ]]
 
 _addon.name = 'SortieLog'
 _addon.author = 'Kalali'
-_addon.version = '0.2.0'
+_addon.version = '0.3.0'
 _addon.commands = { 'slog', 'sortielog' }
 
 local config = require('config')
@@ -46,6 +48,7 @@ local defaults = {
     http = { enabled = false, url = 'http://sortie.eventmoogle.com' },
     token = '',     -- your player key (sent as X-Token)
     csv = true,
+    autocheck = true,   -- run /checkparam (hidden) when buffs/gear reach an unmeasured state
     log_party = true,
     log_melee = true,
     only_targets = '', -- comma-separated monster names; empty logs every monster
@@ -65,7 +68,16 @@ local state = {
     party = {},          -- [mob_id] = true for party/alliance members
     party_refreshed = 0,
     pending_ws = nil,    -- { tp, t, ws_id } captured from the outgoing WS packet
-    mob_status = {},     -- [mob_id] = { [status name] = true }
+    mob_tags = {},       -- [mob_id] = { [key] = { label, expires } } debuffs seen on each monster
+    auras = {},          -- [key] = { label, expires } effects that follow a player (Indi-, Entrust)
+    recent_ja = {},      -- [actor_id] = { [ability] = time } for Saboteur, Bolster, Blaze of Glory...
+    geo = {},            -- [caster_id] = { spell, mob_id, label, t, seen } active Geo- bubbles
+    acc_cache = {},      -- [signature] = { main, sub, t } Accuracy measured under that buff/gear state
+    sig = nil,           -- current buff + gear signature
+    sig_since = 0,
+    last_autocheck = 0,
+    check = nil,         -- open /checkparam capture window { sig, t, hide, parts }
+    tick = 0,
     ws_history = {},     -- [mob_id] = { ws names, most recent last }
     flags = {},          -- [flag] = true
     attack = nil,        -- main-hand Attack from the 0x061 status packet
@@ -424,6 +436,53 @@ local function zone_name()
     return zone and zone.en or (info and tostring(info.zone)) or ''
 end
 
+-------------------------------------------------------------------------------
+-- Debuff tags on monsters
+--
+-- Each debuff is a tag with a label that keeps what affects its potency: the spell tier
+-- ("Distract III"), modifiers ("+Saboteur", "+Bolster"), and daze levels ("Box Step lv3").
+-- Potencies are not assumed; the server works out each tag's effect from the data later.
+-------------------------------------------------------------------------------
+
+local STEP_DAZE = { ['Quick Step'] = 'Lethargic Daze', ['Box Step'] = 'Sluggish Daze',
+                    ['Stutter Step'] = 'Weakened Daze', ['Feather Step'] = 'Bewildered Daze' }
+local DAZE_STEP = {}
+for step, daze in pairs(STEP_DAZE) do DAZE_STEP[daze] = step end
+local STEP_SECONDS = 60          -- daze lasts about a minute unless refreshed
+local LIGHT_SHOT_SECONDS = 300   -- cleared earlier when Dia wears off
+local INDI_SECONDS = 180
+local TRACKED_JA = { Saboteur = 60, Bolster = 180, ['Blaze of Glory'] = 60, Entrust = 60,
+                     ['Ecliptic Attrition'] = 60 }
+
+local function recent(actor_id, ability)
+    local used = state.recent_ja[actor_id] and state.recent_ja[actor_id][ability]
+    return used and socket.gettime() - used <= (TRACKED_JA[ability] or 60)
+end
+
+local function consume(actor_id, ability)
+    if state.recent_ja[actor_id] then state.recent_ja[actor_id][ability] = nil end
+end
+
+local function tag_labels(mob_id)
+    local now = socket.gettime()
+    local labels = {}
+    local tags = state.mob_tags[mob_id]
+    if tags then
+        for key, tag in pairs(tags) do
+            if tag.expires and tag.expires < now then
+                tags[key] = nil
+            else
+                labels[#labels + 1] = tag.label
+            end
+        end
+    end
+    for key, aura in pairs(state.auras) do
+        if aura.expires < now then state.auras[key] = nil else labels[#labels + 1] = aura.label end
+    end
+    table.sort(labels)
+    return table.concat(labels, ';')
+end
+
 local function base_row(kind, actor_id, actor_name, mob)
     local row = {
         t = socket.gettime(),
@@ -435,7 +494,7 @@ local function base_row(kind, actor_id, actor_name, mob)
         target = mob and mob.name or nil,
         target_id = mob and mob.id or nil,
         target_hpp = mob and mob.hpp or nil,
-        mob_status = mob and state.mob_status[mob.id] and names_from_set(state.mob_status[mob.id]) or nil,
+        mob_status = mob and tag_labels(mob.id) or nil,
         flags = names_from_set(state.flags),
     }
     if row.is_me == 1 then
@@ -464,20 +523,54 @@ local function status_change(message_id, param)
     return buff.en, true
 end
 
-local function track_status(mob, name, applied, actor_id, actor_name, detail)
-    local set = state.mob_status[mob.id]
-    if applied then
-        if not set then
-            set = {}
-            state.mob_status[mob.id] = set
-        end
-        set[name] = true
-    elseif set then
-        set[name] = nil
+local function set_tag(mob, key, label, expires, actor_id, actor_name, source)
+    local tags = state.mob_tags[mob.id]
+    if not tags then
+        tags = {}
+        state.mob_tags[mob.id] = tags
     end
-    local row = base_row(applied and 'status_on' or 'status_off', actor_id, actor_name, mob)
-    row.detail = detail and (name .. ' <- ' .. detail) or name
+    local old = tags[key]
+    tags[key] = { label = label, expires = expires }
+    if old and old.label == label then return end   -- refresh only
+    local row = base_row('status_on', actor_id, actor_name, mob)
+    row.detail = (source and source ~= label) and (label .. ' <- ' .. source) or label
     emit(row)
+end
+
+local function clear_tag(mob_id, key, actor_id)
+    local tags = state.mob_tags[mob_id]
+    local old = tags and tags[key]
+    if not old then return end
+    tags[key] = nil
+    if key == 'status:Dia' then tags['ja:Light Shot'] = nil end   -- Light Shot rides on Dia
+    local mob = windower.ffxi.get_mob_by_id(mob_id)
+    local row = base_row('status_off', actor_id, '', mob)
+    row.detail = old.label
+    emit(row)
+end
+
+local function status_key(status)
+    local daze = status:match('^(.-) %d+$') or status
+    if DAZE_STEP[daze] then return 'step:' .. DAZE_STEP[daze], DAZE_STEP[daze], tonumber(status:match(' (%d+)$')) end
+    return 'status:' .. status
+end
+
+-- A status landed on (or was removed from) a monster as the result of `source`.
+local function apply_status(mob, status, applied, actor_id, actor_name, source, param)
+    local key, step, level = status_key(status)
+    if not applied then return clear_tag(mob.id, key, actor_id) end
+    if step then
+        local tags = state.mob_tags[mob.id]
+        local previous = tags and tags[key] and tonumber(tags[key].label:match('lv(%d+)$'))
+        level = level or ((param and param >= 1 and param <= 10) and param) or ((previous or 0) + 1)
+        return set_tag(mob, key, step .. ' lv' .. level, socket.gettime() + STEP_SECONDS, actor_id, actor_name, source)
+    end
+    local label = source or status
+    if res.spells and source and recent(actor_id, 'Saboteur') then
+        label = label .. '+Saboteur'
+        consume(actor_id, 'Saboteur')
+    end
+    set_tag(mob, key, label, nil, actor_id, actor_name, source)
 end
 
 local function wall_features(mob_id, ws_name)
@@ -600,8 +693,33 @@ local function handle_action(act)
 
     if category == CAT_SPELL or category == CAT_JA or category == CAT_STEP then
         local name = ability_name(category, act.param) or ('#' .. tostring(act.param))
+        local now = socket.gettime()
+        if category ~= CAT_SPELL and TRACKED_JA[name] then
+            state.recent_ja[actor_id] = state.recent_ja[actor_id] or {}
+            state.recent_ja[actor_id][name] = now
+            local geo = state.geo[actor_id]
+            if geo and (name == 'Ecliptic Attrition' or name == 'Bolster') then
+                geo.label = geo.label .. (name == 'Bolster' and '+Bolster' or '+EA')
+                local mob = geo.mob_id and windower.ffxi.get_mob_by_id(geo.mob_id)
+                if mob then set_tag(mob, 'geo:' .. actor_id, geo.label, nil, actor_id, actor_name, name) end
+            end
+        end
+        if category == CAT_SPELL and name:find('^Indi%-') and (name:find('Frailty') or name:find('Torpor')
+            or name:find('Malaise') or name:find('Languor') or name:find('Wilt') or name:find('Slip')) then
+            local label = name .. (recent(actor_id, 'Entrust') and '+Entrust' or '')
+            state.auras['indi:' .. actor_id] = { label = label, expires = now + INDI_SECONDS }
+        end
         for _, target in ipairs(act.targets) do
             local mob = monster_target(target.id)
+            if mob and category == CAT_SPELL and name:find('^Geo%-') then
+                local mods = (recent(actor_id, 'Bolster') and '+Bolster' or '')
+                    .. (recent(actor_id, 'Blaze of Glory') and '+BoG' or '')
+                consume(actor_id, 'Blaze of Glory')
+                local old = state.geo[actor_id]
+                if old and old.mob_id then clear_tag(old.mob_id, 'geo:' .. actor_id, actor_id) end
+                state.geo[actor_id] = { spell = name, mob_id = mob.id, label = name .. mods, t = now, seen = false }
+                set_tag(mob, 'geo:' .. actor_id, name .. mods, nil, actor_id, actor_name, 'luopan')
+            end
             if mob then
                 for _, action in ipairs(target.actions or {}) do
                     local status, applied = status_change(action.message, action.param)
@@ -610,10 +728,16 @@ local function handle_action(act)
                     row.msg = action.message
                     if not status then row.damage = action.param end
                     emit(row)
-                    if status then track_status(mob, status, applied, actor_id, actor_name, name) end
+                    if status then
+                        apply_status(mob, status, applied, actor_id, actor_name, name, action.param)
+                    elseif category == CAT_STEP and STEP_DAZE[name] and action.param >= 1 and action.param <= 10 then
+                        apply_status(mob, STEP_DAZE[name], true, actor_id, actor_name, name, action.param)
+                    elseif name == 'Light Shot' and action.message ~= MSG_MELEE_MISS then
+                        set_tag(mob, 'ja:Light Shot', 'Light Shot', now + LIGHT_SHOT_SECONDS, actor_id, actor_name, name)
+                    end
                     if action.has_add_effect then
                         status, applied = status_change(action.add_effect_message, action.add_effect_param)
-                        if status then track_status(mob, status, applied, actor_id, actor_name, name) end
+                        if status then apply_status(mob, status, applied, actor_id, actor_name, name) end
                     end
                 end
             end
@@ -623,15 +747,18 @@ end
 
 local function handle_action_message(actor_id, target_id, message_id, param_1)
     if MSG_DEFEAT[message_id] then
-        state.mob_status[target_id] = nil
+        state.mob_tags[target_id] = nil
         state.ws_history[target_id] = nil
+        for caster, geo in pairs(state.geo) do
+            if geo.mob_id == target_id then state.geo[caster] = nil end
+        end
         return
     end
-    if not state.mob_status[target_id] then return end
+    if not state.mob_tags[target_id] then return end
     local status, applied = status_change(message_id, param_1)
     if not status then return end
     local mob = windower.ffxi.get_mob_by_id(target_id)
-    if mob then track_status(mob, status, applied, actor_id, '', nil) end
+    if mob then apply_status(mob, status, applied, actor_id, '', nil) end
 end
 
 -------------------------------------------------------------------------------
@@ -658,7 +785,85 @@ local function handle_char_stats(data)
     refresh_weapon()
 end
 
--- Pulls main/sub Accuracy out of /checkparam output, skipping ranged and magic accuracy.
+-------------------------------------------------------------------------------
+-- Accuracy: /checkparam results remembered per buff + gear state
+--
+-- Accuracy isn't in any status packet, and it changes with every song, bubble, food or gear
+-- piece. So each /checkparam result is stored under a signature of your current buffs and
+-- equipped items. When you return to a known state it's reused; in an unknown state rows get
+-- no Accuracy (never a stale one), and with autocheck on, /checkparam is run once the state
+-- has settled, with its output hidden.
+-------------------------------------------------------------------------------
+
+local EQUIP_SLOTS = { 'main', 'sub', 'range', 'ammo', 'head', 'neck', 'left_ear', 'right_ear', 'body',
+                      'hands', 'left_ring', 'right_ring', 'back', 'waist', 'legs', 'feet' }
+local ACC_TTL = 600            -- remembered Accuracy expires after 10 minutes (potencies drift)
+local AUTOCHECK_SETTLE = 3     -- seconds the state must be unchanged before an automatic check
+local AUTOCHECK_GAP = 20       -- minimum seconds between automatic checks
+local CHECK_WINDOW = 4         -- seconds after /checkparam during which results are captured
+
+-- /checkparam result messages, found from Windower's message templates: anything that reports
+-- a number next to Accuracy, Attack, Evasion or Defense.
+local CHECK_MSG = {}
+for id, message in pairs(res.action_messages or {}) do
+    local text = message.en and message.en:lower()
+    if text and text:find('${number}', 1, true) then
+        local acc = text:find('accuracy', 1, true)
+        if acc or text:find('attack', 1, true) or text:find('evasion', 1, true) or text:find('defense', 1, true) then
+            local before = acc and text:sub(math.max(1, acc - 8), acc - 1) or ''
+            local melee_acc = acc and not before:find('ranged', 1, true) and not before:find('magic', 1, true)
+            local att = text:find('attack', 1, true)
+            CHECK_MSG[id] = { melee_acc = melee_acc and true or false, acc_first = melee_acc and (not att or acc < att) }
+        end
+    end
+end
+
+local function signature()
+    local player = windower.ffxi.get_player()
+    if not player then return nil end
+    local buffs = {}
+    for _, id in ipairs(player.buffs or {}) do buffs[#buffs + 1] = id end
+    table.sort(buffs)
+    local gear = {}
+    local equipment = windower.ffxi.get_items('equipment') or {}
+    for i, slot in ipairs(EQUIP_SLOTS) do
+        local index = equipment[slot]
+        local item = index and index ~= 0 and windower.ffxi.get_items(equipment[slot .. '_bag'], index)
+        gear[i] = item and item.id or 0
+    end
+    return table.concat(buffs, '.') .. '|' .. table.concat(gear, '.')
+end
+
+local function use_cached_accuracy()
+    local known = state.sig and state.acc_cache[state.sig]
+    if known and socket.gettime() - known.t <= ACC_TTL then
+        state.accuracy, state.acc_sub = known.main, known.sub
+    else
+        state.accuracy, state.acc_sub = nil, nil
+    end
+end
+
+local function open_check(hide)
+    state.check = { sig = state.sig, t = socket.gettime(), hide = hide, parts = {} }
+end
+
+local function check_open()
+    return state.check and socket.gettime() - state.check.t <= CHECK_WINDOW
+end
+
+local function record_accuracy(value, source)
+    local check = state.check
+    if not check or check.sig ~= state.sig then return end   -- state changed mid-check: discard
+    check.parts[#check.parts + 1] = value
+    local main, sub = check.parts[1], check.parts[2]
+    state.acc_cache[check.sig] = { main = main, sub = sub, t = socket.gettime() }
+    use_cached_accuracy()
+    if not check.hide and #check.parts == 1 then
+        windower.add_to_chat(207, ('SortieLog: accuracy %d recorded for this buff/gear state (%s)'):format(main, source))
+    end
+end
+
+-- Pulls melee Accuracy numbers out of /checkparam chat text, skipping ranged and magic accuracy.
 local function parse_accuracy(text)
     local lower = text:lower():gsub(',', '')
     local found = {}
@@ -673,19 +878,82 @@ local function parse_accuracy(text)
         end
         start = e + 1
     end
-    return found[1], found[2]
+    return found
 end
 
+-- 0x029 message packets: capture (and, for automatic checks, hide) /checkparam results.
+local function handle_check_packet(data)
+    if not check_open() then return false end
+    local packet = packets.parse('incoming', data)
+    local info = packet and CHECK_MSG[packet.Message]
+    if not info or packet.Actor ~= state.me_id then return false end
+    state.check.via_packet = true
+    if info.melee_acc then
+        record_accuracy(info.acc_first and packet['Param 1'] or packet['Param 2'], 'checkparam')
+    end
+    return state.check.hide
+end
+
+-- Chat text fallback, and hiding of text lines from automatic checks.
 local function handle_incoming_text(text)
-    if not text or not text:lower():find('accuracy', 1, true) then return end
+    if not text or not check_open() then return false end
+    local lower = text:lower()
+    local is_check = lower:find('accuracy', 1, true) or lower:find('evasion', 1, true)
+        or lower:find('defense', 1, true) or (lower:find('attack', 1, true) and lower:find('%d'))
+    if not is_check then return false end
     local player = windower.ffxi.get_player()
-    if not player or not text:find(player.name, 1, true) then return end
-    local main, sub = parse_accuracy(text)
-    if not main then return end
-    state.accuracy = main
-    if sub then state.acc_sub = sub end
-    windower.add_to_chat(207, ('SortieLog: accuracy main %d%s (from /checkparam)'):format(
-        main, sub and (' sub ' .. sub) or ''))
+    if not player or not text:find(player.name, 1, true) then return false end
+    if not state.check.via_packet then
+        for _, value in ipairs(parse_accuracy(text)) do record_accuracy(value, 'checkparam text') end
+    end
+    return state.check.hide
+end
+
+local function run_checkparam(hide)
+    open_check(hide)
+    state.last_autocheck = socket.gettime()
+    windower.chat.input('/checkparam <me>')
+end
+
+-- Called a few times a second: signature changes, automatic checks, luopan lifetimes.
+local function tick()
+    local now = socket.gettime()
+    if now - state.tick < 0.5 then return end
+    state.tick = now
+    local sig = signature()
+    if sig and sig ~= state.sig then
+        state.sig, state.sig_since = sig, now
+        use_cached_accuracy()
+    elseif state.accuracy and state.sig and state.acc_cache[state.sig]
+        and now - state.acc_cache[state.sig].t > ACC_TTL then
+        use_cached_accuracy()
+    end
+    local player = windower.ffxi.get_player()
+    if settings.autocheck and player and player.status == 1 and sig and not state.accuracy
+        and now - state.sig_since >= AUTOCHECK_SETTLE and now - state.last_autocheck >= AUTOCHECK_GAP
+        and not check_open() then
+        run_checkparam(true)
+    end
+
+    -- Geo bubbles last while the caster's luopan is alive.
+    local party = windower.ffxi.get_party() or {}
+    local pets = {}
+    for key, member in pairs(party) do
+        if type(member) == 'table' and type(key) == 'string' and key:match('^[pa]%d+$') and member.mob then
+            pets[member.mob.id] = member.mob.pet_index
+        end
+    end
+    for caster, geo in pairs(state.geo) do
+        local index = pets[caster]
+        local luopan = index and windower.ffxi.get_mob_by_index(index)
+        local alive = luopan and luopan.name == 'Luopan' and (luopan.hpp or 0) > 0
+        if alive then
+            geo.seen = true
+        elseif geo.seen or now - geo.t > 10 then
+            state.geo[caster] = nil
+            if geo.mob_id then clear_tag(geo.mob_id, 'geo:' .. caster, caster) end
+        end
+    end
 end
 
 -------------------------------------------------------------------------------
@@ -717,27 +985,45 @@ windower.register_event('outgoing chunk', function(id, data)
 end)
 
 windower.register_event('incoming chunk', function(id, data)
-    if id ~= 0x061 then return end
-    local ok, err = pcall(handle_char_stats, data)
-    if not ok then report_error(err) end
+    if id == 0x061 then
+        local ok, err = pcall(handle_char_stats, data)
+        if not ok then report_error(err) end
+    elseif id == 0x029 then
+        local ok, block = pcall(handle_check_packet, data)
+        if not ok then report_error(block) elseif block then return true end
+    end
 end)
 
 windower.register_event('incoming text', function(original)
-    local ok, err = pcall(handle_incoming_text, original)
-    if not ok then report_error(err) end
+    local ok, block = pcall(handle_incoming_text, original)
+    if not ok then report_error(block) elseif block then return true end
+end)
+
+windower.register_event('outgoing text', function(original)
+    if original and original:lower():find('^%s*/checkparam') and not check_open() then
+        open_check(false)   -- a /checkparam you typed: capture it too, and show it
+    end
 end)
 
 windower.register_event('zone change', function()
-    state.mob_status = {}
+    state.mob_tags, state.auras, state.geo, state.recent_ja = {}, {}, {}, {}
+    state.acc_cache, state.sig = {}, nil   -- new run: buff potencies may differ
+    state.accuracy, state.acc_sub = nil, nil
     state.ws_history = {}
     refresh_party(true)
 end)
 
 local http_error_reported = false
+local tick_error_reported = false
 windower.register_event('prerender', function()
     local ok, err = pcall(http_poll)
     if not ok and not http_error_reported then
         http_error_reported = true
+        report_error(err)
+    end
+    ok, err = pcall(tick)
+    if not ok and not tick_error_reported then
+        tick_error_reported = true
         report_error(err)
     end
 end)
@@ -769,8 +1055,16 @@ local function show_status()
         settings.http.enabled and 'on' or 'off', tostring(settings.http.url), settings.token == '' and 'missing' or 'set',
         #http.queue, http.sent, tostring(http.status)))
     say('flags: ' .. (names_from_set(state.flags) ~= '' and names_from_set(state.flags) or 'none'))
-    say(('attack %s | accuracy %s / %s | weapon %s'):format(tostring(state.attack), tostring(state.accuracy),
-        tostring(state.acc_sub), tostring(state.weapon)))
+    local cached = 0
+    for _ in pairs(state.acc_cache) do cached = cached + 1 end
+    say(('attack %s | accuracy %s / %s | weapon %s | autocheck %s | %d states measured'):format(
+        tostring(state.attack), tostring(state.accuracy or 'unknown for this state'), tostring(state.acc_sub),
+        tostring(state.weapon), settings.autocheck and 'on' or 'off', cached))
+    say('debuffs on target: ' .. (function()
+        local target = windower.ffxi.get_mob_by_target and windower.ffxi.get_mob_by_target('t')
+        local labels = target and tag_labels(target.id) or ''
+        return labels ~= '' and labels or 'none'
+    end)())
 end
 
 windower.register_event('addon command', function(command, ...)
@@ -828,9 +1122,18 @@ windower.register_event('addon command', function(command, ...)
         emit(row)
         say('flags: ' .. (row.detail ~= '' and row.detail or 'none'))
     elseif command == 'acc' and tonumber(args[1]) then
-        state.accuracy = tonumber(args[1])
-        state.acc_sub = tonumber(args[2]) or state.acc_sub
-        say(('accuracy main %d%s'):format(state.accuracy, state.acc_sub and (' sub ' .. state.acc_sub) or ''))
+        if state.sig then
+            state.acc_cache[state.sig] = { main = tonumber(args[1]), sub = tonumber(args[2]), t = socket.gettime() }
+        end
+        state.accuracy, state.acc_sub = tonumber(args[1]), tonumber(args[2])
+        say(('accuracy main %d%s for this buff/gear state'):format(state.accuracy,
+            state.acc_sub and (' sub ' .. state.acc_sub) or ''))
+    elseif command == 'checkparam' then
+        run_checkparam(false)
+    elseif command == 'autocheck' then
+        settings.autocheck = (args[1] or ''):lower() ~= 'off'
+        config.save(settings)
+        say('autocheck ' .. (settings.autocheck and 'on' or 'off'))
     elseif command == 'flags' then
         say('flags: ' .. (names_from_set(state.flags) ~= '' and names_from_set(state.flags) or 'none'))
     elseif command == 'note' then
@@ -847,6 +1150,6 @@ windower.register_event('addon command', function(command, ...)
         emit(row)
         say('test row written' .. (settings.udp.enabled and (' and sent to ' .. tostring(state.ip)) or ''))
     else
-        say('commands: status, http on|off, url <http://host>, token <key>|clear, flush, acc <main> [sub], udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
+        say('commands: status, http on|off, url <http://host>, token <key>|clear, flush, checkparam, autocheck on|off, acc <main> [sub], udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
     end
 end)
