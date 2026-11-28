@@ -138,6 +138,27 @@ class Store:
                 self._conn.commit()
         return changed
 
+    def latest_states(self, since):
+        """Each player's most recent own row against a target (hits, swings, weapon skills, or the
+        addon's status heartbeat), newer than `since`."""
+        sql = ("SELECT * FROM events WHERE id IN (SELECT MAX(id) FROM events WHERE is_me = 1 AND target IS NOT NULL "
+               "AND kind IN ('melee', 'melee_miss', 'ws', 'state') AND t >= ? GROUP BY uploader, actor)")
+        with self._lock:
+            return [dict(r) for r in self._conn.execute(sql, [since]).fetchall()]
+
+    def latest_ws(self, uploader, actor, since):
+        """A player's most recent weapon skill with Attack logged (its WS-set Attack)."""
+        sql = ("SELECT ws, attack, t FROM events WHERE kind = 'ws' AND is_me = 1 AND attack IS NOT NULL "
+               "AND uploader IS ? AND actor IS ? AND t >= ? ORDER BY id DESC LIMIT 1")
+        with self._lock:
+            row = self._conn.execute(sql, [uploader, actor, since]).fetchone()
+        return {"name": row[0], "attack": row[1], "t": row[2]} if row else None
+
+    def casts_on(self, target_id, since):
+        sql = "SELECT * FROM events WHERE kind = 'party_action' AND target_id = ? AND t >= ? ORDER BY t"
+        with self._lock:
+            return [dict(r) for r in self._conn.execute(sql, [target_id, since]).fetchall()]
+
     def count(self):
         with self._lock:
             return self._conn.execute("SELECT COUNT(*) FROM events").fetchone()[0]

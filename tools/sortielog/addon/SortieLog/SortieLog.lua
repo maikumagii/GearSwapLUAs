@@ -18,6 +18,10 @@ Commands (//slog ...):
   flag <name> [on|off]        Manual context flags (frailty, aria, sv_aria, ...).
   flags                       List active flags.  "flag clear" removes all.
   note <text>                 Write a free-text note row.
+  hud on|off                  In-game advice box for your target (drag to move).
+  lean on|off                 Don't upload per-hit rows for well-known targets (CSV keeps them).
+  automode on|off             Apply the suggested WeaponskillMode automatically.
+  profiles                    Refresh target profiles from the server now.
   checkparam                  Measure Accuracy now (/checkparam, output shown).
   autocheck on|off            Run /checkparam automatically (hidden) for new buff/gear states.
   acc <main> [sub]            Set Accuracy by hand for the current buff/gear state.
@@ -27,10 +31,11 @@ Commands (//slog ...):
 
 _addon.name = 'SortieLog'
 _addon.author = 'Kalali'
-_addon.version = '0.5.0'
+_addon.version = '0.6.0'
 _addon.commands = { 'slog', 'sortielog' }
 
 local config = require('config')
+local texts = require('texts')
 local res = require('resources')
 local packets = require('packets')
 local socket = require('socket')
@@ -50,6 +55,11 @@ local defaults = {
     token = '',     -- your player key (sent as X-Token)
     csv = true,
     autocheck = true,   -- run /checkparam (hidden) when buffs/gear reach an unmeasured state
+    hud = { enabled = true, pos = { x = 400, y = 300 }, bg = { alpha = 170 },
+            text = { size = 10, font = 'Consolas' }, flags = { draggable = true } },
+    lean = false,       -- don't upload per-hit rows for targets the server already knows well
+    automode = false,   -- apply the suggested WeaponskillMode automatically
+    modes = { below = 'Match', below_acc = 'Acc', capped = 'HighBuff', capped_acc = 'HighBuffAcc' },
     log_party = true,
     log_melee = true,
     only_targets = '', -- comma-separated monster names; empty logs every monster
@@ -79,6 +89,10 @@ local state = {
     last_autocheck = 0,
     check = nil,         -- open /checkparam capture window { sig, t, hide, parts }
     tick = 0,
+    last_ws = nil,       -- { name, attack, t }: Attack when your last weapon skill landed (WS set)
+    advice = nil,
+    suggested = nil, suggested_since = 0, applied_mode = nil,
+    last_heartbeat = 0,
     ws_history = {},     -- [mob_id] = { ws names, most recent last }
     flags = {},          -- [flag] = true
     attack = nil,        -- main-hand Attack from the 0x061 status packet
@@ -253,11 +267,68 @@ local function http_note(status, text)
     http.warned = text and status or nil
 end
 
-local function http_finish(ok, detail)
+-- Target profiles from the server (/api/profiles.txt): base DEF/EVA and measured debuff effects,
+-- so advice can be worked out here every frame without asking the server.
+local PROFILE_SECONDS = 120
+local profiles = {}            -- [target name] = { def, eva, eva_max, level, confident, def_effects, eva_effects, base_includes }
+local profiles_meta = { fetched = 0, next = 0, count = 0, status = 'not fetched' }
+
+local function parse_effects(text, out)
+    for pair in (text or ''):gmatch('[^;]+') do
+        local tag, value = pair:match('^(.-)=([%-%d%.]+)$')
+        if tag then out[tag] = tonumber(value) end
+    end
+    return out
+end
+
+local function parse_profiles(body)
+    local parsed, count = {}, 0
+    for line in body:gmatch('[^\n]+') do
+        local f = {}
+        for field in (line .. '\t'):gmatch('([^\t]*)\t') do f[#f + 1] = field end
+        if #f >= 6 and f[1] ~= '' then
+            local includes = {}
+            for tag in (f[9] or ''):gmatch('[^;]+') do includes[tag] = true end
+            parsed[f[1]] = { def = tonumber(f[2]), eva = tonumber(f[3]), eva_max = tonumber(f[4]),
+                             level = tonumber(f[5]) or 0, confident = f[6] == '1',
+                             def_effects = parse_effects(f[7], {}), eva_effects = parse_effects(f[8], {}),
+                             base_includes = includes }
+            count = count + 1
+        end
+    end
+    return parsed, count
+end
+
+local function dechunk(body)
+    local out, pos = {}, 1
+    while true do
+        local line_end = body:find('\r\n', pos, true)
+        if not line_end then break end
+        local size = tonumber(body:sub(pos, line_end - 1):match('^%x+') or '', 16)
+        if not size or size == 0 then break end
+        out[#out + 1] = body:sub(line_end + 2, line_end + 1 + size)
+        pos = line_end + 2 + size + 2
+    end
+    return table.concat(out)
+end
+
+local function http_finish(ok, detail, code, body)
     local request = http.request
     http.request = nil
     if request and request.tcp then pcall(request.tcp.close, request.tcp) end
     local now = socket.gettime()
+    if request and request.kind == 'profiles' then
+        if ok then
+            local parsed, count = parse_profiles(body or '')
+            profiles, profiles_meta.count = parsed, count
+            profiles_meta.fetched, profiles_meta.status = now, ('%d targets'):format(count)
+            profiles_meta.next = now + PROFILE_SECONDS
+        else
+            profiles_meta.status = 'fetch failed: ' .. tostring(detail)
+            profiles_meta.next = now + 60
+        end
+        return
+    end
     if ok then
         local rest = {}
         for i = request.count + 1, #http.queue do rest[#rest + 1] = http.queue[i] end
@@ -275,25 +346,44 @@ local function http_finish(ok, detail)
     end
 end
 
-local function http_start()
+local function http_open(kind, data, count)
     local target = http.target
-    local count = math.min(#http.queue, HTTP_MAX_BATCH)
-    local lines = {}
-    for i = 1, count do lines[i] = http.queue[i] end
-    local body = table.concat(COLUMNS, ',') .. '\n' .. table.concat(lines, '\n') .. '\n'
-    local host = target.port == 80 and target.host or (target.host .. ':' .. target.port)
-    local data = ('POST %s/ingest/csv HTTP/1.1\r\nHost: %s\r\nContent-Type: text/csv; charset=utf-8\r\n'
-        .. 'X-Token: %s\r\nUser-Agent: SortieLog/%s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n'):format(
-        target.base, host, (settings.token:gsub('^%s+', ''):gsub('%s+$', '')), _addon.version, #body) .. body
     local tcp = socket.tcp()
     tcp:settimeout(0)
-    http.request = { tcp = tcp, data = data, sent = 0, buffer = '', count = count,
+    http.request = { kind = kind, tcp = tcp, data = data, sent = 0, buffer = '', count = count or 0,
                      phase = 'connect', started = socket.gettime() }
-    http.last_send = socket.gettime()
     local ok, err = tcp:connect(target.ip, target.port)
     if not ok and err ~= 'timeout' and err ~= 'Operation already in progress' then
         http_finish(false, 'connect failed: ' .. tostring(err))
     end
+end
+
+local function host_header()
+    local target = http.target
+    return target.port == 80 and target.host or (target.host .. ':' .. target.port)
+end
+
+local function key()
+    return (settings.token:gsub('^%s+', ''):gsub('%s+$', ''))
+end
+
+local function http_start()
+    local count = math.min(#http.queue, HTTP_MAX_BATCH)
+    local lines = {}
+    for i = 1, count do lines[i] = http.queue[i] end
+    local body = table.concat(COLUMNS, ',') .. '\n' .. table.concat(lines, '\n') .. '\n'
+    local data = ('POST %s/ingest/csv HTTP/1.1\r\nHost: %s\r\nContent-Type: text/csv; charset=utf-8\r\n'
+        .. 'X-Token: %s\r\nUser-Agent: SortieLog/%s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n'):format(
+        http.target.base, host_header(), key(), _addon.version, #body) .. body
+    http.last_send = socket.gettime()
+    http_open('upload', data, count)
+end
+
+local function profiles_start()
+    profiles_meta.next = socket.gettime() + 30   -- guard; set properly when it finishes
+    local data = ('GET %s/api/profiles.txt HTTP/1.1\r\nHost: %s\r\nUser-Agent: SortieLog/%s\r\n'
+        .. 'Connection: close\r\n\r\n'):format(http.target.base, host_header(), _addon.version)
+    http_open('profiles', data)
 end
 
 local function http_step()
@@ -319,13 +409,24 @@ local function http_step()
         if request.sent >= #request.data then request.phase = 'receive' end
         return
     end
-    -- receive: only the status line matters
     local chunk, err, partial = tcp:receive(4096)
     request.buffer = request.buffer .. (chunk or partial or '')
     local code = tonumber(request.buffer:match('^HTTP/%d%.%d (%d%d%d)'))
+    local closed = err and err ~= 'timeout'
+    if request.kind == 'profiles' then
+        -- Needs the whole body: read until the server closes (Connection: close).
+        if not closed then return end
+        if not code or code < 200 or code >= 300 then
+            return http_finish(false, 'HTTP ' .. tostring(code))
+        end
+        local head_end = request.buffer:find('\r\n\r\n', 1, true)
+        local headers = head_end and request.buffer:sub(1, head_end) or ''
+        local body = head_end and request.buffer:sub(head_end + 4) or ''
+        if headers:lower():find('transfer%-encoding:%s*chunked') then body = dechunk(body) end
+        return http_finish(true, nil, code, body)
+    end
     if code and code >= 200 and code < 300 then return http_finish(true) end
     -- For errors, wait for the headers (or the close) so the message can say who answered.
-    local closed = err and err ~= 'timeout'
     if code and (request.buffer:find('\r\n\r\n', 1, true) or closed) then
         local server = request.buffer:match('\r\n[Ss]erver:%s*([^\r\n]+)') or 'unknown server'
         local where = (' from %s at %s'):format(server, http.target and http.target.ip or '?')
@@ -340,13 +441,16 @@ end
 local function http_poll()
     if not settings.http.enabled then return end
     if http.request then return http_step() end
-    if #http.queue == 0 then return end
     local now = socket.gettime()
-    if now < http.next_attempt or now - http.last_send < HTTP_FLUSH_SECONDS then return end
     if not http.target and (now - http.last_resolve < 30 or not http_resolve()) then
-        http.next_attempt = now + 30
+        http.next_attempt = math.max(http.next_attempt, now + 30)
         return
     end
+    if (settings.hud.enabled or settings.lean or settings.automode) and now >= profiles_meta.next then
+        return profiles_start()
+    end
+    if #http.queue == 0 then return end
+    if now < http.next_attempt or now - http.last_send < HTTP_FLUSH_SECONDS then return end
     if settings.token == '' then
         http_note('no key', 'no key set (//slog token <key>)')
         http.next_attempt = now + 30
@@ -365,6 +469,8 @@ local function http_enqueue(line)
     end
 end
 
+local LEAN_KINDS = { melee = true, melee_miss = true, ranged = true, ranged_miss = true }
+
 local function emit(row)
     state.seq = state.seq + 1
     row.v = SCHEMA_VERSION
@@ -375,7 +481,11 @@ local function emit(row)
         state.file:write(line, '\n')
         state.file:flush()
     end
-    if settings.http.enabled then http_enqueue(line) end
+    -- Lean mode: per-hit rows against targets that are already well known stay in the CSV only.
+    local known = row.target and profiles[row.target] and profiles[row.target].confident
+    if settings.http.enabled and not (settings.lean and known and LEAN_KINDS[row.kind]) then
+        http_enqueue(line)
+    end
     if settings.udp.enabled and state.ip then
         pcall(udp.sendto, udp, json_encode(row), state.ip, settings.udp.port)
     end
@@ -642,7 +752,10 @@ local function handle_action(act)
             and socket.gettime() - state.pending_ws.t < 8 then
             tp = state.pending_ws.tp
         end
-        if is_me then state.pending_ws = nil end
+        if is_me then
+            state.pending_ws = nil
+            if state.attack then state.last_ws = { name = ws.en, attack = state.attack, t = socket.gettime() } end
+        end
         local remembered = {}
         for _, target in ipairs(act.targets) do
             local mob = monster_target(target.id)
@@ -1009,6 +1122,162 @@ local function tick()
 end
 
 -------------------------------------------------------------------------------
+-- In-game advice (same arithmetic as the server's advice.py)
+-------------------------------------------------------------------------------
+
+local PDIF_CAP = { ['1h'] = 3.25, h2h = 3.5, gkt = 3.5, ['2h'] = 3.75, scythe = 4.0 }
+local CLASS = { Dagger = '1h', Sword = '1h', Axe = '1h', Katana = '1h', Club = '1h', ['Hand-to-Hand'] = 'h2h',
+                ['Great Katana'] = 'gkt', ['Great Sword'] = '2h', ['Great Axe'] = '2h', Polearm = '2h',
+                Staff = '2h', Scythe = 'scythe' }
+local MAIN_HIT_CAP = { ['1h'] = 99, h2h = 99, gkt = 95, ['2h'] = 95, scythe = 95 }
+local CAP_MARGIN = 0.03
+local hud = texts.new('', settings.hud)
+
+local function effect_of(tag, effects)
+    if effects[tag] then return effects[tag] end
+    return effects[tag:match('^([^+]*)')]
+end
+
+local function fmt(n)
+    local s = tostring(math.floor(n + 0.5))
+    return (s:reverse():gsub('(%d%d%d)', '%1,'):reverse():gsub('^,', ''))
+end
+
+local function advise(profile, mob)
+    local a = { lines = {} }
+    local tags = {}
+    for tag in tag_labels(mob.id):gmatch('[^;]+') do tags[#tags + 1] = tag end
+    local class = CLASS[state.weapon or ''] or '1h'
+    local cap = PDIF_CAP[class]
+    local cap_ratio = cap + 0.375
+    local correction = 0.05 * (profile.level or 0)
+
+    if profile.def and state.attack then
+        local defense = profile.def
+        for _, tag in ipairs(tags) do
+            local effect = effect_of(tag, profile.def_effects)
+            if effect then defense = defense * (1 + effect / 100) end
+        end
+        a.def_now = defense
+        local for_cap = (cap_ratio + correction) * defense
+        local ratio = state.attack / defense - correction
+        if ratio < cap_ratio then
+            a.lines[#a.lines + 1] = ('Melee ATK %s: %s short of pDIF cap'):format(fmt(state.attack), fmt(for_cap - state.attack))
+        else
+            a.lines[#a.lines + 1] = ('Melee pDIF capped: up to %d%% PDL useful'):format(
+                math.floor(math.max((ratio - 0.375) / cap - 1, 0) * 100 + 0.5))
+        end
+        local ws = state.last_ws
+        if ws then
+            local ws_ratio = ws.attack / defense - correction
+            if ws_ratio >= cap_ratio * (1 + CAP_MARGIN) then
+                a.ws_capped = true
+                a.lines[#a.lines + 1] = ('WS %s ATK %s: capped, up to %d%% PDL useful'):format(ws.name, fmt(ws.attack),
+                    math.floor(math.max((ws_ratio - 0.375) / cap - 1, 0) * 100 + 0.5))
+            elseif ws_ratio <= cap_ratio * (1 - CAP_MARGIN) then
+                a.ws_capped = false
+                a.lines[#a.lines + 1] = ('WS %s ATK %s: %s short of cap'):format(ws.name, fmt(ws.attack),
+                    fmt(for_cap - ws.attack))
+            end
+        end
+    end
+
+    local evasion, bound = profile.eva, false
+    if not evasion and profile.eva_max then evasion, bound = profile.eva_max, true end
+    if evasion then
+        for _, tag in ipairs(tags) do
+            local effect = effect_of(tag, profile.eva_effects)
+            if effect then evasion = evasion + effect end
+        end
+        local shift = 2 * (profile.level or 0)
+        local parts = {}
+        for _, hand in ipairs({ { 'main', state.accuracy, MAIN_HIT_CAP[class] }, { 'off', state.acc_sub, 95 } }) do
+            local name, acc, hit_cap = hand[1], hand[2], hand[3]
+            if acc and not (name == 'off' and class == 'h2h') then
+                local short = evasion + 2 * (hit_cap - 75 + shift) - acc
+                local rate = math.min(math.max(75 + (acc - evasion) / 2 - shift, 20), hit_cap)
+                if name == 'main' then a.acc_short = short > 0 end
+                if short > 0 then
+                    parts[#parts + 1] = ('%s %d%% %s+%s ACC'):format(name, math.floor(rate), bound and '<=' or '', fmt(short))
+                else
+                    parts[#parts + 1] = ('%s capped'):format(name)
+                end
+            end
+        end
+        if #parts > 0 then a.lines[#a.lines + 1] = 'Hit: ' .. table.concat(parts, ', ') end
+    end
+
+    if a.ws_capped ~= nil then
+        local key = (a.ws_capped and 'capped' or 'below') .. (a.acc_short and '_acc' or '')
+        a.mode = settings.modes[key]
+        a.lines[#a.lines + 1] = ('Suggest: gs c set WeaponskillMode %s%s'):format(a.mode,
+            settings.automode and ' (auto)' or '')
+    end
+    return a
+end
+
+local function hud_update()
+    local player = windower.ffxi.get_player()
+    local mob = windower.ffxi.get_mob_by_target and windower.ffxi.get_mob_by_target('t')
+    if not settings.hud.enabled or not player or not mob or not mob.is_npc or mob.spawn_type ~= 16 then
+        hud:hide()
+        state.advice = nil
+        return
+    end
+    local profile = profiles[mob.name]
+    if not profile then
+        hud:text(('%s: learning (no profile yet)'):format(mob.name))
+        hud:show()
+        state.advice = nil
+        return
+    end
+    local a = advise(profile, mob)
+    state.advice = a
+    local tags = tag_labels(mob.id)
+    local head = ('%s  DEF ~%s%s'):format(mob.name, a.def_now and fmt(a.def_now) or '?',
+        tags ~= '' and (' [' .. tags:gsub(';', ', ') .. ']') or '')
+    if not profile.confident then head = head .. ' (low confidence)' end
+    hud:text(head .. '\n' .. table.concat(a.lines, '\n'))
+    hud:show()
+end
+
+local function automode_step(now)
+    local mode = state.advice and state.advice.mode
+    if mode ~= state.suggested then
+        state.suggested, state.suggested_since = mode, now
+        return
+    end
+    if not settings.automode or not mode or mode == state.applied_mode then return end
+    if now - state.suggested_since < 8 then return end
+    if state.pending_ws and now - state.pending_ws.t < 3 then return end   -- not mid weapon skill
+    windower.send_command('gs c set WeaponskillMode ' .. mode)
+    state.applied_mode = mode
+    windower.add_to_chat(207, 'SortieLog: WeaponskillMode -> ' .. mode)
+end
+
+local function heartbeat(now)
+    -- In lean mode, per-hit rows aren't uploaded for known targets; a status row every 10 s keeps
+    -- the dashboard's live panel current.
+    if not settings.lean or now - state.last_heartbeat < 10 then return end
+    local player = windower.ffxi.get_player()
+    local mob = windower.ffxi.get_mob_by_target and windower.ffxi.get_mob_by_target('t')
+    if not player or player.status ~= 1 or not mob or not mob.is_npc or mob.spawn_type ~= 16 then return end
+    state.last_heartbeat = now
+    local row = base_row('state', state.me_id, player.name, mob)
+    emit(row)
+end
+
+local hud_tick = 0
+local function advice_tick()
+    local now = socket.gettime()
+    if now - hud_tick < 0.5 then return end
+    hud_tick = now
+    hud_update()
+    automode_step(now)
+    heartbeat(now)
+end
+
+-------------------------------------------------------------------------------
 -- Events
 -------------------------------------------------------------------------------
 
@@ -1062,6 +1331,7 @@ windower.register_event('zone change', function()
     state.acc_cache, state.sig = {}, nil   -- new run: buff potencies may differ
     state.accuracy, state.acc_sub = nil, nil
     state.ws_history = {}
+    profiles_meta.next = socket.gettime() + 5
     refresh_party(true)
 end)
 
@@ -1078,6 +1348,11 @@ windower.register_event('prerender', function()
         tick_error_reported = true
         report_error(err)
     end
+    ok, err = pcall(advice_tick)
+    if not ok and not tick_error_reported then
+        tick_error_reported = true
+        report_error(err)
+    end
 end)
 
 windower.register_event('load', 'login', function()
@@ -1088,7 +1363,10 @@ windower.register_event('load', 'login', function()
     if not state.session then open_session() end
 end)
 
-windower.register_event('unload', 'logout', close_file)
+windower.register_event('unload', 'logout', function()
+    close_file()
+    config.save(settings)   -- keeps the HUD where you dragged it
+end)
 
 -------------------------------------------------------------------------------
 -- Commands
@@ -1113,6 +1391,8 @@ local function show_status()
     say(('attack %s | accuracy %s / %s | weapon %s | autocheck %s | %d states measured'):format(
         tostring(state.attack), tostring(state.accuracy or 'unknown for this state'), tostring(state.acc_sub),
         tostring(state.weapon), settings.autocheck and 'on' or 'off', cached))
+    say(('profiles %s | hud %s | lean %s | automode %s'):format(profiles_meta.status,
+        settings.hud.enabled and 'on' or 'off', settings.lean and 'on' or 'off', settings.automode and 'on' or 'off'))
     say(('main %s (DMG %s) | sub %s (DMG %s)'):format(tostring(state.main_weapon), tostring(state.main_dmg),
         tostring(state.sub_weapon), tostring(state.sub_dmg)))
     say('debuffs on target: ' .. (function()
@@ -1183,6 +1463,23 @@ windower.register_event('addon command', function(command, ...)
         state.accuracy, state.acc_sub = tonumber(args[1]), tonumber(args[2])
         say(('accuracy main %d%s for this buff/gear state'):format(state.accuracy,
             state.acc_sub and (' sub ' .. state.acc_sub) or ''))
+    elseif command == 'hud' then
+        settings.hud.enabled = (args[1] or ''):lower() ~= 'off'
+        config.save(settings)
+        if not settings.hud.enabled then hud:hide() end
+        say('HUD ' .. (settings.hud.enabled and 'on' or 'off'))
+    elseif command == 'lean' then
+        settings.lean = (args[1] or ''):lower() == 'on'
+        config.save(settings)
+        say('lean ' .. (settings.lean and 'on: per-hit rows for well-known targets stay in the CSV' or 'off'))
+    elseif command == 'automode' then
+        settings.automode = (args[1] or ''):lower() == 'on'
+        config.save(settings)
+        state.applied_mode = nil
+        say('automode ' .. (settings.automode and 'on: WeaponskillMode follows the suggestion' or 'off'))
+    elseif command == 'profiles' then
+        profiles_meta.next = 0
+        say(('profiles: %s, refreshing'):format(profiles_meta.status))
     elseif command == 'checkparam' then
         run_checkparam(false)
     elseif command == 'autocheck' then
@@ -1205,6 +1502,6 @@ windower.register_event('addon command', function(command, ...)
         emit(row)
         say('test row written' .. (settings.udp.enabled and (' and sent to ' .. tostring(state.ip)) or ''))
     else
-        say('commands: status, http on|off, url <http://host>, token <key>|clear, flush, checkparam, autocheck on|off, acc <main> [sub], udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
+        say('commands: status, hud on|off, lean on|off, automode on|off, profiles, http on|off, url <http://host>, token <key>|clear, flush, checkparam, autocheck on|off, acc <main> [sub], udp on|off, host <ip> [port], token <t>|clear, targets <names>, flag <name> [on|off], flags, note <text>, new, test')
     end
 end)

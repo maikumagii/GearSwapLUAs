@@ -22,9 +22,11 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse
 
+from .advice import advise, build_profiles, profiles_text
 from .analysis import analyze, parse_tp_bonus
+from .model import infer_cast_debuffs
 from .schema import normalize
 from .store import Store
 
@@ -212,11 +214,7 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
     def analysis(request: Request, target: str | None = None, session: str | None = None,
                  uploader: str | None = None, minutes: float | None = None):
         store = request.app.state.store
-        with cache_lock:
-            if not getattr(request.app.state, "worker", None):
-                request.app.state.worker = threading.Thread(target=worker, args=(lambda: request.app.state.store,),
-                                                            daemon=True)
-                request.app.state.worker.start()
+        ensure_worker(request)
         args = (target, session, uploader, minutes)
         key = repr(args)
         now = time.time()
@@ -240,6 +238,66 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
             return {"status": "fitting", "pending": pending, "progress": fitting, "targets": [], "def_fits": [],
                     "eva_fits": [], "ws": [], "melee": [], "rows": None}
         return dict(entry[2], stale=stale, pending=pending, progress=fitting)
+
+    FULL = repr((None, None, None, None))
+
+    def full_result(store):
+        """The all-data analysis (queued for a refit like the dashboard's), or None while fitting."""
+        now = time.time()
+        with cache_lock:
+            entry = cache.get(FULL)
+            stale = entry is None or entry[0] != signature(store)
+            if stale and FULL not in queued and (entry is None or now - entry[1] > 15):
+                queued.add(FULL)
+                work.put((FULL, (None, None, None, None)))
+        return entry[2] if entry else None
+
+    def ensure_worker(request):
+        with cache_lock:
+            if not getattr(request.app.state, "worker", None):
+                request.app.state.worker = threading.Thread(target=worker, args=(lambda: request.app.state.store,),
+                                                            daemon=True)
+                request.app.state.worker.start()
+
+    @app.get("/api/profiles")
+    def profiles(request: Request):
+        ensure_worker(request)
+        result = full_result(request.app.state.store)
+        return {"status": "fitting" if result is None else "ok",
+                "profiles": build_profiles(result) if result else {}}
+
+    @app.get("/api/profiles.txt", response_class=PlainTextResponse)
+    def profiles_txt(request: Request):
+        """Compact profiles for the addon's in-game display."""
+        ensure_worker(request)
+        result = full_result(request.app.state.store)
+        return profiles_text(build_profiles(result)) if result else ""
+
+    @app.get("/api/live")
+    def live(request: Request, minutes: float = 15):
+        """Each player's latest state with advice against the target's profile."""
+        ensure_worker(request)
+        store = request.app.state.store
+        result = full_result(store)
+        known = build_profiles(result) if result else {}
+        out = []
+        for state in store.latest_states(time.time() - minutes * 60):
+            casts = store.casts_on(state["target_id"], state["t"] - 200) if state.get("target_id") is not None else []
+            rebuilt, _ = infer_cast_debuffs(casts + [state])   # rebuild Dia from recent casts
+            state = rebuilt[-1]
+            entry = {"player": state.get("actor"), "uploader": state.get("uploader"), "target": state.get("target"),
+                     "t": state.get("t"), "age": time.time() - state["t"], "context": state.get("mob_status") or "none",
+                     "attack": state.get("attack"), "accuracy": state.get("accuracy"), "acc_sub": state.get("acc_sub"),
+                     "weapon": state.get("weapon")}
+            profile = known.get(state.get("target"))
+            if profile:
+                entry["profile"] = {k: profile[k] for k in ("def", "eva", "eva_max", "confident", "def_confidence")}
+                ws = store.latest_ws(state.get("uploader"), state.get("actor"), time.time() - minutes * 60)
+                entry["advice"] = advise(profile, state, ws)
+            else:
+                entry["advice"] = None
+            out.append(entry)
+        return {"status": "fitting" if result is None else "ok", "players": out}
 
     @app.get("/", response_class=HTMLResponse)
     def dashboard():

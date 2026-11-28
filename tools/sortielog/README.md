@@ -98,6 +98,40 @@ server can work out each one's real effect later:
 Still manual: effects that never show up as a message, such as Aria of Passion and Soul Voice.
 Use `//slog flag aria` / `//slog flag sv_aria` for those.
 
+### In-game advice (HUD)
+Once the server has a profile for your target (confident base DEF, EVA or an EVA limit, and
+measured debuff effects), the addon downloads it (every 2 minutes, after zoning, or with
+`//slog profiles`). It then works out the advice itself twice a second, from your live
+Attack, Accuracy and the debuffs on the target, so there's no round trip:
+
+```
+Locus Dire Bat  DEF ~983 [Box Step lv5, Dia II]
+Melee ATK 1,667: 1,897 short of pDIF cap
+WS Ruthless Stroke ATK 2,275: 1,289 short of cap
+Hit: main capped, off capped
+Suggest: gs c set WeaponskillMode Match
+```
+
+- **Melee / WS lines:** below the cap they say how much Attack you're short. Damage-limit
+  (PDL) gear can't help yet, so Attack, WSD and Cornelia's are better. At the cap they say
+  "up to N% PDL useful", meaning how much total PDL (gear, Aria, aftermath) still pays off. WS
+  Attack is your WS set's, read when your last weapon skill landed.
+- **Hit:** your hit rate per hand against its cap (99% main 1H/H2H, 95% off hand and 2H), and
+  the Accuracy needed to reach it. "<=" means the EVA is only an upper limit.
+- **Suggest:** Match below the cap, HighBuff at the cap, and the Acc variants when your
+  main-hand Accuracy is short. There's a 3% dead band around the cap. WS-set Accuracy isn't
+  measured, so main-hand Accuracy stands in for it. The four mode names live in
+  `data/settings.xml` (`<modes>`) for jobs that name them differently.
+- `//slog automode on` applies the suggestion with `gs c set WeaponskillMode …`, but only after
+  it has held for 8 s, never mid weapon skill, and once per change.
+- `//slog hud off` hides the box. Drag it to move it; the position is saved.
+- **Unknown targets** show "learning (no profile yet)".
+
+`//slog lean on` stops uploading per-hit rows for targets whose profile is confident. They stay
+in your CSV, and a status row every 10 s keeps the dashboard's live panel current. It's off by
+default, because continued data still catches boss phase changes and debuffs that aren't
+tracked.
+
 ### During a run
 | When | Command |
 |---|---|
@@ -114,6 +148,10 @@ Use `//slog flag aria` / `//slog flag sv_aria` for those.
 | `//slog url <http://host[:port]>` | Server address (default `http://sortie.eventmoogle.com`) |
 | `//slog token <key>\|clear` | Your player key |
 | `//slog flush` | Send queued rows now |
+| `//slog hud on\|off` | In-game advice box for your target |
+| `//slog automode on\|off` | Apply the suggested WeaponskillMode automatically |
+| `//slog lean on\|off` | Don't upload per-hit rows for well-known targets |
+| `//slog profiles` | Refresh target profiles now |
 | `//slog checkparam` | Measure Accuracy now (output shown) |
 | `//slog autocheck on\|off` | Automatic hidden `/checkparam` for new buff/gear states (default on) |
 | `//slog acc <main> [sub]` | Set Accuracy by hand for the current buff/gear state |
@@ -267,6 +305,8 @@ Each player's rows are tagged with their key's name, and the analysis never mixe
 | GET | `/api/analysis?uploader=&session=&target=&minutes=` | Spread and attack-check summaries |
 | GET | `/api/events?kind=ws,melee&uploader=&target=&session=&after_id=&limit=` | Raw rows |
 | GET | `/api/sessions`, `/api/targets`, `/api/uploaders` | Filters |
+| GET | `/api/profiles`, `/api/profiles.txt` | Target profiles (the `.txt` form is what the addon reads) |
+| GET | `/api/live?minutes=15` | Each player's latest state with advice and a suggested WeaponskillMode |
 | GET | `/health` | Row and rejected-packet counts |
 
 ## Optional: LAN-only UDP push

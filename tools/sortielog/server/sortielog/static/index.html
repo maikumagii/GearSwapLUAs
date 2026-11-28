@@ -51,6 +51,13 @@
 </header>
 <div id="progress" hidden><div class="bar"><div id="progress-fill"></div></div><span id="progress-text"></span></div>
 <main>
+  <h2>Live (each player's latest state)</h2>
+  <div class="wrap"><table id="live"><thead><tr>
+    <th class="l">Player</th><th class="l">Target</th><th class="l">Debuffs up</th><th>DEF now</th>
+    <th class="l">Melee</th><th class="l">Weapon skill</th><th class="l">Hit rate</th><th class="l">Suggested</th><th>Age</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="note">Uses each target's profile (base DEF/EVA and measured debuff effects) with your latest Attack, Accuracy and the debuffs on it. WS Attack is your WS set's, read when your last weapon skill landed. The addon shows the same advice in game.</p>
+
   <h2>Per-target summary</h2>
   <div class="wrap"><table id="targets"><thead><tr>
     <th class="l">Target</th><th>Base DEF (90% range)</th><th>±5% conf.</th><th>Hits</th>
@@ -142,7 +149,29 @@ function showProgress(p) {
   $("progress-text").title = $("progress-text").textContent;
 }
 
+async function refreshLive() {
+  let live;
+  try { live = await (await fetch("api/live")).json(); } catch (e) { return; }
+  fill("live", live.players || [], (p) => {
+    const a = p.advice;
+    if (!a) return [td(p.player, "l"), td(p.target, "l"), td(p.context, "l"), td("–"),
+      td("learning: no confident profile yet", "l muted"), td("–", "l"), td("–", "l"), td("–", "l"), td(`${fmt(p.age)}s`)];
+    const melee = a.ratio == null ? "–" : a.attack_short > 0
+      ? `ATK ${fmt(a.attack)} · ${fmt(a.attack_short)} short of cap` : `ATK ${fmt(a.attack)} · capped, PDL ≤ ${fmt(a.pdl_useful)}%`;
+    const ws = a.ws_attack == null ? "–" : a.ws_capped
+      ? `${a.ws_name} ATK ${fmt(a.ws_attack)} · capped, PDL ≤ ${fmt(a.ws_pdl_useful)}%`
+      : `${a.ws_name} ATK ${fmt(a.ws_attack)} · ${fmt(a.ws_attack_short)} short`;
+    const hand = (h) => a[`hit_${h}`] == null ? null : a[`acc_short_${h}`] > 0
+      ? `${h} ${fmt(a[`hit_${h}`])}% (+${fmt(a[`acc_short_${h}`])} ACC)` : `${h} capped`;
+    const hits = [hand("main"), hand("off")].filter(Boolean).join(" · ") || "Accuracy not measured";
+    return [td(p.player, "l"), td(p.target, "l"), td(p.context, "l"), td(fmt(a.def_now)),
+      td(melee, (a.attack_short > 0 ? "warn" : "good") + " l"), td(ws, "l"), td(hits, "l"),
+      td(a.ws_command ? a.ws_command : "–", "l"), td(`${fmt(p.age)}s`)];
+  }, "No player has logged hits in the last 15 minutes.", 9);
+}
+
 async function refresh() {
+  refreshLive();
   const params = new URLSearchParams();
   for (const id of ["uploader", "session", "target", "minutes"]) if ($(id).value) params.set(id, $(id).value);
   let data;
