@@ -88,7 +88,13 @@ def main(argv=None):
         for c in f.get("contexts", []):
             z = "-" if c["z"] is None else f"z={c['z']:+.1f}"
             print(f"    segment {c['context'][:40]:40} {c['hits']}/{c['swings']} hits, expected {c['expected_hits']:.1f}  {z} {c['check'] or ''}")
-    print(f"\nAccuracy filled in for {result['accuracy_filled']} rows. "
+    if result.get("anomalies"):
+        print("\nAnomalies (groups that read off from the fit)")
+        for a in result["anomalies"]:
+            unit = "%" if a["kind"] == "DEF" else ""
+            print(f"  {a['target']} {a['kind']} {a['factor']}: {a['bucket']} n={a['n']} {a['size']:+.1f}{unit} "
+                  f"({a['low']:+.1f}..{a['high']:+.1f}) p={a['p']:.0e} -> {a['cause']}")
+    print(f"\nDia inferred from casts on {result['dia_inferred']} rows. Accuracy filled in for {result['accuracy_filled']} rows. "
           f"Level correction: {'off' if not args.level_diff else f'on ({args.level_diff} levels)'}")
 
 if __name__ == "__main__":

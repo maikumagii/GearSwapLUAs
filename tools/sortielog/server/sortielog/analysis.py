@@ -9,7 +9,8 @@ is attack sensitivity: if damage rises with more attack buffs, you are not cappe
 from collections import defaultdict
 from statistics import median
 
-from .model import fill_accuracy, fit_defense, fit_evasion, summarize
+from .model import (batch_anomalies, cast_timelines, fill_accuracy, fit_defense, fit_evasion,
+                    infer_cast_debuffs, summarize)
 from .schema import split_list
 
 DAMAGE_CAP = 99999
@@ -125,13 +126,20 @@ def _attack_sensitivity(samples):
     }
 
 
-def analyze(rows, tp_bonus=None, level_diff=0):
-    """rows: iterable of normalized dicts. Returns WS and melee group summaries."""
+def analyze(rows, tp_bonus=None, level_diff=0, progress=None):
+    """progress(text, fraction) is called as the analysis goes, for the dashboard's progress bar."""
+    def stage(start, end):
+        if not progress:
+            return None
+        return lambda text, fraction: progress(text, start + (end - start) * fraction)
+
+    if progress:
+        progress("weapon skill and melee spreads", 0.0)
     tp_bonus = tp_bonus or {}
     ws_groups = defaultdict(lambda: {"values": [], "samples": [], "capped_hits": 0})
     melee_groups = defaultdict(list)
 
-    rows = list(rows)
+    rows, dia_tagged = infer_cast_debuffs(list(rows))
     for row in rows:
         kind, damage = row.get("kind"), row.get("damage")
         if not row.get("is_me") or not damage or damage <= 0:
@@ -173,14 +181,20 @@ def analyze(rows, tp_bonus=None, level_diff=0):
         melee_out.append(entry)
 
     rows, filled = fill_accuracy(rows)
-    def_fits = fit_defense(rows, level_diff)
-    eva_fits = fit_evasion(rows, level_diff)
+    def_fits = fit_defense(rows, level_diff, stage(0.05, 0.85))
+    eva_fits = fit_evasion(rows, level_diff, stage(0.85, 1.0))
+    anomalies = batch_anomalies(def_fits, eva_fits, cast_timelines(rows))
+    for fit in def_fits + eva_fits:   # per-hit curves are only needed for the anomaly scan
+        fit.pop("_kept", None)
+        fit.pop("_hit_curves", None)
     return {
         "ws": ws_out,
         "melee": melee_out,
         "targets": summarize(def_fits, eva_fits),
+        "anomalies": anomalies,
         "def_fits": def_fits,
         "eva_fits": eva_fits,
         "accuracy_filled": filled,
+        "dia_inferred": dia_tagged,
         "level_diff": level_diff,
     }

@@ -19,6 +19,7 @@ Each fight segment is checked against the fit, so data that doesn't match stands
 """
 
 import math
+import random
 import re
 from collections import Counter, defaultdict
 
@@ -217,13 +218,16 @@ SEARCH_RATIOS = (0.55, 0.75, 0.95, 1.15, 1.35, 1.6, 1.9, 2.3, 2.8, 3.4)
 SEARCH_DOUBLE_STARTS = (-1.4,)
 SEARCH_ITERS = (160, 400, 250)
 SEARCH_POLISH = 2
+SEARCH_SAMPLE = 300   # the broad search runs on this many hits; refinement uses all of them
 
 
-def fit_defense_one(samples, level_diff=0, weapon=None):
+def fit_defense_one(samples, level_diff=0, weapon=None, report=None):
     """Fits, then refits without the worst segment that doesn't fit (up to 3 times), so one
-    segment with an unseen debuff can't drag the base and make good segments look bad."""
+    segment with an unseen debuff can't drag the base and make good segments look bad.
+    report(text, fraction) is called as it goes, for progress display."""
     excluded = []
-    fit = _fit_defense_core(samples, level_diff, weapon)
+    say = (lambda text: (lambda f: report(text, f))) if report else (lambda text: None)
+    fit = _fit_defense_core(samples, level_diff, weapon, say("fitting"))
     for _ in range(MAX_EXCLUDED_SEGMENTS):
         if fit.get("status") != "estimate":
             break
@@ -239,9 +243,10 @@ def fit_defense_one(samples, level_diff=0, weapon=None):
         else:
             break
         best = None
-        for candidate in candidates:
+        for number, candidate in enumerate(candidates, 1):
             remaining = [s for s in samples if _label(s["tags"] - set(fit["folded"])) != candidate["context"]]
-            refit = _fit_defense_core(remaining, level_diff, weapon)
+            refit = _fit_defense_core(remaining, level_diff, weapon,
+                                      say(f"refitting without a segment that doesn't fit ({number}/{len(candidates)})"))
             if refit.get("status") != "estimate":
                 continue
             good = sum(1 for c in refit["contexts"] if c["fit_p"] is not None and c["fit_p"] >= BAD_FIT_P)
@@ -259,7 +264,86 @@ def fit_defense_one(samples, level_diff=0, weapon=None):
     return fit
 
 
-def _fit_defense_core(samples, level_diff=0, weapon=None):
+ANOMALY_MIN = 20          # hits (or swings) a group needs to be tested
+ANOMALY_ALPHA = 0.01      # family-wise false-alarm rate across all groups tested
+ANOMALY_GAP = 45          # seconds without a hit on that monster: a new engagement
+DEF_GRID = [x / 100 for x in range(-40, 41, 2)]   # extra log-multiplier on DEF, about -33% .. +49%
+EVA_GRID = list(range(-300, 301, 10))             # extra EVA
+SINCE_BUCKETS = [(0, 30), (30, 60), (60, 90), (90, 120), (120, 180), (180, None)]
+MIN_CASTS = 5             # an action needs this many casts on the target type to be a factor
+
+
+def _curve_summary(curve, grid):
+    """Best extra change on a likelihood curve, its 90% range, and the gain over no change."""
+    best_value = min(curve)
+    best = grid[curve.index(best_value)]
+    inside = [g for v, g in zip(curve, grid) if v <= best_value + NLL_90]
+    zero = curve[min(range(len(grid)), key=lambda i: abs(grid[i]))]
+    return best, min(inside), max(inside), zero - best_value
+
+
+def _engagements(samples):
+    """Start time of the engagement (no gap longer than ANOMALY_GAP on that monster) for each sample."""
+    order = sorted(range(len(samples)), key=lambda i: (samples[i].get("mob") or 0, samples[i]["t"]))
+    start, previous = {}, None
+    for i in order:
+        s = samples[i]
+        if previous is None or s.get("mob") != previous[0] or s["t"] - previous[1] > ANOMALY_GAP:
+            began = s["t"]
+        start[i] = began
+        previous = (s.get("mob"), s["t"])
+    return start
+
+
+def _bucket(seconds):
+    for low, high in SINCE_BUCKETS:
+        if high is None or seconds < high:
+            return f"{low}+ s" if high is None else f"{low}-{high} s"
+    return None
+
+
+def _factor_groups(samples, casts):
+    """Groups samples by observed factors that could hide a missing debuff: seconds since each
+    party action on that monster, the monster's HP, and seconds into the engagement."""
+    groups = defaultdict(list)
+    names = Counter(name for history in casts.values() for _, name in history)
+    started = _engagements(samples)
+    for i, s in enumerate(samples):
+        history = casts.get(s.get("mob"), [])
+        for name, count in names.items():
+            if count < MIN_CASTS:
+                continue
+            landed = [t for t, n in history if n == name and t <= s["t"]]
+            label = _bucket(s["t"] - landed[-1]) if landed else "never on this monster"
+            groups[(f"since {name}", label)].append(i)
+        hpp = s.get("hpp")
+        if hpp is not None:
+            groups[("monster HP", f"{min(hpp // 25 * 25, 75)}-{min(hpp // 25 * 25, 75) + 25}%")].append(i)
+        groups[("into the fight", _bucket(s["t"] - started[i]))].append(i)
+    return groups
+
+
+def scan_factors(samples, hit_curves, grid, casts, to_size):
+    """Tests every factor group for an extra DEF/EVA change. Groups are formed from observed
+    factors only (never from which samples look odd), and the bar is corrected for the number of
+    groups tested, so chance deviations aren't reported."""
+    groups = {k: v for k, v in _factor_groups(samples, casts).items() if len(v) >= ANOMALY_MIN}
+    if not groups:
+        return []
+    found = []
+    for (factor, bucket), members in groups.items():
+        curve = [sum(hit_curves[i][j] for i in members) for j in range(len(grid))]
+        best, low, high, gain = _curve_summary(curve, grid)
+        p = math.erfc(math.sqrt(max(gain, 0.0)))   # 2 x gain is chi-square with 1 degree of freedom
+        if p * len(groups) < ANOMALY_ALPHA:
+            found.append({"factor": factor, "bucket": bucket, "n": len(members), "size": to_size(best),
+                          "low": to_size(low), "high": to_size(high), "p": p * len(groups),
+                          "context": ";".join(sorted({t for i in members for t in samples[i]["tags"]})) or "none"})
+    found.sort(key=lambda a: a["p"])
+    return found
+
+
+def _fit_defense_core(samples, level_diff=0, weapon=None, report=None):
     """samples: dicts with damage, attack, tags (frozenset) and dmg (weapon DMG or None).
 
     With every hit's weapon DMG known, base damage per hit is DMG + fSTR (one fitted fSTR), so
@@ -284,9 +368,12 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
     def base_of(theta, dmg):
         return dmg + theta[0] if use_dmg else math.exp(theta[0])
 
-    def nll(theta):
-        log_def = theta[1]
-        mix = _mix(theta[2 + n_tags], theta[3 + n_tags])
+    def make_nll(dataset):
+        def nll(theta):
+            return _penalty(theta) + _data_nll(theta, dataset)
+        return nll
+
+    def _penalty(theta):
         total = 0.0
         if use_dmg:
             if min_dmg + theta[0] <= 1:
@@ -301,7 +388,13 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
                 total += 1e4 * (math.log(b_range[0]) - log_b) ** 2
             elif log_b > math.log(b_range[1]):
                 total += 1e4 * (log_b - math.log(b_range[1])) ** 2
-        for damage, attack, tag_ids, dmg in data:
+        return total
+
+    def _data_nll(theta, dataset):
+        log_def = theta[1]
+        mix = _mix(theta[2 + n_tags], theta[3 + n_tags])
+        total = 0.0
+        for damage, attack, tag_ids, dmg in dataset:
             base = base_of(theta, dmg)
             defense = math.exp(log_def + sum(theta[2 + k] for k in tag_ids))
             lower, upper = _bounds(attack / defense - correction)
@@ -309,6 +402,17 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
                           for q, m in zip(mix, MULTIPLIERS))
             total -= math.log((1 - OUTLIER_SHARE) * density + uniform)
         return total
+
+    nll = make_nll(data)
+    sample = random.Random(1).sample(data, SEARCH_SAMPLE) if len(data) > SEARCH_SAMPLE else data
+    search_nll = make_nll(sample) if sample is not data else nll
+    steps_total = len(SEARCH_RATIOS) * len(SEARCH_DOUBLE_STARTS) + SEARCH_POLISH + 3 + 2
+    steps_done = [0]
+
+    def tick():
+        steps_done[0] += 1
+        if report:
+            report(min(steps_done[0] / steps_total, 1.0))
 
     damages = sorted(d[0] for d in data)
     low_damage = damages[len(damages) // 4]   # lower quartile: mostly x1 hits
@@ -328,13 +432,23 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
             first = math.log(base_start)
         for double in SEARCH_DOUBLE_STARTS:
             start = [first, math.log(median_attack / (ratio + correction))] + [0.0] * n_tags + [double, -4.0]
-            candidates.append(nelder_mead(nll, start, [step0[0], 0.15] + [0.1] * n_tags + [0.5, 0.5],
+            candidates.append(nelder_mead(search_nll, start, [step0[0], 0.15] + [0.1] * n_tags + [0.5, 0.5],
                                           iters=SEARCH_ITERS[0]))
+            tick()
     candidates.sort(key=lambda c: c[1])
-    polished = [nelder_mead(nll, point, [step0[1], 0.05] + [0.05] * n_tags + [0.3, 0.3], iters=SEARCH_ITERS[1])
-                for point, _ in candidates[:SEARCH_POLISH]]
+    polished = []
+    for candidate, _ in candidates[:SEARCH_POLISH]:
+        polished.append(nelder_mead(nll, candidate, [step0[1], 0.05] + [0.05] * n_tags + [0.3, 0.3],
+                                    iters=SEARCH_ITERS[1]))
+        tick()
     point, value = min(polished, key=lambda c: c[1])
     point, value = nelder_mead(nll, point, [step0[2], 0.02] + [0.02] * n_tags + [0.1, 0.1], iters=SEARCH_ITERS[2])
+    tick()
+    # Next-best basins, judged on all hits, for the ambiguity check below.
+    others = []
+    for candidate, _ in candidates[SEARCH_POLISH:SEARCH_POLISH + 3]:
+        others.append(nelder_mead(nll, candidate, [step0[1], 0.05] + [0.05] * n_tags + [0.3, 0.3], iters=120))
+        tick()
     # A clearly different DEF that fits about as well means the spread alone can't decide.
     def at_bound(theta):
         # Pinned to the edge of the plausible base-damage range: its real optimum lies outside.
@@ -345,7 +459,7 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
         return False
 
     alternatives = []
-    for other, other_value in sorted(polished + candidates[3:8], key=lambda c: c[1]):
+    for other, other_value in sorted(polished + others, key=lambda c: c[1]):
         if at_bound(other):
             continue
         if other_value - value < 2.0 and abs(other[1] - point[1]) > math.log(1.15):
@@ -358,6 +472,7 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
     fixed_tail = point[2 + n_tags:]
     ses = standard_errors(lambda core: nll(list(core) + fixed_tail), point[:2 + n_tags],
                           [0.5 if use_dmg else 2e-2] + [2e-2] * (1 + n_tags))
+    tick()
 
     log_def, se = point[1], ses[1]
     base_def = math.exp(log_def)
@@ -392,8 +507,20 @@ def _fit_defense_core(samples, level_diff=0, weapon=None):
             "fit_p": p, "check": None if p is None else ("fits" if p >= 0.01 else "doesn't fit"),
         })
 
+    def hit_logdensity(item, extra):
+        damage, attack, tag_ids, dmg = item
+        base = base_of(point, dmg)
+        defense = math.exp(log_def + extra + sum(point[2 + k] for k in tag_ids))
+        lower, upper = _bounds(attack / defense - correction)
+        density = sum(q * _pdif_density(damage / (m * base), lower, upper) / (m * base)
+                      for q, m in zip(mix, MULTIPLIERS))
+        return math.log((1 - OUTLIER_SHARE) * density + uniform)
+
+    hit_curves = [[-hit_logdensity(item, extra) for extra in DEF_GRID] for item in data]
+
     return {
         "status": "estimate", "n": len(kept), "dropped": dropped, "folded": folded,
+        "_kept": kept, "_hit_curves": hit_curves,
         "base_def": base_def,
         "low": math.exp(log_def - Z90 * se) if se else None,
         "high": math.exp(log_def + Z90 * se) if se else None,
@@ -429,7 +556,7 @@ def current_state(fit, samples, level_diff, weapon_class):
     return state
 
 
-def fit_defense(rows, level_diff=0):
+def fit_defense(rows, level_diff=0, progress=None):
     """One fit per player, target and weapon type. Hits with and without weapon DMG on the row
     are fitted separately (the DMG ones as DMG + fSTR, the others within the type's range)."""
     groups = defaultdict(list)
@@ -445,10 +572,18 @@ def fit_defense(rows, level_diff=0):
         key = (row.get("actor") or row.get("uploader") or "?", row.get("target") or "?", weapon, bool(dmg))
         groups[key].append({"damage": float(row["damage"]), "attack": float(row["attack"]),
                             "tags": relevant_tags(row, DEF_PATTERNS), "t": row.get("t") or 0,
-                            "dmg": float(dmg) if dmg else None})
+                            "dmg": float(dmg) if dmg else None, "mob": row.get("target_id"),
+                            "hpp": row.get("target_hpp")})
     out = []
-    for (player, target, weapon, has_dmg), samples in sorted(groups.items()):
-        fit = fit_defense_one(samples, level_diff, weapon) or {}
+    keys = sorted(groups)
+    for number, (player, target, weapon, has_dmg) in enumerate(keys, 1):
+        samples = groups[(player, target, weapon, has_dmg)]
+        report = None
+        if progress:
+            label = f"DEF fit {number}/{len(keys)}: {target} ({player}, {len(samples)} hits)"
+            report = lambda text, fraction, label=label, number=number: progress(
+                f"{label}: {text}", (number - 1 + fraction) / len(keys))
+        fit = fit_defense_one(samples, level_diff, weapon, report) or {}
         fit.update(player=player, target=target, weapon=weapon, dmg_known=has_dmg)
         weapon_class = WEAPON_CLASS.get(weapon, "1h")
         cap = RATIO_CAP.get(weapon_class, 3.625)
@@ -456,6 +591,14 @@ def fit_defense(rows, level_diff=0):
             others = ", ".join(f"{a['def']:,.0f}" for a in fit["alternatives"])
             fit["status"] = (f"ambiguous: DEF {others} fits about as well; "
                              "record weapon DMG (sortielog.admin set-weapon) to decide")
+        if fit.get("fstr") is not None and fit.get("fstr_range"):
+            low, high = fit["fstr_range"]
+            if fit["fstr"] > high - 1.5:
+                fit["warning"] = ("fSTR is at its plausible maximum: base damage looks higher than the recorded "
+                                  "weapon DMG allows (DMG augment, relic upgrade or aftermath?). DEF may read high.")
+            elif fit["fstr"] < low + 1.5:
+                fit["warning"] = ("fSTR is at its plausible minimum: base damage looks lower than the recorded "
+                                  "weapon DMG allows. Check the DMG entered. DEF may read low.")
         if fit.get("status") == "estimate" or (fit.get("status", "").startswith("ambiguous")):
             fit["now"] = current_state(fit, samples, level_diff, weapon_class)
             if fit["median_ratio"] >= cap:
@@ -465,6 +608,42 @@ def fit_defense(rows, level_diff=0):
                 fit["status"] = "near cap: DEF may read low"
         out.append(fit)
     return out
+
+
+# ---------------------------------------------------------------- Debuffs reported as damage
+
+# Dia lands as a damage message ("takes N points of damage"), not an "is afflicted with" status
+# message, so addons before 0.5 never tagged it. Rebuild it from the logged casts: a hit counts
+# as Dia'd if a Dia landed on that same monster within the spell's duration before the hit.
+DOT_SECONDS = {"Dia": 60, "Dia II": 120, "Dia III": 180, "Diaga": 60}
+
+
+def infer_cast_debuffs(rows):
+    """Returns (rows, hits_tagged). Rows already tagged with a Dia are left alone."""
+    casts = defaultdict(list)
+    for row in rows:
+        name = row.get("detail")
+        if (row.get("kind") == "party_action" and name in DOT_SECONDS and row.get("target_id") is not None
+                and row.get("t") is not None):
+            casts[row["target_id"]].append((row["t"], name))
+    if not casts:
+        return rows, 0
+    for history in casts.values():
+        history.sort()
+    out, tagged = [], 0
+    for row in rows:
+        history = casts.get(row.get("target_id"))
+        if history and row.get("kind") in ("melee", "melee_miss", "ws") and row.get("t") is not None:
+            tags = split_list(row.get("mob_status"))
+            if not any(t.startswith("Dia") for t in tags):
+                landed = [(t, name) for t, name in history if t <= row["t"]]
+                if landed:
+                    t, name = landed[-1]
+                    if row["t"] - t < DOT_SECONDS[name]:
+                        row = dict(row, mob_status=";".join(sorted(tags + [name])))
+                        tagged += 1
+        out.append(row)
+    return out, tagged
 
 
 # ---------------------------------------------------------------- Accuracy fill-in
@@ -559,8 +738,17 @@ def fit_evasion_one(samples, level_diff=0):
         contexts.append({"context": label, "swings": len(items), "expected_hits": expected, "hits": observed,
                          "z": z, "check": None if z is None else ("fits" if abs(z) < 2.5 else "doesn't fit")})
 
+    def swing_nll(item, extra):
+        hit, acc, cap, t = item
+        evasion = point[0] + extra + sum(point[1 + k] for k in t)
+        rate = min(max(75 + (acc - evasion) / 2 - shift, HIT_FLOOR), cap) / 100
+        return -math.log(rate if hit else 1 - rate)
+
+    hit_curves = [[swing_nll(item, extra) for extra in EVA_GRID] for item in data]
+
     result = {"swings": len(kept), "dropped": dropped, "folded": folded, "effects": effects,
-              "contexts": contexts, "hit_rate": sum(1 for d in data if d[0]) / len(data) * 100}
+              "contexts": contexts, "hit_rate": sum(1 for d in data if d[0]) / len(data) * 100,
+              "_kept": kept, "_hit_curves": hit_curves}
     if open_low and open_high:
         result.update(status="not identifiable", base_eva=None)
     elif open_low:
@@ -574,7 +762,7 @@ def fit_evasion_one(samples, level_diff=0):
     return result
 
 
-def fit_evasion(rows, level_diff=0):
+def fit_evasion(rows, level_diff=0, progress=None):
     groups = defaultdict(list)
     for row in rows:
         kind = row.get("kind")
@@ -594,9 +782,13 @@ def fit_evasion(rows, level_diff=0):
             continue
         key = (row.get("actor") or row.get("uploader") or "?", row.get("target") or "?")
         groups[key].append({"hit": kind == "melee", "acc": float(acc), "cap": cap, "hand": hand,
-                            "tags": relevant_tags(row, EVA_PATTERNS)})
+                            "tags": relevant_tags(row, EVA_PATTERNS), "t": row.get("t") or 0,
+                            "mob": row.get("target_id"), "hpp": row.get("target_hpp")})
     out = []
-    for (player, target), samples in sorted(groups.items()):
+    for number, ((player, target), samples) in enumerate(sorted(groups.items()), 1):
+        if progress:
+            progress(f"EVA fit {number}/{len(groups)}: {target} ({player}, {len(samples)} swings)",
+                     (number - 1) / len(groups))
         fit = fit_evasion_one(samples, level_diff)
         fit.update(player=player, target=target,
                    hands={"main": sum(1 for s in samples if s["hand"] == 0),
@@ -610,7 +802,12 @@ def fit_evasion(rows, level_diff=0):
 def summarize(def_fits, eva_fits):
     """Combines players per target (inverse-variance on log DEF / on EVA)."""
     targets = defaultdict(lambda: {"def": [], "eva": [], "def_bounds": [], "eva_bounds": [], "def_ambiguous": []})
+    # Fits anchored on weapon DMG are far more reliable; when a target has any, ignore the rest.
+    anchored = {f["target"] for f in def_fits if f.get("dmg_known") and f.get("se_log")
+                and f.get("status", "").startswith(("estimate", "near cap"))}
     for fit in def_fits:
+        if fit["target"] in anchored and not fit.get("dmg_known"):
+            continue
         t = targets[fit["target"]]
         if fit.get("status", "").startswith(("estimate", "near cap")) and fit.get("se_log"):
             t["def"].append((math.log(fit["base_def"]), fit["se_log"], fit))
@@ -663,4 +860,105 @@ def summarize(def_fits, eva_fits):
         else:
             row["eva"] = {"value": None, "status": "need more swings"}
         out.append(row)
+    return out
+
+
+# ---------------------------------------------------------------- anomaly batches
+
+def _candidates(effects, combine):
+    """Single measured effects and every pair of them, as (label, size)."""
+    out = [(tag, size) for tag, size in effects]
+    for i, (a, x) in enumerate(effects):
+        for b, y in effects[i + 1:]:
+            out.append((f"{a} + {b}", combine(x, y)))
+    return out
+
+
+def _explain(size, low, high, logged, effects, kind):
+    """Most likely cause of an anomaly: a measured debuff missing from the logs, a logged
+    debuff that wasn't really up, or unknown."""
+    if kind == "DEF":
+        tolerance = 3.0
+        combine = lambda x, y: ((1 + x / 100) * (1 + y / 100) - 1) * 100
+        undo = lambda x: (1 / (1 + x / 100) - 1) * 100
+    else:
+        tolerance = 15.0
+        combine = lambda x, y: x + y
+        undo = lambda x: -x
+    missing = [(t, v) for t, v in effects if t not in logged]
+    present = [(t, v) for t, v in effects if t in logged]
+    options = [(f"{label} not logged", value) for label, value in _candidates(missing, combine)]
+    options += [(f"{tag} logged but not actually up", undo(value)) for tag, value in present]
+    fits = [(abs(value - size), label) for label, value in options if low - tolerance <= value <= high + tolerance]
+    if fits:
+        return min(fits)[1]
+    direction = "down" if size < 0 else "up"
+    return f"unknown {kind} {direction} of about {abs(size):.0f}{'%' if kind == 'DEF' else ''}"
+
+
+def _factor_cause(found, kind, measured):
+    """Cause stated in terms of a 'since <action>' factor, when the pattern points at that action."""
+    if not found["factor"].startswith("since "):
+        return None
+    action = found["factor"][len("since "):]
+    bucket = found["bucket"]
+    if bucket == "never on this monster":
+        return None
+    start = int(bucket.split("-")[0].split("+")[0])
+    higher = found["size"] > 0
+    unit = "%" if kind == "DEF" else ""
+    tracked = any(tag == action or tag.startswith(action + "+") for tag in measured)
+    reads = f"{kind} reads {abs(found['size']):.0f}{unit} {'higher' if higher else 'lower'}"
+    if not tracked and higher and start >= 60:
+        return f"{action} likely lowers {kind} and isn't tracked: {reads} once it's {bucket} old (worn off)"
+    if not tracked and not higher and start < 60:
+        return f"{action} likely lowers {kind} and isn't tracked: {reads} shortly after it lands"
+    if tracked and higher and start >= 60:
+        return f"{action} is counted for longer than it lasts: {reads} once it's {bucket} old"
+    if tracked and not higher and start < 60:
+        return f"{action} is stronger than measured right after it lands: {reads}"
+    return None
+
+
+def cast_timelines(rows):
+    """Party actions on each monster, in time order: {monster id: [(time, name), ...]}."""
+    casts = defaultdict(list)
+    for row in rows:
+        if (row.get("kind") == "party_action" and row.get("target_id") is not None and row.get("t") is not None
+                and row.get("detail")):
+            casts[row["target_id"]].append((row["t"], row["detail"]))
+    for history in casts.values():
+        history.sort()
+    return casts
+
+
+def batch_anomalies(def_fits, eva_fits, casts):
+    """Groups of hits/swings, formed from observed factors (time since each party action,
+    monster HP, time into the fight), whose DEF or EVA reads clearly different from the fit,
+    each with a likely cause."""
+    measured = defaultdict(lambda: {"DEF": {}, "EVA": {}})
+    # Prefer effects measured by fits anchored on weapon DMG (the reliable ones).
+    for fit in sorted(def_fits, key=lambda f: not f.get("dmg_known")):
+        for e in fit.get("effects", []):
+            measured[fit["target"]]["DEF"].setdefault(e["tag"], e["pct"])
+    for fit in eva_fits:
+        for e in fit.get("effects", []):
+            measured[fit["target"]]["EVA"].setdefault(e["tag"], e["offset"])
+    to_size = {"DEF": lambda g: (math.exp(g) - 1) * 100, "EVA": lambda g: g}
+    grids = {"DEF": DEF_GRID, "EVA": EVA_GRID}
+    out = []
+    for kind, fits in (("DEF", def_fits), ("EVA", eva_fits)):
+        for fit in fits:
+            kept, curves = fit.pop("_kept", None), fit.pop("_hit_curves", None)
+            if not kept:
+                continue
+            effects = sorted(measured[fit["target"]][kind].items())
+            for found in scan_factors(kept, curves, grids[kind], casts, to_size[kind]):
+                cause = _factor_cause(found, kind, dict(effects))
+                if cause is None:
+                    cause = _explain(found["size"], found["low"], found["high"],
+                                     set(split_list(found["context"])), effects, kind)
+                found.update(target=fit["target"], player=fit["player"], kind=kind, cause=cause)
+                out.append(found)
+    out.sort(key=lambda a: a["p"])
     return out

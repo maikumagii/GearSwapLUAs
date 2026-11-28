@@ -210,6 +210,7 @@ def test_analysis_never_computes_in_the_request_and_fits_once(tmp_path, monkeypa
         client.post("/ingest", json={"kind": "melee", "session": "s", "seq": 1, "damage": 5})
         first = [client.get("/api/analysis").json() for _ in range(10)]   # dashboard polling mid-fit
         assert all(r["status"] == "fitting" for r in first)
+        assert all(r["progress"] and 0.0 <= r["progress"]["fraction"] <= 1.0 for r in first)
         assert client.get("/health").json()["ok"]                       # still answering
         release.set()
         deadline = time.time() + 5

@@ -143,3 +143,68 @@ def test_type_range_rules_out_impossible_base_damage():
     low, high = TYPE_BASE_RANGE["Dagger"]
     assert low <= fit["base_damage"] <= high
     assert all(low <= a["base_damage"] <= high + 1 for a in fit["alternatives"])
+
+
+def test_dia_rebuilt_from_casts_and_fitted_as_its_own_effect():
+    from sortielog.model import infer_cast_debuffs
+    rows = [{"kind": "party_action", "detail": "Dia II", "target_id": 7, "t": 100, "msg": 2},
+            {"kind": "melee", "target_id": 7, "t": 150, "mob_status": "Box Step lv5"},
+            {"kind": "melee", "target_id": 7, "t": 230, "mob_status": ""},            # 130 s later: expired
+            {"kind": "melee", "target_id": 8, "t": 150, "mob_status": ""},            # different bat
+            {"kind": "melee", "target_id": 7, "t": 160, "mob_status": "Dia III"}]     # already tagged
+    out, tagged = infer_cast_debuffs(rows)
+    assert tagged == 1
+    assert [r.get("mob_status") for r in out[1:]] == ["Box Step lv5;Dia II", "", "", "Dia III"]
+
+    # A fit where Dia II was up but untagged reads low; with the casts it recovers the clean DEF.
+    hits_rows, t = [], 0
+    for i, (tags, effect, dia) in enumerate([("", 1.0, False), ("", 0.85, True),
+                                             ("Box Step lv5", 0.88, False), ("Box Step lv5", 0.88 * 0.85, True)]):
+        block = hits(220, 1320, [1650, 1760], tags=tags, effect=effect, seed=40 + i, t0=t)
+        for r in block:
+            r.update(target_id=i, main_dmg=130)
+        if dia:
+            hits_rows.append({"kind": "party_action", "detail": "Dia II", "target_id": i, "t": t - 1})
+        hits_rows += block
+        t += 1000
+    for r in hits_rows:
+        if r["kind"] == "melee":
+            r["t"] = r["t"] % 1000 / 10 + (r["t"] // 1000) * 1000   # keep every hit within 100 s of the cast
+    rebuilt, _ = infer_cast_debuffs(hits_rows)
+    (fit,) = fit_defense([r for r in rebuilt if r["kind"] == "melee"])
+    assert abs(fit["base_def"] - 1320) / 1320 < 0.05
+    dia = next(e for e in fit["effects"] if e["tag"] == "Dia II")
+    assert abs(dia["pct"] - (-15)) < 4
+
+
+def _fight(dia_effect=0.85, dia_tracked=True, seed=70, kills=12):
+    """Kills of ~60 s, each Dia II'd at the start; hits run 0-200 s after the cast."""
+    import random
+    from sortielog.model import infer_cast_debuffs
+    rng = random.Random(seed)
+    rows = []
+    for k in range(kills):
+        t0 = k * 1000
+        rows.append({"kind": "party_action", "detail": "Dia II", "target_id": k, "t": t0, "msg": 2})
+        for i in range(40):
+            t = t0 + 2 + i * 5
+            effect = dia_effect if t - t0 < 120 else 1.0
+            (hit,) = hits(1, 1320, [1650, 1760], effect=effect, seed=rng.randrange(10**6), t0=t)
+            hit.update(target_id=k, main_dmg=130, target_hpp=max(5, 100 - i * 2))
+            rows.append(hit)
+    if dia_tracked:
+        rows, _ = infer_cast_debuffs(rows)
+    return rows
+
+
+def test_anomaly_scan_points_at_untracked_dia_and_stays_quiet_when_tracked():
+    from sortielog.model import batch_anomalies, cast_timelines
+    for tracked in (False, True):
+        rows = _fight(dia_tracked=tracked)
+        fits = fit_defense([r for r in rows if r["kind"] == "melee"])
+        found = batch_anomalies(fits, [], cast_timelines(rows))
+        if tracked:
+            assert found == []                                   # no false alarms
+        else:
+            late = [a for a in found if a["factor"] == "since Dia II" and a["size"] > 10]
+            assert late and "Dia II likely lowers DEF and isn't tracked" in late[0]["cause"]

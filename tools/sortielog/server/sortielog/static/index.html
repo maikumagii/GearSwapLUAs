@@ -31,6 +31,11 @@
   .good { color: var(--good); } .warn { color: var(--warn); } .bad { color: var(--bad); } .muted { color: var(--muted); }
   .note { color: var(--muted); font-size: 12px; margin-top: 8px; }
   .empty td { color: var(--muted); text-align: left; }
+  #progress { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 12px; }
+  #progress[hidden] { display: none; }
+  .bar { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .bar > div { height: 100%; width: 0; background: var(--good); transition: width 0.6s ease; }
+  #progress-text { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
 </style>
 </head>
 <body>
@@ -44,6 +49,7 @@
     <span class="status" id="status">loading…</span>
   </div>
 </header>
+<div id="progress" hidden><div class="bar"><div id="progress-fill"></div></div><span id="progress-text"></span></div>
 <main>
   <h2>Per-target summary</h2>
   <div class="wrap"><table id="targets"><thead><tr>
@@ -69,6 +75,13 @@
     <th class="l">Target</th><th class="l">Player</th><th class="l">Fit</th><th class="l">Debuffs up</th><th>Hits / swings</th><th>Predicted</th><th>Observed</th><th class="l">Check</th>
   </tr></thead><tbody></tbody></table></div>
   <p class="note" id="modelnote">A segment that doesn't fit means its data disagrees with the rest: usually a debuff the addon didn't see, Accuracy measured for a different buff state, a boss phase change, or the wrong level-correction setting.</p>
+
+  <h2>Anomalies: where DEF or EVA reads off from the fit</h2>
+  <div class="wrap"><table id="anomalies"><thead><tr>
+    <th class="l">Target</th><th class="l">Fit</th><th class="l">Group</th><th>Hits / swings</th>
+    <th>Reads (90% range)</th><th>p</th><th class="l">Likely cause</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="note">Hits are grouped by things that were observed (seconds since each party action on that monster, the monster's HP, seconds into the fight), never by which hits look odd, and the bar is corrected for the number of groups tested. A group listed here differs from the fit beyond chance; the cause is the closest match among measured debuff effects.</p>
 
   <h2>Weapon skills (grouped by player / target / WS / wall position)</h2>
   <div class="wrap"><table id="ws"><thead><tr>
@@ -117,12 +130,25 @@ async function refreshFilters() {
   } catch (e) { /* next tick retries */ }
 }
 
+let fitting = false;
+function showProgress(p) {
+  fitting = !!p;
+  $("progress").hidden = !p;
+  if (!p) return;
+  const pct = Math.round((p.fraction || 0) * 100);
+  $("progress-fill").style.width = `${pct}%`;
+  const rows = p.rows != null ? ` · ${fmt(p.rows)} rows` : "";
+  $("progress-text").textContent = `${p.text} · ${pct}% · ${fmt(p.elapsed)}s${rows}`;
+  $("progress-text").title = $("progress-text").textContent;
+}
+
 async function refresh() {
   const params = new URLSearchParams();
   for (const id of ["uploader", "session", "target", "minutes"]) if ($(id).value) params.set(id, $(id).value);
   let data;
   try { data = await (await fetch("api/analysis?" + params)).json(); }
   catch (e) { $("status").textContent = "server unreachable, retrying…"; return; }
+  showProgress(data.progress);
   if (data.status === "fitting") {
     $("status").textContent = "fitting the model… the first fit after a restart can take a minute or two on a Pi";
     return;
@@ -175,15 +201,24 @@ async function refresh() {
       td(`${fmt(c.expected_hits, 1)} hits`), td(`${fmt(c.hits)} hits${c.z != null ? ` (z ${fmt(c.z, 1)})` : ""}`), td(c.check || "–", tone(c.check) + " l")]);
   fill("segments", segments, (s) => s, "Nothing to check yet.", 8);
 
+  fill("anomalies", data.anomalies || [], (a) => {
+    const unit = a.kind === "DEF" ? "%" : "";
+    return [td(a.target, "l"), td(a.kind, "l"), td(`${a.factor}: ${a.bucket}`, "l"), td(fmt(a.n)),
+      td(`${signed(a.size, a.kind === "DEF" ? 1 : 0)}${unit} (${signed(a.low, a.kind === "DEF" ? 1 : 0)}..${signed(a.high, a.kind === "DEF" ? 1 : 0)})`),
+      td(a.p < 0.001 ? a.p.toExponential(0) : fmt(a.p, 3)), td(a.cause, "l warn")];
+  }, "None: every observed group agrees with the fit.", 7);
+
   const fitNotes = [];
   for (const f of data.def_fits || []) {
     if (f.status && f.status !== "estimate") fitNotes.push(`${f.target} DEF (${f.player}): ${f.status}`);
+    if (f.warning) fitNotes.push(`${f.target} (${f.player}): ${f.warning}`);
     if (f.weapon_dmg && f.fstr != null) fitNotes.push(`${f.target} (${f.player}): base damage ${fmt(f.base_damage)} = ${f.weapon} DMG ${fmt(f.weapon_dmg)} + fSTR ${signed(f.fstr, 0)}`);
     else if (f.base_damage) fitNotes.push(`${f.target} (${f.player}): fitted base damage ${fmt(f.base_damage)} (weapon DMG + fSTR)`);
     if (f.double_damage_pct > 1 || f.triple_damage_pct > 1)
       fitNotes.push(`${f.target} (${f.player}): ${fmt(f.double_damage_pct)}% of hits did double damage${f.triple_damage_pct > 1 ? `, ${fmt(f.triple_damage_pct)}% triple` : ""}`);
   }
   for (const f of data.eva_fits || []) if (f.status && f.status !== "estimate") fitNotes.push(`${f.target} EVA (${f.player}): ${f.status}`);
+  if (data.dia_inferred) fitNotes.push(`Dia inferred from logged casts on ${fmt(data.dia_inferred)} rows (60/120/180 s for Dia/II/III)`);
   if (data.accuracy_filled) fitNotes.push(`Accuracy filled in for ${fmt(data.accuracy_filled)} rows from matching buff states`);
   fitNotes.push(`Level correction: ${data.level_diff ? `on (${data.level_diff} levels)` : "off"}`);
   $("modelnote").dataset.base ??= $("modelnote").textContent;
@@ -205,8 +240,11 @@ async function refresh() {
 }
 
 ["uploader", "session", "target", "minutes"].forEach((id) => $(id).addEventListener("change", () => { refreshFilters(); refresh(); }));
-refreshFilters(); refresh();
-setInterval(refresh, 5000);
+refreshFilters();
+(async function loop() {
+  await refresh();
+  setTimeout(loop, fitting ? 2000 : 5000);   // faster while a fit is running, for the progress bar
+})();
 setInterval(refreshFilters, 30000);
 </script>
 </body>

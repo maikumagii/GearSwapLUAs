@@ -27,7 +27,7 @@ Commands (//slog ...):
 
 _addon.name = 'SortieLog'
 _addon.author = 'Kalali'
-_addon.version = '0.4.0'
+_addon.version = '0.5.0'
 _addon.commands = { 'slog', 'sortielog' }
 
 local config = require('config')
@@ -458,6 +458,10 @@ for step, daze in pairs(STEP_DAZE) do DAZE_STEP[daze] = step end
 local STEP_SECONDS = 60          -- daze lasts about a minute unless refreshed
 local LIGHT_SHOT_SECONDS = 300   -- cleared earlier when Dia wears off
 local INDI_SECONDS = 180
+-- Dia reports as damage ("takes N points of damage"), not "is afflicted with", so tag it from
+-- the spell itself. Durations are base values; a wear-off message clears it earlier.
+local DOT_SECONDS = { ['Dia'] = 60, ['Dia II'] = 120, ['Dia III'] = 180, ['Diaga'] = 60 }
+local DAMAGE_MESSAGES = { [2] = true, [252] = true, [264] = true }
 local TRACKED_JA = { Saboteur = 60, Bolster = 180, ['Blaze of Glory'] = 60, Entrust = 60,
                      ['Ecliptic Attrition'] = 60 }
 
@@ -739,6 +743,8 @@ local function handle_action(act)
                     emit(row)
                     if status then
                         apply_status(mob, status, applied, actor_id, actor_name, name, action.param)
+                    elseif category == CAT_SPELL and DOT_SECONDS[name] and DAMAGE_MESSAGES[action.message] then
+                        set_tag(mob, 'status:Dia', name, now + DOT_SECONDS[name], actor_id, actor_name, name)
                     elseif category == CAT_STEP and STEP_DAZE[name] and action.param >= 1 and action.param <= 10 then
                         apply_status(mob, STEP_DAZE[name], true, actor_id, actor_name, name, action.param)
                     elseif name == 'Light Shot' and action.message ~= MSG_MELEE_MISS then

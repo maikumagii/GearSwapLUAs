@@ -30,7 +30,7 @@ from .store import Store
 
 log = logging.getLogger("sortielog")
 STATIC = Path(__file__).parent / "static"
-ANALYSIS_KINDS = ["ws", "melee", "melee_miss"]
+ANALYSIS_KINDS = ["ws", "melee", "melee_miss", "party_action"]   # party actions: Dia casts
 MAX_BODY = 5_000_000
 
 
@@ -174,6 +174,7 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
     # fit started another fit and the server stopped answering anything.
     cache, cache_lock = {}, threading.Lock()
     queued, work = set(), queue_module.Queue()
+    progress = {}   # the fit in progress: key, text, fraction, started
 
     def signature(store):
         return store.count(), store.revision()
@@ -183,11 +184,21 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
             key, args = work.get()
             store = store_getter()
             target, session, uploader, minutes = args
+            started = time.time()
+            with cache_lock:
+                progress.clear()
+                progress.update(key=key, text="loading rows", fraction=0.0, started=started)
+
+            def report(text, fraction):
+                with cache_lock:   # never let the bar move backwards (refits restart a stage)
+                    progress.update(text=text, fraction=max(progress.get("fraction", 0.0), min(fraction, 1.0)))
+
             try:
                 since = time.time() - minutes * 60 if minutes else None
                 rows = store.query(ANALYSIS_KINDS, target, session, since, uploader=uploader)
-                started = time.time()
-                result = analyze(rows, tp_bonus, level_diff)
+                with cache_lock:
+                    progress.update(rows=len(rows))
+                result = analyze(rows, tp_bonus, level_diff, report)
                 result.update(rows=len(rows), computed_at=time.time(), fit_seconds=time.time() - started)
             except Exception as err:   # keep serving; don't retry in a loop
                 log.exception("analysis failed")
@@ -195,6 +206,7 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
             with cache_lock:
                 cache[key] = (signature(store), time.time(), result)
                 queued.discard(key)
+                progress.clear()
 
     @app.get("/api/analysis")
     def analysis(request: Request, target: str | None = None, session: str | None = None,
@@ -216,10 +228,18 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
                 queued.add(key)
                 work.put((key, args))
             pending = len(queued)
+            fitting = None
+            if progress.get("key") == key:
+                fitting = {"text": progress.get("text"), "fraction": progress.get("fraction", 0.0),
+                           "elapsed": now - progress["started"], "rows": progress.get("rows")}
+            elif key in queued:
+                busy = bool(progress.get("key"))
+                fitting = {"text": "waiting for another fit to finish" if busy else "starting…",
+                           "fraction": 0.0, "elapsed": 0.0}
         if entry is None:
-            return {"status": "fitting", "pending": pending, "targets": [], "def_fits": [], "eva_fits": [],
-                    "ws": [], "melee": [], "rows": None}
-        return dict(entry[2], stale=stale, pending=pending)
+            return {"status": "fitting", "pending": pending, "progress": fitting, "targets": [], "def_fits": [],
+                    "eva_fits": [], "ws": [], "melee": [], "rows": None}
+        return dict(entry[2], stale=stale, pending=pending, progress=fitting)
 
     @app.get("/", response_class=HTMLResponse)
     def dashboard():

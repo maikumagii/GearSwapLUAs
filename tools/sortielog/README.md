@@ -331,6 +331,21 @@ to fill up.
   debuff, Accuracy from a different buff state, a phase change, or level correction. Up to
   3 segments that don't fit are excluded and the fit is redone, so one bad segment can't
   drag the rest.
+- **Dia from older addons:** Dia lands as a damage message ("takes N points of damage"), so
+  addons before 0.5 never tagged it. The server rebuilds it from the logged casts: a hit counts as
+  Dia'd if Dia landed on that monster within the spell's duration (Dia 60 s, Dia II 120 s,
+  Dia III 180 s). The addon tags it directly from 0.5 on. On Locus Dire Bats, this is what
+  separated the clean DEF (about 1,323, matching `/check` brackets of 1,312–1,330) from the
+  Dia'd DEF the fit used to report (about 1,160).
+- **Anomalies:** hits are grouped by things that were observed (seconds since each party action
+  on that monster, the monster's HP, seconds into the fight), never by which hits look odd. Each
+  group is tested for an extra DEF/EVA change, with the bar corrected for the number of groups.
+  Groups that differ beyond chance are listed with a likely cause, for example "Dia II likely
+  lowers DEF and isn't tracked: DEF reads 22% higher once it's 120–180 s old". This is how a
+  missing debuff shows itself.
+- **Checking with `/check`:** BG-Wiki's PDIF page says `/check` reports "high defense" below
+  Attack ÷ DEF = 1 and "low defense" above 1.25. On a monster with no debuffs, stepping your
+  Attack up and down brackets DEF independently of this model.
 - **Ranges** assume the model is right, so check the segment table.
 - **Level correction:** off by default (`SORTIELOG_LEVEL_DIFF`).
 
