@@ -1,0 +1,25 @@
+# Secrets and options live in .env next to this file (copy .env.example). Never commit .env.
+#
+# cloudflared runs on the Pi host (system service), so it reaches SortieLog at
+# http://localhost:${SORTIELOG_HTTP_PORT}. The port is bound to 127.0.0.1 by default, so it
+# isn't reachable from the LAN. 8080-8082 are already used by EventMoogle.
+name: sortielog
+
+services:
+  sortielog:
+    build: .
+    image: sortielog:latest
+    restart: unless-stopped
+    environment:
+      SORTIELOG_KEYS: ${SORTIELOG_KEYS:-}            # player:key,player2:key2
+      SORTIELOG_TP_BONUS: ${SORTIELOG_TP_BONUS:-}    # e.g. Black Halo=250
+      SORTIELOG_UDP_PORT: "5140"
+    ports:
+      - "${SORTIELOG_BIND:-127.0.0.1}:${SORTIELOG_HTTP_PORT:-8090}:8080"
+      # Optional LAN-only UDP push from the addon (//slog udp on):
+      # - "5140:5140/udp"
+    volumes:
+      - sortielog-data:/data   # SQLite; back up with: docker compose cp sortielog:/data ./backup
+
+volumes:
+  sortielog-data:

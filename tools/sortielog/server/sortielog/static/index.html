@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SortieLog Live</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --text: #1d1d1b; --muted: #6b6b66; --line: #e2e1dc;
+    --good: #1f7a4d; --warn: #9a6a00; --bad: #b3261e; --accent: #2f5fb3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #141413; --panel: #1e1e1c; --text: #ecebe6; --muted: #9b9a94; --line: #33332f;
+            --good: #5cc28f; --warn: #e0b04a; --bad: #f08079; --accent: #7aa2f0; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, sans-serif; }
+  header, main { max-width: 1200px; margin: 0 auto; padding: 16px; }
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+  h1 { font-size: 18px; margin: 0; }
+  h2 { font-size: 15px; margin: 24px 0 8px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  select, input { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; font: inherit; }
+  .status { color: var(--muted); font-size: 12px; }
+  .wrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  th:nth-child(-n+3), td:nth-child(-n+3) { text-align: left; }
+  tr:last-child td { border-bottom: none; }
+  .v-capped { color: var(--good); } .v-border { color: var(--warn); } .v-below { color: var(--bad); }
+  .v-none { color: var(--muted); }
+  .note { color: var(--muted); font-size: 12px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SortieLog Live</h1>
+  <div class="controls">
+    <label>Player <select id="uploader"><option value="">all</option></select></label>
+    <label>Session <select id="session"><option value="">all</option></select></label>
+    <label>Target <select id="target"><option value="">all</option></select></label>
+    <label>Last <input id="minutes" type="number" min="0" step="5" placeholder="min" style="width:5em"></label>
+    <span class="status" id="status">loading…</span>
+  </div>
+</header>
+<main>
+  <h2>Weapon skills (grouped by player / target / WS / wall position)</h2>
+  <div class="wrap"><table id="ws"><thead><tr>
+    <th>Player</th><th>Target</th><th>WS</th><th>Wall</th><th>Basis</th><th>n</th><th>99,999</th>
+    <th>p10</th><th>p50</th><th>p90</th><th>Spread</th><th>Verdict</th><th>Attack check</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="note">Spread is p90/p10 of fTP-normalized damage. About 1.05 or less fits the pDIF cap; above 1.10 means the pDIF bounds are still apart (below cap). 99,999 hits are excluded. "Attack check" compares median damage across attack-buff counts.</p>
+
+  <h2>Melee (non-crit, TP set)</h2>
+  <div class="wrap"><table id="melee"><thead><tr>
+    <th>Player</th><th>Target</th><th>Hand</th><th>n</th><th>p10</th><th>p50</th><th>p90</th><th>Spread</th><th>Verdict</th>
+  </tr></thead><tbody></tbody></table></div>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const fmt = (v, d = 0) => v == null ? "–" : Number(v).toLocaleString(undefined, { maximumFractionDigits: d, minimumFractionDigits: d });
+const verdictClass = (v) => !v ? "v-none" : v.includes("capped") || v.includes("flat") ? "v-capped"
+  : v.includes("borderline") ? "v-border" : v.includes("below") ? "v-below" : "v-none";
+const cell = (text, cls) => { const td = document.createElement("td"); td.textContent = text; if (cls) td.className = cls; return td; };
+
+function fillRows(tbody, rows, build) {
+  tbody.replaceChildren(...rows.map((r) => { const tr = document.createElement("tr"); build(r).forEach((td) => tr.appendChild(td)); return tr; }));
+}
+
+async function refreshFilters() {
+  try {
+    const usel = $("uploader"), ucur = usel.value;
+    const uploaders = await (await fetch("api/uploaders")).json();
+    usel.replaceChildren(new Option("all", ""), ...uploaders.map((u) => new Option(u, u)));
+    usel.value = ucur;
+    const sessions = await (await fetch("api/sessions" + (usel.value ? `?uploader=${encodeURIComponent(usel.value)}` : ""))).json();
+    const sel = $("session"), current = sel.value;
+    sel.replaceChildren(new Option("all", ""), ...sessions.map((s) => new Option(`${s.session} · ${s.uploader} (${s.events})`, s.session)));
+    sel.value = current;
+    const targets = await (await fetch("api/targets" + (sel.value ? `?session=${encodeURIComponent(sel.value)}` : ""))).json();
+    const tsel = $("target"), tcur = tsel.value;
+    tsel.replaceChildren(new Option("all", ""), ...targets.map((t) => new Option(t, t)));
+    tsel.value = tcur;
+  } catch (e) { /* next tick retries */ }
+}
+
+async function refresh() {
+  const params = new URLSearchParams();
+  if ($("uploader").value) params.set("uploader", $("uploader").value);
+  if ($("session").value) params.set("session", $("session").value);
+  if ($("target").value) params.set("target", $("target").value);
+  if ($("minutes").value) params.set("minutes", $("minutes").value);
+  try {
+    const data = await (await fetch("api/analysis?" + params)).json();
+    fillRows($("ws").tBodies[0], data.ws, (r) => [
+      cell(r.player), cell(r.target), cell(r.ws), cell(r.wall_same >= 3 ? "3+" : r.wall_same), cell(r.basis), cell(r.n), cell(r.damage_capped),
+      cell(fmt(r.p10, 0)), cell(fmt(r.p50, 0)), cell(fmt(r.p90, 0)), cell(fmt(r.spread, 3)),
+      cell(r.verdict, verdictClass(r.verdict)),
+      cell(r.attack ? `${r.attack.gain == null ? "–" : (r.attack.gain * 100).toFixed(1) + "%"} ${r.attack.verdict || ""}` : "–",
+           verdictClass(r.attack && r.attack.verdict)),
+    ]);
+    fillRows($("melee").tBodies[0], data.melee, (r) => [
+      cell(r.player), cell(r.target), cell(r.hand), cell(r.n), cell(fmt(r.p10)), cell(fmt(r.p50)), cell(fmt(r.p90)),
+      cell(fmt(r.spread, 3)), cell(r.verdict, verdictClass(r.verdict)),
+    ]);
+    $("status").textContent = `${data.rows} rows · updated ${new Date().toLocaleTimeString()}`;
+  } catch (e) {
+    $("status").textContent = "server unreachable, retrying…";
+  }
+}
+
+["uploader", "session", "target", "minutes"].forEach((id) => $(id).addEventListener("change", () => { refreshFilters(); refresh(); }));
+refreshFilters(); refresh();
+setInterval(refresh, 5000);
+setInterval(refreshFilters, 30000);
+</script>
+</body>
+</html>
