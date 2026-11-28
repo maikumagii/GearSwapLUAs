@@ -281,7 +281,7 @@ local function http_start()
     local host = target.port == 80 and target.host or (target.host .. ':' .. target.port)
     local data = ('POST %s/ingest/csv HTTP/1.1\r\nHost: %s\r\nContent-Type: text/csv; charset=utf-8\r\n'
         .. 'X-Token: %s\r\nUser-Agent: SortieLog/%s\r\nContent-Length: %d\r\nConnection: close\r\n\r\n'):format(
-        target.base, host, settings.token, _addon.version, #body) .. body
+        target.base, host, (settings.token:gsub('^%s+', ''):gsub('%s+$', '')), _addon.version, #body) .. body
     local tcp = socket.tcp()
     tcp:settimeout(0)
     http.request = { tcp = tcp, data = data, sent = 0, buffer = '', count = count,
@@ -320,12 +320,16 @@ local function http_step()
     local chunk, err, partial = tcp:receive(4096)
     request.buffer = request.buffer .. (chunk or partial or '')
     local code = tonumber(request.buffer:match('^HTTP/%d%.%d (%d%d%d)'))
-    if code then
-        if code >= 200 and code < 300 then return http_finish(true) end
-        if code == 401 then return http_finish(false, 'server rejected the key (//slog token <key>)') end
-        return http_finish(false, 'server answered HTTP ' .. code)
+    if code and code >= 200 and code < 300 then return http_finish(true) end
+    -- For errors, wait for the headers (or the close) so the message can say who answered.
+    local closed = err and err ~= 'timeout'
+    if code and (request.buffer:find('\r\n\r\n', 1, true) or closed) then
+        local server = request.buffer:match('\r\n[Ss]erver:%s*([^\r\n]+)') or 'unknown server'
+        local where = (' from %s at %s'):format(server, http.target and http.target.ip or '?')
+        if code == 401 then return http_finish(false, 'server rejected the key (//slog token <key>)' .. where) end
+        return http_finish(false, 'HTTP ' .. code .. where)
     end
-    if err and err ~= 'timeout' then
+    if closed then
         http_finish(false, 'connection ' .. tostring(err) .. ' before a reply')
     end
 end
@@ -818,11 +822,35 @@ for id, message in pairs(res.action_messages or {}) do
     end
 end
 
+-- Buffs that come and go constantly but can't change Accuracy. Leaving them out keeps the
+-- state stable (a DNC gains and spends Finishing Moves every few seconds).
+local VOLATILE_BUFFS = { '^Finishing Move', '^Copy Image', 'Samba', 'Saber Dance', 'Fan Dance',
+    '^Haste', '^Flurry', '^Refresh', '^Regen', '^Protect', '^Shell', '^Phalanx', '^Stoneskin', '^Blink',
+    '^Aquaveil', '^Reraise', '^Sneak', '^Invisible', '^Deodorize', 'Spikes$', '^Third Eye', '^Seigan',
+    '^Sublimation', '^Presto', '^Contradance', '^Grand Pas', '^Climactic', '^Striking', '^Ternary',
+    '^Building', '^Wild Flourish', '^Healing', '^Dedication', '^Commitment', '^Weakness' }
+local volatile_cache = {}
+
+local function volatile(id)
+    if volatile_cache[id] == nil then
+        local buff = res.buffs[id]
+        local name = buff and buff.en or ''
+        local hit = false
+        for _, pattern in ipairs(VOLATILE_BUFFS) do
+            if name:find(pattern) then hit = true break end
+        end
+        volatile_cache[id] = hit
+    end
+    return volatile_cache[id]
+end
+
 local function signature()
     local player = windower.ffxi.get_player()
     if not player then return nil end
     local buffs = {}
-    for _, id in ipairs(player.buffs or {}) do buffs[#buffs + 1] = id end
+    for _, id in ipairs(player.buffs or {}) do
+        if not volatile(id) then buffs[#buffs + 1] = id end
+    end
     table.sort(buffs)
     local gear = {}
     local equipment = windower.ffxi.get_items('equipment') or {}
@@ -1051,8 +1079,9 @@ local function show_status()
         tostring(state.session), settings.csv and 'on' or 'off', settings.udp.enabled and 'on' or 'off',
         tostring(settings.udp.host), settings.udp.port, settings.log_party and 'on' or 'off',
         settings.only_targets == '' and 'all' or settings.only_targets))
-    say(('http %s -> %s | key %s | queued %d | sent %d | %s'):format(
-        settings.http.enabled and 'on' or 'off', tostring(settings.http.url), settings.token == '' and 'missing' or 'set',
+    say(('http %s -> %s (%s) | key %s | queued %d | sent %d | %s'):format(
+        settings.http.enabled and 'on' or 'off', tostring(settings.http.url),
+        http.target and http.target.ip or 'unresolved', settings.token == '' and 'missing' or 'set',
         #http.queue, http.sent, tostring(http.status)))
     say('flags: ' .. (names_from_set(state.flags) ~= '' and names_from_set(state.flags) or 'none'))
     local cached = 0

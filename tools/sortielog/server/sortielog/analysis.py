@@ -9,8 +9,7 @@ is attack sensitivity: if damage rises with more attack buffs, you are not cappe
 from collections import defaultdict
 from statistics import median
 
-from .aggregate import fit_level_diff, summarize_targets
-from .estimate import estimate_defense, estimate_evasion
+from .model import fill_accuracy, fit_defense, fit_evasion, summarize
 from .schema import split_list
 
 DAMAGE_CAP = 99999
@@ -126,7 +125,7 @@ def _attack_sensitivity(samples):
     }
 
 
-def analyze(rows, tp_bonus=None, level_diff=0):
+def analyze(rows, tp_bonus=None, level_diff=0, weapon_dmg=None):
     """rows: iterable of normalized dicts. Returns WS and melee group summaries."""
     tp_bonus = tp_bonus or {}
     ws_groups = defaultdict(lambda: {"values": [], "samples": [], "capped_hits": 0})
@@ -173,14 +172,15 @@ def analyze(rows, tp_bonus=None, level_diff=0):
         entry.update(spread_stats(values))
         melee_out.append(entry)
 
-    defense = estimate_defense(rows, level_diff)
-    evasion = estimate_evasion(rows, level_diff)
+    rows, filled = fill_accuracy(rows)
+    def_fits = fit_defense(rows, level_diff, weapon_dmg)
+    eva_fits = fit_evasion(rows, level_diff)
     return {
         "ws": ws_out,
         "melee": melee_out,
-        "targets": summarize_targets(defense, evasion),
-        "defense": defense,
-        "evasion": evasion,
+        "targets": summarize(def_fits, eva_fits),
+        "def_fits": def_fits,
+        "eva_fits": eva_fits,
+        "accuracy_filled": filled,
         "level_diff": level_diff,
-        "level_fit": fit_level_diff(defense, level_diff),
     }

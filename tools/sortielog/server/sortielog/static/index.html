@@ -7,11 +7,11 @@
 <style>
   :root {
     --bg: #f7f7f5; --panel: #ffffff; --text: #1d1d1b; --muted: #6b6b66; --line: #e2e1dc;
-    --good: #1f7a4d; --warn: #9a6a00; --bad: #b3261e; --accent: #2f5fb3;
+    --good: #1f7a4d; --warn: #9a6a00; --bad: #b3261e;
   }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #141413; --panel: #1e1e1c; --text: #ecebe6; --muted: #9b9a94; --line: #33332f;
-            --good: #5cc28f; --warn: #e0b04a; --bad: #f08079; --accent: #7aa2f0; }
+            --good: #5cc28f; --warn: #e0b04a; --bad: #f08079; }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, sans-serif; }
@@ -26,11 +26,11 @@
   table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
   th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
   th { color: var(--muted); font-weight: 600; font-size: 12px; }
-  th:nth-child(-n+3), td:nth-child(-n+3) { text-align: left; }
+  .l { text-align: left; }
   tr:last-child td { border-bottom: none; }
-  .v-capped { color: var(--good); } .v-border { color: var(--warn); } .v-below { color: var(--bad); }
-  .v-none { color: var(--muted); }
+  .good { color: var(--good); } .warn { color: var(--warn); } .bad { color: var(--bad); } .muted { color: var(--muted); }
   .note { color: var(--muted); font-size: 12px; margin-top: 8px; }
+  .empty td { color: var(--muted); text-align: left; }
 </style>
 </head>
 <body>
@@ -45,47 +45,59 @@
   </div>
 </header>
 <main>
-  <h2>Per-target summary (effective DEF and evasion)</h2>
+  <h2>Per-target summary</h2>
   <div class="wrap"><table id="targets"><thead><tr>
-    <th>Target</th><th>Debuffs / flags</th><th>DEF (90% range)</th><th>±5% conf.</th><th>Groups</th>
-    <th>EVA (90% range)</th><th>±5% conf.</th><th>Groups</th><th>Status</th>
+    <th class="l">Target</th><th>Base DEF (90% range)</th><th>±5% conf.</th><th>Hits</th>
+    <th>Base EVA (90% range)</th><th>±5% conf.</th><th>Swings</th><th class="l">Notes</th>
   </tr></thead><tbody></tbody></table></div>
-  <p class="note" id="levelfit"></p>
+  <h2>Right now (most recent hits)</h2>
+  <div class="wrap"><table id="now"><thead><tr>
+    <th class="l">Target</th><th class="l">Debuffs up</th><th>DEF now</th><th>Your Attack</th><th>Attack ÷ DEF</th>
+    <th>pDIF range</th><th>pDIF cap</th><th>Attack for cap</th><th class="l">Status</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="note">DEF now = base DEF with the measured effect of each debuff up at your latest hit. pDIF range comes from BG-Wiki's bounds for that ratio. "Attack for cap" is the Attack where non-crit pDIF reaches the cap without damage-limit gear (more with PDL from gear, Aria or aftermath).</p>
+
+  <p class="note">Base = with none of the measured debuffs up (plus any listed under Notes, which were up nearly all the time). Every non-crit main-hand hit and every main- and off-hand swing is used, each with its own Attack or Accuracy. "±5% conf." is the chance the true value is within 5% of the estimate, assuming the model fits (see the segment checks below).</p>
+
+  <h2>Debuff effects measured from your data</h2>
+  <div class="wrap"><table id="effects"><thead><tr>
+    <th class="l">Target</th><th class="l">Player</th><th class="l">Debuff</th><th>DEF change (90% range)</th><th>EVA change (90% range)</th><th>Hits / swings</th>
+  </tr></thead><tbody></tbody></table></div>
+
+  <h2>Fight segments vs. the model</h2>
+  <div class="wrap"><table id="segments"><thead><tr>
+    <th class="l">Target</th><th class="l">Player</th><th class="l">Fit</th><th class="l">Debuffs up</th><th>Hits / swings</th><th>Predicted</th><th>Observed</th><th class="l">Check</th>
+  </tr></thead><tbody></tbody></table></div>
+  <p class="note" id="modelnote">A segment that doesn't fit means its data disagrees with the rest: usually a debuff the addon didn't see, Accuracy measured for a different buff state, a boss phase change, or the wrong level-correction setting.</p>
 
   <h2>Weapon skills (grouped by player / target / WS / wall position)</h2>
   <div class="wrap"><table id="ws"><thead><tr>
-    <th>Player</th><th>Target</th><th>WS</th><th>Wall</th><th>Basis</th><th>n</th><th>99,999</th>
-    <th>p10</th><th>p50</th><th>p90</th><th>Spread</th><th>Verdict</th><th>Attack check</th>
+    <th class="l">Player</th><th class="l">Target</th><th class="l">WS</th><th>Wall</th><th>Basis</th><th>n</th><th>99,999</th>
+    <th>p10</th><th>p50</th><th>p90</th><th>Spread</th><th class="l">Verdict</th><th class="l">Attack check</th>
   </tr></thead><tbody></tbody></table></div>
-  <p class="note">Spread is p90/p10 of fTP-normalized damage. About 1.05 or less fits the pDIF cap; above 1.10 means the pDIF bounds are still apart (below cap). 99,999 hits are excluded. "Attack check" compares median damage across attack-buff counts.</p>
+  <p class="note">Spread is p90/p10 of fTP-normalized damage. About 1.05 or less fits the pDIF cap; above 1.10 means the pDIF bounds are still apart (below cap). 99,999 hits are excluded.</p>
 
-  <h2>Melee (non-crit, TP set)</h2>
+  <h2>Melee spread (non-crit, TP set)</h2>
   <div class="wrap"><table id="melee"><thead><tr>
-    <th>Player</th><th>Target</th><th>Hand</th><th>n</th><th>p10</th><th>p50</th><th>p90</th><th>Spread</th><th>Verdict</th>
+    <th class="l">Player</th><th class="l">Target</th><th class="l">Hand</th><th>n</th><th>p10</th><th>p50</th><th>p90</th><th>Spread</th><th class="l">Verdict</th>
   </tr></thead><tbody></tbody></table></div>
-
-  <h2>Effective DEF (non-crit melee, main hand)</h2>
-  <div class="wrap"><table id="def"><thead><tr>
-    <th>Player</th><th>Target</th><th>Debuffs / flags</th><th>Attack</th><th>n</th><th>Spread</th><th>Ratio</th><th>DEF (90% range)</th><th>Verdict</th><th>Check</th>
-  </tr></thead><tbody></tbody></table></div>
-
-  <h2>Effective evasion (melee, main hand)</h2>
-  <div class="wrap"><table id="eva"><thead><tr>
-    <th>Player</th><th>Target</th><th>Debuffs / flags</th><th>Accuracy</th><th>Swings</th><th>Hit % (90% range)</th><th>Cap</th><th>EVA (90% range)</th><th>Verdict</th><th>Check</th>
-  </tr></thead><tbody></tbody></table></div>
-  <p class="note" id="estnote">DEF = Attack ÷ the attack/defense ratio implied by the damage spread. EVA from hit rate = 75% + (ACC − EVA) ÷ 2. "Effective" means with the listed debuffs up. At the pDIF or hit cap only an upper bound is shown.</p>
 </main>
 <script>
 const $ = (id) => document.getElementById(id);
 const fmt = (v, d = 0) => v == null ? "–" : Number(v).toLocaleString(undefined, { maximumFractionDigits: d, minimumFractionDigits: d });
-const checkText = (r) => r.check == null ? "–" : r.check_z != null ? `${r.check} (z ${fmt(r.check_z, 1)})` : r.check;
-const checkClass = (c) => c === "consistent" ? "v-capped" : c === "suspicious" ? "v-border" : c === "outlier" || c === "conflict" ? "v-below" : "v-none";
-const verdictClass = (v) => !v ? "v-none" : v.includes("capped") || v.includes("flat") ? "v-capped"
-  : v.includes("borderline") ? "v-border" : v.includes("below") ? "v-below" : "v-none";
-const cell = (text, cls) => { const td = document.createElement("td"); td.textContent = text; if (cls) td.className = cls; return td; };
+const signed = (v, d = 1) => v == null ? "–" : (v > 0 ? "+" : "") + fmt(v, d);
+const range = (v, lo, hi, d = 0) => v == null ? "–" : lo != null && hi != null ? `${fmt(v, d)} (${fmt(lo, d)}–${fmt(hi, d)})` : fmt(v, d);
+const tone = (text) => !text ? "muted" : /^(estimate|fits|likely capped|flat)/.test(text) ? "good"
+  : /(doesn't fit|below cap|attack-sensitive)/.test(text) ? "bad" : /(need|not identifiable)/.test(text) ? "muted" : "warn";
+const td = (text, cls = "") => { const c = document.createElement("td"); c.textContent = text; if (cls) c.className = cls; return c; };
 
-function fillRows(tbody, rows, build) {
-  tbody.replaceChildren(...rows.map((r) => { const tr = document.createElement("tr"); build(r).forEach((td) => tr.appendChild(td)); return tr; }));
+function fill(table, rows, build, emptyText, columns) {
+  const body = $(table).tBodies[0];
+  if (!rows.length) {
+    const tr = document.createElement("tr"); tr.className = "empty";
+    const c = td(emptyText); c.colSpan = columns; tr.appendChild(c); body.replaceChildren(tr); return;
+  }
+  body.replaceChildren(...rows.map((r) => { const tr = document.createElement("tr"); build(r).forEach((c) => tr.appendChild(c)); return tr; }));
 }
 
 async function refreshFilters() {
@@ -94,12 +106,12 @@ async function refreshFilters() {
     const uploaders = await (await fetch("api/uploaders")).json();
     usel.replaceChildren(new Option("all", ""), ...uploaders.map((u) => new Option(u, u)));
     usel.value = ucur;
-    const sessions = await (await fetch("api/sessions" + (usel.value ? `?uploader=${encodeURIComponent(usel.value)}` : ""))).json();
     const sel = $("session"), current = sel.value;
+    const sessions = await (await fetch("api/sessions" + (usel.value ? `?uploader=${encodeURIComponent(usel.value)}` : ""))).json();
     sel.replaceChildren(new Option("all", ""), ...sessions.map((s) => new Option(`${s.session} · ${s.uploader} (${s.events})`, s.session)));
     sel.value = current;
-    const targets = await (await fetch("api/targets" + (sel.value ? `?session=${encodeURIComponent(sel.value)}` : ""))).json();
     const tsel = $("target"), tcur = tsel.value;
+    const targets = await (await fetch("api/targets" + (sel.value ? `?session=${encodeURIComponent(sel.value)}` : ""))).json();
     tsel.replaceChildren(new Option("all", ""), ...targets.map((t) => new Option(t, t)));
     tsel.value = tcur;
   } catch (e) { /* next tick retries */ }
@@ -107,60 +119,80 @@ async function refreshFilters() {
 
 async function refresh() {
   const params = new URLSearchParams();
-  if ($("uploader").value) params.set("uploader", $("uploader").value);
-  if ($("session").value) params.set("session", $("session").value);
-  if ($("target").value) params.set("target", $("target").value);
-  if ($("minutes").value) params.set("minutes", $("minutes").value);
-  try {
-    const data = await (await fetch("api/analysis?" + params)).json();
-    fillRows($("ws").tBodies[0], data.ws, (r) => [
-      cell(r.player), cell(r.target), cell(r.ws), cell(r.wall_same >= 3 ? "3+" : r.wall_same), cell(r.basis), cell(r.n), cell(r.damage_capped),
-      cell(fmt(r.p10, 0)), cell(fmt(r.p50, 0)), cell(fmt(r.p90, 0)), cell(fmt(r.spread, 3)),
-      cell(r.verdict, verdictClass(r.verdict)),
-      cell(r.attack ? `${r.attack.gain == null ? "–" : (r.attack.gain * 100).toFixed(1) + "%"} ${r.attack.verdict || ""}` : "–",
-           verdictClass(r.attack && r.attack.verdict)),
-    ]);
-    fillRows($("melee").tBodies[0], data.melee, (r) => [
-      cell(r.player), cell(r.target), cell(r.hand), cell(r.n), cell(fmt(r.p10)), cell(fmt(r.p50)), cell(fmt(r.p90)),
-      cell(fmt(r.spread, 3)), cell(r.verdict, verdictClass(r.verdict)),
-    ]);
-    const range = (v, lo, hi) => v == null ? null : `${fmt(v)}${lo != null && hi != null ? ` (${fmt(lo)}–${fmt(hi)})` : ""}`;
-    fillRows($("def").tBodies[0], data.defense || [], (r) => [
-      cell(r.player), cell(r.target), cell(r.context), cell(fmt(r.attack)), cell(r.n), cell(fmt(r.spread, 3)),
-      cell(fmt(r.ratio, 2)),
-      cell(range(r.def, r.def_low, r.def_high) || (r.def_max != null ? `≤ ${fmt(r.def_max)}` : "–")),
-      cell(r.verdict, r.verdict === "estimate" ? "v-capped" : r.verdict.startsWith("need") ? "v-none" : "v-border"),
-      cell(checkText(r), checkClass(r.check)),
-    ]);
-    fillRows($("eva").tBodies[0], data.evasion || [], (r) => [
-      cell(r.player), cell(r.target), cell(r.context), cell(fmt(r.accuracy)), cell(r.swings),
-      cell(r.hit_rate == null ? "–" : `${fmt(r.hit_rate, 1)}${r.hit_low != null ? ` (${fmt(r.hit_low, 1)}–${fmt(r.hit_high, 1)})` : ""}`),
-      cell(`${fmt(r.hit_cap)}%`),
-      cell(range(r.eva, r.eva_low, r.eva_high) || (r.eva_max != null ? `≤ ${fmt(r.eva_max)}` : r.eva_min != null ? `≥ ${fmt(r.eva_min)}` : "–")),
-      cell(r.verdict, r.verdict === "estimate" ? "v-capped" : r.verdict.startsWith("need") ? "v-none" : "v-border"),
-      cell(checkText(r), checkClass(r.check)),
-    ]);
-    const summary = (x) => x.value != null ? `${fmt(x.value)} (${fmt(x.low)}–${fmt(x.high)})`
-      : x.upper_bound != null ? `≤ ${fmt(x.upper_bound)}` : x.lower_bound != null ? `≥ ${fmt(x.lower_bound)}` : "–";
-    const conf = (x) => x.confidence == null ? "–" : `${fmt(x.confidence, 0)}%`;
-    const status = (t) => [t.def.status, t.eva.status].find((s) => s.startsWith("conflict") || s === "groups disagree")
-      || [t.def.status, t.eva.status].find((s) => s.startsWith("consistent")) || t.def.status;
-    fillRows($("targets").tBodies[0], data.targets || [], (t) => [
-      cell(t.target), cell(t.context), cell(summary(t.def)), cell(conf(t.def)), cell(t.def.groups),
-      cell(summary(t.eva)), cell(conf(t.eva)), cell(t.eva.groups),
-      cell(status(t), status(t).startsWith("consistent") ? "v-capped" : status(t).startsWith("conflict") || status(t) === "groups disagree" ? "v-below" : "v-none"),
-    ]);
-    const fit = data.level_fit || {};
-    $("levelfit").textContent = fit.best_level_diff == null
-      ? `Level-correction fit: ${fit.verdict || "not enough data"}.`
-      : `Level-correction fit: ${fit.verdict} (plausible ${fit.range[0]}–${fit.range[1]}, agreement ${fmt(fit.agreement_best, 0)}% at best vs ${fmt(fit.agreement_current, 0)}% now).`;
-    $("estnote").dataset.level = data.level_diff;
-    $("estnote").textContent = $("estnote").textContent.replace(/ Level correction:.*$/, "") +
-      ` Level correction: ${data.level_diff ? `on (${data.level_diff} levels)` : "off"}.`;
-    $("status").textContent = `${data.rows} rows · updated ${new Date().toLocaleTimeString()}`;
-  } catch (e) {
-    $("status").textContent = "server unreachable, retrying…";
+  for (const id of ["uploader", "session", "target", "minutes"]) if ($(id).value) params.set(id, $(id).value);
+  let data;
+  try { data = await (await fetch("api/analysis?" + params)).json(); }
+  catch (e) { $("status").textContent = "server unreachable, retrying…"; return; }
+
+  fill("targets", data.targets || [], (t) => {
+    const notes = [];
+    if (t.def.base_includes && t.def.base_includes.length) notes.push(`DEF base includes ${t.def.base_includes.join(", ")}`);
+    if (t.eva.base_includes && t.eva.base_includes.length) notes.push(`EVA base includes ${t.eva.base_includes.join(", ")}`);
+    if (t.def.value == null) notes.push(`DEF: ${t.def.status}`);
+    if (t.eva.value == null) notes.push(`EVA: ${t.eva.status}`);
+    return [
+      td(t.target, "l"),
+      td(t.def.value != null ? range(t.def.value, t.def.low, t.def.high) : t.def.upper_bound != null ? `≤ ${fmt(t.def.upper_bound)}` : "–"),
+      td(t.def.confidence != null ? `${fmt(t.def.confidence)}%` : "–"), td(fmt(t.def.hits)),
+      td(t.eva.value != null ? range(t.eva.value, t.eva.low, t.eva.high) : t.eva.upper_bound != null ? `≤ ${fmt(t.eva.upper_bound)}` : "–"),
+      td(t.eva.confidence != null ? `${fmt(t.eva.confidence)}%` : "–"), td(fmt(t.eva.swings)),
+      td(notes.join(" · ") || "–", "l muted"),
+    ];
+  }, "No targets yet.", 8);
+
+  fill("now", (data.targets || []).filter((t) => t.now), (t) => {
+    const n = t.now;
+    const known = n.defense != null;
+    const status = !known ? `no measured effect yet for ${n.unknown.join(", ")}` : n.capped ? "pDIF-capped" : `${fmt(n.attack_for_cap - n.attack)} Attack short of cap`;
+    return [td(t.target, "l"), td(n.context, "l"), td(known ? fmt(n.defense) : "–"), td(fmt(n.attack)),
+      td(known ? fmt(n.ratio, 2) : "–"), td(known ? `${fmt(n.pdif_low, 2)}–${fmt(n.pdif_high, 2)}` : "–"),
+      td(fmt(n.pdif_cap, 2)), td(known ? fmt(n.attack_for_cap) : "–"), td(status, (known && n.capped ? "good" : "warn") + " l")];
+  }, "No DEF fit yet.", 9);
+
+  const effects = [];
+  for (const f of data.def_fits || []) for (const e of f.effects || [])
+    effects.push({ target: f.target, player: f.player, tag: e.tag, def: range(e.pct, e.low, e.high, 1).replace(/^(\d)/, "+$1"), eva: "–", n: e.hits });
+  for (const f of data.eva_fits || []) for (const e of f.effects || [])
+    effects.push({ target: f.target, player: f.player, tag: e.tag, def: "–", eva: range(e.offset, e.low, e.high, 0), n: e.hits });
+  effects.sort((a, b) => (a.target + a.tag).localeCompare(b.target + b.tag));
+  fill("effects", effects, (e) => [td(e.target, "l"), td(e.player, "l"), td(e.tag, "l"), td(e.def), td(e.eva), td(fmt(e.n))],
+    "No debuff has been seen both on and off a target often enough to measure yet.", 6);
+
+  const segments = [];
+  for (const f of data.def_fits || []) for (const c of f.contexts || [])
+    segments.push([td(f.target, "l"), td(f.player, "l"), td("DEF", "l"), td(c.context, "l"), td(fmt(c.n)),
+      td(`DEF ${fmt(c.predicted_def)}`), td(c.fit_p == null ? "–" : `p = ${fmt(c.fit_p, 2)}`), td(c.check || "too few", tone(c.check) + " l")]);
+  for (const f of data.eva_fits || []) for (const c of f.contexts || [])
+    segments.push([td(f.target, "l"), td(f.player, "l"), td("EVA", "l"), td(c.context, "l"), td(fmt(c.swings)),
+      td(`${fmt(c.expected_hits, 1)} hits`), td(`${fmt(c.hits)} hits${c.z != null ? ` (z ${fmt(c.z, 1)})` : ""}`), td(c.check || "–", tone(c.check) + " l")]);
+  fill("segments", segments, (s) => s, "Nothing to check yet.", 8);
+
+  const fitNotes = [];
+  for (const f of data.def_fits || []) {
+    if (f.status && f.status !== "estimate") fitNotes.push(`${f.target} DEF (${f.player}): ${f.status}`);
+    if (f.weapon_dmg && f.fstr != null) fitNotes.push(`${f.target} (${f.player}): base damage ${fmt(f.base_damage)} = ${f.weapon} DMG ${fmt(f.weapon_dmg)} + fSTR ${signed(f.fstr, 0)}`);
+    else if (f.base_damage) fitNotes.push(`${f.target} (${f.player}): fitted base damage ${fmt(f.base_damage)} (weapon DMG + fSTR)`);
+    if (f.double_damage_pct > 1 || f.triple_damage_pct > 1)
+      fitNotes.push(`${f.target} (${f.player}): ${fmt(f.double_damage_pct)}% of hits did double damage${f.triple_damage_pct > 1 ? `, ${fmt(f.triple_damage_pct)}% triple` : ""}`);
   }
+  for (const f of data.eva_fits || []) if (f.status && f.status !== "estimate") fitNotes.push(`${f.target} EVA (${f.player}): ${f.status}`);
+  if (data.accuracy_filled) fitNotes.push(`Accuracy filled in for ${fmt(data.accuracy_filled)} rows from matching buff states`);
+  fitNotes.push(`Level correction: ${data.level_diff ? `on (${data.level_diff} levels)` : "off"}`);
+  $("modelnote").dataset.base ??= $("modelnote").textContent;
+  $("modelnote").textContent = `${$("modelnote").dataset.base} ${fitNotes.join(". ")}.`;
+
+  fill("ws", data.ws || [], (r) => [
+    td(r.player, "l"), td(r.target, "l"), td(r.ws, "l"), td(r.wall_same >= 3 ? "3+" : r.wall_same), td(r.basis), td(r.n), td(r.damage_capped),
+    td(fmt(r.p10)), td(fmt(r.p50)), td(fmt(r.p90)), td(fmt(r.spread, 3)), td(r.verdict, tone(r.verdict) + " l"),
+    td(r.attack ? `${r.attack.gain == null ? "–" : (r.attack.gain * 100).toFixed(1) + "%"} ${r.attack.verdict || ""}` : "–", tone(r.attack && r.attack.verdict) + " l"),
+  ], "No weapon skills yet.", 13);
+  fill("melee", data.melee || [], (r) => [
+    td(r.player, "l"), td(r.target, "l"), td(r.hand, "l"), td(r.n), td(fmt(r.p10)), td(fmt(r.p50)), td(fmt(r.p90)),
+    td(fmt(r.spread, 3)), td(r.verdict, tone(r.verdict) + " l"),
+  ], "No melee yet.", 9);
+
+  const when = data.computed_at ? new Date(data.computed_at * 1000).toLocaleTimeString() : "";
+  $("status").textContent = `${fmt(data.rows)} rows · fitted ${when}${data.stale ? " · refitting…" : ""}`;
 }
 
 ["uploader", "session", "target", "minutes"].forEach((id) => $(id).addEventListener("change", () => { refreshFilters(); refresh(); }));

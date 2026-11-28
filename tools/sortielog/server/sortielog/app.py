@@ -15,6 +15,7 @@ import io
 import json
 import logging
 import os
+import threading
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -23,6 +24,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 
 from .analysis import analyze, parse_tp_bonus
+from .model import parse_weapon_dmg
 from .schema import normalize
 from .store import Store
 
@@ -86,13 +88,14 @@ class UdpIngest(asyncio.DatagramProtocol):
         self.store.insert([normalize(obj)], name)
 
 
-def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff=None):
+def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff=None, weapon_dmg=None):
     db_path = db_path or os.environ.get("SORTIELOG_DB", "/data/sortielog.db")
     udp_port = int(os.environ.get("SORTIELOG_UDP_PORT", "0")) if udp_port is None else udp_port
     if keys is None:
         keys = parse_keys(os.environ.get("SORTIELOG_KEYS", ""), os.environ.get("SORTIELOG_TOKEN", ""))
     tp_bonus = parse_tp_bonus(os.environ.get("SORTIELOG_TP_BONUS", "")) if tp_bonus is None else tp_bonus
     level_diff = float(os.environ.get("SORTIELOG_LEVEL_DIFF", "0") or 0) if level_diff is None else level_diff
+    weapon_dmg = parse_weapon_dmg(os.environ.get("SORTIELOG_WEAPON_DMG", "")) if weapon_dmg is None else weapon_dmg
     auth = Auth(keys)
 
     @asynccontextmanager
@@ -138,8 +141,11 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
 
     @app.post("/ingest/csv")
     async def ingest_csv(request: Request):
+        # Read the whole body before checking the key: answering 401 mid-upload makes the
+        # server close the connection, which Cloudflare reports as a 502 instead of the 401.
+        body = await read_body(request)
         name = auth.from_request(request)
-        text = (await read_body(request)).decode("utf-8", errors="replace")
+        text = body.decode("utf-8", errors="replace")
         rows = [normalize(row) for row in csv.DictReader(io.StringIO(text))]
         return {"received": len(rows), "accepted": request.app.state.store.insert(rows, name)}
 
@@ -163,14 +169,39 @@ def create_app(db_path=None, udp_port=None, keys=None, tp_bonus=None, level_diff
         return request.app.state.store.query(kinds, target, session, after_id=after_id, limit=min(limit, 5000),
                                              newest_first=after_id is None, uploader=uploader)
 
+    # The model fits take seconds on a Pi, so results are cached per filter. A stale result is
+    # served immediately while a background thread recomputes it; only the first request waits.
+    cache, cache_lock, running = {}, threading.Lock(), set()
+
+    def compute(store, key, args):
+        target, session, uploader, minutes = args
+        since = time.time() - minutes * 60 if minutes else None
+        rows = store.query(ANALYSIS_KINDS, target, session, since, uploader=uploader)
+        result = analyze(rows, tp_bonus, level_diff, weapon_dmg)
+        result["rows"] = len(rows)
+        result["computed_at"] = time.time()
+        with cache_lock:
+            cache[key] = (store.count(), time.time(), result)
+            running.discard(key)
+        return result
+
     @app.get("/api/analysis")
     def analysis(request: Request, target: str | None = None, session: str | None = None,
                  uploader: str | None = None, minutes: float | None = None):
-        since = time.time() - minutes * 60 if minutes else None
-        rows = request.app.state.store.query(ANALYSIS_KINDS, target, session, since, uploader=uploader)
-        result = analyze(rows, tp_bonus, level_diff)
-        result["rows"] = len(rows)
-        return result
+        store = request.app.state.store
+        args = (target, session, uploader, minutes)
+        key = repr(args)
+        with cache_lock:
+            entry = cache.get(key)
+            stale = entry is None or entry[0] != store.count() or (minutes and time.time() - entry[1] > 30)
+            start_background = entry is not None and stale and key not in running and time.time() - entry[1] > 15
+            if start_background:
+                running.add(key)
+        if entry is None:
+            return compute(store, key, args)
+        if start_background:
+            threading.Thread(target=compute, args=(store, key, args), daemon=True).start()
+        return dict(entry[2], stale=bool(stale))
 
     @app.get("/", response_class=HTMLResponse)
     def dashboard():

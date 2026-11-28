@@ -276,44 +276,40 @@ python -m sortielog.cli /path/to/Windower/addons/SortieLog/data/logs/*.csv --tar
   Chaos Roll, Berserk, …). A gain of 3% or more means below the cap.
 - The **melee table** reflects each player's TP set, not their WS set.
 
-### Effective DEF and evasion
+### Effective DEF and evasion (per-target model)
 
-Both come from your own main-hand melee and are "effective", meaning measured with the
-debuffs listed in the row (Dia, steps, Frailty flag, …). Rows are grouped by player, boss,
-Attack or Accuracy, and debuffs, and need about 30 hits or swings.
+Both are fitted **per target** from every usable hit and swing. There are no small groups
+to fill up.
 
-- **DEF:** below the pDIF cap, non-crit damage is uniform between a lower and an upper pDIF
-  bound that depend only on Attack ÷ DEF (BG-Wiki PDIF), times the 1.00–1.05 randomizer.
-  The p90/p10 spread therefore pins the ratio, and DEF = Attack ÷ ratio, with a bootstrap
-  90% range. At the pDIF cap (spread ≤ 1.06) only **DEF ≤ Attack ÷ cap ratio** can be shown
-  (1H 3.625, H2H/GKT 3.875, 2H 4.125, Scythe 4.375). "Close to cap" rows run low, because
-  the weapon cap may be trimming the top of the range.
-- **Evasion:** hit rate = 75% + (ACC − EVA) ÷ 2, floored at 20% and capped at 99% (1H main
-  hand, H2H) or 95% (2H, off hand). With a 90% range on the hit rate, EVA = ACC − 2 × (hit% − 75).
-  If the range reaches the cap, you're hit-capped and only **EVA ≤ value** can be shown. To
-  pin EVA down, swing in a lower-accuracy TP set for a while.
-- **Level correction:** BG-Wiki's formulas subtract 0.05 from the ratio and 2% from hit
-  rate per level above you, but Sortie isn't on its list of zones with or without
-  correction. It's off by default. Set `SORTIELOG_LEVEL_DIFF`, or run the CLI with
-  `--level-diff 26`, to compare. Whichever setting gives consistent DEF across your
-  different Attack values is probably right.
-- **Per-target summary:** for each boss and debuff state, all group estimates are combined,
-  weighting the tighter ones more. It shows a 90% range and **"±5% conf."**, the chance the
-  true value is within 5% of the estimate. Capped groups add upper bounds, and "close to cap"
-  groups add lower bounds. If the estimate breaks a bound, the status says *conflict*.
-- **Checking incoming data:** each group is compared with all the *other* groups for the same
-  boss and debuff state. The **Check** column says *consistent*, *suspicious* (z ≥ 2) or
-  *outlier* (z ≥ 3). Outliers are removed worst-first and left out of the summary, so one bad
-  group can't get good ones flagged. An outlier means the data disagrees, not which side is
-  wrong. Usual causes: an unlogged debuff (use `//slog flag`), stale Accuracy (re-run
-  `/checkparam`), a boss phase change, or the wrong level-correction setting.
-- **Level-correction fit:** level correction changes DEF by a different amount at each
-  Attack value, so groups at clearly different Attack (5% or more apart) only agree under
-  the right setting. The dashboard shows the best-fitting level difference with a 90%
-  plausible range, and says when the data clearly prefers a different setting from yours.
-  EVA's correction is a constant offset, so it can't be fitted this way.
-- **Base DEF** (without debuffs) isn't estimated. Compare groups with and without a debuff
-  to see its effect.
+- **DEF:** each non-crit main-hand hit is modeled as *base damage × pDIF(Attack ÷ DEF) ×
+  randomizer*, using BG-Wiki's pDIF bounds, each hit's own Attack, and DEF = base DEF × the
+  effect of each DEF-relevant debuff up at that hit. The fit also learns how often hits did
+  ×2 or ×3 damage (relic-style "occasionally deals double damage"). It reports:
+  - **Base DEF** with a 90% range and the chance it's within ±5%.
+  - **Each debuff's measured effect**, for example "Box Step lv6: −14%".
+  - **Right now:** DEF under the debuffs at your latest hit, your Attack, the Attack ÷ DEF
+    ratio, its pDIF range, and the Attack you'd need for the pDIF cap.
+- **Weapon DMG (optional but recommended):** set `SORTIELOG_WEAPON_DMG=Kalali:Dagger=130`
+  (main hand). Base damage is then held to DMG + a plausible fSTR, which settles the cases
+  where the damage spread alone fits two different ratios. The fitted fSTR is shown.
+- **Evasion:** every main- and off-hand swing, each with that hand's Accuracy and hit cap
+  (99% main 1H/H2H, 95% off hand and 2H). If you're hit-capped everywhere, only an upper
+  bound can be given. Off-hand misses usually pin it down.
+- **Accuracy fill-in:** rows without Accuracy borrow it from the nearest row in the same
+  session with the same Accuracy-relevant buffs (Finishing Moves, shadows, sambas and
+  similar are ignored), within 10 minutes. The dashboard shows how many were filled.
+- **Only relevant debuffs count:** for DEF, Dia, Box Step, Frailty, Defense Down, Angon,
+  Armor Break, Swooping Frenzy, Light Shot and similar; for EVA, Distract, Quick Step, Torpor,
+  Evasion Down and Feint. Sleep, Malaise and the like are ignored. A debuff up for 95% or
+  more of hits is folded into the base (shown under Notes). One seen on fewer than 10 hits is
+  left out, along with its hits, until there's more data.
+- **Fight segments:** each combination of debuffs is checked against the fit. *Fits* means
+  the data agrees. *Doesn't fit* points to something the addon didn't see: an unlogged
+  debuff, Accuracy from a different buff state, a phase change, or level correction. Up to
+  3 segments that don't fit are excluded and the fit is redone, so one bad segment can't
+  drag the rest.
+- **Ranges** assume the model is right, so check the segment table.
+- **Level correction:** off by default (`SORTIELOG_LEVEL_DIFF`).
 
 ## Caveats
 
